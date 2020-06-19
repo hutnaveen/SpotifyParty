@@ -29,14 +29,14 @@ public class JoinPartyPanel extends JPanel {
         code.setForeground(Color.GRAY);
         code.setText("Code");
         code.setForeground(Color.BLACK);
-        code.setBounds(150, 250, 200, 50);
+        code.setBounds(130, 250, 200, 50);
         this.add(code);
 
         JTextField name = new RoundJTextField(200);
         name.setForeground(Color.GRAY);
         name.setText("Name");
         name.setForeground(Color.BLACK);
-        name.setBounds(360, 250, 200, 50);
+        name.setBounds(340, 250, 200, 50);
         this.add(name);
     }
 
