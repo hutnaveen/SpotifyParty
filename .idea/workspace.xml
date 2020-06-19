@@ -20,7 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/utils/SpotifyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SpotifyUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/osx/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/osx/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TCPClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/SpotifyParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SpotifyParty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/osx/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/osx/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +58,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="SpotifyParty" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.SpotifyParty" />
       <module name="SpotifyParty-master" />
@@ -65,11 +72,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="osx.Test" />
+      <module name="SpotifyParty-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="osx.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.SpotifyParty" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -103,28 +136,38 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1105" height="408" key="GridCell.Tab.0.bottom" timestamp="1592538879710">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1238" height="221" key="GridCell.Tab.0.bottom" timestamp="1592602217636">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
+    <state width="1238" height="221" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217636" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
-    <state width="1105" height="408" key="GridCell.Tab.0.center" timestamp="1592538879709">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1238" height="221" key="GridCell.Tab.0.center" timestamp="1592602217635">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
+    <state width="1238" height="221" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
-    <state width="1105" height="408" key="GridCell.Tab.0.left" timestamp="1592538879708">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1238" height="221" key="GridCell.Tab.0.left" timestamp="1592602217634">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
+    <state width="1238" height="221" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217634" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
-    <state width="1105" height="408" key="GridCell.Tab.0.right" timestamp="1592538879709">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1238" height="221" key="GridCell.Tab.0.right" timestamp="1592602217635">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
+    <state width="1238" height="221" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
+    <state x="529" y="275" width="670" height="676" key="search.everywhere.popup" timestamp="1592602485961">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="529" y="275" width="670" height="676" key="search.everywhere.popup/0.23.1920.1057@0.23.1920.1057" timestamp="1592602485961" />
   </component>
 </project>

@@ -3,6 +3,7 @@ package client;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.io.DataInputStream;
@@ -36,6 +37,11 @@ public class TCPClient
     {
         updater.stop();
         tempUpdate.stop();
+        try {
+            SpotifyParty.writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         SpotifyPartyFrame.status.setLabel("Welcome");
     }
     private void trackUpdater() {
@@ -55,6 +61,7 @@ public class TCPClient
                 try {
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
+                        log((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
                         long t = Long.parseLong(playerData[2].trim());
                     String[] finalPlayerData = playerData;
                     if(tempUpdate != null) {
@@ -79,6 +86,7 @@ public class TCPClient
         try {
             String tempTrack = api.getTrackId();
             boolean tempPlaying = api.isPlaying();
+            log(""+tempPlaying);
             long tempPos = api.getPlayerPosition();
             if (!tempTrack.contains(":ad:")) {
                 if (trackID.equals("ice")) {
@@ -91,6 +99,7 @@ public class TCPClient
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                        log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);
                     } else if (!playing) {
                         if (tempPlaying) {
                             api.pause();
@@ -104,6 +113,7 @@ public class TCPClient
                     }
                    if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
                         System.out.println("Time: " + pos + " Player: " + tempPos);
+                        log("Time: " + pos + " Player: " + tempPos);
                         api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
                     }
                    else if(tempPos == 0)
@@ -113,6 +123,7 @@ public class TCPClient
                 }
             }else {
                 System.out.println("mans playing an add");
+                log("an add is playing");
                 try {
                     Thread.sleep(15000);
                 } catch (InterruptedException e) {
@@ -122,6 +133,17 @@ public class TCPClient
         } catch (SpotifyException e) {
             e.printStackTrace();
         }
+    }
+    private boolean log(String msg)
+    {
+        if(SpotifyParty.writer != null) {
+            try {
+                SpotifyParty.writer.append(msg).append("\n");
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

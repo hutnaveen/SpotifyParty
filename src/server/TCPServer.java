@@ -3,6 +3,7 @@ package server;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 
@@ -16,9 +17,6 @@ import java.util.ArrayList;
 public class TCPServer
 {
     private SpotifyPlayerAPI api;
-    private String trackID;
-    private long pos;
-    private boolean playing;
     ArrayList<DataOutputStream> streams = new ArrayList<>();
     ServerSocket ss;
     Thread reciver;
@@ -33,17 +31,7 @@ public class TCPServer
             e.printStackTrace();
         }
         api = new SpotifyAppleScriptWrapper();
-        trackID = api.getTrackId();
-        try {
-            pos = api.getPlayerPosition();
-        } catch (SpotifyException e) {
-            e.printStackTrace();
-        }
-        try {
-            playing = api.isPlaying();
-        } catch (SpotifyException e) {
-            e.printStackTrace();
-        }
+
         boolean star = true;
         if(diffNetWork) {
             //makes sure the port is clear
@@ -51,10 +39,12 @@ public class TCPServer
             //only needed if the clients are not on the same network
             star = (UPnP.openPortTCP((serverPort)));
             System.out.println(star);
+            log(""+star);
         }
         startReceiver();
         startSender();
         System.out.println("Server is started!");
+        log("Server Started");
         SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
     private void startReceiver()
@@ -71,6 +61,7 @@ public class TCPServer
                     e.printStackTrace();
                 }
                 System.out.println("added");
+                log("added");
               streams.add(dos);
                 SpotifyPartyFrame.status.setLabel("Guests: " + streams.size());
                 try {
@@ -107,6 +98,11 @@ public class TCPServer
     {
         sender.stop();
         reciver.stop();
+        try {
+            SpotifyParty.writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         SpotifyPartyFrame.status.setLabel("Waiting");
         System.out.println("Server Stopped");
     }
@@ -130,6 +126,17 @@ public class TCPServer
 
         });
         sender.start();
+    }
+    private boolean log(String msg)
+    {
+        if(SpotifyParty.writer != null) {
+            try {
+                SpotifyParty.writer.append(msg).append("\n");
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
