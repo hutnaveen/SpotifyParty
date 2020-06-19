@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class SpotifyUtils implements Serializable {
+public class SpotifyUtils{
     public static String[] getTrackinfo(String id)
     {
         String[] str = new String[4];
