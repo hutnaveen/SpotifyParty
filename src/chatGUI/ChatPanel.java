@@ -1,4 +1,6 @@
 package chatGUI;
 
-public class ChatPanel {
+import javax.swing.*;
+
+public class ChatPanel extends JPanel {
 }

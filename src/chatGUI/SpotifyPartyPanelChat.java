@@ -11,30 +11,39 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SpotifyPartyPanelChat extends JPanel implements ActionListener{
+public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     CardLayout cl = new CardLayout();
-    public static JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
-    public static ChatPanel chatPanel = new ChatPanel();
-    public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
+    public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
+    public  ChatPanel chatPanel = new ChatPanel();
+    public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     TCPServer server;
+
     public SpotifyPartyPanelChat() {
+        super();
+
         this.setLayout(cl);
         this.add(joinPartyPanel, "joinPanel");
         this.add(chatPanel, "chatPanel");
+        spfc.add(this);
 
         spfc.getJoin().setActionCommand("join");
-        spfc.getJoin().addActionListener( this);
-        spfc.getHost().setActionCommand("Host");
+        spfc.getJoin().addActionListener(this);
+        spfc.getHost().setActionCommand("host");
         spfc.getHost().addActionListener(this);
-
-        cl.show(this, "start");
-
     }
 
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("join")) {
-            cl.show(this, );
-        }
+        if (e.getActionCommand().equals("join")) {
+            System.out.print("Here");
+            spfc.setVisible(true);
+            cl.show(this, "joinPanel");
 
+        }
+        else if (e.getActionCommand().equals("host")) {
+            spfc.setVisible(true);
+            cl.show(this, "chatPanel");
+
+        }
+    }
 }
 
