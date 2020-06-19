@@ -14,7 +14,7 @@ public class SpotifyPartyFrameChat extends JFrame {
     private TrayIcon trayIcon;
     private SystemTray tray = SystemTray.getSystemTray();
     private PopupMenu menu = new PopupMenu();
-    public static MenuItem status = new MenuItem("Welcome!");
+    public static MenuItem status = new MenuItem("Welcome to Spotify Party!");
     public SpotifyPartyFrameChat()
     {
         super();
@@ -29,33 +29,26 @@ public class SpotifyPartyFrameChat extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        join = new MenuItem("Join");
-        join.addActionListener(actionEvent -> System.exit(0));
+        MenuItem quit = new MenuItem("Quit");
+        quit.addActionListener(actionEvent -> System.exit(0));
+        join = new MenuItem("Join Party");
+        host = new MenuItem("Host Party");
 
-        host = new MenuItem("Host");
-        host.addActionListener(actionEvent -> {
-            setVisible(true);
-        });
         status.setEnabled(false);
         menu.add(status);
         menu.addSeparator();
         menu.add(join);
         menu.addSeparator();
         menu.add(host);
+        menu.addSeparator();
+        menu.add(quit);
+
         trayIcon = new TrayIcon(image, "SpotifyParty", menu );
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
             System.err.println(e);
         }
-        trayIcon.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                setVisible(false);
-                setLocation(e.getX()-getWidth()/2, 22);
-            }
-        });
     }
 
     public MenuItem getJoin() {return join;}
@@ -64,31 +57,9 @@ public class SpotifyPartyFrameChat extends JFrame {
     private void initializeFrame()
     {
         setLocation(100, 100);
-        setSize(650, 550);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-
-        this.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 35, 35));
-            }
-        });
-        setVisible(false);
-        setAlwaysOnTop(true);
-        setUndecorated(true);
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                //setVisible(false);
-            }
-        });
-        addWindowFocusListener(new WindowAdapter() {
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                setVisible(false);
-            }
-        });
+        setSize(700, 600);
+        setResizable(false);
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
 
 
