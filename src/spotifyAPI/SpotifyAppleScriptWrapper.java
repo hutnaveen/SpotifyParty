@@ -1,14 +1,17 @@
-package osx;
+package spotifyAPI;
 
 import interfaces.SpotifyPlayerAPI;
+import osx.OSXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class SpotifyPlayerAppleScriptWrapper implements SpotifyPlayerAPI {
+public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     public void playTrack(String id){
         try {
             OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
@@ -285,9 +288,12 @@ public class SpotifyPlayerAppleScriptWrapper implements SpotifyPlayerAPI {
         }
         return "";
     }
-    private static String getTrackInfo()
+
+    public String getTrackInfo()
     {
-        try {
+
+
+       /* try {
             return OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
                     "\tset long_id to id of current track\n" +
                     "\tset AppleScript's text item delimiters to \":\"\n" +
@@ -299,7 +305,7 @@ public class SpotifyPlayerAppleScriptWrapper implements SpotifyPlayerAPI {
                     "return _art");
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return null;
     }
 }

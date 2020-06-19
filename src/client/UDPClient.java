@@ -2,7 +2,7 @@ package client;
 
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import osx.SpotifyPlayerAppleScriptWrapper;
+import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.awt.*;
 import java.io.File;
@@ -23,7 +23,7 @@ public class UDPClient {
     private String[] storeData;
     public UDPClient(String serverIP, int serverPort, int clientSocketNum)
    {
-       api = new SpotifyPlayerAppleScriptWrapper();
+       api = new SpotifyAppleScriptWrapper();
       // api.play();
        this.serverPort = serverPort;
        try {

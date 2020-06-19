@@ -2,7 +2,7 @@ package server;
 
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import osx.SpotifyPlayerAppleScriptWrapper;
+import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 
 import java.awt.*;
@@ -31,7 +31,7 @@ public class UDPServer {
 	public UDPServer(int serverPort, boolean diffNetWork)
 	{
 		this.serverPort = serverPort;
-		api = new SpotifyPlayerAppleScriptWrapper();
+		api = new SpotifyAppleScriptWrapper();
 		trackID = api.getTrackId();
 		try {
 			pos = api.getPlayerPosition();

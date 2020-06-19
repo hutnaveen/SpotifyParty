@@ -3,7 +3,7 @@ package client;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
-import osx.SpotifyPlayerAppleScriptWrapper;
+import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class TCPClient
     private Thread tempUpdate;
     public TCPClient(String serverIP, int serverPort)
     {
-        api = new SpotifyPlayerAppleScriptWrapper();
+        api = new SpotifyAppleScriptWrapper();
         try {
             InetAddress ip = InetAddress.getByName(serverIP);
             Socket s = new Socket(ip, serverPort);
@@ -35,7 +35,8 @@ public class TCPClient
     public void quit()
     {
         updater.stop();
-        SpotifyPartyFrame.status.setLabel("Waiting");
+        tempUpdate.stop();
+        SpotifyPartyFrame.status.setLabel("Welcome");
     }
     private void trackUpdater() {
         updater = new Thread(() -> {
@@ -45,6 +46,9 @@ public class TCPClient
                 String[] playerData = new String[0];
                 try {
                     playerData = dis.readUTF().split(" ");
+                } catch (java.io.EOFException e) {
+                    e.printStackTrace();
+                    quit();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

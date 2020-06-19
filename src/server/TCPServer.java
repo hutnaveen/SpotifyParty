@@ -3,7 +3,7 @@ package server;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
-import osx.SpotifyPlayerAppleScriptWrapper;
+import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 
 import java.io.DataOutputStream;
@@ -32,7 +32,7 @@ public class TCPServer
         } catch (IOException e) {
             e.printStackTrace();
         }
-        api = new SpotifyPlayerAppleScriptWrapper();
+        api = new SpotifyAppleScriptWrapper();
         trackID = api.getTrackId();
         try {
             pos = api.getPlayerPosition();
