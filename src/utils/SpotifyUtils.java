@@ -3,11 +3,12 @@ package utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class SpotifyUtils {
+public class SpotifyUtils implements Serializable {
     public static String[] getTrackinfo(String id)
     {
         String[] str = new String[4];
