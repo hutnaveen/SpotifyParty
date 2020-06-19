@@ -1,0 +1,169 @@
+<changelist name="Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]" date="1592603471599" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 6/19/20, 2:51 PM [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/GatewayFinder$GatewayListener.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$2.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPartyFrame$2.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPartyPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/server/TCPServer.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/server/TCPServer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/TCPServer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/upnp/UPnP$1.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/upnp/UPnP$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/UPnP$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$3.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$3.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPartyFrame$3.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/GUIUtil.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/GUIUtil.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/GUIUtil.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$4.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$4.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPartyFrame$4.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/upnp/Gateway.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/upnp/Gateway.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/Gateway.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPartyFrame.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/osx/Test.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/osx/Test.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/Test.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/utils/NetworkUtils.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/utils/NetworkUtils.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/NetworkUtils.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/server/UDPServer.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/server/UDPServer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/UDPServer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/server/ClientInfo.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/server/ClientInfo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/ClientInfo.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/exception/SpotifyException.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/exception/SpotifyException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/GUIUtil$1.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/GUIUtil$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/GUIUtil$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/upnp/UPnP.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/upnp/UPnP.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/UPnP.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/RoundJTextField.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/RoundJTextField.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/RoundJTextField.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/GuestPanel.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/GuestPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/GuestPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/client/TCPClient.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/client/TCPClient.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/TCPClient.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/HostPanel$1.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/HostPanel$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/HostPanel$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyAppleScriptWrapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/StartingPanel$2.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/StartingPanel$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/StartingPanel$2.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/client/UDPClient.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/client/UDPClient.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/UDPClient.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/osx/OSXUtils.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/osx/OSXUtils.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/OSXUtils.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/StartingPanel$1.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/StartingPanel$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/StartingPanel$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/main/SpotifyParty.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/main/SpotifyParty.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyParty.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/StartingPanel.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/StartingPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/StartingPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPlayerAPI.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/HostPanel.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/HostPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/HostPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$1.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/SpotifyPartyFrame$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/SpotifyPartyFrame$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/gui/GuestPanel$1.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/gui/GuestPanel$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/GuestPanel$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SpotifyParty-master/upnp/GatewayFinder.class" />
+    <option name="AFTER_PATH" value="out/production/SpotifyParty-master/upnp/GatewayFinder.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_2_51_PM_[Default_Changelist]/GatewayFinder.class" />
+  </binary>
+</changelist>
