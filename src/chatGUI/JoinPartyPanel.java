@@ -25,14 +25,18 @@ public class JoinPartyPanel extends JPanel {
         text.setBounds(100, 100, 100, 100);
         this.add(text);
 
-        JTextField code = new JTextField("Party Code");
-        code.setForeground(Color.WHITE);
-        code.setBounds(200, 200, 200, 200);
+        JTextField code = new RoundJTextField(200);
+        code.setForeground(Color.GRAY);
+        code.setText("Code");
+        code.setForeground(Color.BLACK);
+        code.setBounds(150, 250, 200, 50);
         this.add(code);
 
-        JTextField name = new JTextField("Name");
-        name.setForeground(Color.WHITE);
-        name.setBounds(200, 200, 200, 200);
+        JTextField name = new RoundJTextField(200);
+        name.setForeground(Color.GRAY);
+        name.setText("Name");
+        name.setForeground(Color.BLACK);
+        name.setBounds(360, 250, 200, 50);
         this.add(name);
     }
 
@@ -40,6 +44,7 @@ public class JoinPartyPanel extends JPanel {
         super.paintComponent(g);
         try
         {
+            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 10, 40, 40, this);
             g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
         }
         catch (Exception e)

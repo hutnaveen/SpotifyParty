@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SpotifyParty-master:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,26 +25,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyParty.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chatGUI/JoinPartyPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chatGUI/SpotifyPartyFrameChat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/chatGUI/SpotifyPartyPanelChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chatGUI/GUIUtilsChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_4_19_PM_[Default_Changelist]/shelved.patch" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_20,_4_19_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/JoinPartyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/JoinPartyPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/osx/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/osx/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/SpotifyUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/SpotifyUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chatGUI/SpotifyParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/SpotifyPartyChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TCPClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/SpotifyParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SpotifyParty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/osx/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chatGUI/JoinPartyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/JoinPartyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/osx/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/osx/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,19 +79,35 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.SpotifyPartyChat">
     <configuration name="SpotifyParty" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.SpotifyParty" />
       <module name="SpotifyParty-master" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpotifyPartyChat" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chatGUI.SpotifyPartyChat" />
+      <module name="SpotifyParty-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="chatGUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -96,6 +130,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SpotifyPartyChat" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.SpotifyParty" />
       </list>
@@ -141,34 +176,42 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1592603691763">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="601" y="289" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1592602945736">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592603691763" />
+    <state x="601" y="289" key="#com.intellij.ide.util.TreeClassChooserDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1592602945736" />
+    <state width="1398" height="124" key="GridCell.Tab.0.bottom" timestamp="1592609862331">
+      <screen x="0" y="23" width="1440" height="836" />
+    </state>
+    <state width="1398" height="124" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592609644151" />
+    <state width="1398" height="124" key="GridCell.Tab.0.bottom/0.23.1440.836@0.23.1440.836" timestamp="1592609862331" />
     <state width="1238" height="221" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217636" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1592603691762">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="124" key="GridCell.Tab.0.center" timestamp="1592609862330">
+      <screen x="0" y="23" width="1440" height="836" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592603691762" />
+    <state width="1398" height="124" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592609644150" />
+    <state width="1398" height="124" key="GridCell.Tab.0.center/0.23.1440.836@0.23.1440.836" timestamp="1592609862330" />
     <state width="1238" height="221" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1592603691761">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="124" key="GridCell.Tab.0.left" timestamp="1592609862329">
+      <screen x="0" y="23" width="1440" height="836" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592603691761" />
+    <state width="1398" height="124" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592609644149" />
+    <state width="1398" height="124" key="GridCell.Tab.0.left/0.23.1440.836@0.23.1440.836" timestamp="1592609862329" />
     <state width="1238" height="221" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217634" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1592603691762">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="124" key="GridCell.Tab.0.right" timestamp="1592609862331">
+      <screen x="0" y="23" width="1440" height="836" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592603691762" />
+    <state width="1398" height="124" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592609644150" />
+    <state width="1398" height="124" key="GridCell.Tab.0.right/0.23.1440.836@0.23.1440.836" timestamp="1592609862331" />
     <state width="1238" height="221" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
-    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1592603753018">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="352" y="80" key="SettingsEditor" timestamp="1592603102560">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1440.900@0.0.1440.900" timestamp="1592603753018" />
+    <state x="352" y="80" key="SettingsEditor/0.23.1920.1057@0.23.1920.1057" timestamp="1592603102560" />
     <state x="529" y="275" width="670" height="676" key="search.everywhere.popup" timestamp="1592602485961">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
