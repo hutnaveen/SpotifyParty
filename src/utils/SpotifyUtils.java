@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class SpotifyUtils {
     public static String[] getTrackinfo(String id)
     {
-        String[]
+        String[] str = new String[4];
         URL trackinfo = null;
         try {
             trackinfo = new URL("https://open.spotify.com/oembed?url=" + id);
@@ -32,5 +32,6 @@ public class SpotifyUtils {
             e.printStackTrace();
         }
         System.out.println(info);
+        return null;
     }
 }
