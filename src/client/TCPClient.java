@@ -1,0 +1,123 @@
+package client;
+
+import exception.SpotifyException;
+import gui.SpotifyPartyFrame;
+import interfaces.SpotifyPlayerAPI;
+import osx.SpotifyPlayerAppleScriptWrapper;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.Arrays;
+import java.util.Date;
+
+public class TCPClient
+{
+    private SpotifyPlayerAPI api;
+    private boolean autoPause = false;
+    private DataInputStream dis;
+    private Thread updater;
+    private Thread tempUpdate;
+    public TCPClient(String serverIP, int serverPort)
+    {
+        api = new SpotifyPlayerAppleScriptWrapper();
+        try {
+            InetAddress ip = InetAddress.getByName(serverIP);
+            Socket s = new Socket(ip, serverPort);
+            dis = new DataInputStream(s.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SpotifyPartyFrame.status.setLabel("Connected!");
+        trackUpdater();
+    }
+    public void quit()
+    {
+        updater.stop();
+        SpotifyPartyFrame.status.setLabel("Waiting");
+    }
+    private void trackUpdater() {
+        updater = new Thread(() -> {
+
+            while (true) {
+
+                String[] playerData = new String[0];
+                try {
+                    playerData = dis.readUTF().split(" ");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                        long fact = Long.parseLong(playerData[3].trim());
+                        System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
+                        long t = Long.parseLong(playerData[2].trim());
+                    String[] finalPlayerData = playerData;
+                    if(tempUpdate != null) {
+                        tempUpdate.stop();
+                        tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                        tempUpdate.start();
+                    }else
+                    {
+                        tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                        tempUpdate.start();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        updater.start();
+    }
+
+    private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
+        try {
+            String tempTrack = api.getTrackId();
+            boolean tempPlaying = api.isPlaying();
+            long tempPos = api.getPlayerPosition();
+            if (!tempTrack.contains(":ad:")) {
+                if (trackID.equals("ice")) {
+                    api.pause();
+                    autoPause = true;
+                } else {
+
+                    if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
+                        api.playTrack(trackID);
+                        if (!tempPlaying)
+                            api.play();
+                        System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                    } else if (!playing) {
+                        if (tempPlaying) {
+                            api.pause();
+                            autoPause = true;
+                        }
+                    } else {
+                        if (autoPause) {
+                            api.play();
+                            autoPause = false;
+                        }
+                    }
+                   if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                        System.out.println("Time: " + pos + " Player: " + tempPos);
+                        api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                    }
+                   else if(tempPos == 0)
+                   {
+                       autoPause = true;
+                   }
+                }
+            }else {
+                System.out.println("mans playing an add");
+                try {
+                    Thread.sleep(15000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SpotifyException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
