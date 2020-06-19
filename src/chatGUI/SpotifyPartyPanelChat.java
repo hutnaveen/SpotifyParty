@@ -35,6 +35,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener{
         if(e.getActionCommand().equals("join")) {
             cl.show(this, );
         }
-
+}
 }
 

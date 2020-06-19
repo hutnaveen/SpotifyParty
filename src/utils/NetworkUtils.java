@@ -33,10 +33,10 @@ public class NetworkUtils {
         return ip;
     }
 
-    public static String simpleEncode(String ip, int port)
+    public static String simpleEncode(String ip, int port, int size)
     {
         int cycNum = (int)(Math.random() * 999);
-        char[] enc = (ip + ":" + port + ":").toCharArray();
+        char[] enc = (ip + ":" + port + ":" + size).toCharArray();
         for(int i = 0; i < enc.length; i++)
         {
             if(Character.isDigit(enc[i]))
@@ -45,7 +45,7 @@ public class NetworkUtils {
             }
 
         }
-        return String.valueOf(enc).replace(':', 'Z').replace('.','E') + cycNum;
+        return String.valueOf(enc).replace(':', 'X').replace('.','M') + cycNum;
     }
     private static int cycle(int num, int cyc, boolean rev)
     {
@@ -77,9 +77,12 @@ public class NetworkUtils {
         String ip = "";
         Integer port = null;
         Integer cycNum = null;
-        code = code.replace('Z', ':').replace('E', '.');
+        int clientIp = 0;
+        code = code.replace('X', ':').replace('M', '.');
         try {
             cycNum = Integer.parseInt(code.substring(code.lastIndexOf(':') + 1).trim());
+            code = code.substring(0, code.lastIndexOf(':') + 1);
+            clientIp = cycNum = Integer.parseInt(code.substring(code.lastIndexOf(':') + 1).trim()) + 5002;
             code = code.substring(0, code.lastIndexOf(':') + 1);
             char[] enc = code.toCharArray();
             for(int i = 0; i < enc.length; i++)
@@ -92,10 +95,14 @@ public class NetworkUtils {
             code = String.valueOf(enc);
             ip = code.substring(0, code.indexOf(':'));
             port = Integer.parseInt(code.substring(code.indexOf(':') + 1, code.lastIndexOf(':')));
-            return new Object[]{ip, port};
+            return new Object[]{ip, port, clientIp};
         }catch (StringIndexOutOfBoundsException e)
         {
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        simpleEncode(NetworkUtils.getPublicIP(), 9005, 1);
     }
 }
