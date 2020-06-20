@@ -2,10 +2,12 @@ package server;
 
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
+import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
+import utils.NetworkUtils;
 
 import java.awt.*;
 import java.io.File;
@@ -28,8 +30,10 @@ public class UDPServer {
 	private SpotifyPlayerAPI api;
 	Thread reciver;
 	Thread sender;
+	int serverPort;
 	public UDPServer(int serverPort, boolean diffNetWork)
 	{
+		this.serverPort = serverPort;
 		api = new SpotifyAppleScriptWrapper();
 
 		clients = new HashMap<>();
@@ -77,6 +81,7 @@ public class UDPServer {
 					System.out.println("added");
 					clients.put("" + tad + tPort, new ClientInfo(tad, tPort));
 					SpotifyPartyFrame.status.setLabel("Guests: " + clients.size());
+					SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, clients.size()+1));
 					try {
 						sendToClients(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
 					} catch (SpotifyException e) {
