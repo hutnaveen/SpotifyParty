@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 
 public class NetworkUtils {
     public static String getPublicIP()
@@ -36,7 +37,7 @@ public class NetworkUtils {
     public static String simpleEncode(String ip, int port, int size)
     {
         int cycNum = (int)(Math.random() * 999);
-        char[] enc = (ip + ":" + port + ":" + size).toCharArray();
+        char[] enc = (ip + ":" + port + ":" + size + ":").toCharArray();
         for(int i = 0; i < enc.length; i++)
         {
             if(Character.isDigit(enc[i]))
@@ -81,8 +82,8 @@ public class NetworkUtils {
         code = code.replace('X', ':').replace('M', '.');
         try {
             cycNum = Integer.parseInt(code.substring(code.lastIndexOf(':') + 1).trim());
-            code = code.substring(0, code.lastIndexOf(':') + 1);
-            clientIp = cycNum = Integer.parseInt(code.substring(code.lastIndexOf(':') + 1).trim()) + 5002;
+            code = code.substring(0, code.lastIndexOf(':'));
+            clientIp = Integer.parseInt(code.substring(code.lastIndexOf(':') + 1).trim()) + 5002;
             code = code.substring(0, code.lastIndexOf(':') + 1);
             char[] enc = code.toCharArray();
             for(int i = 0; i < enc.length; i++)
@@ -103,6 +104,6 @@ public class NetworkUtils {
     }
 
     public static void main(String[] args) {
-        simpleEncode(NetworkUtils.getPublicIP(), 9005, 1);
+        System.out.println(Arrays.toString(simpleDecode("73M71M0M146X9005X1X430")));
     }
 }
