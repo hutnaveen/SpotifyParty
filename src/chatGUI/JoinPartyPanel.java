@@ -3,14 +3,17 @@ package chatGUI;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
 public class JoinPartyPanel extends JPanel {
-    AbstractButton enter;
+    public AbstractButton enter;
+
+    public boolean one = true;
+    public boolean two = true;
 
     public JoinPartyPanel() {
         this.setLayout(null);
@@ -29,17 +32,39 @@ public class JoinPartyPanel extends JPanel {
         JTextField code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setText("Code");
-        //code.setForeground(Color.BLACK);
+        code.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(two) {
+                    super.mousePressed(e);
+                    code.setForeground(Color.BLACK);
+                    code.setText("");
+                    two = !two;
+                }
+            }
+        });
         code.setBounds(355, 250, 200, 50);
         this.add(code);
 
         JTextField name = new RoundJTextField(200);
         name.setForeground(Color.GRAY);
         name.setText("Name");
-        //name.setForeground(Color.BLACK);
+        name.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(one) {
+                    super.mousePressed(e);
+                    name.setForeground(Color.BLACK);
+                    name.setText("");
+                    one = !one;
+                }
+            }
+        });
         name.setBounds(145, 250, 200, 50);
         this.add(name);
     }
+
+    public AbstractButton getEnter() {return enter;}
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
