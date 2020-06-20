@@ -1,5 +1,7 @@
 package utils;
 
+import model.TrackInfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,9 +11,9 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class SpotifyUtils{
-    public static String[] getTrackinfo(String id)
+    public static TrackInfo getTrackInfo(String id)
     {
-        String[] str = new String[4];
+        String title = "";
         URL trackinfo = null;
         try {
             trackinfo = new URL("https://open.spotify.com/oembed?url=" + id);
@@ -32,7 +34,21 @@ public class SpotifyUtils{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(info);
-        return null;
+        int beg = info.indexOf("title\":\"") + 8;
+        title = info.substring(beg, info.indexOf("\"", beg + 2));
+        String thumb = "";
+        beg = info.indexOf("\"thumbnail_url\":\"") + 17;
+        thumb = info.substring(beg, info.indexOf("\"", beg + 2));
+        URL url = null;
+        try {
+            url = new URL(thumb);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return new TrackInfo(id, title, url);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getTrackInfo("spotify:track:1TMWcbxL5YF8rKsFHv5hAP"));
     }
 }
