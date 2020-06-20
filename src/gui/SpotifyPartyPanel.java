@@ -49,8 +49,8 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
             cl.show(this, "host");
             new Thread(() -> {
                 int port = 9005;
-                //String code = NetworkUtils.simpleEncode(NetworkUtils.getPublicIP().trim(), port);
-                //host.setCode(code);
+                String code = NetworkUtils.simpleEncode(NetworkUtils.getPublicIP().trim(), port,0);
+                host.setCode(code);
                 server = new UDPServer(port, true);
             }).start();
 
