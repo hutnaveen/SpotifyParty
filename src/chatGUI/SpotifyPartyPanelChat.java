@@ -50,7 +50,18 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         }
         else if (e.getActionCommand().equals("enterGuest")) {
-            cl.show(this, "chatPanel");
+            String name = JoinPartyPanel.name.getText();
+            String code = JoinPartyPanel.code.getText();
+
+            // TODO: if the code is valid do this shit
+            boolean test = false;
+            if(test) {
+                cl.show(this, "chatPanel");
+            } else {
+                JoinPartyPanel.two = true;
+                JoinPartyPanel.code.setForeground(Color.RED);
+                JoinPartyPanel.code.setText("INVALID CODE");
+            }
 
         }
     }
