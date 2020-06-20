@@ -12,8 +12,11 @@ import static gui.GUIUtil.resizeIcon;
 public class JoinPartyPanel extends JPanel {
     public AbstractButton enter;
 
-    public boolean one = true;
-    public boolean two = true;
+    public static boolean one = true;
+    public static boolean two = true;
+
+    public static JTextField name;
+    public static JTextField code;
 
     public JoinPartyPanel() {
         this.setLayout(null);
@@ -29,7 +32,7 @@ public class JoinPartyPanel extends JPanel {
         text.setBounds(150, 145, 400, 100);
         this.add(text);
 
-        JTextField code = new RoundJTextField(200);
+        code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setText("Code");
         code.addMouseListener(new MouseAdapter() {
@@ -46,7 +49,7 @@ public class JoinPartyPanel extends JPanel {
         code.setBounds(355, 250, 200, 50);
         this.add(code);
 
-        JTextField name = new RoundJTextField(200);
+        name = new RoundJTextField(200);
         name.setForeground(Color.GRAY);
         name.setText("Name");
         name.addMouseListener(new MouseAdapter() {
