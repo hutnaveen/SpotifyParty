@@ -1,6 +1,7 @@
 package gui;
 
 import client.TCPClient;
+import client.UDPClient;
 import utils.NetworkUtils;
 
 import javax.imageio.ImageIO;
@@ -18,7 +19,7 @@ class GuestPanel extends JPanel {
     AbstractButton back;
     JTextField field;
     JLabel textField;
-    TCPClient cli;
+    UDPClient cli;
     public GuestPanel() {
         this.setSize(400, 400);
         this.setLayout(null);
@@ -60,7 +61,7 @@ class GuestPanel extends JPanel {
                     if (info == null) {
                         textField.setText("Invalid");
                     } else {
-                        cli = new TCPClient((String)info[0], (int)info[1]);
+                        cli = new UDPClient((String)info[0], (int)info[1], (int)info[2]);
                         textField.setText("Success");
                     }
                 }

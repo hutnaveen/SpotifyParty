@@ -1,13 +1,11 @@
 package spotifyAPI;
 
 import interfaces.SpotifyPlayerAPI;
-import osx.OSXUtils;
+import utils.OSXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 

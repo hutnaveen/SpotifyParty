@@ -1,9 +1,13 @@
 package server;
 
 import exception.SpotifyException;
+import gui.SpotifyPartyFrame;
+import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
+import utils.NetworkUtils;
 
 import java.awt.*;
 import java.io.File;
@@ -24,25 +28,14 @@ public class UDPServer {
 	private HashMap<String, ClientInfo> clients;
 	private DatagramPacket receivePacket;
 	private SpotifyPlayerAPI api;
-	private int serverPort;
-	private String trackID;
-	private long pos;
-	private boolean playing;
+	Thread reciver;
+	Thread sender;
+	int serverPort;
 	public UDPServer(int serverPort, boolean diffNetWork)
 	{
 		this.serverPort = serverPort;
 		api = new SpotifyAppleScriptWrapper();
-		trackID = api.getTrackId();
-		try {
-			pos = api.getPlayerPosition();
-		} catch (SpotifyException e) {
-			e.printStackTrace();
-		}
-		try {
-			playing = api.isPlaying();
-		} catch (SpotifyException e) {
-			e.printStackTrace();
-		}
+
 		clients = new HashMap<>();
 		try {
 			socket = new DatagramSocket(serverPort);
@@ -61,12 +54,8 @@ public class UDPServer {
 		startReceiver();
 		startSender();
 		System.out.println("Server is started!");
-		try {
-			if(star)
-				Desktop.getDesktop().open(new File("ServerStarted.app"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		SpotifyPartyFrame.status.setLabel("Guests: 0");
+
 	}
 
 	/**
@@ -74,10 +63,9 @@ public class UDPServer {
 	 */
 	private void startReceiver()
 	{
-		new Thread(() -> {
+		reciver = new Thread(() -> {
 			while (true) {
 				byte[] receiveData = new byte[1024];
-
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				try {
 					socket.receive(receivePacket);
@@ -91,12 +79,9 @@ public class UDPServer {
 				//if client not added to list of clients add it
 				if(!clients.containsKey(""+tad+tPort)) {
 					System.out.println("added");
-					try {
-						Desktop.getDesktop().open(new File("ClientAdded.app"));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 					clients.put("" + tad + tPort, new ClientInfo(tad, tPort));
+					SpotifyPartyFrame.status.setLabel("Guests: " + clients.size());
+					SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, clients.size()+1));
 					try {
 						sendToClients(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
 					} catch (SpotifyException e) {
@@ -104,42 +89,32 @@ public class UDPServer {
 					}
 				}
 			}
-		}).start();
+		});
+		reciver.start();
 	}
 	/**
 	 * sends tack updates to the clients
 	 */
 	private void startSender()
 	{
-		new Thread(() -> {
-			while (true)
-			{
-				//if the track is in a diff pos from when it first started then add send it to the clients to change as well
+		sender = new Thread(() -> {
+			while (true) {
 				try {
-					try {
-						if(!api.getTrackId().equals(trackID) || api.isPlaying() != playing || Math.abs(api.getPlayerPosition() - pos) >= 3000) {
-							pos = api.getPlayerPosition();
-							trackID = api.getTrackId();
-							playing = api.isPlaying();
-							if (api.getTrackId().contains(":ad:"))
-								sendToClients("ice" + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
-							else
-								sendToClients(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
-							System.out.println(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + new Date(System.currentTimeMillis()));
-							// limits the number of packets sent to only send a packet every 3 seconds
-						}
-						pos = api.getPlayerPosition();
-						trackID = api.getTrackId();
-						playing = api.isPlaying();
-					}catch (NullPointerException ignored)
-					{
-						// TODO: 6/12/20 cant send data to the client
-					}
+					String tempTrack = api.getTrackId();
+					if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
+						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
 				} catch (SpotifyException e) {
 					e.printStackTrace();
 				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-		}).start();
+
+		});
+		sender.start();
 	}
 
 	/**
@@ -163,6 +138,18 @@ public class UDPServer {
 				e.printStackTrace();
 				}
 		}
+	}
+	public void quit()
+	{
+		sender.stop();
+		reciver.stop();
+		try {
+			SpotifyParty.writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		SpotifyPartyFrame.status.setLabel("Waiting");
+		System.out.println("Server Stopped");
 	}
 }
 

@@ -1,7 +1,9 @@
 package client;
 
 import exception.SpotifyException;
+import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.awt.*;
@@ -19,8 +21,8 @@ public class UDPClient {
     private SpotifyPlayerAPI api;
     private final int serverPort;
     private boolean autoPause = false;
-    private boolean synced = true;
-    private String[] storeData;
+    private Thread updater;
+    private Thread tempUpdate;
     public UDPClient(String serverIP, int serverPort, int clientSocketNum)
    {
        api = new SpotifyAppleScriptWrapper();
@@ -38,28 +40,25 @@ public class UDPClient {
            // TODO: 6/12/20 Port Number is taken
            e.printStackTrace();
        }
-       new Thread(() -> {
-           while (true)
-           {
-               sendToServer("add me");
-               try {
-                   Thread.sleep(3000);
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }
-           }
-       }).start();
+       sendToServer("add me");
+       SpotifyPartyFrame.status.setLabel("Connected!");
        trackUpdater();
       System.out.println("Client is started! Port: " + clientSocket.getLocalPort());
-       try {
-           Desktop.getDesktop().open(new File("ClientNotif/SpotifyParty.app"));
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
    }
+    public void quit()
+    {
+        updater.stop();
+        tempUpdate.stop();
+        try {
+            SpotifyParty.writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SpotifyPartyFrame.status.setLabel("Welcome");
+    }
    private void trackUpdater()
    {
-       new Thread(() -> {
+       updater = new Thread(() -> {
 
            while(true) {
                byte[] receiveData = new byte[1024];
@@ -70,73 +69,81 @@ public class UDPClient {
                    e.printStackTrace();
                }
                String[] playerData = new String(receivePacket.getData(), 0, receivePacket.getLength()).split(" ");
-               storeData = playerData;
                try {
-                   if (!api.isPlaying() && !autoPause)
-                       synced = false;
-                   else if(api.isPlaying() && !synced)
-                   {
-                       synced = true;
-                       long fact = Long.parseLong(storeData[3].trim());
-                       System.out.println((Arrays.toString(storeData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
-                       long t = Long.parseLong(storeData[2].trim());
-                       updatePlayer(storeData[0].trim(),storeData[1].trim().substring(0, 4).startsWith("tru"), t, fact);
+                   long fact = Long.parseLong(playerData[3].trim());
+                   System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
+                   log((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
+                   long t = Long.parseLong(playerData[2].trim());
+                   String[] finalPlayerData = playerData;
+                   if(tempUpdate != null) {
+                       tempUpdate.stop();
+                       tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                       tempUpdate.start();
                    }else
                    {
-                       long fact = Long.parseLong(playerData[3].trim());
-                       System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
-                       long t = Long.parseLong(playerData[2].trim());
-                       updatePlayer(playerData[0].trim(),playerData[1].trim().substring(0, 4).startsWith("tru"), t, fact);
+                       tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                       tempUpdate.start();
                    }
+
                } catch (Exception e) {
                    e.printStackTrace();
                }
            }
-       }).start();
+       });
+       updater.start();
    }
-   private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp)
-   {
-       try {
-           if (!api.getTrackId().contains(":ad:")) {
-               if (trackID.equals("ice")) {
-                   api.playTrack("ice");
-                   try {
-                       Desktop.getDesktop().open(new File("SpotifyParty.app"));
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
-               }
-               else {
-                   if ((api.isPlaying() || autoPause || !synced) && !api.getTrackId().equals(trackID)) {
-                       api.playTrack(trackID);
-                       if (!api.isPlaying())
-                           api.play();
-                       api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 500);
-                   } else if (!playing) {
-                       if (api.isPlaying()) {
-                           api.pause();
-                           autoPause = true;
-                       }
-                   } else {
-                       if (autoPause) {
-                           api.play();
-                           autoPause = false;
-                       }
-                   }
-                   if (api.isPlaying() && Math.abs(pos - api.getPlayerPosition() + (pos - timeStamp)) >= 3000) {
-                       System.out.println("Time: " + pos + " Player: " + api.getPlayerPosition());
-                       api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 250);
-                   }
-               }
-           }
-       } catch (SpotifyException e) {
-           e.printStackTrace();
-       }
-   }
-   public void quit()
-   {
-       sendToServer("remove me");
-   }
+    private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
+        try {
+            String tempTrack = api.getTrackId();
+            boolean tempPlaying = api.isPlaying();
+            log(""+tempPlaying);
+            long tempPos = api.getPlayerPosition();
+            if (!tempTrack.contains(":ad:")) {
+                if (trackID.equals("ice")) {
+                    api.pause();
+                    autoPause = true;
+                } else {
+
+                    if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
+                        api.playTrack(trackID);
+                        if (!tempPlaying)
+                            api.play();
+                        System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                        log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                    } else if (!playing) {
+                        if (tempPlaying) {
+                            api.pause();
+                            autoPause = true;
+                        }
+                    } else {
+                        if (autoPause) {
+                            api.play();
+                            autoPause = false;
+                        }
+                    }
+                    if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                        System.out.println("Time: " + pos + " Player: " + tempPos);
+                        log("Time: " + pos + " Player: " + tempPos);
+                        api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                    }
+                    else if(tempPos == 0)
+                    {
+                        autoPause = true;
+                    }
+                }
+            }else {
+                System.out.println("mans playing an add");
+                log("an add is playing");
+                try {
+                    Thread.sleep(15000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SpotifyException e) {
+            e.printStackTrace();
+        }
+    }
    private void sendToServer(String msg)
    {
        byte[] sendData = msg.getBytes();
@@ -147,4 +154,15 @@ public class UDPClient {
            e.printStackTrace();
        }
    }
+    private boolean log(String msg)
+    {
+        if(SpotifyParty.writer != null) {
+            try {
+                SpotifyParty.writer.append(msg).append("\n");
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
