@@ -20,7 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/utils/SpotifyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SpotifyUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/META-INF/SpotifyParty-master.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +94,13 @@
       <option name="presentableId" value="Default" />
       <updated>1592537279131</updated>
       <workItem from="1592537286331" duration="1478000" />
+      <workItem from="1592767534954" duration="390000" />
+      <workItem from="1592767971592" duration="1126000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -108,23 +122,36 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1105" height="408" key="GridCell.Tab.0.bottom" timestamp="1592538879710">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1186" height="172" key="GridCell.Tab.0.bottom" timestamp="1592768837119">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
+    <state width="1186" height="172" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1592768837119" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
-    <state width="1105" height="408" key="GridCell.Tab.0.center" timestamp="1592538879709">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1186" height="172" key="GridCell.Tab.0.center" timestamp="1592768837118">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
+    <state width="1186" height="172" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1592768837118" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
-    <state width="1105" height="408" key="GridCell.Tab.0.left" timestamp="1592538879708">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1186" height="172" key="GridCell.Tab.0.left" timestamp="1592768837118">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
+    <state width="1186" height="172" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1592768837118" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
-    <state width="1105" height="408" key="GridCell.Tab.0.right" timestamp="1592538879709">
-      <screen x="0" y="23" width="3440" height="1417" />
+    <state width="1186" height="172" key="GridCell.Tab.0.right" timestamp="1592768837119">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
+    <state width="1186" height="172" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1592768837119" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
+    <state x="256" y="140" width="1028" height="500" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1592769102327">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="256" y="140" width="1028" height="500" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.877@0.23.1440.877" timestamp="1592769102327" />
+    <state x="435" y="186" width="670" height="676" key="search.everywhere.popup" timestamp="1592767708191">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="435" y="186" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1592767708191" />
   </component>
 </project>
