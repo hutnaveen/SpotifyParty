@@ -2,9 +2,12 @@ package utils;
 
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -33,7 +36,16 @@ public class NetworkUtils {
         }
         return ip;
     }
-
+    public static String getLocalIP()
+    {
+        Socket socket = new Socket();
+        try {
+            socket.connect(new InetSocketAddress("google.com", 80));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (socket.getLocalAddress().toString().substring(1));
+    }
     public static String simpleEncode(String ip, int port, int size)
     {
         int cycNum = (int)(Math.random() * 999);
@@ -104,6 +116,6 @@ public class NetworkUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(simpleDecode("73M71M0M146X9005X1X430")));
+        System.out.println(getLocalIP());
     }
 }

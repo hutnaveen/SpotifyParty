@@ -1,5 +1,4 @@
 package gui;
-import server.TCPServer;
 import server.UDPServer;
 import utils.NetworkUtils;
 
@@ -14,6 +13,7 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
     public static GuestPanel guest = new GuestPanel();
     public static HostPanel host = new HostPanel();
     UDPServer server;
+    Thread starter;
     public SpotifyPartyPanel() {
 
         this.setSize(400, 400);
@@ -44,23 +44,29 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
             cl.show(this, "guest");
             return;
         }
-        if(e.getActionCommand().equals("j"))
+        else if(e.getActionCommand().equals("j"))
         {
             cl.show(this, "host");
-            new Thread(() -> {
+            starter = new Thread(() -> {
                 int port = 9005;
                 String code = NetworkUtils.simpleEncode(NetworkUtils.getPublicIP().trim(), port,0);
                 host.setCode(code);
                 server = new UDPServer(port, true);
-            }).start();
+            });
+            starter.start();
 
             return;
         }
-        if(e.getActionCommand().equals("k")) {
+        else if(e.getActionCommand().equals("k")) {
             cl.show(this, "start");
         }
-        if(e.getActionCommand().equals("i")) {
+        else if(e.getActionCommand().equals("i")) {
             cl.show(this, "start");
+            if(starter != null)
+            {
+                starter.stop();
+                starter = null;
+            }
             if(server != null)
             {
                 server.quit();

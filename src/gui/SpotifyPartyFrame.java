@@ -14,7 +14,7 @@ public class SpotifyPartyFrame extends JFrame {
     public static MenuItem status = new MenuItem("Welcome!");
     public SpotifyPartyFrame()
     {
-        super();
+        super("SpotifyParty!");
         initializeFrame();
         initializeTrayIcon();
     }
@@ -44,41 +44,16 @@ public class SpotifyPartyFrame extends JFrame {
         } catch (AWTException e) {
             System.err.println(e);
         }
-        trayIcon.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                setVisible(false);
-                setLocation(e.getX()-getWidth()/2, 22);
-            }
-        });
     }
     private void initializeFrame()
     {
         setLocation(100, 100);
-        setSize(400, 250);
-        this.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 35, 35));
-            }
-        });
+        setSize(400, 270);
+        setDefaultLookAndFeelDecorated(true);
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
         setVisible(false);
+        setResizable(false);
         setAlwaysOnTop(true);
-        setUndecorated(true);
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                //setVisible(false);
-            }
-        });
-        addWindowFocusListener(new WindowAdapter() {
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                setVisible(false);
-            }
-        });
     }
 
 

@@ -35,14 +35,14 @@ class StartingPanel extends JPanel {
 
     public StartingPanel() {
         JLabel text = new JLabel("Spotify Party!", SwingConstants.CENTER);
-        text.setFont(new Font("SansSerif", Font.BOLD, 50));
-        text.setBounds(25, 20, 350, 160);
+        text.setFont(new Font("DialogInput", Font.BOLD, 50));
+        text.setBounds(25, 0, 350, 160);
         text.setForeground(Color.WHITE);
 
         setBackground(new Color(40,40,40));
         this.setLayout(null);
-        join.setBounds(10, 160, 185, 80);
-        host.setBounds(210, 160, 185, 80);
+        join.setBounds(10, 150, 185, 80);
+        host.setBounds(210, 150, 185, 80);
 
         join.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -66,7 +66,7 @@ class StartingPanel extends JPanel {
         try
         {
             g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 400, 250, this);
-            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 10, 25, 25, this);
+            //g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 10, 25, 25, this);
         }catch (Exception e)
         {
             e.printStackTrace();
