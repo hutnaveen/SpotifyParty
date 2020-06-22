@@ -144,6 +144,7 @@ public class UDPServer {
 		sender.stop();
 		reciver.stop();
 		try {
+			if(SpotifyParty.writer != null)
 			SpotifyParty.writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();

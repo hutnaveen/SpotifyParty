@@ -2,6 +2,7 @@ package spotifyAPI;
 
 import interfaces.SpotifyPlayerAPI;
 import utils.OSXUtils;
+import utils.SpotifyUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -81,32 +82,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
 
     public  URL getArtworkURL()
     {
-        /*String sUrl = null;
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        Request request = new Request.Builder()
-                .url("https://open.spotify.com/oembed?url=" + getTrackId())
-                .method("GET", null)
-                .build();
-        try {
-            String response = Objects.requireNonNull(client.newCall(request).execute().body()).string();
-            int a = response.indexOf("\"thumbnail_url\":")+ 17;
-           sUrl = (response.substring(a, response.indexOf("\"", a+2)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            return new URL(sUrl);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            //return getArtworkURL();
-        }*/
-        try {
-            return new URL("https://developer.spotify.com/assets/branding-guidelines/icon3@2x.png");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return SpotifyUtils.getTrackInfo(getTrackId()).getThumbnailURL();
     }
     public  void togglePlay()
     {
