@@ -14,13 +14,15 @@ public class SpotifyParty {
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
         SpotifyPartyFrame frame = new SpotifyPartyFrame();
         SpotifyPartyPanel panel = new SpotifyPartyPanel();
         frame.add(panel);
         try
         {
-            writer  = new BufferedWriter(new FileWriter(args[0], true));
+            File ayy = new File(System.getProperty("user.home") + "/Documents/log.txt");
+            if(!ayy.exists())
+                ayy.createNewFile();
+            writer  = new BufferedWriter(new FileWriter(ayy, true));
         }catch (IndexOutOfBoundsException e)
         {
            writer = null;
