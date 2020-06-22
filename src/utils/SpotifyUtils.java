@@ -49,6 +49,6 @@ public class SpotifyUtils{
     }
 
     public static void main(String[] args) {
-        System.out.println(getTrackInfo("spotify:track:1TMWcbxL5YF8rKsFHv5hAP"));
+        System.out.println(getTrackInfo("spotify:track:39Yp9wwQiSRIDOvrVg7mbk?context=spotify%3Aplaylist%3A37i9dQZF1DWY4xHQp97fN6"));
     }
 }

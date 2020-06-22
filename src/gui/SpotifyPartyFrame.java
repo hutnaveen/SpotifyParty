@@ -8,7 +8,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
 public class SpotifyPartyFrame extends JFrame {
-    private TrayIcon trayIcon;
+    public static TrayIcon trayIcon;
     private SystemTray tray = SystemTray.getSystemTray();
     private PopupMenu menu = new PopupMenu();
     public static MenuItem status = new MenuItem("Welcome!");
@@ -38,7 +38,8 @@ public class SpotifyPartyFrame extends JFrame {
         menu.add(open);
         menu.addSeparator();
         menu.add(quit);
-        trayIcon = new TrayIcon(image, "SpotifyParty", menu );
+        trayIcon = new TrayIcon(image, "SpotifyParty", menu);
+        trayIcon.displayMessage(this.getTitle(), "Started ripping " , TrayIcon.MessageType.INFO);
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {

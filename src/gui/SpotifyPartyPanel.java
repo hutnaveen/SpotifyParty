@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static gui.SpotifyPartyFrame.trayIcon;
+
 public class SpotifyPartyPanel extends JPanel implements ActionListener{
     CardLayout cl = new CardLayout();
     StartingPanel start = new StartingPanel();
@@ -42,10 +44,11 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
         if(e.getActionCommand().equals("h"))
         {
             cl.show(this, "guest");
-            return;
+            trayIcon.displayMessage("yo", "Started ripping " , TrayIcon.MessageType.INFO);
         }
         else if(e.getActionCommand().equals("j"))
         {
+            trayIcon.displayMessage("yo", "Started ripping " , TrayIcon.MessageType.INFO);
             cl.show(this, "host");
             starter = new Thread(() -> {
                 int port = 9005;
