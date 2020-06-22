@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
+    public boolean local = false;
     CardLayout cl = new CardLayout();
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
     public  ChatPanel chatPanel = new ChatPanel();
@@ -31,8 +32,10 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         spfc.getJoin().setActionCommand("join");
         spfc.getJoin().addActionListener(this);
-        spfc.getHost().setActionCommand("host");
-        spfc.getHost().addActionListener(this);
+        spfc.getHostLocal().setActionCommand("hostLocal");
+        spfc.getHostLocal().addActionListener(this);
+        spfc.getHostPublic().setActionCommand("hostPublic");
+        spfc.getHostPublic().addActionListener(this);
 
         joinPartyPanel.getEnter().setActionCommand("enterGuest");
         joinPartyPanel.getEnter().addActionListener(this);
@@ -44,10 +47,15 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             cl.show(this, "joinPanel");
 
         }
-        else if (e.getActionCommand().equals("host")) {
+        else if (e.getActionCommand().equals("hostLocal")) {
+            local = true;
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
-
+        }
+        else if(e.getActionCommand().equals("hostPublic")) {
+            local = true;
+            spfc.setVisible(true);
+            cl.show(this, "chatPanel");
         }
         else if (e.getActionCommand().equals("enterGuest")) {
             String name = JoinPartyPanel.name.getText();

@@ -61,7 +61,7 @@ class GuestPanel extends JPanel {
                     if (info == null) {
                         textField.setText("Invalid");
                     } else {
-                        cli = new UDPClient((String)info[0], (int)info[1], (int)info[3]);
+                        cli = new UDPClient((String)info[0], (int)info[1], (int)info[2]);
                         textField.setText("Success");
                     }
                 }

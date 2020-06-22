@@ -9,7 +9,8 @@ import java.io.IOException;
 
 public class SpotifyPartyFrameChat extends JFrame {
     public MenuItem join;
-    public MenuItem host;
+    public MenuItem hostLocal;
+    public MenuItem hostPublic;
 
     private TrayIcon trayIcon;
     private SystemTray tray = SystemTray.getSystemTray();
@@ -32,14 +33,17 @@ public class SpotifyPartyFrameChat extends JFrame {
         MenuItem quit = new MenuItem("Quit");
         quit.addActionListener(actionEvent -> System.exit(0));
         join = new MenuItem("Join Party");
-        host = new MenuItem("Host Party");
+        hostLocal = new MenuItem("Host Local Party");
+        hostPublic = new MenuItem("Host Public Party");
 
         status.setEnabled(false);
         menu.add(status);
         menu.addSeparator();
         menu.add(join);
         menu.addSeparator();
-        menu.add(host);
+        menu.add(hostLocal);
+        menu.addSeparator();
+        menu.add(hostPublic);
         menu.addSeparator();
         menu.add(quit);
 
@@ -52,7 +56,8 @@ public class SpotifyPartyFrameChat extends JFrame {
     }
 
     public MenuItem getJoin() {return join;}
-    public MenuItem getHost() {return host;}
+    public MenuItem getHostLocal() {return hostLocal;}
+    public MenuItem getHostPublic() {return hostPublic;}
 
     private void initializeFrame()
     {
