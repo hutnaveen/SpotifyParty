@@ -17,29 +17,32 @@ import java.util.ArrayList;
 public class TCPServer
 {
     private SpotifyPlayerAPI api;
-    ArrayList<DataOutputStream> streams = new ArrayList<>();
-    ServerSocket ss;
-    Thread reciver;
-    Thread sender;
-
-    public TCPServer(int serverPort, boolean diffNetWork)
+    private ArrayList<DataOutputStream> streams = new ArrayList<>();
+    private ServerSocket ss;
+    private Thread reciver;
+    private Thread sender;
+    private int serverPort = 9009;
+    public TCPServer(boolean diffNetWork)
     {
+        api = new SpotifyAppleScriptWrapper();
 
+        boolean star;
+        if(diffNetWork) {
+            for(; serverPort <= 49140; serverPort += 11) {
+                //makes sure the port is clear
+                UPnP.closePortTCP((serverPort));
+                //only needed if the clients are not on the same network
+                star = (UPnP.openPortTCP((serverPort)));
+                System.out.println(star);
+                log("" + star);
+                if (star)
+                    break;
+            }
+        }
         try {
             ss = new ServerSocket(serverPort);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        api = new SpotifyAppleScriptWrapper();
-
-        boolean star = true;
-        if(diffNetWork) {
-            //makes sure the port is clear
-            UPnP.closePortTCP((serverPort));
-            //only needed if the clients are not on the same network
-            star = (UPnP.openPortTCP((serverPort)));
-            System.out.println(star);
-            log(""+star);
         }
         startReceiver();
         startSender();
@@ -139,4 +142,7 @@ public class TCPServer
         return true;
     }
 
+    public int getServerPort() {
+        return serverPort;
+    }
 }

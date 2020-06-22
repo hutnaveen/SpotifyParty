@@ -3,6 +3,7 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
@@ -109,7 +110,7 @@ public class NetworkUtils {
             ip = code.substring(0, code.indexOf(':'));
             port = Integer.parseInt(code.substring(code.indexOf(':') + 1, code.lastIndexOf(':')));
             return new Object[]{ip, port, clientIp};
-        }catch (StringIndexOutOfBoundsException e)
+        }catch (StringIndexOutOfBoundsException | NumberFormatException e)
         {
             return null;
         }

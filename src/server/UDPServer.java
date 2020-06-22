@@ -30,10 +30,9 @@ public class UDPServer {
 	private SpotifyPlayerAPI api;
 	Thread reciver;
 	Thread sender;
-	int serverPort;
-	public UDPServer(int serverPort, boolean diffNetWork)
+	int serverPort = 9009;
+	public UDPServer( boolean diffNetWork)
 	{
-		this.serverPort = serverPort;
 		api = new SpotifyAppleScriptWrapper();
 
 		clients = new HashMap<>();
@@ -43,13 +42,17 @@ public class UDPServer {
 			// TODO: 6/12/20 what happens if the server wont connect to the port
 			e.printStackTrace();
 		}
-		boolean star = true;
+		boolean star;
 		if(diffNetWork) {
-			//makes sure the port is clear
-			UPnP.closePortUDP((serverPort));
-			//only needed if the clients are not on the same network
-			star = (UPnP.openPortUDP((serverPort)));
-			System.out.println(star);
+			for(; serverPort <= 49140; serverPort += 11) {
+				//makes sure the port is clear
+				UPnP.closePortUDP((serverPort));
+				//only needed if the clients are not on the same network
+				star = (UPnP.openPortUDP((serverPort)));
+				System.out.println(star);
+				if (star)
+					break;
+			}
 		}
 		startReceiver();
 		startSender();

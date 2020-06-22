@@ -39,7 +39,6 @@ public class SpotifyPartyFrame extends JFrame {
         menu.addSeparator();
         menu.add(quit);
         trayIcon = new TrayIcon(image, "SpotifyParty", menu);
-        trayIcon.displayMessage(this.getTitle(), "Started ripping " , TrayIcon.MessageType.INFO);
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
