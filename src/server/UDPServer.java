@@ -152,5 +152,9 @@ public class UDPServer {
 		SpotifyPartyFrame.status.setLabel("Waiting");
 		System.out.println("Server Stopped");
 	}
+
+	public static void songChange() {
+		
+	}
 }
 

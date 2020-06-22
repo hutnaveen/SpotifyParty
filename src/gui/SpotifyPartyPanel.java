@@ -1,4 +1,5 @@
 package gui;
+import server.TCPServer;
 import server.UDPServer;
 import utils.NetworkUtils;
 
@@ -14,7 +15,7 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
     StartingPanel start = new StartingPanel();
     public static GuestPanel guest = new GuestPanel();
     public static HostPanel host = new HostPanel();
-    UDPServer server;
+    TCPServer server;
     Thread starter;
     public SpotifyPartyPanel() {
 
@@ -51,10 +52,10 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
             trayIcon.displayMessage("yo", "Started ripping " , TrayIcon.MessageType.INFO);
             cl.show(this, "host");
             starter = new Thread(() -> {
-                int port = 9005;
+                int port = 9001;
                 String code = NetworkUtils.simpleEncode(NetworkUtils.getPublicIP().trim(), port,0);
                 host.setCode(code);
-                server = new UDPServer(port, true);
+                server = new TCPServer(port, true);
             });
             starter.start();
 
