@@ -52,10 +52,10 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
             trayIcon.displayMessage("yo", "Started ripping " , TrayIcon.MessageType.INFO);
             cl.show(this, "host");
             starter = new Thread(() -> {
-                int port = 9001;
+                /*int port = 9001;
                 String code = NetworkUtils.simpleEncode(NetworkUtils.getPublicIP().trim(), port,0);
-                host.setCode(code);
-                //server = new TCPServer(port, true);
+                host.setCode(code);*/
+                server = new TCPServer(true);
             });
             starter.start();
 
