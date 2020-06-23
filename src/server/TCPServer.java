@@ -114,7 +114,12 @@ public class TCPServer
         sender = new Thread(() -> {
             while (true) {
                 try {
+                    String track = api.getTrackId();
                     String tempTrack = api.getTrackId();
+                    if(!track.equals(tempTrack)) {
+                        updateGUI();
+                        track = tempTrack;
+                    }
                     if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
                 } catch (SpotifyException e) {
@@ -144,5 +149,9 @@ public class TCPServer
 
     public int getServerPort() {
         return serverPort;
+    }
+
+    public static void updateGUI() {
+        
     }
 }

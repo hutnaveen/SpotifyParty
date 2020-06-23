@@ -31,8 +31,8 @@ public class UDPServer {
 	Thread reciver;
 	Thread sender;
 	int serverPort = 9009;
-	public UDPServer( boolean diffNetWork)
-	{
+
+	public UDPServer(boolean diffNetWork) {
 		api = new SpotifyAppleScriptWrapper();
 
 		clients = new HashMap<>();
@@ -43,8 +43,8 @@ public class UDPServer {
 			e.printStackTrace();
 		}
 		boolean star;
-		if(diffNetWork) {
-			for(; serverPort <= 49140; serverPort += 11) {
+		if (diffNetWork) {
+			for (; serverPort <= 49140; serverPort += 11) {
 				//makes sure the port is clear
 				UPnP.closePortUDP((serverPort));
 				//only needed if the clients are not on the same network
@@ -64,8 +64,7 @@ public class UDPServer {
 	/**
 	 * the thread that waits for clients to join and adds them to the server
 	 */
-	private void startReceiver()
-	{
+	private void startReceiver() {
 		reciver = new Thread(() -> {
 			while (true) {
 				byte[] receiveData = new byte[1024];
@@ -80,11 +79,11 @@ public class UDPServer {
 				int tPort = receivePacket.getPort();
 
 				//if client not added to list of clients add it
-				if(!clients.containsKey(""+tad+tPort)) {
+				if (!clients.containsKey("" + tad + tPort)) {
 					System.out.println("added");
 					clients.put("" + tad + tPort, new ClientInfo(tad, tPort));
 					SpotifyPartyFrame.status.setLabel("Guests: " + clients.size());
-					SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, clients.size()+1));
+					SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, clients.size() + 1));
 					try {
 						sendToClients(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
 					} catch (SpotifyException e) {
@@ -95,16 +94,16 @@ public class UDPServer {
 		});
 		reciver.start();
 	}
+
 	/**
 	 * sends tack updates to the clients
 	 */
-	private void startSender()
-	{
+	private void startSender() {
 		sender = new Thread(() -> {
 			while (true) {
 				try {
 					String tempTrack = api.getTrackId();
-					if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
+					if (!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
 						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
 				} catch (SpotifyException e) {
 					e.printStackTrace();
@@ -122,42 +121,37 @@ public class UDPServer {
 
 	/**
 	 * sends tack updates to the clients
+	 *
 	 * @param msg
 	 */
-	private void sendToClients(String msg)
-	{
+	private void sendToClients(String msg) {
 		/*map contains all clients connected to the system this loop traverses the list of clients and sends the data
 		 to them
 		*/
-		for(Map.Entry<String, ClientInfo> clientInfo: clients.entrySet())
-		{
+		for (Map.Entry<String, ClientInfo> clientInfo : clients.entrySet()) {
 			byte[] sendData = new byte[1024];
 			DatagramPacket response = null;
 			sendData = msg.getBytes();
-				response = new DatagramPacket(sendData, sendData.length, clientInfo.getValue().address, clientInfo.getValue().port);
+			response = new DatagramPacket(sendData, sendData.length, clientInfo.getValue().address, clientInfo.getValue().port);
 			try {
 				socket.send(response);
 			} catch (IOException e) {
 				e.printStackTrace();
-				}
+			}
 		}
 	}
-	public void quit()
-	{
+
+	public void quit() {
 		sender.stop();
 		reciver.stop();
 		try {
-			if(SpotifyParty.writer != null)
-			SpotifyParty.writer.close();
+			if (SpotifyParty.writer != null)
+				SpotifyParty.writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		SpotifyPartyFrame.status.setLabel("Waiting");
 		System.out.println("Server Stopped");
-	}
-
-	public static void songChange() {
-		
 	}
 }
 

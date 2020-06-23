@@ -21,6 +21,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
     public String name;
     public String code;
+    private Object TCPServer;
 
     public SpotifyPartyPanelChat() {
         super();
@@ -49,11 +50,13 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         }
         else if (e.getActionCommand().equals("hostLocal")) {
             local = true;
+            TCPServer = new TCPServer(true);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
         }
         else if(e.getActionCommand().equals("hostPublic")) {
             local = true;
+            TCPServer = new TCPServer(true);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
         }
