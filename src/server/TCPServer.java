@@ -2,10 +2,12 @@ package server;
 
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
+import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
+import utils.NetworkUtils;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -44,6 +46,7 @@ public class TCPServer
         } catch (IOException e) {
             e.printStackTrace();
         }
+       SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         startReceiver();
         startSender();
         System.out.println("Server is started!");
