@@ -21,7 +21,7 @@ public class TCPServer
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
-    private int serverPort = 9009;
+    private int serverPort = 6000;
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
@@ -29,14 +29,14 @@ public class TCPServer
         boolean star;
         if(diffNetWork) {
             for(; serverPort <= 49140; serverPort += 11) {
-                //makes sure the port is clear
-                UPnP.closePortTCP((serverPort));
                 //only needed if the clients are not on the same network
                 star = (UPnP.openPortTCP((serverPort)));
                 System.out.println(star);
                 log("" + star);
                 if (star)
                     break;
+                else
+                    UPnP.closePortTCP((serverPort));
             }
         }
         try {
@@ -114,12 +114,7 @@ public class TCPServer
         sender = new Thread(() -> {
             while (true) {
                 try {
-                    String track = api.getTrackId();
                     String tempTrack = api.getTrackId();
-                    if(!track.equals(tempTrack)) {
-                        updateGUI();
-                        track = tempTrack;
-                    }
                     if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
                 } catch (SpotifyException e) {

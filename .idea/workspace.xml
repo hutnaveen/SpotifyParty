@@ -26,20 +26,8 @@
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyPanelChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyPanelChat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chatGUI/SpotifyPartyPanelChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/SpotifyPartyPanelChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/SpotifyPartyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SpotifyPartyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/UDPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/UDPServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +70,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SpotifyPartyChat">
+  <component name="RunManager" selected="Application.SpotifyParty">
     <configuration name="SpotifyParty" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.SpotifyParty" />
       <module name="SpotifyParty-master" />
@@ -124,11 +112,23 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SpotifyPartyChat" />
         <item itemvalue="Application.SpotifyParty" />
+        <item itemvalue="Application.SpotifyPartyChat" />
         <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -141,6 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592537279131</updated>
       <workItem from="1592537286331" duration="1478000" />
+      <workItem from="1592934872630" duration="495000" />
     </task>
     <servers />
   </component>
@@ -162,12 +163,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="533" y="163" key="#com.intellij.ide.util.MemberChooser" timestamp="1592680540326">
@@ -215,6 +217,10 @@
     </state>
     <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1440.900@0.0.1440.900" timestamp="1592610513792" />
     <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1440.836@0.23.1440.836" timestamp="1592933974195" />
+    <state x="517" y="369" key="com.intellij.ide.util.TipDialog" timestamp="1592934874545">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="517" y="369" key="com.intellij.ide.util.TipDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1592934874545" />
     <state x="529" y="275" width="670" height="676" key="search.everywhere.popup" timestamp="1592602485961">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
