@@ -151,7 +151,7 @@ public class ChatPanel extends JPanel {
     }
     public static void setCode(String tcode)
     {
-        code.setFont(new Font("Procima Nova", Font.PLAIN, 11));
+        code.setFont(new Font("Proxima Nova", Font.PLAIN, 11));
         code.setText(tcode);
     }
     public void paintComponent(Graphics g) {

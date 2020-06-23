@@ -29,7 +29,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public SpotifyPartyPanelChat() {
         super();
 
-        chatPanel.code.setText("");
+        ChatPanel.code.setText("");
         this.setLayout(cl);
         this.add(joinPartyPanel, "joinPanel");
         this.add(chatPanel, "chatPanel");
@@ -73,7 +73,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 TCPClient cli = new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 SpotifyPartyPanelChat.chatPanel.updateData();
-                SpotifyPartyPanelChat.chatPanel.setCode(x);
+                ChatPanel.setCode(x);
             } else {
                 JoinPartyPanel.two = true;
                 JoinPartyPanel.code.setForeground(Color.RED);
