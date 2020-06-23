@@ -32,25 +32,11 @@ public class ChatPanel extends JPanel {
     public static RoundJTextField code;
     public static ArrayList<String> names = new ArrayList<>();
     public static AbstractButton copy;
+
+    public static RoundJTextField type;
     private URL artworkURL;
 
     public ChatPanel() {
-        /*
-        names.add("Bella Hadid");
-        names.add("Travis");
-        names.add("Hrithik");
-        names.add("Ritvik");
-        names.add("The Weeknd");
-        names.add("XXX");
-        names.add("Jay Sean");
-        names.add("JCole");
-        names.add("Kendrick");
-        names.add("Tyle, the creator");
-        names.add("Juice Wrld");
-        names.add("Emma Watson");
-        names.add("Jennifer Aniston");
-        names.add("Monica");
-        */
         this.setLayout(null);
         Border border = BorderFactory.createLineBorder(new Color(40, 40, 40), 1);
 
@@ -120,6 +106,13 @@ public class ChatPanel extends JPanel {
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         areaScroll.setBounds(25, 110, 200, 250);
         this.add(areaScroll);
+
+        type = new RoundJTextField(380);
+        type.setBounds(260, 530, 380, 40);
+        this.add(type);
+
+        Chat chat  = new Chat();
+        this.add(chat);
     }
 
     public static void addNames(String name) {
