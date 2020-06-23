@@ -1,5 +1,7 @@
 package client;
 
+import chatGUI.ChatPanel;
+import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
@@ -93,9 +95,9 @@ public class TCPClient
                     api.pause();
                     autoPause = true;
                 } else {
-
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
+                        SpotifyPartyPanelChat.chatPanel.updateData(trackID);
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);

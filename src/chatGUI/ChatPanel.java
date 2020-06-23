@@ -2,14 +2,22 @@ package chatGUI;
 
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
+import model.TrackInfo;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import utils.SpotifyUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -17,11 +25,17 @@ import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
 public class ChatPanel extends JPanel {
-    private SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
+    public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
+    public static JTextPane area;
+    public static JTextPane song;
+    public static JTextPane artist;
+    public static RoundJTextField code;
     public static ArrayList<String> names = new ArrayList<>();
     public static AbstractButton copy;
+    private URL artworkURL;
 
     public ChatPanel() {
+        /*
         names.add("Bella Hadid");
         names.add("Travis");
         names.add("Hrithik");
@@ -36,13 +50,24 @@ public class ChatPanel extends JPanel {
         names.add("Emma Watson");
         names.add("Jennifer Aniston");
         names.add("Monica");
+        */
         this.setLayout(null);
+        Border border = BorderFactory.createLineBorder(new Color(40, 40, 40), 1);
 
-        JTextField code = new RoundJTextField(200);
+        code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
-        code.setText("Code");
         code.setBounds(40, 10, 195, 30);
         code.setEditable(false);
+        code.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                System.out.println("Here");
+                StringSelection selection = new StringSelection(code.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+            }
+        });
         this.add(code);
 
         JLabel text = new JLabel("Friends", SwingConstants.CENTER);
@@ -51,12 +76,12 @@ public class ChatPanel extends JPanel {
         text.setBounds(-70, 20, 400, 100);
         this.add(text);
 
-        JTextPane song = new JTextPane();
-        song.setBackground(Color.BLACK);
+        song = new JTextPane();
+        song.setBorder(border);
+        song.setBackground(new Color(40, 40, 40));
         song.setForeground(Color.WHITE);
         song.setEditable(false);
         song.setFont(new Font("Proxima Nova", Font.BOLD, 13));
-        song.setText(getSong());
         StyledDocument doc = song.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -64,12 +89,12 @@ public class ChatPanel extends JPanel {
         song.setBounds(10, 520, 230, 17);
         this.add(song);
 
-        JTextPane artist = new JTextPane();
-        artist.setBackground(Color.BLACK);
+        artist = new JTextPane();
+        artist.setBorder(border);
+        artist.setBackground(new Color(40, 40, 40));
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
         artist.setFont(new Font("Proxima Nova", Font.BOLD, 13));
-        artist.setText(getArtist());
         StyledDocument doc2 = artist.getStyledDocument();
         SimpleAttributeSet center2 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center2, StyleConstants.ALIGN_CENTER);
@@ -78,55 +103,70 @@ public class ChatPanel extends JPanel {
         this.add(artist);
 
 
-        JTextPane area = new JTextPane();
+        area = new JTextPane();
+        area.setBorder(border);
         area.setAutoscrolls(true);
         area.setEditable(false);
         area.setForeground(Color.WHITE);
-        area.setFont(new Font("Proxima Nova", Font.BOLD, 13));
-        area.setText(getNames());
+        area.setFont(new Font("Proxima Nova", Font.BOLD, 15));
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
-        area.setBackground(Color.BLACK);
+        area.setBackground(new Color(40, 40, 40));
         JScrollPane areaScroll = new JScrollPane(area);
-        areaScroll.setBackground(Color.BLACK);
+        areaScroll.setBorder(border);
+        areaScroll.setBackground(new Color(40, 40, 40));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
-        areaScroll.setBounds(25, 100, 200, 280);
+        areaScroll.setBounds(25, 110, 200, 250);
         this.add(areaScroll);
     }
 
-    public String getNames() {
+    public static void addNames(String name) {
+        names.add(name);
         String str = "";
         for(int i = 0; i < names.size(); i++) {
             str = str + (" " + names.get(i) + "\n\n");
         }
-        return str;
+        area.setText(str);
     }
 
-    public URL getAlbumCover() throws SpotifyException {
-        return api.getArtworkURL();
+
+    public void updateData(String trackID)
+    {
+        TrackInfo inf = SpotifyUtils.getTrackInfo(trackID);
+        artworkURL = inf.getThumbnailURL();
+        song.setText(inf.getName());
+        artist.setText(api.getTrackArtist());
+        repaint();
     }
 
-    public String getSong() {
-        return api.getTrackName();
+    public void updateData()
+    {
+        TrackInfo inf = SpotifyUtils.getTrackInfo(api.getTrackId());
+        artworkURL = inf.getThumbnailURL();
+        song.setText(inf.getName());
+        artist.setText(api.getTrackArtist());
+        repaint();
     }
-
-    public String getArtist() {
-        return api.getTrackArtist();
+    public static void setCode(String tcode)
+    {
+        code.setFont(new Font("Procima Nova", Font.PLAIN, 11));
+        code.setText(tcode);
     }
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         try
         {
             g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.setColor(Color.BLACK);
+            g.setColor(new Color(40, 40, 40));
             g.fillRect(0, 0, 250, 600);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 15, 20, 20, this);
             g.setColor(Color.WHITE);
-            g.drawLine(30, 90, 220, 90);
-            g.drawImage(ImageIO.read(getAlbumCover()), 70, 390, 115, 115, this);
+            if(artworkURL != null)
+                g.drawImage(ImageIO.read(artworkURL), 70, 390, 115, 115, this);
+            //g.drawLine(30, 90, 220, 90);
+            //g.drawLine(30, 370, 220, 370);
         }
         catch (Exception e)
         {

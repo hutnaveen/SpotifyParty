@@ -3,6 +3,7 @@ package chatGUI;
 
 import chatGUI.JoinPartyPanel;
 import chatGUI.ChatPanel;
+import client.TCPClient;
 import server.TCPServer;
 import utils.NetworkUtils;
 
@@ -10,12 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
 
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
     CardLayout cl = new CardLayout();
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
-    public  ChatPanel chatPanel = new ChatPanel();
+    public  static ChatPanel chatPanel = new ChatPanel();
     public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     TCPServer server;
 
@@ -26,6 +29,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public SpotifyPartyPanelChat() {
         super();
 
+        chatPanel.code.setText("");
         this.setLayout(cl);
         this.add(joinPartyPanel, "joinPanel");
         this.add(chatPanel, "chatPanel");
@@ -50,24 +54,26 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         }
         else if (e.getActionCommand().equals("hostLocal")) {
             local = true;
-            TCPServer = new TCPServer(true);
+            server = new TCPServer(false);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
         }
         else if(e.getActionCommand().equals("hostPublic")) {
             local = true;
-            TCPServer = new TCPServer(true);
+            server = new TCPServer(true);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
         }
         else if (e.getActionCommand().equals("enterGuest")) {
-            String name = JoinPartyPanel.name.getText();
-            String code = JoinPartyPanel.code.getText();
-
-            // TODO: if the code is valid do this shit
-            boolean test = false;
-            if(test) {
+            String x = JoinPartyPanel.code.getText();
+            Object[] code = NetworkUtils.simpleDecode(x);
+            if(code != null && available((String)code[0], (int)code[1]))
+            {
+                ChatPanel.addNames(JoinPartyPanel.name.getText());
+                TCPClient cli = new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
+                SpotifyPartyPanelChat.chatPanel.updateData();
+                SpotifyPartyPanelChat.chatPanel.setCode(x);
             } else {
                 JoinPartyPanel.two = true;
                 JoinPartyPanel.code.setForeground(Color.RED);
@@ -76,5 +82,13 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         }
     }
+    private static boolean available(String ip, int port) {
+        try (Socket ignored = new Socket(ip, port)) {
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
 }
 

@@ -1,5 +1,7 @@
 package server;
 
+import chatGUI.ChatPanel;
+import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import gui.SpotifyPartyPanel;
@@ -18,19 +20,19 @@ import java.util.ArrayList;
 
 public class TCPServer
 {
-    private SpotifyPlayerAPI api;
-    private ArrayList<DataOutputStream> streams = new ArrayList<>();
+    private final SpotifyPlayerAPI api;
+    private final ArrayList<DataOutputStream> streams = new ArrayList<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
-    private int serverPort = 6000;
+    private int serverPort = 9000;
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
 
         boolean star;
         if(diffNetWork) {
-            for(; serverPort <= 49140; serverPort += 11) {
+            for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 star = (UPnP.openPortTCP((serverPort)));
                 System.out.println(star);
@@ -46,13 +48,16 @@ public class TCPServer
         } catch (IOException e) {
             e.printStackTrace();
         }
-       SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
+       //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
+        ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         startReceiver();
         startSender();
         System.out.println("Server is started!");
         log("Server Started");
         SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
+
+
     private void startReceiver()
     {
         reciver = new Thread(() -> {
@@ -147,9 +152,5 @@ public class TCPServer
 
     public int getServerPort() {
         return serverPort;
-    }
-
-    public static void updateGUI() {
-        System.out.println("Updated");
     }
 }
