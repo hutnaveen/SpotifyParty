@@ -147,6 +147,6 @@ public class TCPServer
     }
 
     public static void updateGUI() {
-        
+        System.out.println("Updated");
     }
 }

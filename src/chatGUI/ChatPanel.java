@@ -17,7 +17,6 @@ import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
 public class ChatPanel extends JPanel {
-    private ChatPanel chatPanel = this;
     private SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static ArrayList<String> names = new ArrayList<>();
     public static AbstractButton copy;
@@ -105,8 +104,8 @@ public class ChatPanel extends JPanel {
         return str;
     }
 
-    public static void getAlbumCover() throws SpotifyException {
-        api.getArtworkURL();
+    public URL getAlbumCover() throws SpotifyException {
+        return api.getArtworkURL();
     }
 
     public String getSong() {
