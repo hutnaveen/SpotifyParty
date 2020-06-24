@@ -1,5 +1,14 @@
 package model
 
+import java.awt.Color
 import java.net.URL
-import java.io.*;
-data class TrackInfo (val id: String = "", val name: String = "", val thumbnailURL: URL): Serializable
+
+
+data class TrackInfo @JvmOverloads constructor(var id: String = "",
+                     var name: String = "",
+                     var artist: String = "",
+                     var thumbnailURL: URL? = null,
+                     var audioPreview: URL? = null,
+                     var dominantColor: Color?= null,
+                     var popularity: Int? = null)
+

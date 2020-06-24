@@ -2,53 +2,59 @@ package utils;
 
 import model.TrackInfo;
 
-import java.io.BufferedReader;
+import java.awt.*;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SpotifyUtils{
     public static TrackInfo getTrackInfo(String id)
     {
-        String title = "";
-        URL trackinfo = null;
-        try {
-            trackinfo = new URL("https://open.spotify.com/oembed?url=" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(
-                    trackinfo.openStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String info = null;
-        try {
-            info = in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int beg = info.indexOf("title\":\"") + 8;
-        title = info.substring(beg, info.indexOf("\"", beg + 2));
-        String thumb = "";
-        beg = info.indexOf("\"thumbnail_url\":\"") + 17;
-        thumb = info.substring(beg, info.indexOf("\"", beg + 2));
+        TrackInfo info = new TrackInfo();
+        info.setId(id);
+        id = id.replace("spotify:", "");
+        String param1 = id.substring(0, id.indexOf(":"));
+        String param2 = id.substring(id.lastIndexOf(":") + 1);
         URL url = null;
         try {
-            url = new URL(thumb);
+            url = new URL("https://open.spotify.com/embed/" + param1 +"/" + param2);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return new TrackInfo(id, title, url);
+        //Retrieving the contents of the specified page
+        Scanner sc = null;
+        try {
+            sc = new Scanner(url.openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Instantiating the StringBuffer class to hold the result
+        StringBuffer sb = new StringBuffer();
+        while(sc.hasNext()) {
+            sb.append(sc.next()).append("\n");
+            //System.out.println(sc.next());
+        }
+        //Retrieving the String from the String Buffer object
+        String result = sb.toString();
+        //Removing the HTML tags
+        result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
+        int beg = result.indexOf("\"name\":") + 8;
+        info.setArtist(result.substring(beg, result.indexOf("\"",beg)).replace("\n", " "));
+        beg = result.lastIndexOf("\"name\":") + 8;
+        info.setName(result.substring(beg, result.indexOf("\"",beg)).replace("\n", " "));
+        beg = result.lastIndexOf("\"height\":300,\"url\":\"") + 20;
+        try {
+            info.setThumbnailURL(new URL(result.substring(beg, result.indexOf("\"",beg))));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        beg = result.lastIndexOf("\"dominantColor\":\"") + 17;
+        info.setDominantColor(Color.decode(result.substring(beg, result.indexOf("\"",beg))));
+        return info;
     }
 
     public static void main(String[] args) {
-        System.out.println(getTrackInfo("spotify:track:39Yp9wwQiSRIDOvrVg7mbk?context=spotify%3Aplaylist%3A37i9dQZF1DWY4xHQp97fN6"));
+        System.out.println(getTrackInfo("spotify:track:7MXVkk9YMctZqd1Srtv4MB"));
     }
 }
