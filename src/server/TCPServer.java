@@ -2,9 +2,7 @@ package server;
 
 import chatGUI.ChatPanel;
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
-import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -57,7 +55,6 @@ public class TCPServer
         startSender();
         System.out.println("Server is started!");
         log("Server Started");
-        SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
 
 
@@ -79,7 +76,6 @@ public class TCPServer
                 System.out.println("added");
                 log("added");
                 inStream.add(in);
-                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
                 try {
                         if (dos != null) {
                             dos.writeUTF(names.toString());
@@ -127,7 +123,6 @@ public class TCPServer
             }catch (SocketException e)
             {
                 outStreams.remove(i--);
-                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -137,12 +132,6 @@ public class TCPServer
     {
         sender.stop();
         reciver.stop();
-        try {
-            SpotifyParty.writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SpotifyPartyFrame.status.setLabel("Waiting");
         System.out.println("Server Stopped");
     }
     private void startSender()
@@ -168,13 +157,14 @@ public class TCPServer
     }
     private boolean log(String msg)
     {
-        if(SpotifyParty.writer != null) {
+        /*if(SpotifyParty.writer != null) {
             try {
                 SpotifyParty.writer.append(msg).append("\n");
             } catch (IOException e) {
                 return false;
             }
         }
+        return true;*/
         return true;
     }
 
