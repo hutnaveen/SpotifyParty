@@ -15,13 +15,11 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Arrays;
 
 import static gui.GUIUtil.makeButton;
@@ -29,20 +27,28 @@ import static gui.GUIUtil.resizeIcon;
 
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
+    public static Color color = new Color(40,40,40);
     public static JTextPane area;
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
-    public static ArrayList<String> names = new ArrayList<>();
+    public static HashSet<String> names = new HashSet<>();
     public static AbstractButton copy;
-
+    Border border = BorderFactory.createLineBorder(color, 1);
+    public static Chat chat  = new Chat();
     public static RoundJTextField type;
     private URL artworkURL;
+    JScrollPane areaScroll = new JScrollPane(area);
+
+    @Override
+    public void setBackground(Color bg) {
+        //super.setBackground(bg);
+    }
 
     public ChatPanel() {
         this.setLayout(null);
-        Border border = BorderFactory.createLineBorder(new Color(40, 40, 40), 1);
-
+        putClientProperty("Aqua.backgroundStyle", "vibrantDark");
+        area = new JTextPane();
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setBounds(40, 10, 195, 30);
@@ -90,9 +96,6 @@ public class ChatPanel extends JPanel {
         doc2.setParagraphAttributes(0, doc2.getLength(), center2, false);
         artist.setBounds(10, 540, 230, 17);
         this.add(artist);
-
-
-        area = new JTextPane();
         area.setBorder(border);
         area.setAutoscrolls(true);
         area.setEditable(false);
@@ -103,7 +106,6 @@ public class ChatPanel extends JPanel {
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
-        JScrollPane areaScroll = new JScrollPane(area);
         areaScroll.setBorder(border);
         areaScroll.setBackground(new Color(40, 40, 40));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
@@ -113,50 +115,49 @@ public class ChatPanel extends JPanel {
         RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 530, 380, 40);
         this.add(type);
-
-        ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/slice4.png")), 30, 30);
-        AbstractButton request = makeButton("", icon);
-        request.setBounds(650, 528, 50, 50);
-        Chat chat  = new Chat();
         this.add(chat);
-        request.addActionListener(e -> {
-            RequestTab requestTab;
-            try {
-                requestTab = new RequestTab(type.getText());
-                chat.addRequest(requestTab);
-            } catch (Exception ee) {
-                type.setText("INVALID URI");
-            }
-            type.setText("");
-        });
-        this.add(request);
+    }
+
+    public void setColor(Color c) {
+        System.out.println(c);
+        /*setBackground(c);
+        song.setBackground(c);
+        area.setBackground(c);
+        artist.setBackground(c);
+        areaScroll.setBackground(c);
+        color = c;
+        border = BorderFactory.createLineBorder(color, 1);
+        song.setBorder(border);
+        area.setBorder(border);
+        artist.setBorder(border);
+        areaScroll.setBorder(border);
+        repaint();*/
     }
 
     public static void addNames(String... name) {
         names.addAll(Arrays.asList(name));
-        String str = "";
-        for(int i = 0; i < names.size(); i++) {
-            str = str + (" " + names.get(i) + "\n\n");
+        StringBuilder str = new StringBuilder();
+        for(String num: names) {
+            if(!num.isBlank() && !num.isEmpty())
+                str.append(" ").append(num).append("\n\n");
         }
-        area.setText(str);
+        area.setText(str.toString());
     }
 
-    public void updateData(String trackID)
+    public TrackInfo updateData(String trackID)
     {
         TrackInfo inf = SpotifyUtils.getTrackInfo(trackID);
         artworkURL = inf.getThumbnailURL();
         song.setText(inf.getName());
-        artist.setText(api.getTrackArtist());
+        artist.setText(inf.getArtist());
+        setColor(inf.getDominantColor());
         repaint();
+        return inf;
     }
 
-    public void updateData()
+    public TrackInfo updateData()
     {
-        TrackInfo inf = SpotifyUtils.getTrackInfo(api.getTrackId());
-        artworkURL = inf.getThumbnailURL();
-        song.setText(inf.getName());
-        artist.setText(api.getTrackArtist());
-        repaint();
+        return updateData(api.getTrackId());
     }
     public static void setCode(String tcode)
     {
@@ -167,11 +168,11 @@ public class ChatPanel extends JPanel {
         super.paintComponent(g);
         try
         {
-            g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.setColor(new Color(40, 40, 40));
-            g.fillRect(0, 0, 250, 600);
+            //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
+           // g.setColor(this.getBackground());
+            g.fillRect(0, -100, 250, 700);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 15, 20, 20, this);
-            g.setColor(Color.WHITE);
+            //g.setColor(color.darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker());
             if(artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 70, 390, 115, 115, this);
         }
