@@ -1,5 +1,7 @@
 package chatGUI;
 
+import org.violetlib.aqua.AquaRootPaneUI;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +21,10 @@ public class SpotifyPartyFrameChat extends JFrame {
     public SpotifyPartyFrameChat()
     {
         super();
-        JFrame.setDefaultLookAndFeelDecorated(true);
+        AquaRootPaneUI ui = new AquaRootPaneUI();
+        getRootPane().setUI(ui);
+        getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
+        getRootPane().setBackground(new Color(50,50,50));
         toFront();
         initializeFrame();
         initializeTrayIcon();

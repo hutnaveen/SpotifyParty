@@ -33,12 +33,14 @@ public class GUIUtilsChat {
 }
 
 class RoundJTextField extends JTextField {
-    private Shape shape;
+    //private Shape shape;
     public RoundJTextField(int size) {
         super(size);
-        setOpaque(false); // As suggested by @AVD in comment.
+        putClientProperty("JTextField.style", "round");
+        putClientProperty("JComponent.sizeVariant", "regular");
+        //setOpaque(false); // As suggested by @AVD in comment.
     }
-    protected void paintComponent(Graphics g) {
+    /*protected void paintComponent(Graphics g) {
         g.setColor(getBackground());
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
         super.paintComponent(g);
@@ -52,7 +54,7 @@ class RoundJTextField extends JTextField {
             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
         }
         return shape.contains(x, y);
-    }
+    }*/
 }
 
 class RoundTextArea extends JTextArea {
