@@ -1,16 +1,16 @@
 package server;
 
 import chatGUI.ChatPanel;
-import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
-import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,10 +18,13 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
+import static chatGUI.ChatPanel.names;
+
 public class TCPServer
 {
     private final SpotifyPlayerAPI api;
-    private final ArrayList<DataOutputStream> streams = new ArrayList<>();
+    private  ArrayList<DataOutputStream> outStreams = new ArrayList<>();
+    private ArrayList<DataInputStream> inStream;
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
@@ -50,7 +53,7 @@ public class TCPServer
         }
        //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
-        startReceiver();
+        startConnector();
         startSender();
         System.out.println("Server is started!");
         log("Server Started");
@@ -58,48 +61,72 @@ public class TCPServer
     }
 
 
-    private void startReceiver()
+    private void startConnector()
     {
         reciver = new Thread(() -> {
             while (true) {
                 //if client not added to list of clients add it
                 Socket s = null;
                 DataOutputStream dos = null;
+                DataInputStream in = null;
                 try {
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
+                    in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 System.out.println("added");
                 log("added");
-              streams.add(dos);
-                SpotifyPartyFrame.status.setLabel("Guests: " + streams.size());
+                outStreams.add(dos);
+                inStream.add(in);
+                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
                 try {
                         if (dos != null) {
-                            dos.writeUTF(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+                            dos.writeUTF(names.toString());
                         }
-                    } catch (SpotifyException e) {
-                        e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
+                try {
+                    String it = in.readUTF();
+                    ChatPanel.addNames(it);
+                    sendToClients("usr " + it);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         reciver.start();
     }
+    private void startReceiver()
+    {
+        String str[] = null;
+        while (true) {
+            for (DataInputStream s : inStream) {
+                try {
+                    str = s.readUTF().split(" ");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                // TODO: 6/23/20
+                if(str[0].equals("message")){
+                    sendToClients("message " +str[1]);
+                }
+            }
+        }
+    }
     private void sendToClients(String msg)
     {
-        for(int i = 0; i < streams.size(); i++)
+        for(int i = 0; i < outStreams.size(); i++)
         {
             try
             {
-                streams.get(i).writeUTF(msg);
+                outStreams.get(i).writeUTF(msg);
             }catch (SocketException e)
             {
-                streams.remove(i--);
-                SpotifyPartyFrame.status.setLabel("Guests: " + streams.size());
+                outStreams.remove(i--);
+                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
             } catch (IOException e) {
                 e.printStackTrace();
             }
