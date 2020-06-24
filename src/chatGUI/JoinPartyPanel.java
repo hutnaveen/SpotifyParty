@@ -73,7 +73,7 @@ public class JoinPartyPanel extends JPanel {
         super.paintComponent(g);
         try
         {
-            g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
+            //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 10, 40, 40, this);
         }
         catch (Exception e)
