@@ -60,9 +60,48 @@ class RoundJTextField extends JTextField {
         setFont(new Font("CircularSpUIv3T-Light",Font.BOLD, 20));
         setPreferredSize(new Dimension(40, 40));
         putClientProperty("JTextComponent.selectContentOnFocusGained", "true");
-        setBackground(Color.WHITE);
-        setForeground(Color.BLACK);
         setOpaque(false); // As suggested by @AVD in comment.
+        addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.isMetaDown() && e.getKeyCode() == KeyEvent.VK_V)
+                {
+                }
+               else  if(isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE && get().isEmpty()|| get().isBlank())
+                {
+                    e.consume();
+                    setText(" ");
+                    setCaretPosition(1);
+                }
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(isEditable() && get().isEmpty()|| get().isBlank())
+                {
+                    e.consume();
+                    setText(" ");
+                    setCaretPosition(1);
+                }
+            }
+        });
+
+    }
+    private String get()
+    {
+        return super.getText();
+    }
+    @Override
+    public String getText() {
+        return super.getText().trim();
+    }
+    @Override
+    public void setText(String text) {
+        super.setText(" " + text.trim());
     }
     protected void paintComponent(Graphics g) {
         g.setColor(getBackground());
