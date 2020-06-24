@@ -1,6 +1,7 @@
 package client;
 
 import chatGUI.ChatPanel;
+import chatGUI.JoinPartyPanel;
 import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
@@ -9,6 +10,7 @@ import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -20,6 +22,7 @@ public class TCPClient
     private SpotifyPlayerAPI api;
     private boolean autoPause = false;
     private DataInputStream dis;
+    private DataOutputStream dos;
     private Thread updater;
     private Thread tempUpdate;
     public TCPClient(String serverIP, int serverPort)
@@ -29,10 +32,22 @@ public class TCPClient
             InetAddress ip = InetAddress.getByName(serverIP);
             Socket s = new Socket(ip, serverPort);
             dis = new DataInputStream(s.getInputStream());
+            dos = new DataOutputStream(s.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
         SpotifyPartyFrame.status.setLabel("Connected!");
+        try {
+            String names = dis.readUTF().replace("[", "").replace("]", "");
+            ChatPanel.addNames(names.split(","));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            dos.writeUTF(JoinPartyPanel.name.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         trackUpdater();
     }
     public void quit()
@@ -48,36 +63,37 @@ public class TCPClient
     }
     private void trackUpdater() {
         updater = new Thread(() -> {
-
             while (true) {
-
-                String[] playerData = new String[0];
+                String[] playerData = null;
                 try {
                     playerData = dis.readUTF().split(" ");
                 } catch (java.io.EOFException e) {
-                    e.printStackTrace();
                     quit();
+                    System.exit(-2);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                try {
+                if (playerData[0].equals("usr")) {
+                    ChatPanel.addNames(playerData[1]);
+                } else {
+                    try {
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
                         log((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
                         long t = Long.parseLong(playerData[2].trim());
-                    String[] finalPlayerData = playerData;
-                    if(tempUpdate != null) {
-                        tempUpdate.stop();
-                        tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
-                        tempUpdate.start();
-                    }else
-                    {
-                        tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
-                        tempUpdate.start();
-                    }
+                        String[] finalPlayerData = playerData;
+                        if (tempUpdate != null) {
+                            tempUpdate.stop();
+                            tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                            tempUpdate.start();
+                        } else {
+                            tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                            tempUpdate.start();
+                        }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

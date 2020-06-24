@@ -20,6 +20,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
@@ -122,8 +123,8 @@ public class ChatPanel extends JPanel {
         this.add(areaScroll);
     }
 
-    public static void addNames(String name) {
-        names.add(name);
+    public static void addNames(String... name) {
+        names.addAll(Arrays.asList(name));
         String str = "";
         for(int i = 0; i < names.size(); i++) {
             str = str + (" " + names.get(i) + "\n\n");
