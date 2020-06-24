@@ -115,7 +115,8 @@ public class TCPClient
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
                         TrackInfo m = SpotifyPartyPanelChat.chatPanel.updateData(trackID);
-                        SpotifyPartyPanelChat.chatPanel.setColor(m.getDominantColor());
+                        //everthing else
+                        SpotifyPartyPanelChat.chatPanel.setColor(m.getDominantColor().darker());
                         ChatPanel.chat.setBackground(m.getDominantColor());
                     if (!tempPlaying)
                             api.play();

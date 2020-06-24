@@ -28,7 +28,7 @@ import static gui.GUIUtil.resizeIcon;
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static Color color = new Color(40,40,40);
-    public static JTextPane area;
+    public static JTextPane area = new JTextPane();
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
@@ -89,8 +89,6 @@ public class ChatPanel extends JPanel {
         doc2.setParagraphAttributes(0, doc2.getLength(), center2, false);
         artist.setBounds(10, 540, 230, 17);
         this.add(artist);
-
-        area = new JTextPane();
         area.setBorder(border);
         area.setAutoscrolls(true);
         area.setEditable(false);
@@ -118,9 +116,13 @@ public class ChatPanel extends JPanel {
         song.setBackground(c);
         area.setBackground(c);
         artist.setBackground(c);
-        //areaScroll.setBackground(c);
+        areaScroll.setBackground(c);
         color = c;
         border = BorderFactory.createLineBorder(color, 1);
+        song.setBorder(border);
+        area.setBorder(border);
+        artist.setBorder(border);
+        areaScroll.setBorder(border);
         repaint();
     }
 
@@ -139,7 +141,8 @@ public class ChatPanel extends JPanel {
         TrackInfo inf = SpotifyUtils.getTrackInfo(trackID);
         artworkURL = inf.getThumbnailURL();
         song.setText(inf.getName());
-        artist.setText(api.getTrackArtist());
+        artist.setText(inf.getArtist());
+        setColor(inf.getDominantColor());
         repaint();
         return inf;
     }
@@ -161,7 +164,7 @@ public class ChatPanel extends JPanel {
             g.setColor(this.getBackground());
             g.fillRect(0, 0, 250, 600);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 15, 20, 20, this);
-            g.setColor(Color.WHITE);
+            //g.setColor(color.darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker());
             if(artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 70, 390, 115, 115, this);
         }

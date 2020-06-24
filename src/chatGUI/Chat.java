@@ -11,7 +11,7 @@ public class Chat extends JPanel implements Scrollable {
         this.setLayout(null);
 
         this.setLocation(250, 0);
-        this.setSize(450, 520);
+        this.setSize(450, 600);
 
         RequestTab request = new RequestTab("Bla");
         request.setBounds(10, 10, 430, 80);
