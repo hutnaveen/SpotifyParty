@@ -51,39 +51,13 @@ public class SpotifyUtils{
         }
         beg = result.lastIndexOf("\"dominantColor\":\"") + 17;
         info.setDominantColor(Color.decode(result.substring(beg, result.indexOf("\"",beg))));
+        beg = result.lastIndexOf("\"popularity\":") + 13;
+        info.setPopularity(Integer.parseInt(result.substring(beg, result.indexOf(",",beg))));
         return info;
     }
 
     public static void main(String[] args) {
         String id = "spotify:track:0oT9ElXYSxvnOOagP9efDq";
-        TrackInfo info = new TrackInfo();
-        info.setId(id);
-        id = id.replace("spotify:", "");
-        String param1 = id.substring(0, id.indexOf(":"));
-        String param2 = id.substring(id.lastIndexOf(":") + 1);
-        URL url = null;
-        try {
-            url = new URL("https://open.spotify.com/embed/" + param1 +"/" + param2);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        //Retrieving the contents of the specified page
-        Scanner sc = null;
-        try {
-            sc = new Scanner(url.openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //Instantiating the StringBuffer class to hold the result
-        StringBuffer sb = new StringBuffer();
-        while(sc.hasNext()) {
-            sb.append(sc.next()).append("\n");
-            //System.out.println(sc.next());
-        }
-        //Retrieving the String from the String Buffer object
-        String result = sb.toString();
-        //Removing the HTML tags
-        result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
-        System.out.println(result);
+        System.out.println(getTrackInfo(id));
     }
 }
