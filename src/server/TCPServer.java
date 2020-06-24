@@ -78,7 +78,6 @@ public class TCPServer
                 }
                 System.out.println("added");
                 log("added");
-                outStreams.add(dos);
                 inStream.add(in);
                 SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
                 try {
@@ -91,7 +90,9 @@ public class TCPServer
                 try {
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
+                    System.out.println(it);
                     sendToClients("usr " + it);
+                    outStreams.add(dos);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

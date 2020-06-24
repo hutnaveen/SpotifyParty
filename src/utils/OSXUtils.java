@@ -1,9 +1,11 @@
 package utils;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 
 public class OSXUtils {
 
@@ -44,6 +46,18 @@ public class OSXUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static boolean isDark(JComponent c) {
+        Object o = c.getClientProperty("Aqua.appearance");
+        if (o != null) {
+            try {
+                Method m = o.getClass().getMethod("isDark");
+                Object result = m.invoke(o);
+                return Boolean.TRUE.equals(result);
+            } catch (Exception ex) {
+            }
+        }
+        return false;
     }
 
 }

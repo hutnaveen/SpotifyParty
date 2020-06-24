@@ -7,6 +7,7 @@ import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
+import model.TrackInfo;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.io.DataInputStream;
@@ -38,13 +39,14 @@ public class TCPClient
         }
         SpotifyPartyFrame.status.setLabel("Connected!");
         try {
-            String names = dis.readUTF().replace("[", "").replace("]", "");
-            ChatPanel.addNames(names.split(","));
+            dos.writeUTF(JoinPartyPanel.name.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            dos.writeUTF(JoinPartyPanel.name.getText());
+            String names = dis.readUTF().replace("[", "").replace("]", "");
+            ChatPanel.addNames(names.split(", "));
+            System.out.println(names);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,8 +115,11 @@ public class TCPClient
                 } else {
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
-                        SpotifyPartyPanelChat.chatPanel.updateData(trackID);
-                        if (!tempPlaying)
+                        TrackInfo m = SpotifyPartyPanelChat.chatPanel.updateData(trackID);
+                        //everthing else
+                        SpotifyPartyPanelChat.chatPanel.setColor(m.getDominantColor().darker());
+                        ChatPanel.chat.setBackground(m.getDominantColor());
+                    if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
                         log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);

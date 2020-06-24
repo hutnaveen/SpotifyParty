@@ -14,7 +14,9 @@ public class SpotifyPartyFrame extends JFrame {
     public static MenuItem status = new MenuItem("Welcome!");
     public SpotifyPartyFrame()
     {
-        super("SpotifyParty!");
+        super("");
+        getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
+        getRootPane().setBackground(new Color(40,40,40));
         initializeFrame();
         initializeTrayIcon();
     }
