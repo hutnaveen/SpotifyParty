@@ -88,14 +88,12 @@ public class TCPServer
                         e.printStackTrace();
                     }
                 try {
-                    Thread.sleep(2000);
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
+                    System.out.println(it);
                     sendToClients("usr " + it);
                     outStreams.add(dos);
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
