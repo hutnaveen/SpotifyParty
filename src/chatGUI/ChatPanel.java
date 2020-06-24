@@ -119,6 +119,7 @@ public class ChatPanel extends JPanel {
     }
 
     public void setColor(Color c) {
+        System.out.println(c);
         /*setBackground(c);
         song.setBackground(c);
         area.setBackground(c);
