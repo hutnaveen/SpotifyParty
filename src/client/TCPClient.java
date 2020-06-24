@@ -38,13 +38,13 @@ public class TCPClient
         }
         SpotifyPartyFrame.status.setLabel("Connected!");
         try {
-            String names = dis.readUTF().replace("[", "").replace("]", "");
-            ChatPanel.addNames(names.split(","));
+            dos.writeUTF(JoinPartyPanel.name.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            dos.writeUTF(JoinPartyPanel.name.getText());
+            String names = dis.readUTF().replace("[", "").replace("]", "");
+            ChatPanel.addNames(names.split(","));
         } catch (IOException e) {
             e.printStackTrace();
         }
