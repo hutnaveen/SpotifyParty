@@ -1,12 +1,18 @@
 package chatGUI;
 
+import gui.SpotifyPartyPanel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
-import static gui.GUIUtil.makeButton;
+import static chatGUI.GUIUtilsChat.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
 public class JoinPartyPanel extends JPanel {
@@ -22,12 +28,20 @@ public class JoinPartyPanel extends JPanel {
         this.setLayout(null);
 
         ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/slice4.png")), 200, 70);
-        enter = makeButton("", icon);
+        enter = makeButton("ENTER");
         enter.setBounds(250, 325,200, 70);
         this.add(enter);
 
         JLabel text = new JLabel("Join Party", SwingConstants.CENTER);
-        text.setFont(new Font("Proxima Nova", Font.BOLD, 50));
+        try {
+            GraphicsEnvironment ge =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/CircularSpUIv3T-Bold.7eb7d0f7.ttf").getFile())));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/CircularSpUIv3T-Light.89e4be2e.ttf").getFile())));
+        } catch (IOException |FontFormatException e) {
+            //Handle exception
+        }
+        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 70));
         text.setForeground(Color.WHITE);
         text.setBounds(150, 145, 400, 100);
         this.add(text);
@@ -48,7 +62,6 @@ public class JoinPartyPanel extends JPanel {
         });
         code.setBounds(355, 250, 200, 50);
         this.add(code);
-
         name = new RoundJTextField(200);
         name.setForeground(Color.GRAY);
         name.setText("Name");
@@ -58,13 +71,16 @@ public class JoinPartyPanel extends JPanel {
                 if(one) {
                     super.mousePressed(e);
                     name.setForeground(Color.BLACK);
-                    name.setText("");
                     one = !one;
                 }
             }
         });
         name.setBounds(145, 250, 200, 50);
         this.add(name);
+        name.setSelectionEnd(0);
+        code.setSelectionEnd(0);
+        if(SpotifyPartyFrameChat.trayIcon != null)
+            SpotifyPartyFrameChat.trayIcon.displayMessage("yo whats popsin", "oh fuck shits ugly", TrayIcon.MessageType.NONE);
     }
 
     public AbstractButton getEnter() {return enter;}
@@ -74,7 +90,8 @@ public class JoinPartyPanel extends JPanel {
         try
         {
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 10, 40, 40, this);
+            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 27, 40, 40, this);
+            SpotifyPartyFrameChat.trayIcon.displayMessage("yo whats popsin", "oh fuck shits ugly", TrayIcon.MessageType.WARNING);
         }
         catch (Exception e)
         {
