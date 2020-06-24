@@ -107,7 +107,7 @@ public class ChatPanel extends JPanel {
         areaScroll.setBounds(25, 110, 200, 250);
         this.add(areaScroll);
 
-        type = new RoundJTextField(380);
+        RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 530, 380, 40);
         this.add(type);
 
@@ -123,7 +123,6 @@ public class ChatPanel extends JPanel {
         }
         area.setText(str);
     }
-
 
     public void updateData(String trackID)
     {
@@ -158,8 +157,6 @@ public class ChatPanel extends JPanel {
             g.setColor(Color.WHITE);
             if(artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 70, 390, 115, 115, this);
-            //g.drawLine(30, 90, 220, 90);
-            //g.drawLine(30, 370, 220, 370);
         }
         catch (Exception e)
         {

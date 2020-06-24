@@ -4,12 +4,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
-public class Chat extends JPanel implements Scrollable{
+public class Chat extends JPanel implements Scrollable {
+
 
     public Chat() {
+        this.setLayout(null);
+
         this.setLocation(250, 0);
         this.setSize(450, 520);
 
+        RequestTab request = new RequestTab("Bla");
+        request.setBounds(10, 10, 430, 80);
+        this.add(request);
 
     }
 
@@ -32,12 +38,12 @@ public class Chat extends JPanel implements Scrollable{
 
     @Override
     public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 100;
+        return 0;
     }
 
     @Override
     public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 100;
+        return 0;
     }
 
     @Override
