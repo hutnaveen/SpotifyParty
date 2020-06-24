@@ -4,19 +4,20 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class Chat extends JPanel implements Scrollable {
-
-
+    private int size = 0;
     public Chat() {
         this.setLayout(null);
 
         this.setLocation(250, 0);
         this.setSize(450, 520);
+    }
 
-        RequestTab request = new RequestTab("Bla");
-        request.setBounds(10, 10, 430, 80);
-        this.add(request);
-
+    public void addRequest(JPanel pane)
+    {
+        pane.setBounds(10, 10 + size++ *85, 430, 80);
+        this.add(pane);
     }
 
     public void paintComponent(Graphics g) {
@@ -30,6 +31,7 @@ public class Chat extends JPanel implements Scrollable {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public Dimension getPreferredScrollableViewportSize() {

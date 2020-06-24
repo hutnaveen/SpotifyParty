@@ -15,6 +15,8 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -112,8 +114,22 @@ public class ChatPanel extends JPanel {
         type.setBounds(260, 530, 380, 40);
         this.add(type);
 
+        ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/slice4.png")), 30, 30);
+        AbstractButton request = makeButton("", icon);
+        request.setBounds(650, 528, 50, 50);
         Chat chat  = new Chat();
         this.add(chat);
+        request.addActionListener(e -> {
+            RequestTab requestTab;
+            try {
+                requestTab = new RequestTab(type.getText());
+                chat.addRequest(requestTab);
+            } catch (Exception ee) {
+                type.setText("INVALID URI");
+            }
+            type.setText("");
+        });
+        this.add(request);
     }
 
     public static void addNames(String... name) {
