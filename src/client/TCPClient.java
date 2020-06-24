@@ -45,7 +45,8 @@ public class TCPClient
         }
         try {
             String names = dis.readUTF().replace("[", "").replace("]", "");
-            ChatPanel.addNames(names.split(","));
+            ChatPanel.addNames(names.split(", "));
+            System.out.println(names);
         } catch (IOException e) {
             e.printStackTrace();
         }
