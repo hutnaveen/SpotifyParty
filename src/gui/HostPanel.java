@@ -66,7 +66,7 @@ public class HostPanel extends JPanel {
         super.paintComponent(g);
         try
         {
-            g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 400, 250, this);
+            //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 400, 250, this);
         }catch (Exception e)
         {
             e.printStackTrace();

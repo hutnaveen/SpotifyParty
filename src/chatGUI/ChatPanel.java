@@ -27,19 +27,21 @@ import static gui.GUIUtil.resizeIcon;
 
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
+    public static Color color = new Color(40,40,40);
     public static JTextPane area;
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
     public static HashSet<String> names = new HashSet<>();
     public static AbstractButton copy;
-
+    Border border = BorderFactory.createLineBorder(color, 1);
+    public static Chat chat  = new Chat();
     public static RoundJTextField type;
     private URL artworkURL;
+    JScrollPane areaScroll = new JScrollPane(area);
 
     public ChatPanel() {
         this.setLayout(null);
-        Border border = BorderFactory.createLineBorder(new Color(40, 40, 40), 1);
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setBounds(40, 10, 195, 30);
@@ -99,7 +101,6 @@ public class ChatPanel extends JPanel {
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
-        JScrollPane areaScroll = new JScrollPane(area);
         areaScroll.setBorder(border);
         areaScroll.setBackground(new Color(40, 40, 40));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
@@ -109,13 +110,18 @@ public class ChatPanel extends JPanel {
         RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 530, 380, 40);
         this.add(type);
-
-        Chat chat  = new Chat();
         this.add(chat);
     }
 
     public void setColor(Color c) {
         setBackground(c);
+        song.setBackground(c);
+        area.setBackground(c);
+        artist.setBackground(c);
+        //areaScroll.setBackground(c);
+        color = c;
+        border = BorderFactory.createLineBorder(color, 1);
+        repaint();
     }
 
     public static void addNames(String... name) {
@@ -151,8 +157,8 @@ public class ChatPanel extends JPanel {
         super.paintComponent(g);
         try
         {
-            g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.setColor(new Color(40, 40, 40));
+            //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
+            g.setColor(this.getBackground());
             g.fillRect(0, 0, 250, 600);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 15, 20, 20, this);
             g.setColor(Color.WHITE);

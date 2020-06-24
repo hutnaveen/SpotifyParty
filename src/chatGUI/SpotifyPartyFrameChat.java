@@ -19,6 +19,7 @@ public class SpotifyPartyFrameChat extends JFrame {
     public SpotifyPartyFrameChat()
     {
         super();
+        toFront();
         initializeFrame();
         initializeTrayIcon();
     }
