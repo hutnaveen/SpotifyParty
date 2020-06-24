@@ -22,9 +22,9 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     TCPServer server;
 
-    public String name;
+    /*public String name;
     public String code;
-    private Object TCPServer;
+    private Object TCPServer;*/
 
     public SpotifyPartyPanelChat() {
         super();
@@ -72,7 +72,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 ChatPanel.addNames(JoinPartyPanel.name.getText());
                 TCPClient cli = new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
-                SpotifyPartyPanelChat.chatPanel.updateData();
+                chatPanel.updateData();
                 ChatPanel.setCode(x);
             } else {
                 JoinPartyPanel.two = true;

@@ -23,7 +23,7 @@ public class Chat extends JPanel implements Scrollable {
         super.paintComponent(g);
         try
         {
-            g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
+            //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
         }
         catch (Exception e)
         {

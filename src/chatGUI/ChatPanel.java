@@ -19,7 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Arrays;
 
 import static gui.GUIUtil.makeButton;
@@ -31,7 +31,7 @@ public class ChatPanel extends JPanel {
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
-    public static ArrayList<String> names = new ArrayList<>();
+    public static HashSet<String> names = new HashSet<>();
     public static AbstractButton copy;
 
     public static RoundJTextField type;
@@ -40,7 +40,6 @@ public class ChatPanel extends JPanel {
     public ChatPanel() {
         this.setLayout(null);
         Border border = BorderFactory.createLineBorder(new Color(40, 40, 40), 1);
-
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setBounds(40, 10, 195, 30);
@@ -89,7 +88,6 @@ public class ChatPanel extends JPanel {
         artist.setBounds(10, 540, 230, 17);
         this.add(artist);
 
-
         area = new JTextPane();
         area.setBorder(border);
         area.setAutoscrolls(true);
@@ -116,31 +114,32 @@ public class ChatPanel extends JPanel {
         this.add(chat);
     }
 
-    public static void addNames(String... name) {
-        names.addAll(Arrays.asList(name));
-        String str = "";
-        for(int i = 0; i < names.size(); i++) {
-            str = str + (" " + names.get(i) + "\n\n");
-        }
-        area.setText(str);
+    public void setColor(Color c) {
+        setBackground(c);
     }
 
-    public void updateData(String trackID)
+    public static void addNames(String... name) {
+        names.addAll(Arrays.asList(name));
+        StringBuilder str = new StringBuilder();
+        for(String num: names) {
+            str.append(" ").append(num).append("\n\n");
+        }
+        area.setText(str.toString());
+    }
+
+    public TrackInfo updateData(String trackID)
     {
         TrackInfo inf = SpotifyUtils.getTrackInfo(trackID);
         artworkURL = inf.getThumbnailURL();
         song.setText(inf.getName());
         artist.setText(api.getTrackArtist());
         repaint();
+        return inf;
     }
 
-    public void updateData()
+    public TrackInfo updateData()
     {
-        TrackInfo inf = SpotifyUtils.getTrackInfo(api.getTrackId());
-        artworkURL = inf.getThumbnailURL();
-        song.setText(inf.getName());
-        artist.setText(api.getTrackArtist());
-        repaint();
+        return updateData(api.getTrackId());
     }
     public static void setCode(String tcode)
     {
