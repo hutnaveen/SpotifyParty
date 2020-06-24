@@ -28,7 +28,7 @@ import static gui.GUIUtil.resizeIcon;
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static Color color = new Color(40,40,40);
-    public static JTextPane area = new JTextPane();
+    public static JTextPane area;
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
@@ -40,8 +40,15 @@ public class ChatPanel extends JPanel {
     private URL artworkURL;
     JScrollPane areaScroll = new JScrollPane(area);
 
+    @Override
+    public void setBackground(Color bg) {
+        //super.setBackground(bg);
+    }
+
     public ChatPanel() {
         this.setLayout(null);
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
+        area = new JTextPane();
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setBounds(40, 10, 195, 30);
@@ -112,7 +119,7 @@ public class ChatPanel extends JPanel {
     }
 
     public void setColor(Color c) {
-        setBackground(c);
+        /*setBackground(c);
         song.setBackground(c);
         area.setBackground(c);
         artist.setBackground(c);
@@ -123,7 +130,7 @@ public class ChatPanel extends JPanel {
         area.setBorder(border);
         artist.setBorder(border);
         areaScroll.setBorder(border);
-        repaint();
+        repaint();*/
     }
 
     public static void addNames(String... name) {
@@ -161,8 +168,8 @@ public class ChatPanel extends JPanel {
         try
         {
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.setColor(this.getBackground());
-            g.fillRect(0, 0, 250, 600);
+           // g.setColor(this.getBackground());
+            g.fillRect(0, -100, 250, 700);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 15, 20, 20, this);
             //g.setColor(color.darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker());
             if(artworkURL != null)

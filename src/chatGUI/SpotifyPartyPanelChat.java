@@ -28,7 +28,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
     public SpotifyPartyPanelChat() {
         super();
-
         ChatPanel.code.setText("");
         this.setLayout(cl);
         this.add(joinPartyPanel, "joinPanel");
