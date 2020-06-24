@@ -47,7 +47,7 @@ public class ChatPanel extends JPanel {
 
     public ChatPanel() {
         this.setLayout(null);
-        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
+        putClientProperty("Aqua.backgroundStyle", "vibrantDark");
         area = new JTextPane();
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);

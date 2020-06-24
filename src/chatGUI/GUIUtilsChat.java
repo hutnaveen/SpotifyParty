@@ -3,7 +3,15 @@ package chatGUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
 
 public class GUIUtilsChat {
     public static AbstractButton makeButton(String title, ImageIcon icon) {
@@ -24,6 +32,14 @@ public class GUIUtilsChat {
             }
         };
     }
+    public static JButton makeButton(String title)
+    {
+        JButton button = new JButton(title);
+        button.setFont(new Font("CircularSpUIv3T-Light", Font.PLAIN, 30));
+        button.setForeground(new Color(30, 215, 96));
+        return button;
+    }
+
     public static ImageIcon resizeIcon(ImageIcon in, int width, int height)
     {
         Image img = in.getImage();
@@ -36,11 +52,56 @@ class RoundJTextField extends JTextField {
     private Shape shape;
     public RoundJTextField(int size) {
         putClientProperty("JComponent.sizeVariant", "large");
-        putClientProperty("JTextField.style", "");
+        putClientProperty("Aqua.useFocusRing", "false");
+        setBorder(null);
+        setOpaque(true);
+        putClientProperty("JTextField.style", "round");
         setColumns(size);
+        setFont(new Font("CircularSpUIv3T-Light",Font.BOLD, 20));
         setPreferredSize(new Dimension(40, 40));
-        putClientProperty("JTextComponent.selectContentOnFocusGained", "false");
+        putClientProperty("JTextComponent.selectContentOnFocusGained", "true");
         setOpaque(false); // As suggested by @AVD in comment.
+        addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.isMetaDown() && e.getKeyCode() == KeyEvent.VK_V)
+                {
+                }
+               else  if(isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE && get().isEmpty()|| get().isBlank())
+                {
+                    e.consume();
+                    setText(" ");
+                    setCaretPosition(1);
+                }
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(isEditable() && get().isEmpty()|| get().isBlank())
+                {
+                    e.consume();
+                    setText(" ");
+                    setCaretPosition(1);
+                }
+            }
+        });
+
+    }
+    private String get()
+    {
+        return super.getText();
+    }
+    @Override
+    public String getText() {
+        return super.getText().trim();
+    }
+    @Override
+    public void setText(String text) {
+        super.setText(" " + text.trim());
     }
     protected void paintComponent(Graphics g) {
         g.setColor(getBackground());
@@ -64,7 +125,46 @@ class RoundTextArea extends JTextArea {
     public RoundTextArea() {
         super();
         setOpaque(true); // As suggested by @AVD in comment.
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE && get().isEmpty()|| get().isBlank())
+                {
+                    System.out.println("up");
+                    e.consume();
+                    setText(" ");
+                    moveCaretPosition(1);
+                }
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(isEditable() && get().isEmpty()|| get().isBlank())
+                {
+                    e.consume();
+                    setText(" ");
+                    moveCaretPosition(1);
+                }
+            }
+        });
+
     }
+    private String get()
+    {
+       return super.getText();
+    }
+    @Override
+    public String getText() {
+        return super.getText().trim();
+    }
+    @Override
+    public void setText(String text) {
+        super.setText(" " + text);
+    }
+
     protected void paintComponent(Graphics g) {
         g.setColor(getBackground());
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
