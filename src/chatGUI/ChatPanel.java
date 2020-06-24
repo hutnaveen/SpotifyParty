@@ -122,7 +122,8 @@ public class ChatPanel extends JPanel {
         names.addAll(Arrays.asList(name));
         StringBuilder str = new StringBuilder();
         for(String num: names) {
-            str.append(" ").append(num).append("\n\n");
+            if(!num.isBlank() && !num.isEmpty())
+                str.append(" ").append(num).append("\n\n");
         }
         area.setText(str.toString());
     }
