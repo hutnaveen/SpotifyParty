@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 
-public class Chat extends JPanel implements Scrollable {
+public class Chat extends JPanel {
     private int size = 0;
     private JScrollPane scroll;
 
@@ -27,9 +27,7 @@ public class Chat extends JPanel implements Scrollable {
     public void addRequest(JPanel pane)
     {
         pane.setBounds(10, 10 + size++ *85, 430, 80);
-        //this.add(pane);
         scroll.add(pane);
-        //scroll.revalidate();
     }
 
     public void paintComponent(Graphics g) {
@@ -42,31 +40,5 @@ public class Chat extends JPanel implements Scrollable {
         {
             e.printStackTrace();
         }
-    }
-
-
-    @Override
-    public Dimension getPreferredScrollableViewportSize() {
-        return null;
-    }
-
-    @Override
-    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 0;
-    }
-
-    @Override
-    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 0;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportWidth() {
-        return false;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportHeight() {
-        return false;
     }
 }
