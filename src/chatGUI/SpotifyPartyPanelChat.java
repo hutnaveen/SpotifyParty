@@ -20,6 +20,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
     public  static ChatPanel chatPanel = new ChatPanel();
     public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
+
+    public static boolean host;
     TCPServer server;
 
     /*public String name;
@@ -47,17 +49,20 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("join")) {
+            host = false;
             spfc.setVisible(true);
             cl.show(this, "joinPanel");
 
         }
         else if (e.getActionCommand().equals("hostLocal")) {
+            host = true;
             local = true;
             server = new TCPServer(false);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
         }
         else if(e.getActionCommand().equals("hostPublic")) {
+            host = true;
             local = true;
             server = new TCPServer(true);
             spfc.setVisible(true);
