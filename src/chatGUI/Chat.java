@@ -2,22 +2,34 @@ package chatGUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 
 public class Chat extends JPanel implements Scrollable {
     private int size = 0;
+    private JScrollPane scroll;
+
     public Chat() {
         this.setLayout(null);
 
         this.setLocation(250, 0);
         this.setSize(450, 520);
+
+        scroll = new JScrollPane();
+        scroll.setBounds(0, 0, 450, 520);
+        scroll.setBorder(new EmptyBorder(0,0,0,0));
+        scroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 520));
+        this.add(scroll);
+        revalidate();
     }
 
     public void addRequest(JPanel pane)
     {
         pane.setBounds(10, 10 + size++ *85, 430, 80);
-        this.add(pane);
+        //this.add(pane);
+        scroll.add(pane);
+        //scroll.revalidate();
     }
 
     public void paintComponent(Graphics g) {

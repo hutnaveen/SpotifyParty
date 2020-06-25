@@ -16,6 +16,8 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -35,7 +37,6 @@ public class ChatPanel extends JPanel {
     public static RoundJTextField code;
     public static HashSet<String> names = new HashSet<>();
     public static AbstractButton copy;
-    Border border = BorderFactory.createLineBorder(color, 1);
     public static Chat chat  = new Chat();
     public static RoundJTextField type;
     private URL artworkURL;
@@ -121,7 +122,28 @@ public class ChatPanel extends JPanel {
 
         RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 550, 380, 40);
+        type.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                type.setText("");
+            }
+        });
         this.add(type);
+
+        ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
+        AbstractButton play = makeButton("", playIcon);
+        play.setBounds(650, 550, 40, 40);
+        play.addActionListener(e -> {
+            try {
+                RequestTab tab = new RequestTab(type.getText());
+                ChatPanel.chat.addRequest(tab);
+                type.setText("");
+            } catch (Exception e1) {
+                type.setText("INVALID URI");
+            }
+        });
+        this.add(play);
+
         this.add(chat);
     }
 
