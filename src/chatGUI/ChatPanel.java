@@ -25,8 +25,9 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Arrays;
 
-import static gui.GUIUtil.makeButton;
-import static gui.GUIUtil.resizeIcon;
+import static chatGUI.GUIUtilsChat.makeButton;
+import static chatGUI.GUIUtilsChat.resizeIcon;
+
 
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
