@@ -45,11 +45,9 @@ public class SpotifyPartyPanel extends JPanel implements ActionListener{
         if(e.getActionCommand().equals("h"))
         {
             cl.show(this, "guest");
-            trayIcon.displayMessage("yo", "Started ripping " , TrayIcon.MessageType.INFO);
         }
         else if(e.getActionCommand().equals("j"))
         {
-            trayIcon.displayMessage("yo", "Started ripping " , TrayIcon.MessageType.INFO);
             cl.show(this, "host");
             starter = new Thread(() -> {
                 SpotifyPartyPanel.host.setCode("Whats popin");

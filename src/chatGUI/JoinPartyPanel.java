@@ -1,12 +1,10 @@
 package chatGUI;
 
-import gui.SpotifyPartyPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -79,8 +77,7 @@ public class JoinPartyPanel extends JPanel {
         this.add(name);
         name.setSelectionEnd(0);
         code.setSelectionEnd(0);
-        if(SpotifyPartyFrameChat.trayIcon != null)
-            SpotifyPartyFrameChat.trayIcon.displayMessage("yo whats popsin", "oh fuck shits ugly", TrayIcon.MessageType.NONE);
+
     }
 
     public AbstractButton getEnter() {return enter;}
@@ -91,7 +88,6 @@ public class JoinPartyPanel extends JPanel {
         {
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 27, 40, 40, this);
-            SpotifyPartyFrameChat.trayIcon.displayMessage("yo whats popsin", "oh fuck shits ugly", TrayIcon.MessageType.WARNING);
         }
         catch (Exception e)
         {
