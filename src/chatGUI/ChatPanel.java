@@ -136,7 +136,7 @@ public class ChatPanel extends JPanel {
         play.addActionListener(e -> {
             try {
                 RequestTab tab = new RequestTab(type.getText());
-                ChatPanel.chat.addRequest(tab);
+                chat.addRequest(tab);
                 type.setText("");
             } catch (Exception e1) {
                 type.setText("INVALID URI");
