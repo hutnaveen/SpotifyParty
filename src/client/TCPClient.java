@@ -117,8 +117,8 @@ public class TCPClient
                         api.playTrack(trackID);
                         TrackInfo m = SpotifyPartyPanelChat.chatPanel.updateData(trackID);
                         //everthing else
-                        SpotifyPartyPanelChat.chatPanel.setColor(m.getDominantColor().darker());
-                        ChatPanel.chat.setBackground(m.getDominantColor());
+                       // SpotifyPartyPanelChat.chatPanel.setColor(m.getDominantColor().darker());
+                       // ChatPanel.chat.setBackground(m.getDominantColor());
                     if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);

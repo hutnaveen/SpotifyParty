@@ -1,7 +1,9 @@
 package server;
 
 import chatGUI.ChatPanel;
+import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
+import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
@@ -27,10 +29,11 @@ public class TCPServer
     private Thread reciver;
     private Thread sender;
     private int serverPort = 9000;
+    private String prev;
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
-
+        prev = api.getTrackId();
         boolean star;
         if(diffNetWork) {
             for(; serverPort <= 9100; serverPort ++) {
@@ -140,8 +143,14 @@ public class TCPServer
             while (true) {
                 try {
                     String tempTrack = api.getTrackId();
-                    if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
+                    if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+                        if(!tempTrack.equals(prev))
+                        {
+                            prev = tempTrack;
+                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                        }
+                    }
                 } catch (SpotifyException e) {
                     e.printStackTrace();
                 }
