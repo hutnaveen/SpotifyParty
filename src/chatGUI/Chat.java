@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Chat extends JPanel {
     private int size = 0;
-    private JScrollPane scroll;
+    private JViewport scroll;
 
     public Chat() {
         this.setLayout(null);
@@ -16,12 +16,11 @@ public class Chat extends JPanel {
         this.setLocation(250, 0);
         this.setSize(450, 520);
 
-        scroll = new JScrollPane();
+        scroll = new JViewport();
         scroll.setBounds(0, 0, 450, 520);
+        scroll.setOpaque(false);
         scroll.setBorder(new EmptyBorder(0,0,0,0));
-        scroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 520));
         this.add(scroll);
-        revalidate();
     }
 
     public void addRequest(JPanel pane)
