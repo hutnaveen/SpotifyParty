@@ -36,6 +36,7 @@ public class TCPServer
         prev = api.getTrackId();
         boolean star;
         if(diffNetWork) {
+            /*
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 star = (UPnP.openPortTCP((serverPort)));
@@ -46,9 +47,10 @@ public class TCPServer
                 else
                     UPnP.closePortTCP((serverPort));
             }
+            */
         }
         try {
-            ss = new ServerSocket(serverPort);
+            ss = new ServerSocket(9006);
         } catch (IOException e) {
             e.printStackTrace();
         }

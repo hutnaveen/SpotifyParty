@@ -13,20 +13,15 @@ public class Chat extends JPanel {
     public Chat() {
         this.setLayout(null);
 
-        this.setLocation(250, 0);
-        this.setSize(450, 520);
-
-        scroll = new JViewport();
-        scroll.setBounds(0, 0, 450, 520);
-        scroll.setOpaque(false);
-        //scroll.setBorder(new EmptyBorder(0,0,0,0));
-        this.add(scroll);
+        this.setLocation(0, 0);
+        this.setSize(450, 500000000);
+        this.setAutoscrolls(true);
     }
 
     public void addRequest(JPanel pane)
     {
         pane.setBounds(10, 10 + size++ *85, 430, 80);
-        scroll.add(pane);
+        this.add(pane);
     }
 
     public void paintComponent(Graphics g) {
