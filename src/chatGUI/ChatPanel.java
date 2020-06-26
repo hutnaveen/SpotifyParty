@@ -70,7 +70,7 @@ public class ChatPanel extends JPanel {
         JLabel text = new JLabel("Friends", SwingConstants.CENTER);
         text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
         text.setForeground(Color.WHITE);
-        text.setBounds(-70, 40, 400, 100);
+        text.setBounds(-70, 32, 400, 100);
         this.add(text);
 
         song = new JTextPane();
@@ -99,27 +99,31 @@ public class ChatPanel extends JPanel {
         artist.setBounds(10, 573, 230, 17);
         this.add(artist);
 
+        area = new JTextPane();
         area.setBorder(new EmptyBorder(0,0,0,0));
         area.setAutoscrolls(true);
+        area.setOpaque(false);
         area.setEditable(false);
-        area.setBounds(25, 120, 200, 250);
+        //area.setBounds(35, 110, 200, 300);
+        area.setSize(200, 300);
         area.setForeground(Color.WHITE);
-        area.setText("Hello");
+        area.setText("Hello \n Hello \nHello \nHello \nHello \nHello \nHello \nHello \nHello \nHello \nHello\nEmma \nRoshan \nHrithik\nJoe \nBob \nHi There");
         area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 15));
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
-        JScrollPane areaScroll = new JScrollPane();
-        JViewport port = new JViewport();
-        port.setView(area);
-        port.setOpaque(false);
-        port.setBounds(25, 130, 200, 250);
-        areaScroll.setViewport(port);
-        areaScroll.setBorder(new EmptyBorder(0,0,0,0));
+        JScrollPane areaScroll = new JScrollPane(area);
+        areaScroll.add(area);
+        areaScroll.setOpaque(false);
+        areaScroll.getViewport().setOpaque(false);
+        areaScroll.setAutoscrolls(true);
+        //areaScroll.setBorder(new EmptyBorder(0,0,0,0));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
-        //area.setBounds(25, 110, 200, 250);
-        this.add(port);
+        areaScroll.setSize(200, 250);
+        areaScroll.setBounds(25, 110, 200, 250);
+        //this.add(area);
+        this.add(areaScroll);
 
         RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 550, 380, 40);
@@ -145,7 +149,14 @@ public class ChatPanel extends JPanel {
         });
         this.add(play);
 
-        this.add(chat);
+        JViewport scroll = new JViewport();
+        scroll.setSize(450, 520);
+        scroll.setBounds(250, 0, 450, 520);
+        scroll.setOpaque(false);
+        scroll.setView(chat);
+        scroll.setScrollMode(JViewport.BACKINGSTORE_SCROLL_MODE);
+        scroll.setAutoscrolls(true);
+        this.add(scroll);
     }
 
     public void setColor(Color c) {
@@ -204,7 +215,7 @@ public class ChatPanel extends JPanel {
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 32, 22, 22, this);
             //g.setColor(color.darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker());
             if(artworkURL != null)
-                g.drawImage(ImageIO.read(artworkURL), 70, 390, 115, 115, this);
+                g.drawImage(ImageIO.read(artworkURL), 50, 380, 155, 155, this);
         }
         catch (Exception e)
         {

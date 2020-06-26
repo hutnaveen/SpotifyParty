@@ -20,17 +20,20 @@ public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public String uri;
     private TrackInfo info;
+
+    public JTextPane song;
+    public JTextPane artist;
     public RequestTab(String link) {
         uri = link;
         this.info = SpotifyUtils.getTrackInfo(uri);
         this.setLayout(null);
-        Border border = BorderFactory.createLineBorder(info.getDominantColor(), 1);
+        Border border = BorderFactory.createLineBorder(info.getDominantColor(), 2);
         this.setBorder(border);
         this.setOpaque(true);
         this.setSize(430, 80);
         this.setBackground(new Color(40, 40, 40));
 
-        JTextPane song = new JTextPane();
+        song = new JTextPane();
         song.setText(info.getName());
         song.setBorder(new EmptyBorder(0,0,0,0));
         song.setBackground(new Color(40, 40, 40));
@@ -44,7 +47,7 @@ public class RequestTab extends JPanel {
         song.setBounds(75, 12, 340, 25);
         this.add(song);
 
-        JTextPane artist = new JTextPane();
+        artist = new JTextPane();
         artist.setText(info.getArtist());
         artist.setBorder(new EmptyBorder(0,0,0,0));
         artist.setBackground(new Color(40, 40, 40));
@@ -84,5 +87,4 @@ public class RequestTab extends JPanel {
             e.printStackTrace();
         }
     }
-
 }
