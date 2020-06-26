@@ -30,7 +30,7 @@ public class RequestTab extends JPanel {
         Border border = BorderFactory.createLineBorder(info.getDominantColor(), 2);
         this.setBorder(border);
         this.setOpaque(true);
-        this.setSize(430, 80);
+        this.setSize(410, 90);
         this.setBackground(new Color(40, 40, 40));
 
         song = new JTextPane();
@@ -40,11 +40,12 @@ public class RequestTab extends JPanel {
         song.setForeground(Color.WHITE);
         song.setEditable(false);
         song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
+        animate(song);
         StyledDocument doc = song.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(75, 12, 340, 25);
+        song.setBounds(80, 15, 290, 25);
         this.add(song);
 
         artist = new JTextPane();
@@ -54,12 +55,15 @@ public class RequestTab extends JPanel {
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
         artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 14));
+        animate(artist);
         StyledDocument doc3 = artist.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_LEFT);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
-        artist.setBounds(75, 42, 340, 25);
+        artist.setBounds(80, 39, 290, 25);
         this.add(artist);
+
+        animate(this);
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -67,6 +71,19 @@ public class RequestTab extends JPanel {
                 if(SpotifyPartyPanelChat.host) {
                     api.playTrack(uri);
                 }
+            }
+        });
+    }
+
+    public void animate(JComponent obj) {
+        obj.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                song.setForeground(Color.GREEN);
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                song.setForeground(Color.WHITE);
             }
         });
     }

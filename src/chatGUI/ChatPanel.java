@@ -1,25 +1,34 @@
 package chatGUI;
+
+import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import model.TrackInfo;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.MouseInputListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
-import static chatGUI.GUIUtilsChat.makeButton;
-import static chatGUI.GUIUtilsChat.resizeIcon;
+import static chatGUI.SpotifyPartyPanelChat.cli;
+import static gui.GUIUtil.makeButton;
+import static gui.GUIUtil.resizeIcon;
 
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
@@ -31,24 +40,16 @@ public class ChatPanel extends JPanel {
     public static AbstractButton copy;
     public static Chat chat  = new Chat();
     public static RoundJTextField type;
-    public static ArrayList<String> nameList = new ArrayList<>();
     public static HashSet<String> names = new HashSet<>();
-    public static int rangeL = 0;
-    public static int rangeU = 3;
     private URL artworkURL;
 
-    @Override
-    public void setBackground(Color bg) {
-        //super.setBackground(bg);
-    }
 
     public ChatPanel() {
         this.setLayout(null);
         putClientProperty("Aqua.backgroundStyle", "vibrantDark");
-        area = new JTextPane();
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
-        code.setBounds(40, 27, 195, 30);
+        code.setBounds(40, 10, 195, 30);
         code.setEditable(false);
         code.addMouseListener(new MouseAdapter() {
             @Override
@@ -63,72 +64,75 @@ public class ChatPanel extends JPanel {
         this.add(code);
 
         JLabel text = new JLabel("Friends", SwingConstants.CENTER);
-        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 40));
+        text.setFont(new Font("Proxima Nova", Font.BOLD, 30));
         text.setForeground(Color.WHITE);
-        text.setBounds(-70, 50, 400, 100);
+        text.setBounds(-70, 20, 400, 100);
         this.add(text);
 
         song = new JTextPane();
-        song.setBorder(new EmptyBorder(0,0,0,0));
-        song.setBackground(new Color(40, 40, 40));
+        song.setBorder(new EmptyBorder(0, 0, 0 ,0));
+        song.setOpaque(false);
         song.setForeground(Color.WHITE);
         song.setEditable(false);
-        song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 13));
+        song.setFont(new Font("Proxima Nova", Font.BOLD, 13));
         StyledDocument doc = song.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(10, 553, 230, 17);
+        song.setBounds(10, 527, 230, 17);
         this.add(song);
 
         artist = new JTextPane();
-        artist.setBorder(new EmptyBorder(0,0,0,0));
-        artist.setBackground(new Color(40, 40, 40));
+        artist.setBorder(new EmptyBorder(0, 0, 0 ,0));
+        artist.setOpaque(false);
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
-        artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 13));
+        artist.setFont(new Font("Proxima Nova", Font.BOLD, 13));
         StyledDocument doc2 = artist.getStyledDocument();
         SimpleAttributeSet center2 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center2, StyleConstants.ALIGN_CENTER);
         doc2.setParagraphAttributes(0, doc2.getLength(), center2, false);
-        artist.setBounds(10, 573, 230, 17);
+        artist.setBounds(10, 547, 230, 17);
         this.add(artist);
 
+
         area = new JTextPane();
-        area.setForeground(Color.WHITE);
-        area.setBorder(new EmptyBorder(0,0,0,0));
+        area.setBorder(new EmptyBorder(0, 0, 0 ,0));
         area.setAutoscrolls(true);
-        area.setOpaque(false);
-        area.setFocusable(false);
         area.setEditable(false);
-        area.setBounds(0, 0, 200, 220);
-        area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
-        area.setText("hello");
+        area.setForeground(Color.WHITE);
+        area.setFont(new Font("Proxima Nova", Font.BOLD, 15));
+        area.setOpaque(false);
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
+        area.setBackground(new Color(40, 40, 40));
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         JScrollPane areaScroll = new JScrollPane(area);
-        areaScroll.add(area);
+        areaScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
-        areaScroll.setAutoscrolls(true);
-        areaScroll.setBorder(new EmptyBorder(0,0,0,0));
-        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
-        areaScroll.setSize(200, 250);
-        areaScroll.setBounds(25, 145, 200, 220);
-        areaScroll.addMouseWheelListener(e -> {
-            if(e.getWheelRotation() >= 2)
-                scrollUp();
-            else if(e.getWheelRotation() <= -2)
-                scrollDown();
-        });
-                addNames("whats popin", "yo", "dababay", "yam", "holy fuck", "fuck a do", "dhanush", "emilia");
-        //this.add(area);
+        areaScroll.setBackground(new Color(40, 40, 40));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 300));
+        areaScroll.getVerticalScrollBar().setOpaque(false);
+        areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
+        areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
+        areaScroll.setBounds(25, 110, 200, 250);
         this.add(areaScroll);
 
         RoundJTextField type = new RoundJTextField(380);
-        type.setBounds(260, 550, 380, 40);
+        type.setBounds(260, 525, 380, 40);
         type.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -136,77 +140,49 @@ public class ChatPanel extends JPanel {
             }
         });
         this.add(type);
-
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
         AbstractButton play = makeButton("", playIcon);
-        play.setBounds(650, 550, 40, 40);
+        play.setBounds(650, 525, 40, 40);
         play.addActionListener(e -> {
             try {
                 RequestTab tab = new RequestTab(type.getText());
+               try {
+                   if(!SpotifyPartyPanelChat.host)
+                    cli.getDos().writeUTF("request" + type.getText());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 chat.addRequest(tab);
                 type.setText("");
+                chat.back.setFont(new Font("Proxima Nova", Font.BOLD, 12));
+                chat.back.setText(chat.back.getText() + "\n\n\n\n\n\n");
+
             } catch (Exception e1) {
                 type.setText("INVALID URI");
             }
         });
         this.add(play);
 
-        JViewport scroll = new JViewport();
-        scroll.setSize(450, 520);
-        scroll.setBounds(250, 0, 450, 520);
-        scroll.setOpaque(false);
-        scroll.setView(chat);
-        scroll.setScrollMode(JViewport.BACKINGSTORE_SCROLL_MODE);
-        scroll.setAutoscrolls(true);
-        this.add(scroll);
-    }
-    public void scrollUp()
-    {
-        StringBuffer str = new StringBuffer();
-        for(int i = --rangeU; i >= ++rangeL; i--) {
-            str.append(nameList.get(i)).append("\n\n");
-        }
-        area.setText(str.toString());
-    }
-    public void scrollDown()
-    {
-        StringBuffer str = new StringBuffer();
-        for(int i = ++rangeU; i >= --rangeL; i--) {
-            str.append(nameList.get(i)).append("\n\n");
-        }
-        area.setText(str.toString());
-    }
+        JScrollPane chatScroll = new JScrollPane(chat.back);
+        chatScroll.setBounds(250, 0, 450, 517);
+        chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
+        chatScroll.setOpaque(false);
+        chatScroll.getViewport().setOpaque(false);
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 517));
+        chatScroll.getVerticalScrollBar().setOpaque(false);
+        chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
+        chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
+        this.add(chatScroll);
 
-    public void setColor(Color c) {
-        System.out.println(c);
-        /*setBackground(c);
-        song.setBackground(c);
-        area.setBackground(c);
-        artist.setBackground(c);
-        areaScroll.setBackground(c);
-        color = c;
-        border = BorderFactory.createLineBorder(color, 1);
-        song.setBorder(border);
-        area.setBorder(border);
-        artist.setBorder(border);
-        areaScroll.setBorder(border);
-        repaint();*/
     }
 
     public static void addNames(String... name) {
-       for(String nam:name)
-       {
-           if(!nam.isEmpty() && !nam.isBlank() && !names.contains(nam))
-
-                   nameList.add(nam);
-                   names.add(nam);
-
-       }
-        StringBuilder str = new StringBuilder();
-        for(int i = rangeU; i >= rangeL; i--) {
-                str.append(nameList.get(i)).append("\n\n");
+        names.addAll(Arrays.asList(name));
+        String str = "";
+        for(String num:  names) {
+            str = str + (" " +num.trim() + "\n\n");
         }
-        area.setText(str.toString());
+        area.setText(str);
     }
 
     public TrackInfo updateData(String trackID)
@@ -215,7 +191,6 @@ public class ChatPanel extends JPanel {
         artworkURL = inf.getThumbnailURL();
         song.setText(inf.getName());
         artist.setText(inf.getArtist());
-        setColor(inf.getDominantColor());
         repaint();
         return inf;
     }
@@ -226,20 +201,21 @@ public class ChatPanel extends JPanel {
     }
     public static void setCode(String tcode)
     {
-        code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
-        code.setText(" " + tcode);
+        code.setFont(new Font("Proxima Nova", Font.PLAIN, 11));
+        code.setText(tcode);
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         try
         {
+            // g.setColor(this.getBackground());
+            g.setColor(new Color(30, 30, 30));
+            g.fillRect(0, -100, 250, 700);
+            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 14, 24, 24, this);
             g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 250, 0, 550, 600, this);
-           // g.setColor(this.getBackground());
-            //g.fillRect(0, -100, 250, 700);
-            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 32, 22, 22, this);
             //g.setColor(color.darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker());
             if(artworkURL != null)
-                g.drawImage(ImageIO.read(artworkURL), 50, 380, 155, 155, this);
+                g.drawImage(ImageIO.read(artworkURL), 55, 380, 140, 140, this);
         }
         catch (Exception e)
         {

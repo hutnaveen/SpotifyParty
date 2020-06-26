@@ -23,6 +23,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
     public static boolean host;
     TCPServer server;
+    public static TCPClient cli ;
 
     /*public String name;
     public String code;
@@ -74,7 +75,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             if(code != null && available((String)code[0], (int)code[1]))
             {
                 ChatPanel.addNames(JoinPartyPanel.name.getText());
-                TCPClient cli = new TCPClient((String)code[0], (int)code[1]);
+                cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
                 ChatPanel.setCode(x);

@@ -169,4 +169,7 @@ public class TCPClient
         return true;
     }
 
+    public DataOutputStream getDos() {
+        return dos;
+    }
 }
