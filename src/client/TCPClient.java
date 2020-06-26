@@ -7,7 +7,6 @@ import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
-import model.TrackInfo;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.io.DataInputStream;
@@ -39,14 +38,13 @@ public class TCPClient
         }
         SpotifyPartyFrame.status.setLabel("Connected!");
         try {
-            dos.writeUTF(JoinPartyPanel.name.getText());
+            String names = dis.readUTF().replace("[", "").replace("]", "");
+            ChatPanel.addNames(names.split(","));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            String names = dis.readUTF().replace("[", "").replace("]", "");
-            ChatPanel.addNames(names.split(", "));
-            System.out.println(names);
+            dos.writeUTF(JoinPartyPanel.name.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,11 +113,8 @@ public class TCPClient
                 } else {
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
-                        TrackInfo m = SpotifyPartyPanelChat.chatPanel.updateData(trackID);
-                        //everthing else
-                       // SpotifyPartyPanelChat.chatPanel.setColor(m.getDominantColor().darker());
-                       // ChatPanel.chat.setBackground(m.getDominantColor());
-                    if (!tempPlaying)
+                        SpotifyPartyPanelChat.chatPanel.updateData(trackID);
+                        if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
                         log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);
@@ -134,15 +129,15 @@ public class TCPClient
                             autoPause = false;
                         }
                     }
-                   if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                    if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
                         System.out.println("Time: " + pos + " Player: " + tempPos);
                         log("Time: " + pos + " Player: " + tempPos);
                         api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
                     }
-                   else if(tempPos == 0)
-                   {
-                       autoPause = true;
-                   }
+                    else if(tempPos == 0)
+                    {
+                        autoPause = true;
+                    }
                 }
             }else {
                 System.out.println("mans playing an add");
@@ -157,6 +152,11 @@ public class TCPClient
             e.printStackTrace();
         }
     }
+
+    public DataOutputStream getDos() {
+        return dos;
+    }
+
     private boolean log(String msg)
     {
         if(SpotifyParty.writer != null) {
@@ -169,7 +169,4 @@ public class TCPClient
         return true;
     }
 
-    public DataOutputStream getDos() {
-        return dos;
-    }
 }
