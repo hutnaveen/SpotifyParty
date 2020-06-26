@@ -72,7 +72,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         else if (e.getActionCommand().equals("enterGuest")) {
             String x = JoinPartyPanel.code.getText();
             Object[] code = NetworkUtils.simpleDecode(x);
-            if(code != null && available((String)code[0], (int)code[1]))
+            if(code != null)
             {
                 ChatPanel.addNames(JoinPartyPanel.name.getText());
                 cli =  new TCPClient((String)code[0], (int)code[1]);
@@ -87,13 +87,5 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         }
     }
-    private static boolean available(String ip, int port) {
-        try (Socket ignored = new Socket(ip, port)) {
-            return true;
-        } catch (Exception ignored) {
-            return false;
-        }
-    }
-
 }
 
