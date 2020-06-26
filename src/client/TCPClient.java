@@ -25,6 +25,11 @@ public class TCPClient
     private DataOutputStream dos;
     private Thread updater;
     private Thread tempUpdate;
+
+    public DataOutputStream getDos() {
+        return dos;
+    }
+
     public TCPClient(String serverIP, int serverPort)
     {
         api = new SpotifyAppleScriptWrapper();
@@ -152,11 +157,6 @@ public class TCPClient
             e.printStackTrace();
         }
     }
-
-    public DataOutputStream getDos() {
-        return dos;
-    }
-
     private boolean log(String msg)
     {
         if(SpotifyParty.writer != null) {
@@ -168,5 +168,4 @@ public class TCPClient
         }
         return true;
     }
-
 }
