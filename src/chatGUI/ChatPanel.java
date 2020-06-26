@@ -2,6 +2,7 @@ package chatGUI;
 
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import model.TrackInfo;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
@@ -140,14 +141,14 @@ public class ChatPanel extends JPanel {
             }
         });
         this.add(type);
-
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
         AbstractButton play = makeButton("", playIcon);
         play.setBounds(650, 525, 40, 40);
         play.addActionListener(e -> {
             try {
                 RequestTab tab = new RequestTab(type.getText());
-                try {
+               try {
+                   if(!SpotifyPartyPanelChat.host)
                     cli.getDos().writeUTF("request" + type.getText());
                 } catch (IOException e1) {
                     e1.printStackTrace();
