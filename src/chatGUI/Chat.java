@@ -19,7 +19,7 @@ public class Chat extends JPanel {
         scroll = new JViewport();
         scroll.setBounds(0, 0, 450, 520);
         scroll.setOpaque(false);
-        scroll.setBorder(new EmptyBorder(0,0,0,0));
+        //scroll.setBorder(new EmptyBorder(0,0,0,0));
         this.add(scroll);
     }
 
