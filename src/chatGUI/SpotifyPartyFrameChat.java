@@ -75,8 +75,6 @@ public class SpotifyPartyFrameChat extends JFrame {
 
     private void initializeFrame()
     {
-        setUndecorated(true);
-        setBackground(new Color(1.0f,1.0f,1.0f,0.5f));
         setLocation(100, 100);
         setSize(700, 600);
         setResizable(false);

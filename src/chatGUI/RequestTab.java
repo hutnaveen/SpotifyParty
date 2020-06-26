@@ -30,7 +30,7 @@ public class RequestTab extends JPanel {
         Border border = BorderFactory.createLineBorder(info.getDominantColor(), 2);
         this.setBorder(border);
         this.setOpaque(true);
-        this.setSize(430, 80);
+        this.setSize(410, 90);
         this.setBackground(new Color(40, 40, 40));
 
         song = new JTextPane();
@@ -87,7 +87,6 @@ public class RequestTab extends JPanel {
             }
         });
     }
-
 
     public TrackInfo getData() {
         return this.info;

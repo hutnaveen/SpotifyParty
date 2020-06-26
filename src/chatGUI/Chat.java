@@ -7,21 +7,27 @@ import java.awt.*;
 
 
 public class Chat extends JPanel {
-    private int size = 0;
+    public static int size = 0;
     private JViewport scroll;
+    public static JTextPane back;
 
     public Chat() {
         this.setLayout(null);
 
         this.setLocation(0, 0);
-        this.setSize(450, 500000000);
         this.setAutoscrolls(true);
+
+        back = new JTextPane();
+        back.setAutoscrolls(true);
+        back.setBackground(Color.GRAY);
+        back.setOpaque(false);
+        back.setEditable(false);
     }
 
-    public void addRequest(JPanel pane)
+    public static void addRequest(JPanel pane)
     {
-        pane.setBounds(10, 10 + size++ *85, 430, 80);
-        this.add(pane);
+        pane.setBounds(10, 10 + size++ *90, 430, 80);
+        back.add(pane);
     }
 
     public void paintComponent(Graphics g) {
