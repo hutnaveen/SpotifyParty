@@ -1,14 +1,10 @@
 package chatGUI;
-
-import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import model.TrackInfo;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -16,18 +12,14 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Arrays;
 
 import static chatGUI.GUIUtilsChat.makeButton;
 import static chatGUI.GUIUtilsChat.resizeIcon;
-
 
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
@@ -36,10 +28,12 @@ public class ChatPanel extends JPanel {
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
-    public static HashSet<String> names = new HashSet<>();
     public static AbstractButton copy;
     public static Chat chat  = new Chat();
     public static RoundJTextField type;
+    public static ArrayList<String> nameList = new ArrayList<>();
+    public static HashSet<String> names = new HashSet<>();
+
     private URL artworkURL;
 
     @Override
@@ -68,9 +62,9 @@ public class ChatPanel extends JPanel {
         this.add(code);
 
         JLabel text = new JLabel("Friends", SwingConstants.CENTER);
-        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 40));
         text.setForeground(Color.WHITE);
-        text.setBounds(-70, 32, 400, 100);
+        text.setBounds(-70, 50, 400, 100);
         this.add(text);
 
         song = new JTextPane();
@@ -100,15 +94,15 @@ public class ChatPanel extends JPanel {
         this.add(artist);
 
         area = new JTextPane();
+        area.setForeground(Color.WHITE);
         area.setBorder(new EmptyBorder(0,0,0,0));
         area.setAutoscrolls(true);
         area.setOpaque(false);
+        area.setFocusable(false);
         area.setEditable(false);
-        //area.setBounds(35, 110, 200, 300);
-        area.setSize(200, 300);
-        area.setForeground(Color.WHITE);
-        area.setText("Hello \n Hello \nHello \nHello \nHello \nHello \nHello \nHello \nHello \nHello \nHello\nEmma \nRoshan \nHrithik\nJoe \nBob \nHi There");
-        area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 15));
+        area.setBounds(0, 0, 200, 220);
+        area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
+        area.setText("hello");
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
@@ -118,10 +112,10 @@ public class ChatPanel extends JPanel {
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
         areaScroll.setAutoscrolls(true);
-        //areaScroll.setBorder(new EmptyBorder(0,0,0,0));
+        areaScroll.setBorder(new EmptyBorder(0,0,0,0));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         areaScroll.setSize(200, 250);
-        areaScroll.setBounds(25, 110, 200, 250);
+        areaScroll.setBounds(25, 145, 200, 220);
         //this.add(area);
         this.add(areaScroll);
 
@@ -176,11 +170,17 @@ public class ChatPanel extends JPanel {
     }
 
     public static void addNames(String... name) {
-        names.addAll(Arrays.asList(name));
+       for(String nam:name)
+       {
+           if(nam.isEmpty() || nam.isBlank() && !names.contains(nam))
+               if(nameList.size() > 11) {
+                   nameList.add(nameList.size() - 1, nam);
+                   names.add(nam);
+               }
+       }
         StringBuilder str = new StringBuilder();
-        for(String num: names) {
-            if(!num.isBlank() && !num.isEmpty())
-                str.append(" ").append(num).append("\n\n");
+        for(String num: nameList) {
+                str.append(num).append("\n");
         }
         area.setText(str.toString());
     }
@@ -202,8 +202,8 @@ public class ChatPanel extends JPanel {
     }
     public static void setCode(String tcode)
     {
-        code.setFont(new Font("Proxima Nova", Font.PLAIN, 11));
-        code.setText(tcode);
+        code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
+        code.setText(" " + tcode);
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
