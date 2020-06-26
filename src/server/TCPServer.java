@@ -1,11 +1,10 @@
 package server;
 
 import chatGUI.ChatPanel;
-import chatGUI.RequestTab;
-import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
-import gui.SpotifyPartyPanel;
+import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
+import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -25,19 +24,17 @@ public class TCPServer
 {
     private final SpotifyPlayerAPI api;
     private  ArrayList<DataOutputStream> outStreams = new ArrayList<>();
-    private ArrayList<DataInputStream> inStream = new ArrayList<>();
+    private ArrayList<DataInputStream> inStream;
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
     private int serverPort = 9000;
-    private String prev;
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
-        prev = api.getTrackId();
+
         boolean star;
         if(diffNetWork) {
-            /*
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 star = (UPnP.openPortTCP((serverPort)));
@@ -48,19 +45,19 @@ public class TCPServer
                 else
                     UPnP.closePortTCP((serverPort));
             }
-            */
         }
         try {
-            ss = new ServerSocket(9006);
+            ss = new ServerSocket(serverPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
-       //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
+        //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         startConnector();
         startSender();
         System.out.println("Server is started!");
         log("Server Started");
+        SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
 
 
@@ -81,20 +78,20 @@ public class TCPServer
                 }
                 System.out.println("added");
                 log("added");
+                outStreams.add(dos);
                 inStream.add(in);
+                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
                 try {
-                        if (dos != null) {
-                            dos.writeUTF(names.toString());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (dos != null) {
+                        dos.writeUTF(names.toString());
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 try {
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
-                    System.out.println(it);
                     sendToClients("usr " + it);
-                    outStreams.add(dos);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -129,6 +126,7 @@ public class TCPServer
             }catch (SocketException e)
             {
                 outStreams.remove(i--);
+                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,6 +136,12 @@ public class TCPServer
     {
         sender.stop();
         reciver.stop();
+        try {
+            SpotifyParty.writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SpotifyPartyFrame.status.setLabel("Waiting");
         System.out.println("Server Stopped");
     }
     private void startSender()
@@ -146,14 +150,8 @@ public class TCPServer
             while (true) {
                 try {
                     String tempTrack = api.getTrackId();
-                    if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
+                    if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
-                        if(!tempTrack.equals(prev))
-                        {
-                            prev = tempTrack;
-                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
-                        }
-                    }
                 } catch (SpotifyException e) {
                     e.printStackTrace();
                 }
@@ -169,14 +167,13 @@ public class TCPServer
     }
     private boolean log(String msg)
     {
-        /*if(SpotifyParty.writer != null) {
+        if(SpotifyParty.writer != null) {
             try {
                 SpotifyParty.writer.append(msg).append("\n");
             } catch (IOException e) {
                 return false;
             }
         }
-        return true;*/
         return true;
     }
 

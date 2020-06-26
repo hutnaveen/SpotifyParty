@@ -101,6 +101,7 @@ public class ChatPanel extends JPanel {
         area.setAutoscrolls(true);
         area.setEditable(false);
         area.setForeground(Color.WHITE);
+        //addNames("fuck","shaush", "emilia", "is", "hotter", "than ", "emma", "watosn");
         area.setFont(new Font("Proxima Nova", Font.BOLD, 15));
         area.setOpaque(false);
         StyledDocument doc3 = area.getStyledDocument();

@@ -12,7 +12,6 @@ import java.io.*;
 public class SpotifyParty {
     public static BufferedWriter writer;
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-        UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         SpotifyPartyFrame frame = new SpotifyPartyFrame();
         SpotifyPartyPanel panel = new SpotifyPartyPanel();
         frame.add(panel);
