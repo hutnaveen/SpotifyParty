@@ -6,14 +6,14 @@ import utils.SpotifyUtils;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.MouseInputListener;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +33,8 @@ public class ChatPanel extends JPanel {
     public static RoundJTextField type;
     public static ArrayList<String> nameList = new ArrayList<>();
     public static HashSet<String> names = new HashSet<>();
-
+    public static int rangeL = 0;
+    public static int rangeU = 3;
     private URL artworkURL;
 
     @Override
@@ -116,6 +117,13 @@ public class ChatPanel extends JPanel {
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         areaScroll.setSize(200, 250);
         areaScroll.setBounds(25, 145, 200, 220);
+        areaScroll.addMouseWheelListener(e -> {
+            if(e.getWheelRotation() >= 2)
+                scrollUp();
+            else if(e.getWheelRotation() <= -2)
+                scrollDown();
+        });
+                addNames("whats popin", "yo", "dababay", "yam", "holy fuck", "fuck a do", "dhanush", "emilia");
         //this.add(area);
         this.add(areaScroll);
 
@@ -152,6 +160,22 @@ public class ChatPanel extends JPanel {
         scroll.setAutoscrolls(true);
         this.add(scroll);
     }
+    public void scrollUp()
+    {
+        StringBuffer str = new StringBuffer();
+        for(int i = --rangeU; i >= ++rangeL; i--) {
+            str.append(nameList.get(i)).append("\n\n");
+        }
+        area.setText(str.toString());
+    }
+    public void scrollDown()
+    {
+        StringBuffer str = new StringBuffer();
+        for(int i = ++rangeU; i >= --rangeL; i--) {
+            str.append(nameList.get(i)).append("\n\n");
+        }
+        area.setText(str.toString());
+    }
 
     public void setColor(Color c) {
         System.out.println(c);
@@ -172,15 +196,15 @@ public class ChatPanel extends JPanel {
     public static void addNames(String... name) {
        for(String nam:name)
        {
-           if(nam.isEmpty() || nam.isBlank() && !names.contains(nam))
-               if(nameList.size() > 11) {
-                   nameList.add(nameList.size() - 1, nam);
+           if(!nam.isEmpty() && !nam.isBlank() && !names.contains(nam))
+
+                   nameList.add(nam);
                    names.add(nam);
-               }
+
        }
         StringBuilder str = new StringBuilder();
-        for(String num: nameList) {
-                str.append(num).append("\n");
+        for(int i = rangeU; i >= rangeL; i--) {
+                str.append(nameList.get(i)).append("\n\n");
         }
         area.setText(str.toString());
     }
