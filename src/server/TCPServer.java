@@ -1,6 +1,7 @@
 package server;
 
 import chatGUI.ChatPanel;
+import chatGUI.RequestTab;
 import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyPanel;
