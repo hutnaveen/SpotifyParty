@@ -37,6 +37,7 @@ public class SpotifyPartyFrameChat extends JFrame {
         else
             getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUnderWindowBackground");
         getRootPane().putClientProperty("Aqua.windowTopMargin", "600");
+        getRootPane().putClientProperty("Aqua.useFocusRing", "false");
         toFront();
         initializeFrame();
         initializeTrayIcon();
