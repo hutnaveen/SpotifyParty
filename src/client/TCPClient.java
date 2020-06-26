@@ -25,6 +25,11 @@ public class TCPClient
     private DataOutputStream dos;
     private Thread updater;
     private Thread tempUpdate;
+
+    public DataOutputStream getDos() {
+        return dos;
+    }
+
     public TCPClient(String serverIP, int serverPort)
     {
         api = new SpotifyAppleScriptWrapper();

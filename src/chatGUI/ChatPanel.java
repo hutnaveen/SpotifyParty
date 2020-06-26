@@ -25,6 +25,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static chatGUI.SpotifyPartyPanelChat.cli;
 import static gui.GUIUtil.makeButton;
@@ -178,7 +180,14 @@ public class ChatPanel extends JPanel {
     }
 
     public static void addNames(String... name) {
-        names.addAll(Arrays.asList(name));
+        for(String num: name) {
+            if (!num.isBlank() && !num.isEmpty()) {
+                Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+                Matcher m = p.matcher(num);
+                if(!m.find())
+                    names.add(num);
+            }
+        }
         String str = "";
         for(String num:  names) {
             str = str + (" " +num.trim() + "\n\n");

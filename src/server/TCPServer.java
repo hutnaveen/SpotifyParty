@@ -17,6 +17,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import static chatGUI.ChatPanel.names;
 
@@ -29,6 +30,7 @@ public class TCPServer
     private Thread reciver;
     private Thread sender;
     private int serverPort = 9000;
+   // HashSet<String> names = new HashSet<>();
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
@@ -53,6 +55,7 @@ public class TCPServer
         }
         //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
+        names.add("Dhaunsh");
         startConnector();
         startSender();
         System.out.println("Server is started!");
