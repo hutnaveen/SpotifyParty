@@ -13,8 +13,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+
+import static gui.GUIUtil.makeButton;
+import static gui.GUIUtil.resizeIcon;
 
 public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
@@ -23,6 +29,7 @@ public class RequestTab extends JPanel {
 
     public JTextPane song;
     public JTextPane artist;
+
     public RequestTab(String link) {
         uri = link;
         this.info = SpotifyUtils.getTrackInfo(uri);
@@ -32,11 +39,30 @@ public class RequestTab extends JPanel {
         this.setSize(430, 90);
         this.setBackground(new Color(40, 40, 40));
 
+        PopupMenu menu = new PopupMenu();
+        MenuItem like = new MenuItem();
+        menu.add(like);
+        MenuItem delete = new MenuItem();
+        if(SpotifyPartyPanelChat.host) {
+            menu.add(delete);
+        }
+
+        ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/3dots.png")), 23, 6);
+        JLabel opt = new JLabel(playIcon);
+        opt.setBounds(380, 37, 30, 6);
+        opt.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                menu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+        this.add(opt);
+
         song = new JTextPane();
         song.setOpaque(false);
         song.setText(info.getName());
         song.setBorder(new EmptyBorder(0,0,0,0));
-        song.setBackground(new Color(40, 40, 40));
         song.setForeground(Color.WHITE);
         song.setEditable(false);
         song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
@@ -45,14 +71,13 @@ public class RequestTab extends JPanel {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(80, 15, 290, 25);
+        song.setBounds(80, 15, 275, 25);
         this.add(song);
 
         artist = new JTextPane();
         artist.setOpaque(false);
         artist.setText(info.getArtist());
         artist.setBorder(new EmptyBorder(0,0,0,0));
-        artist.setBackground(new Color(40, 40, 40));
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
         artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 14));
@@ -61,7 +86,7 @@ public class RequestTab extends JPanel {
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_LEFT);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
-        artist.setBounds(80, 39, 290, 25);
+        artist.setBounds(80, 39, 275, 25);
         this.add(artist);
 
         animate(this);
