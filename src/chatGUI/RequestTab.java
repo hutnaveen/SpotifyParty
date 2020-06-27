@@ -36,7 +36,6 @@ public class RequestTab extends JPanel {
         song.setOpaque(false);
         song.setText(info.getName());
         song.setBorder(new EmptyBorder(0,0,0,0));
-        song.setBackground(new Color(40, 40, 40));
         song.setForeground(Color.WHITE);
         song.setEditable(false);
         song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
@@ -45,14 +44,13 @@ public class RequestTab extends JPanel {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(80, 15, 290, 25);
+        song.setBounds(80, 15, 275, 25);
         this.add(song);
 
         artist = new JTextPane();
         artist.setOpaque(false);
         artist.setText(info.getArtist());
         artist.setBorder(new EmptyBorder(0,0,0,0));
-        artist.setBackground(new Color(40, 40, 40));
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
         artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 14));
@@ -61,7 +59,7 @@ public class RequestTab extends JPanel {
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_LEFT);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
-        artist.setBounds(80, 39, 290, 25);
+        artist.setBounds(80, 39, 275, 25);
         this.add(artist);
 
         animate(this);
