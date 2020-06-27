@@ -70,7 +70,7 @@ public class ChatPanel extends JPanel {
         this.add(code);
 
         JLabel text = new JLabel("Friends", SwingConstants.CENTER);
-        text.setFont(new Font("Proxima Nova", Font.BOLD, 30));
+        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
         text.setForeground(Color.WHITE);
         text.setBounds(-70, 20, 400, 100);
         this.add(text);
@@ -80,7 +80,7 @@ public class ChatPanel extends JPanel {
         song.setOpaque(false);
         song.setForeground(Color.WHITE);
         song.setEditable(false);
-        song.setFont(new Font("Proxima Nova", Font.BOLD, 13));
+        song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 13));
         StyledDocument doc = song.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -93,7 +93,7 @@ public class ChatPanel extends JPanel {
         artist.setOpaque(false);
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
-        artist.setFont(new Font("Proxima Nova", Font.BOLD, 13));
+        artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 13));
         StyledDocument doc2 = artist.getStyledDocument();
         SimpleAttributeSet center2 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center2, StyleConstants.ALIGN_CENTER);
@@ -108,7 +108,7 @@ public class ChatPanel extends JPanel {
         area.setEditable(false);
         area.setForeground(Color.WHITE);
         //addNames("fuck","shaush", "emilia", "is", "hotter", "than ", "emma", "watosn");
-        area.setFont(new Font("Proxima Nova", Font.BOLD, 15));
+        area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 15));
         area.setOpaque(false);
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
@@ -169,7 +169,7 @@ public class ChatPanel extends JPanel {
                 }
                 chat.addRequest(tab);
                 type.setText("");
-                chat.back.setFont(new Font("Proxima Nova", Font.BOLD, 12));
+                chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 12));
                 chat.back.setText(chat.back.getText() + "\n\n\n\n\n\n");
 
             } catch (Exception e1) {
@@ -226,7 +226,7 @@ public class ChatPanel extends JPanel {
     }
     public static void setCode(String tcode)
     {
-        code.setFont(new Font("Proxima Nova", Font.PLAIN, 11));
+        code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
     }
     public void paintComponent(Graphics g) {
