@@ -15,7 +15,7 @@ public class SpotifyPartyFrame extends JFrame {
     public SpotifyPartyFrame()
     {
         super("");
-        getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
+        getRootPane().putClientProperty("Aqua.windowStyle", "noTitleBar");
         getRootPane().setBackground(new Color(40,40,40));
         initializeFrame();
         initializeTrayIcon();

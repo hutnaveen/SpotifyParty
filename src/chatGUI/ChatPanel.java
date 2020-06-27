@@ -34,7 +34,7 @@ import static gui.GUIUtil.resizeIcon;
 
 public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
-    public static Color color = new Color(40,40,40);
+    public static Color color = new Color(30,30,30);
     public static JTextPane area;
     public static JTextPane song;
     public static JTextPane artist;
@@ -48,7 +48,8 @@ public class ChatPanel extends JPanel {
 
     public ChatPanel() {
         this.setLayout(null);
-        putClientProperty("Aqua.backgroundStyle", "vibrantDark");
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
+        putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
         code.setForeground(Color.GRAY);
         code.setBounds(40, 10, 195, 30);
@@ -171,9 +172,10 @@ public class ChatPanel extends JPanel {
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
-        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 517));
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
         chatScroll.getVerticalScrollBar().setOpaque(false);
         chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
+        chatScroll.getVerticalScrollBar().setUnitIncrement(10);
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
         this.add(chatScroll);
 
@@ -201,6 +203,7 @@ public class ChatPanel extends JPanel {
         artworkURL = inf.getThumbnailURL();
         song.setText(inf.getName());
         artist.setText(inf.getArtist());
+        color = inf.getDominantColor().darker();
         repaint();
         return inf;
     }
@@ -218,12 +221,15 @@ public class ChatPanel extends JPanel {
         super.paintComponent(g);
         try
         {
-            // g.setColor(this.getBackground());
-            g.setColor(new Color(30, 30, 30));
-            g.fillRect(0, -100, 250, 700);
+            Graphics2D g2d = (Graphics2D) g;
+            Color color1 = color.brighter().brighter();
+            Color color2 = color.darker().darker().darker();
+            GradientPaint gp = new GradientPaint(
+                    0, 0, color1, 0, 600, color2);
+            g2d.setPaint(gp);
+            g2d.fillRect(0, 0, 250, 600);
+
             g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 14, 24, 24, this);
-            g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 250, 0, 550, 600, this);
-            //g.setColor(color.darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker().darker());
             if(artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 380, 140, 140, this);
         }

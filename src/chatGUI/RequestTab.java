@@ -27,13 +27,13 @@ public class RequestTab extends JPanel {
         uri = link;
         this.info = SpotifyUtils.getTrackInfo(uri);
         this.setLayout(null);
-        Border border = BorderFactory.createLineBorder(info.getDominantColor(), 2);
-        this.setBorder(border);
-        this.setOpaque(true);
-        this.setSize(410, 90);
+        this.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.setOpaque(false);
+        this.setSize(430, 90);
         this.setBackground(new Color(40, 40, 40));
 
         song = new JTextPane();
+        song.setOpaque(false);
         song.setText(info.getName());
         song.setBorder(new EmptyBorder(0,0,0,0));
         song.setBackground(new Color(40, 40, 40));
@@ -49,6 +49,7 @@ public class RequestTab extends JPanel {
         this.add(song);
 
         artist = new JTextPane();
+        artist.setOpaque(false);
         artist.setText(info.getArtist());
         artist.setBorder(new EmptyBorder(0,0,0,0));
         artist.setBackground(new Color(40, 40, 40));
@@ -96,8 +97,16 @@ public class RequestTab extends JPanel {
         super.paintComponent(g);
         try
         {
+            Color color = info.getDominantColor();
+            Graphics2D g2d = (Graphics2D) g;
+            Color color1 = color;
+            Color color2 = color.darker();
+            GradientPaint gp = new GradientPaint(
+                    0, 0, color2, 0, 90, color1);
+            g2d.setPaint(gp);
+            g2d.fillRoundRect(0, 0, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(uri).getThumbnailURL()), 10, 10, 60, 60, this);
+            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(uri).getThumbnailURL()), 10, 9, 60, 60, this);
         }
         catch (Exception e)
         {
