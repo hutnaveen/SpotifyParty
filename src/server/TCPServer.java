@@ -25,7 +25,7 @@ public class TCPServer
 {
     private final SpotifyPlayerAPI api;
     private  ArrayList<DataOutputStream> outStreams = new ArrayList<>();
-    private ArrayList<DataInputStream> inStream;
+    private ArrayList<DataInputStream> inStream = new ArrayList<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
