@@ -18,6 +18,8 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -43,6 +45,7 @@ public class ChatPanel extends JPanel {
     public static Chat chat  = new Chat();
     public static RoundJTextField type;
     public static HashSet<String> names = new HashSet<>();
+    public static String uri = "";
     private URL artworkURL;
 
 
@@ -142,6 +145,14 @@ public class ChatPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 type.setText("");
             }
+            public void mouseExited(MouseEvent e) {
+                try {
+                    uri = type.getText();
+                    type.setText(SpotifyUtils.getTrackInfo(type.getText()).getName() + " - " + SpotifyUtils.getTrackInfo(type.getText()).getArtist());
+                } catch(Exception e1) {
+                    uri = type.getText();
+                }
+            }
         });
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
@@ -149,7 +160,7 @@ public class ChatPanel extends JPanel {
         play.setBounds(650, 525, 40, 40);
         play.addActionListener(e -> {
             try {
-                RequestTab tab = new RequestTab(type.getText());
+                RequestTab tab = new RequestTab(uri);
                try {
                    if(!SpotifyPartyPanelChat.host)
                     cli.getDos().writeUTF("request" + type.getText());
@@ -175,7 +186,7 @@ public class ChatPanel extends JPanel {
         chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
         chatScroll.getVerticalScrollBar().setOpaque(false);
         chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
-        chatScroll.getVerticalScrollBar().setUnitIncrement(10);
+        chatScroll.getVerticalScrollBar().setUnitIncrement(16);
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
         this.add(chatScroll);
 

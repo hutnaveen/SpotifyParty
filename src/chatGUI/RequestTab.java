@@ -99,8 +99,8 @@ public class RequestTab extends JPanel {
         {
             Color color = info.getDominantColor();
             Graphics2D g2d = (Graphics2D) g;
-            Color color1 = color;
-            Color color2 = color.darker();
+            Color color1 = color.darker();
+            Color color2 = color.darker().darker();
             GradientPaint gp = new GradientPaint(
                     0, 0, color2, 0, 90, color1);
             g2d.setPaint(gp);
