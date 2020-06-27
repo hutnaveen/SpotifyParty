@@ -13,8 +13,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+
+import static gui.GUIUtil.makeButton;
+import static gui.GUIUtil.resizeIcon;
 
 public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
@@ -23,6 +29,7 @@ public class RequestTab extends JPanel {
 
     public JTextPane song;
     public JTextPane artist;
+
     public RequestTab(String link) {
         uri = link;
         this.info = SpotifyUtils.getTrackInfo(uri);
@@ -31,6 +38,26 @@ public class RequestTab extends JPanel {
         this.setOpaque(false);
         this.setSize(430, 90);
         this.setBackground(new Color(40, 40, 40));
+
+        PopupMenu menu = new PopupMenu();
+        MenuItem like = new MenuItem();
+        menu.add(like);
+        MenuItem delete = new MenuItem();
+        if(SpotifyPartyPanelChat.host) {
+            menu.add(delete);
+        }
+
+        ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/3dots.png")), 23, 6);
+        JLabel opt = new JLabel(playIcon);
+        opt.setBounds(380, 37, 30, 6);
+        opt.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                menu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+        this.add(opt);
 
         song = new JTextPane();
         song.setOpaque(false);

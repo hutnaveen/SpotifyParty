@@ -173,6 +173,7 @@ public class ChatPanel extends JPanel {
                 chat.back.setText(chat.back.getText() + "\n\n\n\n\n\n");
 
             } catch (Exception e1) {
+                RequestTab tab = new RequestTab(uri);
                 type.setText("INVALID URI");
             }
         });
