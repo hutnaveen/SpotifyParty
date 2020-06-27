@@ -2,22 +2,32 @@ package chatGUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 
-public class Chat extends JPanel implements Scrollable {
-    private int size = 0;
+public class Chat extends JPanel {
+    public static int size = 0;
+    private JViewport scroll;
+    public static JTextPane back;
+
     public Chat() {
         this.setLayout(null);
 
-        this.setLocation(250, 0);
-        this.setSize(450, 520);
+        this.setLocation(0, 0);
+        this.setAutoscrolls(true);
+
+        back = new JTextPane();
+        back.setAutoscrolls(true);
+        back.setBackground(Color.GRAY);
+        back.setOpaque(false);
+        back.setEditable(false);
     }
 
-    public void addRequest(JPanel pane)
+    public static void addRequest(JPanel pane)
     {
-        pane.setBounds(10, 10 + size++ *85, 430, 80);
-        this.add(pane);
+        pane.setBounds(10, 10 + size++ *90, 430, 80);
+        back.add(pane);
     }
 
     public void paintComponent(Graphics g) {
@@ -30,31 +40,5 @@ public class Chat extends JPanel implements Scrollable {
         {
             e.printStackTrace();
         }
-    }
-
-
-    @Override
-    public Dimension getPreferredScrollableViewportSize() {
-        return null;
-    }
-
-    @Override
-    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 0;
-    }
-
-    @Override
-    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-        return 0;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportWidth() {
-        return false;
-    }
-
-    @Override
-    public boolean getScrollableTracksViewportHeight() {
-        return false;
     }
 }

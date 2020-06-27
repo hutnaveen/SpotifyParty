@@ -31,12 +31,7 @@ public class SpotifyPartyFrameChat extends JFrame {
     public SpotifyPartyFrameChat()
     {
         super();
-        getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
-        if(SpotifyPartyChat.darkMode)
-            getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
-        else
-            getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUnderWindowBackground");
-        getRootPane().putClientProperty("Aqua.windowTopMargin", "600");
+        setBackground(new Color(50,50,50));
         toFront();
         initializeFrame();
         initializeTrayIcon();

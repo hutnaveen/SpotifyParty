@@ -62,6 +62,7 @@ class RoundJTextField extends JTextField {
         putClientProperty("JTextComponent.selectContentOnFocusGained", "true");
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);
+        setCaretColor(Color.BLACK);
         setOpaque(false); // As suggested by @AVD in comment.
     }
     protected void paintComponent(Graphics g) {

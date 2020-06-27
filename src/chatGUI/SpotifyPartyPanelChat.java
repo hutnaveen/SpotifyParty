@@ -20,7 +20,10 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
     public  static ChatPanel chatPanel = new ChatPanel();
     public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
+
+    public static boolean host;
     TCPServer server;
+    public static TCPClient cli ;
 
     /*public String name;
     public String code;
@@ -47,17 +50,20 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("join")) {
+            host = false;
             spfc.setVisible(true);
             cl.show(this, "joinPanel");
 
         }
         else if (e.getActionCommand().equals("hostLocal")) {
+            host = true;
             local = true;
             server = new TCPServer(false);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
         }
         else if(e.getActionCommand().equals("hostPublic")) {
+            host = true;
             local = true;
             server = new TCPServer(true);
             spfc.setVisible(true);
@@ -66,10 +72,10 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         else if (e.getActionCommand().equals("enterGuest")) {
             String x = JoinPartyPanel.code.getText();
             Object[] code = NetworkUtils.simpleDecode(x);
-            if(code != null && available((String)code[0], (int)code[1]))
+            if(code != null)
             {
                 ChatPanel.addNames(JoinPartyPanel.name.getText());
-                TCPClient cli = new TCPClient((String)code[0], (int)code[1]);
+                cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
                 ChatPanel.setCode(x);
@@ -81,13 +87,5 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         }
     }
-    private static boolean available(String ip, int port) {
-        try (Socket ignored = new Socket(ip, port)) {
-            return true;
-        } catch (Exception ignored) {
-            return false;
-        }
-    }
-
 }
 
