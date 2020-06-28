@@ -36,6 +36,9 @@
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/RequestTab.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/RequestTab.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" afterDir="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of a78a764... 1
+=======
 >>>>>>> parent of a78a764... 1
 =======
 >>>>>>> parent of a78a764... 1
@@ -163,8 +166,12 @@
       <workItem from="1593046543108" duration="157000" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <workItem from="1593280472339" duration="5531000" />
       <workItem from="1593311403706" duration="7061000" />
+=======
+      <workItem from="1593280472339" duration="5277000" />
+>>>>>>> parent of a78a764... 1
 =======
       <workItem from="1593280472339" duration="5277000" />
 >>>>>>> parent of a78a764... 1
@@ -295,6 +302,7 @@
     <state x="517" y="369" key="com.intellij.ide.util.TipDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1592934874545" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1593367885027">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
@@ -306,6 +314,15 @@
     <state x="385" y="210" key="run.anything.popup/0.25.1440.875@0.25.1440.875" timestamp="1593312819315" />
     <state x="397" y="234" width="670" height="560" key="search.everywhere.popup" timestamp="1593321978639">
       <screen x="0" y="25" width="1440" height="875" />
+=======
+    <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1593289625693">
+      <screen x="0" y="25" width="1440" height="875" />
+    </state>
+    <state x="418" y="82" width="604" height="735" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1593024498019" />
+    <state x="418" y="105" width="604" height="715" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1593289625693" />
+    <state x="463" y="268" width="670" height="657" key="search.everywhere.popup" timestamp="1592959370241">
+      <screen x="0" y="23" width="1680" height="1027" />
+>>>>>>> parent of a78a764... 1
 =======
     <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1593289625693">
       <screen x="0" y="25" width="1440" height="875" />
