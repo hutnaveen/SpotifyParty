@@ -22,7 +22,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -72,17 +71,18 @@ public class TCPServer
     private void startConnector()
     {
         reciver = new Thread(() -> {
+
             while (true) {
                 //if client not added to list of clients add it
+                String id = "";
                 Socket s = null;
                 DataOutputStream dos = null;
                 DataInputStream in = null;
-                String id = "" + s.getLocalAddress().getHostName() + s.getInetAddress().getHostName();
-                System.out.println(id);
                 try {
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
+                    id = "" + s.getLocalAddress().getHostAddress() + s.getInetAddress().getHostAddress();
                     new ClientListener(id);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -97,13 +97,13 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                try {
+               /* try {
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
-                    sendToClients("usr " + it, null);
+                    sendToClients("usr " + it);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         });
         reciver.start();
@@ -196,7 +196,6 @@ class ClientListener implements Runnable
         {
             try {
                 String[] str = TCPServer.streams.get(id).getInStream().readUTF().trim().split(" ");
-                System.out.println(Arrays.toString(str));
                 switch (str[1])
                 {
                     case "usr":
