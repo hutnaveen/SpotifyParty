@@ -32,15 +32,6 @@ public class Chat extends JPanel {
 
     public static void addRequest(RequestTab pane)
     {
-        if(SpotifyPartyPanelChat.host) {
-            TCPServer.sendToClients("request " + pane.getData().getId() + " " + SpotifyPartyPanelChat.FriendName);
-        } else {
-            try {
-                SpotifyPartyPanelChat.cli.getDos().writeUTF("request " + pane.getData().getId() + " " + SpotifyPartyPanelChat.FriendName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         requestTabs.add(pane);
         pane.setBounds(10, 10 + size++ *110, 430, 110);
         back.add(pane);

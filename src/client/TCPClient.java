@@ -9,6 +9,7 @@ import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import utils.NetworkUtils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -26,9 +27,14 @@ public class TCPClient
     private DataOutputStream dos;
     private Thread updater;
     private Thread tempUpdate;
+    private String id = ""+NetworkUtils.getLocalIP() + NetworkUtils.getPublicIP();
 
-    public DataOutputStream getDos() {
-        return dos;
+    public void writeToServer(String msg) {
+        try {
+            dos.writeUTF(id + " " + msg.trim());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public TCPClient(String serverIP, int serverPort)
@@ -49,11 +55,7 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            dos.writeUTF(JoinPartyPanel.name.getText());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeToServer("name " + JoinPartyPanel.name.getText());
         trackUpdater();
     }
     public void quit()
