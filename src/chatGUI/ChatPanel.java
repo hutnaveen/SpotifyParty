@@ -56,6 +56,7 @@ public class ChatPanel extends JPanel {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
+        code.setBorder(new EmptyBorder(0,0,0,0));
         code.setForeground(Color.GRAY);
         code.setBounds(40, 10, 195, 30);
         code.setEditable(false);
@@ -63,7 +64,6 @@ public class ChatPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                System.out.println("Here");
                 StringSelection selection = new StringSelection(code.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
@@ -159,13 +159,13 @@ public class ChatPanel extends JPanel {
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
         AbstractButton play = makeButton("", playIcon);
-        play.setBounds(650, 525, 40, 40);
+        play.setBounds(645, 525, 40, 40);
         play.addActionListener(e -> {
             try {
                 RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
                 chat.addRequest(tab);
                 if(SpotifyPartyPanelChat.host)
-                    TCPServer.sendToClients("request " + uri + " " +SpotifyPartyPanelChat.FriendName);
+                    TCPServer.sendToClients("request " + uri + " " +SpotifyPartyPanelChat.FriendName, null);
                 else
                     cli.writeToServer("request " + uri + " " + SpotifyPartyPanelChat.FriendName);
                 type.setText("");
@@ -230,7 +230,7 @@ public class ChatPanel extends JPanel {
         try
         {
             Graphics2D g2d = (Graphics2D) g;
-            Color color1 = color.brighter().brighter();
+            Color color1 = color.brighter();
             Color color2 = color.darker().darker().darker();
             GradientPaint gp = new GradientPaint(
                     0, 0, color1, 0, 600, color2);

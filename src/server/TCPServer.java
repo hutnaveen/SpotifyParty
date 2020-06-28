@@ -71,16 +71,18 @@ public class TCPServer
     private void startConnector()
     {
         reciver = new Thread(() -> {
+
             while (true) {
                 //if client not added to list of clients add it
+                String id = "";
                 Socket s = null;
                 DataOutputStream dos = null;
                 DataInputStream in = null;
-                String id = "" + s.getLocalAddress().getHostAddress() + s.getInetAddress().getHostAddress();
                 try {
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
+                    id = "" + s.getLocalAddress().getHostAddress() + s.getInetAddress().getHostAddress();
                     new ClientListener(id);
                 } catch (IOException e) {
                     e.printStackTrace();
