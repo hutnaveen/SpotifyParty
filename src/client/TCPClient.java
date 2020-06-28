@@ -2,7 +2,6 @@ package client;
 
 import chatGUI.ChatPanel;
 import chatGUI.JoinPartyPanel;
-import chatGUI.RequestTab;
 import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
@@ -81,12 +80,7 @@ public class TCPClient
                 }
                 if (playerData[0].equals("usr")) {
                     ChatPanel.addNames(playerData[1]);
-                }
-                else if(playerData[0].equals("request"))
-                {
-                    ChatPanel.chat.addRequest(new RequestTab(playerData[1]));
-                }
-                else {
+                } else {
                     try {
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));

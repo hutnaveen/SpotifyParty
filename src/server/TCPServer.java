@@ -1,8 +1,6 @@
 package server;
 
-import chatGUI.Chat;
 import chatGUI.ChatPanel;
-import chatGUI.RequestTab;
 import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
@@ -28,7 +26,8 @@ import static chatGUI.ChatPanel.names;
 public class TCPServer
 {
     private final SpotifyPlayerAPI api;
-    private  static ArrayList<DataOutputStream> outStreams = new ArrayList<>();
+    private  ArrayList<DataOutputStream> outStreams = new ArrayList<>();
+    private ArrayList<DataInputStream> inStream = new ArrayList<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
@@ -80,7 +79,6 @@ public class TCPServer
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -88,7 +86,8 @@ public class TCPServer
                 log("added");
                 outStreams.add(dos);
                 if(in!= null)
-                    SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
+                inStream.add(in);
+                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
                 try {
                     if (dos != null) {
                         dos.writeUTF(names.toString());
@@ -96,18 +95,35 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-               /* try {
+                try {
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
                     sendToClients("usr " + it);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }*/
+                }
             }
         });
         reciver.start();
     }
-    static void sendToClients(String msg)
+    private void startReceiver()
+    {
+        String str[] = null;
+        while (true) {
+            for (DataInputStream s : inStream) {
+                try {
+                    str = s.readUTF().split(" ");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                // TODO: 6/23/20
+                if(str[0].equals("message")){
+                    sendToClients("message " +str[1]);
+                }
+            }
+        }
+    }
+    private void sendToClients(String msg)
     {
         for(int i = 0; i < outStreams.size(); i++)
         {
@@ -175,38 +191,5 @@ public class TCPServer
 
     public int getServerPort() {
         return serverPort;
-    }
-}
-class ClientListener implements Runnable
-{
-    private DataInputStream stream;
-    public ClientListener(DataInputStream stream)
-    {
-        this.stream = stream;
-        Thread t = new Thread(this);
-        t.start();
-    }
-
-    @Override
-    public void run() {
-        while (true)
-        {
-            try {
-                String[] str = stream.readUTF().trim().split(" ");
-                switch (str[0])
-                {
-                    case "usr":
-                        ChatPanel.addNames(str[1].trim());
-                        TCPServer.sendToClients("usr " + str[1].trim());
-                        break;
-                    case "request":
-                        ChatPanel.chat.addRequest(new RequestTab(str[1].trim()));
-                        TCPServer.sendToClients("request " + str[1].trim());
-                        break;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
