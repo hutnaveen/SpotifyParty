@@ -9,6 +9,7 @@ import gui.SpotifyPartyFrame;
 import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
+import model.Streams;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -21,6 +22,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import static chatGUI.ChatPanel.names;
@@ -28,7 +30,7 @@ import static chatGUI.ChatPanel.names;
 public class TCPServer
 {
     private final SpotifyPlayerAPI api;
-    private  static ArrayList<DataOutputStream> outStreams = new ArrayList<>();
+    private  static HashMap<String, Streams> streams = new HashMap<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
@@ -84,7 +86,7 @@ public class TCPServer
                 }
                 System.out.println("added");
                 log("added");
-                outStreams.add(dos);
+                streams.put("" + s.getLocalAddress() + s.getInetAddress(), new Streams(in, dos));
                 if(in!= null)
                     SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
                 try {
