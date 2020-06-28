@@ -14,14 +14,13 @@ import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -30,12 +29,12 @@ import static chatGUI.ChatPanel.names;
 public class TCPServer
 {
     private final SpotifyPlayerAPI api;
-    public static HashMap<String, Streams> streams = new HashMap<>();
+    public static HashMap<DataInputStream, DataOutputStream> stream = new HashMap<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
     private int serverPort = 9000;
-   String last;
+    String last;
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
@@ -71,10 +70,8 @@ public class TCPServer
     private void startConnector()
     {
         reciver = new Thread(() -> {
-
             while (true) {
                 //if client not added to list of clients add it
-                String id = "";
                 Socket s = null;
                 DataOutputStream dos = null;
                 DataInputStream in = null;
@@ -82,14 +79,14 @@ public class TCPServer
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    id = "" + s.getLocalAddress().getHostAddress() + s.getInetAddress().getHostAddress();
-                    new ClientListener(id);
+                    System.out.println(NetworkUtils.getLocalIP());
+                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 System.out.println("added");
                 log("added");
-                streams.put(id, new Streams(in, dos));
+                stream.put(in, dos);
                 try {
                     if (dos != null) {
                         dos.writeUTF(names.toString());
@@ -97,25 +94,25 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-               /* try {
+                try {
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
-                    sendToClients("usr " + it);
+                    sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }*/
+                }
             }
         });
         reciver.start();
     }
-    public static void sendToClients(String msg, String exc)
+    public static void sendToClients(String msg, DataInputStream exc)
     {
-        ArrayList<String> rem = new ArrayList<>();
-        for(String id: streams.keySet())
+        ArrayList<DataInputStream> rem = new ArrayList<>();
+        for(DataInputStream id: stream.keySet())
         {
             if(!id.equals(exc)) {
                 try {
-                    streams.get(id).getOutStream().writeUTF(msg);
+                    stream.get(id).writeUTF(msg);
                 } catch (SocketException e) {
                     rem.add(id);
                 } catch (IOException e) {
@@ -123,8 +120,8 @@ public class TCPServer
                 }
             }
         }
-        for(String id: rem)
-            streams.remove(id);
+        for(DataInputStream id: rem)
+            stream.remove(id);
     }
     public void quit()
     {
@@ -182,11 +179,11 @@ public class TCPServer
 }
 class ClientListener implements Runnable
 {
-    private String id;
+    DataInputStream in;
     Thread t = new Thread(this);
-    public ClientListener(String id)
+    public ClientListener(DataInputStream id)
     {
-        this.id = id;
+        in = id;
         t.start();
     }
 
@@ -195,20 +192,22 @@ class ClientListener implements Runnable
         while (true)
         {
             try {
-                String[] str = TCPServer.streams.get(id).getInStream().readUTF().trim().split(" ");
+                String[] str = in.readUTF().trim().split(" ");
+                System.out.println(Arrays.toString(str));
                 switch (str[1])
                 {
                     case "usr":
                         ChatPanel.addNames(str[2].trim());
-                        TCPServer.sendToClients("usr " + str[2].trim(), str[0].trim());
+                        TCPServer.sendToClients("usr " + str[2].trim(),in);
                         break;
                     case "request":
                         ChatPanel.chat.addRequest(new RequestTab(str[2].trim(), str[3].trim()));
-                        TCPServer.sendToClients("request " + str[2].trim() + " " + str[3].trim(), str[0].trim());
+                        TCPServer.sendToClients("request " + str[2].trim() + " " + str[3].trim(), in);
                         break;
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                System.exit(-69);
             }
         }
     }
