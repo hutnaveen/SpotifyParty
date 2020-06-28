@@ -30,7 +30,7 @@ import static chatGUI.ChatPanel.names;
 public class TCPServer
 {
     private final SpotifyPlayerAPI api;
-    private  static HashMap<String, Streams> streams = new HashMap<>();
+    public static HashMap<String, Streams> streams = new HashMap<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
@@ -59,7 +59,7 @@ public class TCPServer
         }
         //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
-        names.add("Dhaunsh");
+        names.add("HOST");
         startConnector();
         startSender();
         System.out.println("Server is started!");
@@ -76,19 +76,18 @@ public class TCPServer
                 Socket s = null;
                 DataOutputStream dos = null;
                 DataInputStream in = null;
+                String id = "" + s.getLocalAddress().getHostAddress() + s.getInetAddress().getHostAddress();
                 try {
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    new ClientListener(in);
+                    new ClientListener(id);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 System.out.println("added");
                 log("added");
-                streams.put("" + s.getLocalAddress() + s.getInetAddress(), new Streams(in, dos));
-                if(in!= null)
-                    SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
+                streams.put(id, new Streams(in, dos));
                 try {
                     if (dos != null) {
                         dos.writeUTF(names.toString());
@@ -107,21 +106,23 @@ public class TCPServer
         });
         reciver.start();
     }
-    public static void sendToClients(String msg)
+    public static void sendToClients(String msg, String exc)
     {
-        for(int i = 0; i < outStreams.size(); i++)
+        ArrayList<String> rem = new ArrayList<>();
+        for(String id: streams.keySet())
         {
-            try
-            {
-                outStreams.get(i).writeUTF(msg);
-            }catch (SocketException e)
-            {
-                outStreams.remove(i--);
-                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(!id.equals(exc)) {
+                try {
+                    streams.get(id).getOutStream().writeUTF(msg);
+                } catch (SocketException e) {
+                    rem.add(id);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+        for(String id: rem)
+            streams.remove(id);
     }
     public void quit()
     {
@@ -142,7 +143,7 @@ public class TCPServer
                 try {
                     String tempTrack = api.getTrackId();
                     if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
@@ -179,11 +180,11 @@ public class TCPServer
 }
 class ClientListener implements Runnable
 {
-    private DataInputStream stream;
-    public ClientListener(DataInputStream stream)
+    private String id;
+    Thread t = new Thread(this);
+    public ClientListener(String id)
     {
-        this.stream = stream;
-        Thread t = new Thread(this);
+        this.id = id;
         t.start();
     }
 
@@ -192,16 +193,16 @@ class ClientListener implements Runnable
         while (true)
         {
             try {
-                String[] str = stream.readUTF().trim().split(" ");
-                switch (str[0])
+                String[] str = TCPServer.streams.get(id).getInStream().readUTF().trim().split(" ");
+                switch (str[1])
                 {
                     case "usr":
-                        ChatPanel.addNames(str[1].trim());
-                        TCPServer.sendToClients("usr " + str[1].trim());
+                        ChatPanel.addNames(str[2].trim());
+                        TCPServer.sendToClients("usr " + str[2].trim(), str[0].trim());
                         break;
                     case "request":
-                        ChatPanel.chat.addRequest(new RequestTab(str[1].trim(), str[2].trim()));
-                        //TCPServer.sendToClients("request " + str[1].trim() + " " + str[2].trim());
+                        ChatPanel.chat.addRequest(new RequestTab(str[2].trim(), str[3].trim()));
+                        TCPServer.sendToClients("request " + str[2].trim() + " " + str[3].trim(), str[0].trim());
                         break;
                 }
             } catch (IOException e) {

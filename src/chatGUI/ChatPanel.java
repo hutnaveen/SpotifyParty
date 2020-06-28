@@ -1,9 +1,11 @@
 package chatGUI;
 
+import client.TCPClient;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import model.TrackInfo;
+import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
@@ -161,13 +163,11 @@ public class ChatPanel extends JPanel {
         play.addActionListener(e -> {
             try {
                 RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
-               try {
-                   if(!SpotifyPartyPanelChat.host)
-                    cli.getDos().writeUTF("request" + type.getText());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
                 chat.addRequest(tab);
+                if(SpotifyPartyPanelChat.host)
+                    TCPServer.sendToClients("request " + uri + " " +SpotifyPartyPanelChat.FriendName);
+                else
+                    cli.writeToServer("request " + uri + " " + SpotifyPartyPanelChat.FriendName);
                 type.setText("");
             } catch (Exception e1) {
                 type.setText("INVALID URI");
