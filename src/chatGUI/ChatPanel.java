@@ -170,7 +170,7 @@ public class ChatPanel extends JPanel {
                 chat.addRequest(tab);
                 type.setText("");
                 chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
-                chat.back.setText(chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
+                chat.back.setText(chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n\n");
 
             } catch (Exception e1) {
                 type.setText("INVALID URI");
