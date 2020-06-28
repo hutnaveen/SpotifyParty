@@ -163,7 +163,7 @@ public class ChatPanel extends JPanel {
                 RequestTab tab = new RequestTab(uri);
                try {
                    if(!SpotifyPartyPanelChat.host)
-                    cli.getDos().writeUTF("request" + type.getText());
+                    cli.getDos().writeUTF("request " + type.getText().trim());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
