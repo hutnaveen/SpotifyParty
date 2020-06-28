@@ -1,15 +1,21 @@
 package chatGUI;
 
+import main.SpotifyParty;
+import server.TCPServer;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.util.HashSet;
 
 
 public class Chat extends JPanel {
     public static int size = 0;
     private JViewport scroll;
     public static JTextPane back;
+    public static HashSet<RequestTab> requestTabs = new HashSet<>();
 
     public Chat() {
         this.setLayout(null);
@@ -24,9 +30,19 @@ public class Chat extends JPanel {
         back.setEditable(false);
     }
 
-    public static void addRequest(JPanel pane)
+    public static void addRequest(RequestTab pane)
     {
-        pane.setBounds(10, 10 + size++ *90, 430, 80);
+        if(SpotifyPartyPanelChat.host) {
+            TCPServer.sendToClients("request " + pane.getData().getId() + " " + SpotifyPartyPanelChat.FriendName);
+        } else {
+            try {
+                SpotifyPartyPanelChat.cli.getDos().writeUTF("request " + pane.getData().getId() + " " + SpotifyPartyPanelChat.FriendName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        requestTabs.add(pane);
+        pane.setBounds(10, 10 + size++ *110, 430, 80);
         back.add(pane);
     }
 

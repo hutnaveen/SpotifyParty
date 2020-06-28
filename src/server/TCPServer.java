@@ -107,7 +107,7 @@ public class TCPServer
         });
         reciver.start();
     }
-    static void sendToClients(String msg)
+    public static void sendToClients(String msg)
     {
         for(int i = 0; i < outStreams.size(); i++)
         {
@@ -200,8 +200,8 @@ class ClientListener implements Runnable
                         TCPServer.sendToClients("usr " + str[1].trim());
                         break;
                     case "request":
-                        ChatPanel.chat.addRequest(new RequestTab(str[1].trim()));
-                        TCPServer.sendToClients("request " + str[1].trim());
+                        ChatPanel.chat.addRequest(new RequestTab(str[1].trim(), str[2].trim()));
+                        //TCPServer.sendToClients("request " + str[1].trim() + " " + str[2].trim());
                         break;
                 }
             } catch (IOException e) {

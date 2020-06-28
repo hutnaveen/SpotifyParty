@@ -84,7 +84,7 @@ public class TCPClient
                 }
                 else if(playerData[0].equals("request"))
                 {
-                    ChatPanel.chat.addRequest(new RequestTab(playerData[1]));
+                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
                 }
                 else {
                     try {

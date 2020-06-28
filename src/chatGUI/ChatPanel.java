@@ -160,7 +160,7 @@ public class ChatPanel extends JPanel {
         play.setBounds(650, 525, 40, 40);
         play.addActionListener(e -> {
             try {
-                RequestTab tab = new RequestTab(uri);
+                RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
                try {
                    if(!SpotifyPartyPanelChat.host)
                     cli.getDos().writeUTF("request" + type.getText());
@@ -173,7 +173,6 @@ public class ChatPanel extends JPanel {
                 chat.back.setText(chat.back.getText() + "\n\n\n\n\n\n");
 
             } catch (Exception e1) {
-                RequestTab tab = new RequestTab(uri);
                 type.setText("INVALID URI");
             }
         });

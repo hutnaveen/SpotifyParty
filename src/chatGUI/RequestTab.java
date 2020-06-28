@@ -29,19 +29,28 @@ public class RequestTab extends JPanel {
 
     public JTextPane song;
     public JTextPane artist;
+    public String name;
 
-    public RequestTab(String link) {
+    public RequestTab(String link, String str) {
+        name = str;
         uri = link;
         this.info = SpotifyUtils.getTrackInfo(uri);
         this.setLayout(null);
-        this.setBorder(new EmptyBorder(0, 0, 0, 0));
+        //this.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.setOpaque(false);
-        this.setSize(430, 90);
+        this.setSize(430, 110);
         this.setBackground(new Color(40, 40, 40));
 
 
         PopupMenu menu = new PopupMenu();
         MenuItem like = new MenuItem("like");
+
+        JLabel nameLabel = new JLabel(name);
+        nameLabel.setBounds(10, 1, 150, 18);
+        nameLabel.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 16));
+        nameLabel.setOpaque(false);
+        nameLabel.setForeground(Color.WHITE);
+        this.add(nameLabel);
 
         menu.add(like);
         MenuItem delete = new MenuItem("delete");
@@ -75,7 +84,7 @@ public class RequestTab extends JPanel {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(80, 15, 275, 25);
+        song.setBounds(80, 35, 275, 25);
         this.add(song);
 
         artist = new JTextPane();
@@ -90,7 +99,7 @@ public class RequestTab extends JPanel {
         SimpleAttributeSet center3 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_LEFT);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
-        artist.setBounds(80, 39, 275, 25);
+        artist.setBounds(80, 59, 275, 25);
         this.add(artist);
 
         animate(this);
@@ -133,9 +142,9 @@ public class RequestTab extends JPanel {
             GradientPaint gp = new GradientPaint(
                     0, 0, color2, 0, 90, color1);
             g2d.setPaint(gp);
-            g2d.fillRoundRect(0, 0, 430, 80, 20, 20);
+            g2d.fillRoundRect(0, 20, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(uri).getThumbnailURL()), 10, 9, 60, 60, this);
+            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(uri).getThumbnailURL()), 10, 29, 60, 60, this);
         }
         catch (Exception e)
         {
