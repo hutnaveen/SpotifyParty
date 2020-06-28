@@ -27,7 +27,7 @@ public class TCPClient
     private DataOutputStream dos;
     private Thread updater;
     private Thread tempUpdate;
-    private String id = ""+NetworkUtils.getLocalIP() + NetworkUtils.getPublicIP();
+    private String id = NetworkUtils.getLocalIP() + NetworkUtils.getPublicIP();
 
     public void writeToServer(String msg) {
         try {
@@ -35,6 +35,7 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(id + " " + msg.trim());
     }
 
     public TCPClient(String serverIP, int serverPort)

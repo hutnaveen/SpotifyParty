@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -45,8 +46,7 @@ public class SpotifyUtils{
         try {
             assert url != null;
             sc = new Scanner(url.openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e ) {
         }
         //Instantiating the StringBuffer class to hold the result
         StringBuilder sb = new StringBuilder();
