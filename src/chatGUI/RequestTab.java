@@ -41,27 +41,24 @@ public class RequestTab extends JPanel {
 
 
         PopupMenu menu = new PopupMenu();
-        MenuItem like = new MenuItem("like");
-
+        MenuItem like = new MenuItem();
         menu.add(like);
-        MenuItem delete = new MenuItem("delete");
+        MenuItem delete = new MenuItem();
         if(SpotifyPartyPanelChat.host) {
-            MenuItem play = new MenuItem("play");
             menu.add(delete);
-            menu.add(play);
         }
 
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/3dots.png")), 23, 6);
         JLabel opt = new JLabel(playIcon);
-        this.add(opt);
-        this.add(menu);
         opt.setBounds(380, 37, 30, 6);
         opt.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                menu.show(e.getComponent(), e.getX(), e.getY());
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                //menu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
+        this.add(opt);
 
         song = new JTextPane();
         song.setOpaque(false);
