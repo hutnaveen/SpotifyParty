@@ -32,6 +32,9 @@ public class RequestTab extends JPanel {
     public String name;
 
     public RequestTab(String link, String str) {
+        Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+        Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
+
         name = str;
         uri = link;
         this.info = SpotifyUtils.getTrackInfo(uri);
