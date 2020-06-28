@@ -39,6 +39,7 @@ public class RequestTab extends JPanel {
         this.setSize(430, 90);
         this.setBackground(new Color(40, 40, 40));
 
+
         PopupMenu menu = new PopupMenu();
         MenuItem like = new MenuItem("like");
 

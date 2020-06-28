@@ -25,10 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TCPClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chatGUI/RequestTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/RequestTab.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +148,7 @@
       <workItem from="1592950455524" duration="8016000" />
       <workItem from="1593046543108" duration="157000" />
       <workItem from="1593280472339" duration="5531000" />
-      <workItem from="1593311403706" duration="6885000" />
+      <workItem from="1593311403706" duration="7061000" />
     </task>
     <servers />
   </component>
@@ -275,11 +272,11 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="517" y="369" key="com.intellij.ide.util.TipDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1592934874545" />
-    <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1593322657945">
+    <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1593367885027">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="418" y="82" width="604" height="735" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1593024498019" />
-    <state x="418" y="105" width="604" height="715" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1593322657945" />
+    <state x="418" y="105" width="604" height="715" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1593367885027" />
     <state x="385" y="210" key="run.anything.popup" timestamp="1593312819315">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
