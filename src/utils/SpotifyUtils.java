@@ -2,11 +2,17 @@ package utils;
 
 import model.TrackInfo;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Scanner;
 
 public class SpotifyUtils{
@@ -37,13 +43,16 @@ public class SpotifyUtils{
         //Retrieving the contents of the specified page
         Scanner sc = null;
         try {
+            assert url != null;
             sc = new Scanner(url.openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
         //Instantiating the StringBuffer class to hold the result
-        StringBuffer sb = new StringBuffer();
-        while(sc.hasNext()) {
+        StringBuilder sb = new StringBuilder();
+        while(true) {
+            assert sc != null;
+            if (!sc.hasNext()) break;
             sb.append(sc.next()).append("\n");
             //System.out.println(sc.next());
         }
@@ -68,9 +77,29 @@ public class SpotifyUtils{
         info.setPopularity(Integer.parseInt(result.substring(beg, result.indexOf(",",beg))));
         return info;
     }
+    public static String getURLInfo(URL url) {
+        //Retrieving the contents of the specified page
 
+        try {
+            Document doc = Jsoup.connect("http://open.spotify.com/search/perfect").get();
+            for (Element el: doc.children()) {
+                if(el.getAllElements().size()!= 0)
+                    for(Element e: el.getAllElements())
+                         System.out.println(e.text());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     public static void main(String[] args) {
-        String id = "spotify:track:1UNs8AlFM8c0uAkSyjIW3P?si=2smAKjjPQvWVmlv-zRcFTA";
-        System.out.println(getTrackInfo(id));
+        try {
+            URL url = new URL("http://open.spotify.com/search/perfect");
+            System.out.println(getURLInfo(url));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
