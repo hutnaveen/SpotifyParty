@@ -35,6 +35,7 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
         System.out.println(id + " " + msg.trim());
     }
 
