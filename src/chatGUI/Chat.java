@@ -42,7 +42,7 @@ public class Chat extends JPanel {
             }
         }
         requestTabs.add(pane);
-        pane.setBounds(10, 10 + size++ *110, 430, 80);
+        pane.setBounds(10, 10 + size++ *110, 430, 110);
         back.add(pane);
     }
 

@@ -62,6 +62,7 @@ public class SpotifyUtils{
         result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
         int beg = result.indexOf("\"name\":") + 8;
         info.setArtist(result.substring(beg, result.indexOf("\"",beg)).replace("\n", " "));
+        info.setArtist(StringEscapeUtils.unescapeJava(info.getArtist()));
         beg = result.lastIndexOf("\"name\":") + 8;
         info.setName(result.substring(beg, result.indexOf("\"",beg)).replace("\n", " "));
         info.setName(StringEscapeUtils.unescapeJava(info.getName()));

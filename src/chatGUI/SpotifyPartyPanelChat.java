@@ -57,6 +57,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         }
         else if (e.getActionCommand().equals("hostLocal")) {
+            FriendName = "Host";
             host = true;
             local = true;
             server = new TCPServer(false);
@@ -64,6 +65,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             cl.show(this, "chatPanel");
         }
         else if(e.getActionCommand().equals("hostPublic")) {
+            FriendName = "Host";
             host = true;
             local = true;
             server = new TCPServer(true);
