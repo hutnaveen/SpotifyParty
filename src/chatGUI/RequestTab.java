@@ -54,7 +54,7 @@ public class RequestTab extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                menu.show(e.getComponent(), e.getX(), e.getY());
+                //menu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
         this.add(opt);
