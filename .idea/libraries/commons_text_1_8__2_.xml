@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="commons-text-1.8 (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/commons-text-1.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/commons-text-1.8-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/commons-text-1.8-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

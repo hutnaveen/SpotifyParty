@@ -9,5 +9,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="VAqua7" level="project" />
+    <orderEntry type="library" name="commons-text-1.8" level="project" />
+    <orderEntry type="library" name="commons-text-1.8 (2)" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
+    <orderEntry type="library" name="jsoup-1.13.1" level="project" />
   </component>
 </module>
