@@ -43,18 +43,20 @@ public class SpotifyUtils{
         }
         //Retrieving the contents of the specified page
         Scanner sc = null;
+        StringBuilder sb = new StringBuilder();
         try {
             assert url != null;
             sc = new Scanner(url.openStream());
-        } catch (Exception e ) {
+
+            //Instantiating the StringBuffer class to hold the result
+            while (true) {
+                assert sc != null;
+                if (!sc.hasNext()) break;
+                sb.append(sc.next()).append("\n");
+                //System.out.println(sc.next());
+            }
         }
-        //Instantiating the StringBuffer class to hold the result
-        StringBuilder sb = new StringBuilder();
-        while(true) {
-            assert sc != null;
-            if (!sc.hasNext()) break;
-            sb.append(sc.next()).append("\n");
-            //System.out.println(sc.next());
+        catch (Exception e ) {
         }
         //Retrieving the String from the String Buffer object
         String result = sb.toString();
