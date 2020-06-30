@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.sql.SQLOutput;
 
 import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
@@ -25,28 +26,27 @@ import static gui.GUIUtil.resizeIcon;
 public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public String uri;
+
     private TrackInfo info;
+    public boolean removeThis = false;
 
     public JTextPane song;
     public JTextPane artist;
+
     public String name;
 
     public RequestTab(String link, String str) {
+        uri = link;
+        this.info = SpotifyUtils.getTrackInfo(uri);
         Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
         Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         name = str;
-        uri = link;
-        this.info = SpotifyUtils.getTrackInfo(uri);
         this.setLayout(null);
         this.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.setOpaque(false);
         this.setSize(430, 110);
         this.setBackground(new Color(40, 40, 40));
-
-
-        PopupMenu menu = new PopupMenu();
-        MenuItem like = new MenuItem("like");
 
         JLabel nameLabel = new JLabel(name);
         nameLabel.setBounds(0, 9, 150, 18);
@@ -55,12 +55,23 @@ public class RequestTab extends JPanel {
         nameLabel.setForeground(Color.WHITE);
         this.add(nameLabel);
 
-        menu.add(like);
-        MenuItem delete = new MenuItem("delete");
+        PopupMenu menu = new PopupMenu();
+        if(!SpotifyPartyPanelChat.host) {
+            MenuItem like = new MenuItem("Vote");
+            menu.add(like);
+        }
+
         if(SpotifyPartyPanelChat.host) {
-            MenuItem play = new MenuItem("play");
-            menu.add(delete);
+            MenuItem play = new MenuItem("Play");
+            play.addActionListener(e -> api.play());
             menu.add(play);
+
+            MenuItem delete = new MenuItem("Delete");
+            delete.addActionListener(e -> {
+                    removeThis = true;
+                    Chat.redraw(uri);
+            });
+            menu.add(delete);
         }
 
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/3dots.png")), 23, 6);
