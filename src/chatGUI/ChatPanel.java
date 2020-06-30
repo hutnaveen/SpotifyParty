@@ -170,6 +170,7 @@ public class ChatPanel extends JPanel {
                     cli.writeToServer("request " + uri + " " + SpotifyPartyPanelChat.FriendName);
                 type.setText("");
             } catch (Exception e1) {
+                e1.printStackTrace();
                 type.setText("INVALID URI");
             }
         });
