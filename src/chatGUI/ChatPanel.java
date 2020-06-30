@@ -50,6 +50,8 @@ public class ChatPanel extends JPanel {
     public static String uri = "";
     private URL artworkURL;
 
+    public boolean me = true;
+
 
     public ChatPanel() {
         this.setLayout(null);
@@ -165,7 +167,7 @@ public class ChatPanel extends JPanel {
                 RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
                 chat.addRequest(tab);
                 if(SpotifyPartyPanelChat.host)
-                    TCPServer.sendToClients("request " + uri + " " +SpotifyPartyPanelChat.FriendName, null);
+                    TCPServer.sendToClients("request " + chat.requestTabs.toString().replace(" ", "") + " " +SpotifyPartyPanelChat.FriendName, null);
                 else
                     cli.writeToServer("request " + uri + " " + SpotifyPartyPanelChat.FriendName);
                 type.setText("");
@@ -186,6 +188,7 @@ public class ChatPanel extends JPanel {
         chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         chatScroll.getVerticalScrollBar().setUnitIncrement(16);
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
+
         this.add(chatScroll);
 
     }

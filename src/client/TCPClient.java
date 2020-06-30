@@ -1,9 +1,6 @@
 package client;
 
-import chatGUI.ChatPanel;
-import chatGUI.JoinPartyPanel;
-import chatGUI.RequestTab;
-import chatGUI.SpotifyPartyPanelChat;
+import chatGUI.*;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
@@ -16,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -87,7 +85,15 @@ public class TCPClient
                 }
                 else if(playerData[0].equals("request"))
                 {
-                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    ArrayList<RequestTab> tabs = new ArrayList<>();
+                    for(String rec: playerData[1].split(","))
+                    {
+                        String[] dat = rec.split(";");
+                        tabs.add(new RequestTab(dat[0], dat[1]));
+                    }
+                    Chat.requestTabs = tabs;
+                    Chat.redraw("");
+                    //ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
                 }
                 else {
                     try {
