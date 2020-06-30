@@ -9,18 +9,19 @@ import gui.SpotifyPartyFrame;
 import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
+import model.Streams;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import static chatGUI.ChatPanel.names;
@@ -28,12 +29,12 @@ import static chatGUI.ChatPanel.names;
 public class TCPServer
 {
     private final SpotifyPlayerAPI api;
-    private  static ArrayList<DataOutputStream> outStreams = new ArrayList<>();
+    public static HashMap<DataInputStream, DataOutputStream> stream = new HashMap<>();
     private ServerSocket ss;
     private Thread reciver;
     private Thread sender;
     private int serverPort = 9000;
-   String last;
+    String last;
     public TCPServer(boolean diffNetWork)
     {
         api = new SpotifyAppleScriptWrapper();
@@ -57,7 +58,7 @@ public class TCPServer
         }
         //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
-        names.add("Dhaunsh");
+        names.add("HOST");
         startConnector();
         startSender();
         System.out.println("Server is started!");
@@ -78,15 +79,14 @@ public class TCPServer
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
+                    System.out.println(NetworkUtils.getLocalIP());
                     new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 System.out.println("added");
                 log("added");
-                outStreams.add(dos);
-                if(in!= null)
-                    SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
+                stream.put(in, dos);
                 try {
                     if (dos != null) {
                         dos.writeUTF(names.toString());
@@ -94,32 +94,34 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-               /* try {
+                try {
                     String it = in.readUTF();
                     ChatPanel.addNames(it);
-                    sendToClients("usr " + it);
+                    sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }*/
+                }
             }
         });
         reciver.start();
     }
-    public static void sendToClients(String msg)
+    public static void sendToClients(String msg, DataInputStream exc)
     {
-        for(int i = 0; i < outStreams.size(); i++)
+        ArrayList<DataInputStream> rem = new ArrayList<>();
+        for(DataInputStream id: stream.keySet())
         {
-            try
-            {
-                outStreams.get(i).writeUTF(msg);
-            }catch (SocketException e)
-            {
-                outStreams.remove(i--);
-                SpotifyPartyFrame.status.setLabel("Guests: " + outStreams.size());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(!id.equals(exc)) {
+                try {
+                    stream.get(id).writeUTF(msg);
+                } catch (SocketException e) {
+                    rem.add(id);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+        for(DataInputStream id: rem)
+            stream.remove(id);
     }
     public void quit()
     {
@@ -140,7 +142,7 @@ public class TCPServer
                 try {
                     String tempTrack = api.getTrackId();
                     if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
@@ -177,11 +179,11 @@ public class TCPServer
 }
 class ClientListener implements Runnable
 {
-    private DataInputStream stream;
-    public ClientListener(DataInputStream stream)
+    DataInputStream in;
+    Thread t = new Thread(this);
+    public ClientListener(DataInputStream id)
     {
-        this.stream = stream;
-        Thread t = new Thread(this);
+        in = id;
         t.start();
     }
 
@@ -190,20 +192,22 @@ class ClientListener implements Runnable
         while (true)
         {
             try {
-                String[] str = stream.readUTF().trim().split(" ");
-                switch (str[0])
+                String[] str = in.readUTF().trim().split(" ");
+                System.out.println(Arrays.toString(str));
+                switch (str[1])
                 {
                     case "usr":
-                        ChatPanel.addNames(str[1].trim());
-                        TCPServer.sendToClients("usr " + str[1].trim());
+                        ChatPanel.addNames(str[2].trim());
+                        TCPServer.sendToClients("usr " + str[2].trim(),in);
                         break;
                     case "request":
-                        ChatPanel.chat.addRequest(new RequestTab(str[1].trim(), str[2].trim()));
-                        //TCPServer.sendToClients("request " + str[1].trim() + " " + str[2].trim());
+                        ChatPanel.chat.addRequest(new RequestTab(str[2].trim(), str[3].trim()));
+                        TCPServer.sendToClients("request " + str[2].trim() + " " + str[3].trim(), in);
                         break;
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                System.exit(-69);
             }
         }
     }
