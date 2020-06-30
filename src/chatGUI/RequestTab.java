@@ -25,10 +25,9 @@ import static gui.GUIUtil.resizeIcon;
 
 public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
-    public String uri;
+    public String url;
 
     private TrackInfo info;
-    public boolean removeThis = false;
 
     public JTextPane song;
     public JTextPane artist;
@@ -36,8 +35,8 @@ public class RequestTab extends JPanel {
     public String name;
 
     public RequestTab(String link, String str) {
-        uri = link;
-        this.info = SpotifyUtils.getTrackInfo(uri);
+        url = link;
+        this.info = SpotifyUtils.getTrackInfo(url);
         Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
         Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
@@ -63,13 +62,13 @@ public class RequestTab extends JPanel {
 
         if(SpotifyPartyPanelChat.host) {
             MenuItem play = new MenuItem("Play");
-            play.addActionListener(e -> api.play());
+            System.out.println(info.getId());
+            play.addActionListener(e -> api.playTrack(info.getId()));
             menu.add(play);
 
             MenuItem delete = new MenuItem("Delete");
             delete.addActionListener(e -> {
-                    removeThis = true;
-                    Chat.redraw(uri);
+                    Chat.redraw(url);
             });
             menu.add(delete);
         }
@@ -117,6 +116,7 @@ public class RequestTab extends JPanel {
         this.add(artist);
 
         animate(this);
+        /*
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -126,6 +126,7 @@ public class RequestTab extends JPanel {
                 }
             }
         });
+         */
     }
 
     public void animate(JComponent obj) {
@@ -158,11 +159,16 @@ public class RequestTab extends JPanel {
             g2d.setPaint(gp);
             g2d.fillRoundRect(0, 30, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(uri).getThumbnailURL()), 10, 39, 60, 60, this);
+            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(url).getThumbnailURL()), 10, 39, 60, 60, this);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return info.getId() + ";" + name;
     }
 }
