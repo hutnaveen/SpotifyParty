@@ -85,16 +85,19 @@ public class TCPClient
                 }
                 else if(playerData[0].equals("request"))
                 {
-                    /*ArrayList<RequestTab> tabs = new ArrayList<>();
+                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    ChatPanel.chat.revalidate();
+                    //Chat.redraw("");
+                }
+                else if(playerData[0].equals("addAll"))
+                {
+                     ArrayList<RequestTab> tabs = new ArrayList<>();
                     for(String rec: playerData[1].split(","))
                     {
                         String[] dat = rec.split(";");
                         tabs.add(new RequestTab(dat[0], dat[1]));
                     }
                     Chat.requestTabs = tabs;
-                    Chat.redraw("");*/
-                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
-                    //ChatPanel.chat.repaint();
                     Chat.redraw("");
                 }
                 else {
@@ -165,7 +168,7 @@ public class TCPClient
                 System.out.println("mans playing an add");
                 log("an add is playing");
                 try {
-                    Thread.sleep(15000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
