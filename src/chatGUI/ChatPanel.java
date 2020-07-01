@@ -169,7 +169,7 @@ public class ChatPanel extends JPanel {
                 if(SpotifyPartyPanelChat.host)
                     TCPServer.sendToClients("request " + chat.requestTabs.toString().replace(" ", "") + " " +SpotifyPartyPanelChat.FriendName, null);
                 else
-                    cli.writeToServer("request " + uri + " " + SpotifyPartyPanelChat.FriendName);
+                    cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 type.setText("");
             } catch (Exception e1) {
                 e1.printStackTrace();

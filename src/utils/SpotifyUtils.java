@@ -57,6 +57,7 @@ public class SpotifyUtils{
             }
         }
         catch (Exception e ) {
+            return null;
         }
         //Retrieving the String from the String Buffer object
         String result = sb.toString();

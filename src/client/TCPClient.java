@@ -85,15 +85,17 @@ public class TCPClient
                 }
                 else if(playerData[0].equals("request"))
                 {
-                    ArrayList<RequestTab> tabs = new ArrayList<>();
+                    /*ArrayList<RequestTab> tabs = new ArrayList<>();
                     for(String rec: playerData[1].split(","))
                     {
                         String[] dat = rec.split(";");
                         tabs.add(new RequestTab(dat[0], dat[1]));
                     }
                     Chat.requestTabs = tabs;
+                    Chat.redraw("");*/
+                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    //ChatPanel.chat.repaint();
                     Chat.redraw("");
-                    //ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
                 }
                 else {
                     try {
