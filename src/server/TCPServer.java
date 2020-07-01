@@ -14,6 +14,7 @@ import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class TCPServer
         api = new SpotifyAppleScriptWrapper();
         boolean star;
         if(diffNetWork) {
-            for(; serverPort <= 30100; serverPort ++) {
+            for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 star = UPnP.openPortTCP(serverPort);
                 System.out.println(star);
@@ -75,7 +76,7 @@ public class TCPServer
                 DataInputStream in = null;
                 try {
                     s = ss.accept();
-                    dos = new DataOutputStream(s.getOutputStream());
+                    dos = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -92,7 +93,7 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    ChatPanel.addNames(it);
+                    ChatPanel.addNames(it.trim());
                     sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -142,6 +143,17 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
+                            try {
+                                UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (InstantiationException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
                         }
                     }
@@ -177,9 +189,10 @@ public class TCPServer
 class ClientListener implements Runnable
 {
     DataInputStream in;
+    Thread t;
     public ClientListener(DataInputStream id)
     {
-        Thread t = new Thread(this);
+        t = new Thread(this);
         in = id;
         t.start();
     }
@@ -203,9 +216,7 @@ class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                System.out.println("bitch ass");
-                //e.printStackTrace();
-                System.exit(69);
+                t.stop();
             }
         }
     }
