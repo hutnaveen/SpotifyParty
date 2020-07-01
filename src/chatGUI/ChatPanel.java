@@ -130,7 +130,9 @@ public class ChatPanel extends JPanel {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JScrollPane areaScroll = new JScrollPane(area);
+        JScrollPane areaScroll = new JScrollPane();
+        areaScroll.getViewport().setFocusable(false);
+        areaScroll.getViewport().setView(area);
         areaScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
@@ -141,7 +143,17 @@ public class ChatPanel extends JPanel {
         areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
         areaScroll.setBounds(25, 110, 200, 250);
         this.add(areaScroll);
-
+        try {
+            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 525, 380, 40);
         type.addMouseListener(new MouseAdapter() {
@@ -178,7 +190,8 @@ public class ChatPanel extends JPanel {
         });
         this.add(play);
 
-        JScrollPane chatScroll = new JScrollPane(chat.back);
+        JScrollPane chatScroll = new JScrollPane();
+        chatScroll.getViewport().setView(Chat.back);
         chatScroll.setBounds(250, 0, 450, 517);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);

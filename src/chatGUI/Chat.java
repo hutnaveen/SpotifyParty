@@ -29,6 +29,17 @@ public class Chat extends JPanel {
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);
         back.add(pane);
+        ChatPanel.addNames("Nav");
+        ChatPanel.addNames("Host1");
+        ChatPanel.addNames("Host2");
+        ChatPanel.addNames("Host3");
+        ChatPanel.addNames("Host4");
+        ChatPanel.addNames("Host5");
+        ChatPanel.addNames("Host6");
+        ChatPanel.addNames("Host7");
+        ChatPanel.addNames("Host8");
+        ChatPanel.addNames("Host9");
+        ChatPanel.addNames("Host10");
     }
     public static void redraw(String link) {
         back.removeAll();

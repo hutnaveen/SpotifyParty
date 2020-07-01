@@ -14,6 +14,7 @@ import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -142,6 +143,17 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
+                            try {
+                                UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (InstantiationException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (UnsupportedLookAndFeelException e) {
+                                e.printStackTrace();
+                            }
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
                         }
                     }
