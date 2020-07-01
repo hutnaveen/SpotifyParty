@@ -15,10 +15,7 @@ import upnp.UPnP;
 import utils.NetworkUtils;
 
 import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,15 +37,16 @@ public class TCPServer
         api = new SpotifyAppleScriptWrapper();
         boolean star;
         if(diffNetWork) {
-            for(; serverPort <= 9100; serverPort ++) {
+            for(; serverPort <= 30100; serverPort ++) {
                 //only needed if the clients are not on the same network
-                star = (UPnP.openPortTCP((serverPort)));
+                star = UPnP.openPortTCP(serverPort);
                 System.out.println(star);
                 log("" + star);
-                if (star)
+                if (star) {
+                    System.out.println();
                     break;
-                else
-                    UPnP.closePortTCP((serverPort));
+                }else
+                    UPnP.closePortTCP(serverPort);
             }
 
         }
@@ -67,7 +65,6 @@ public class TCPServer
         SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
 
-
     private void startConnector()
     {
         reciver = new Thread(() -> {
@@ -80,8 +77,6 @@ public class TCPServer
                     s = ss.accept();
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    System.out.println(NetworkUtils.getLocalIP());
-                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -102,6 +97,7 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                new ClientListener(in);
             }
         });
         reciver.start();
@@ -181,9 +177,9 @@ public class TCPServer
 class ClientListener implements Runnable
 {
     DataInputStream in;
-    Thread t = new Thread(this);
     public ClientListener(DataInputStream id)
     {
+        Thread t = new Thread(this);
         in = id;
         t.start();
     }
@@ -207,8 +203,9 @@ class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(-69);
+                System.out.println("bitch ass");
+                //e.printStackTrace();
+                System.exit(69);
             }
         }
     }
