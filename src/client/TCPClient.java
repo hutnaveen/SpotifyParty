@@ -1,9 +1,6 @@
 package client;
 
-import chatGUI.ChatPanel;
-import chatGUI.JoinPartyPanel;
-import chatGUI.RequestTab;
-import chatGUI.SpotifyPartyPanelChat;
+import chatGUI.*;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
@@ -16,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -35,7 +33,6 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         System.out.println(id + " " + msg.trim());
     }
 
@@ -89,6 +86,19 @@ public class TCPClient
                 else if(playerData[0].equals("request"))
                 {
                     ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    ChatPanel.chat.revalidate();
+                    //Chat.redraw("");
+                }
+                else if(playerData[0].equals("addAll"))
+                {
+                     ArrayList<RequestTab> tabs = new ArrayList<>();
+                    for(String rec: playerData[1].split(","))
+                    {
+                        String[] dat = rec.split(";");
+                        tabs.add(new RequestTab(dat[0], dat[1]));
+                    }
+                    Chat.requestTabs = tabs;
+                    Chat.redraw("");
                 }
                 else {
                     try {
@@ -158,7 +168,7 @@ public class TCPClient
                 System.out.println("mans playing an add");
                 log("an add is playing");
                 try {
-                    Thread.sleep(15000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

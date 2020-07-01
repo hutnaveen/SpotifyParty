@@ -18,35 +18,35 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.sql.SQLOutput;
 
 import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
 public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
-    public String uri;
+    public String url;
+
     private TrackInfo info;
 
     public JTextPane song;
     public JTextPane artist;
+
     public String name;
 
     public RequestTab(String link, String str) {
+        url = link;
+        System.out.println(link + " " + str);
+        this.info = SpotifyUtils.getTrackInfo(url);
         Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
         Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         name = str;
-        uri = link;
-        this.info = SpotifyUtils.getTrackInfo(uri);
         this.setLayout(null);
         this.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.setOpaque(false);
         this.setSize(430, 110);
         this.setBackground(new Color(40, 40, 40));
-
-
-        PopupMenu menu = new PopupMenu();
-        MenuItem like = new MenuItem("like");
 
         JLabel nameLabel = new JLabel(name);
         nameLabel.setBounds(0, 9, 150, 18);
@@ -55,12 +55,23 @@ public class RequestTab extends JPanel {
         nameLabel.setForeground(Color.WHITE);
         this.add(nameLabel);
 
-        menu.add(like);
-        MenuItem delete = new MenuItem("delete");
+        PopupMenu menu = new PopupMenu();
+        if(!SpotifyPartyPanelChat.host) {
+            MenuItem like = new MenuItem("Vote");
+            menu.add(like);
+        }
+
         if(SpotifyPartyPanelChat.host) {
-            MenuItem play = new MenuItem("play");
-            menu.add(delete);
+            MenuItem play = new MenuItem("Play");
+            System.out.println(info.getId());
+            play.addActionListener(e -> api.playTrack(info.getId()));
             menu.add(play);
+
+            MenuItem delete = new MenuItem("Delete");
+            delete.addActionListener(e -> {
+                    Chat.redraw(url);
+            });
+            menu.add(delete);
         }
 
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/3dots.png")), 23, 6);
@@ -106,6 +117,7 @@ public class RequestTab extends JPanel {
         this.add(artist);
 
         animate(this);
+        /*
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -115,6 +127,7 @@ public class RequestTab extends JPanel {
                 }
             }
         });
+         */
     }
 
     public void animate(JComponent obj) {
@@ -147,11 +160,16 @@ public class RequestTab extends JPanel {
             g2d.setPaint(gp);
             g2d.fillRoundRect(0, 30, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(uri).getThumbnailURL()), 10, 39, 60, 60, this);
+            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(url).getThumbnailURL()), 10, 39, 60, 60, this);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return info.getId() + ";" + name;
     }
 }

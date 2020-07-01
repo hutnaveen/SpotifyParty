@@ -15,10 +15,7 @@ import upnp.UPnP;
 import utils.NetworkUtils;
 
 import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,14 +39,16 @@ public class TCPServer
         if(diffNetWork) {
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
-                star = (UPnP.openPortTCP((serverPort)));
+                star = UPnP.openPortTCP(serverPort);
                 System.out.println(star);
                 log("" + star);
-                if (star)
+                if (star) {
+                    System.out.println();
                     break;
-                else
-                    UPnP.closePortTCP((serverPort));
+                }else
+                    UPnP.closePortTCP(serverPort);
             }
+
         }
         try {
             ss = new ServerSocket(serverPort);
@@ -66,7 +65,6 @@ public class TCPServer
         SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
 
-
     private void startConnector()
     {
         reciver = new Thread(() -> {
@@ -77,10 +75,8 @@ public class TCPServer
                 DataInputStream in = null;
                 try {
                     s = ss.accept();
-                    dos = new DataOutputStream(s.getOutputStream());
+                    dos = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    System.out.println(NetworkUtils.getLocalIP());
-                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -96,11 +92,12 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    ChatPanel.addNames(it);
+                    ChatPanel.addNames(it.trim());
                     sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                new ClientListener(in);
             }
         });
         reciver.start();
@@ -180,9 +177,10 @@ public class TCPServer
 class ClientListener implements Runnable
 {
     DataInputStream in;
-    Thread t = new Thread(this);
+    Thread t;
     public ClientListener(DataInputStream id)
     {
+        t = new Thread(this);
         in = id;
         t.start();
     }
@@ -206,8 +204,7 @@ class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(-69);
+                t.stop();
             }
         }
     }

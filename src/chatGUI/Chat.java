@@ -1,21 +1,15 @@
 package chatGUI;
 
-import main.SpotifyParty;
-import server.TCPServer;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 
 public class Chat extends JPanel {
     public static int size = 0;
-    private JViewport scroll;
     public static JTextPane back;
-    public static HashSet<RequestTab> requestTabs = new HashSet<>();
+    public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
 
     public Chat() {
         this.setLayout(null);
@@ -33,8 +27,23 @@ public class Chat extends JPanel {
     public static void addRequest(RequestTab pane)
     {
         requestTabs.add(pane);
-        pane.setBounds(10, 10 + size++ *110, 430, 110);
+        pane.setBounds(10, 10 +size++ *110, 430, 110);
         back.add(pane);
+    }
+    public static void redraw(String link) {
+        back.removeAll();
+        back.setText("");
+        size = 0;
+        for(int i = 0; i < requestTabs.size(); i++) {
+            if(!(requestTabs.get(i).url.equals(link))) {
+                requestTabs.get(i).setBounds(10, 10 + size++ *110, 430, 110);
+                back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
+                back.add(requestTabs.get(i));
+            } else {
+                requestTabs.remove(requestTabs.get(i));
+                i--;
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {
