@@ -167,7 +167,7 @@ public class ChatPanel extends JPanel {
                 RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
                 chat.addRequest(tab);
                 if(SpotifyPartyPanelChat.host)
-                    TCPServer.sendToClients("request " + chat.requestTabs.toString().replace(" ", "") + " " +SpotifyPartyPanelChat.FriendName, null);
+                    TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim()+ " " +SpotifyPartyPanelChat.FriendName, null);
                 else
                     cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 type.setText("");
