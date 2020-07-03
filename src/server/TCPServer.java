@@ -14,9 +14,11 @@ import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
-import javax.swing.*;
 import java.io.*;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -38,22 +40,18 @@ public class TCPServer
         api = new SpotifyAppleScriptWrapper();
         boolean star;
         if(diffNetWork) {
-
+            /*
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
-                UPnP.closePortUDP(serverPort);
-                UPnP.waitInit();
-                star = UPnP.openPortTCP(serverPort);
+                star = (UPnP.openPortTCP((serverPort)));
                 System.out.println(star);
                 log("" + star);
-                if (star) {
-                    System.out.println();
+                if (star)
                     break;
-                }else
-                    UPnP.closePortTCP(serverPort);
+                else
+                    UPnP.closePortTCP((serverPort));
             }
-
-
+             */
         }
         try {
             ss = new ServerSocket(serverPort);
@@ -70,6 +68,7 @@ public class TCPServer
         SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
 
+
     private void startConnector()
     {
         reciver = new Thread(() -> {
@@ -80,8 +79,10 @@ public class TCPServer
                 DataInputStream in = null;
                 try {
                     s = ss.accept();
-                    dos = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
+                    dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
+                    System.out.println(NetworkUtils.getLocalIP());
+                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -97,12 +98,11 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    ChatPanel.addNames(it.trim());
+                    ChatPanel.addNames(it);
                     sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                new ClientListener(in);
             }
         });
         reciver.start();
@@ -147,17 +147,6 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
-                            try {
-                                UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
-                            } catch (ClassNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (InstantiationException e) {
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            } catch (UnsupportedLookAndFeelException e) {
-                                e.printStackTrace();
-                            }
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
                         }
                     }
@@ -193,10 +182,9 @@ public class TCPServer
 class ClientListener implements Runnable
 {
     DataInputStream in;
-    Thread t;
+    Thread t = new Thread(this);
     public ClientListener(DataInputStream id)
     {
-        t = new Thread(this);
         in = id;
         t.start();
     }
@@ -220,7 +208,8 @@ class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                t.stop();
+                e.printStackTrace();
+                System.exit(-69);
             }
         }
     }
