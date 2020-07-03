@@ -38,7 +38,7 @@ public class Main {
         frame.setVisible(true);
         panel.putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         area.setForeground(Color.BLACK);
-        area.setText(LyricScraper.getLyrics(api.getTrackName(), api.getTrackArtist()));
+        area.setText(LyricFinder.getLyrics(api.getTrackName(), api.getTrackArtist()));
     }
 
 }
