@@ -272,7 +272,7 @@ public class ChatPanel extends JPanel {
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.getViewport().setView(Chat.back);
         Chat.back.setFocusable(false);
-        chatScroll.setBounds(250, 0, 450, 517);
+        chatScroll.setBounds(250, 70, 450, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
@@ -284,6 +284,10 @@ public class ChatPanel extends JPanel {
 
         this.add(chatScroll);
 
+        JLabel req = new JLabel("Song Requests");
+        req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 33));
+        req.setBounds(353, 18, 300, 60);
+        this.add(req);
     }
 
     public static void addNames(String... name) {
