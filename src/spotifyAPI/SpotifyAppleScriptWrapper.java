@@ -207,7 +207,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         try {
             return OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
                     "\tartist of current track\n" +
-                    "end tell");
+                    "end tell").trim();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -248,7 +248,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         }
         return null;
     }
-    public  String getTrackName()
+    public String getTrackName()
     {
        /*String str = getTrackInfo();
        int pos = str.indexOf("name\":") + 7;
@@ -256,7 +256,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         try {
             return OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
                     "\tname of current track\n" +
-                    "end tell");
+                    "end tell").trim();
         } catch (IOException e) {
             e.printStackTrace();
         }
