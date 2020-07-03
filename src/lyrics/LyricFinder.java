@@ -17,15 +17,26 @@ public class LyricFinder {
     }
     public static String getLyrics(String song, String artist)
     {
-        List<SearchResult> results = DuckDuckGoSearch.getSearchResults(song + " " + artist + " genius lyrics");
-        for(SearchResult result: results)
-        {
-            if(result.getUrl().endsWith("-lyrics") && result.getTitle().endsWith("| Genius Lyrics"))
-            {
-                return (StringEscapeUtils.unescapeHtml4(getLyrics(result.getUrl()).trim()));
+        try {
+            List<SearchResult> results = DuckDuckGoSearch.getSearchResults(song + " " + artist + " genius lyrics");
+            for (SearchResult result : results) {
+                if (result.getUrl().endsWith("-lyrics") && result.getTitle().endsWith("| Genius Lyrics")) {
+                    return (StringEscapeUtils.unescapeHtml4(getLyrics(result.getUrl()).trim()));
+                }
             }
+        }catch (Exception e)
+        {
+           // System.err.println(e.getMessage());
+            return "well shit it looks like we dont have lyrics for this song\n or out api just be trippin \n this shit is open source so shit be like that";
         }
-        return null;
+        return "well shit it looks like we dont have lyrics for this song\n or out api just be trippin \n this shit is open source so shit be like that";
+    }
+    public static String getLyrics(String song, String artist, boolean special)
+    {
+            if (special)
+                return getLyrics(song.replaceAll("[^a-zA-Z0-9]", " "), artist);
+            else
+                return getLyrics(song, artist);
     }
     private static String getLyrics(String url)
     {

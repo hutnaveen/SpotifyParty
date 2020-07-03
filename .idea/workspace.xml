@@ -25,16 +25,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04bb8db9-bbbc-45a8-9c79-87feb30d9364" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/lyrics/Translator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/Chat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/Chat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricFinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricFinder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chatGUI/ChatPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lyrics/LyricFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lyrics/LyricFinder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,19 +79,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.SpotifyPartyChat">
-    <configuration name="DuckDuckGoSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="lyrics.DuckDuckGoSearch" />
-      <module name="SpotifyParty-master" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="lyrics.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="LyricFinder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="lyrics.LyricFinder" />
       <module name="SpotifyParty-master" />
@@ -112,8 +92,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="lyrics.Main" />
+    <configuration name="ScanWebSO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lyrics.ScanWebSO" />
       <module name="SpotifyParty-master" />
       <extension name="coverage">
         <pattern>
@@ -164,13 +144,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Translator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lyrics.Translator" />
+      <module name="SpotifyParty-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lyrics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SpotifyPartyChat" />
+        <item itemvalue="Application.Translator" />
+        <item itemvalue="Application.ScanWebSO" />
         <item itemvalue="Application.Test (1)" />
         <item itemvalue="Application.LyricFinder" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Test (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +186,7 @@
       <workItem from="1593573947797" duration="44000" />
       <workItem from="1593593163125" duration="12000" />
       <workItem from="1593595091039" duration="2097000" />
-      <workItem from="1593742972366" duration="23184000" />
+      <workItem from="1593742972366" duration="27126000" />
     </task>
     <servers />
   </component>
@@ -236,9 +229,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="496" y="364" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1593022974532" />
-    <state width="1108" height="296" key="GridCell.Tab.0.bottom" timestamp="1593809509668">
+    <state width="1303" height="235" key="GridCell.Tab.0.bottom" timestamp="1593814656346">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
+    <state width="1303" height="235" key="GridCell.Tab.0.bottom/-1068.-1415.3440.1415/0.25.1440.875@0.25.1440.875" timestamp="1593814656346" />
     <state width="1398" height="164" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593373275010" />
     <state width="1398" height="164" key="GridCell.Tab.0.bottom/0.23.1440.836@0.23.1440.836" timestamp="1593373578052" />
     <state width="1638" height="387" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554061" />
@@ -246,9 +240,10 @@
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
     <state width="1108" height="296" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1593809509668" />
     <state width="1041" height="164" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="1108" height="296" key="GridCell.Tab.0.center" timestamp="1593809509663">
+    <state width="1303" height="235" key="GridCell.Tab.0.center" timestamp="1593814656333">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
+    <state width="1303" height="235" key="GridCell.Tab.0.center/-1068.-1415.3440.1415/0.25.1440.875@0.25.1440.875" timestamp="1593814656333" />
     <state width="1398" height="164" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593373275009" />
     <state width="1398" height="164" key="GridCell.Tab.0.center/0.23.1440.836@0.23.1440.836" timestamp="1593373578051" />
     <state width="1638" height="387" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554059" />
@@ -256,9 +251,10 @@
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1108" height="296" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1593809509663" />
     <state width="1041" height="164" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621108" />
-    <state width="1108" height="296" key="GridCell.Tab.0.left" timestamp="1593809509661">
+    <state width="1303" height="235" key="GridCell.Tab.0.left" timestamp="1593814656332">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
+    <state width="1303" height="235" key="GridCell.Tab.0.left/-1068.-1415.3440.1415/0.25.1440.875@0.25.1440.875" timestamp="1593814656332" />
     <state width="1398" height="164" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593373275008" />
     <state width="1398" height="164" key="GridCell.Tab.0.left/0.23.1440.836@0.23.1440.836" timestamp="1593373578050" />
     <state width="1638" height="387" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554058" />
@@ -266,9 +262,10 @@
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
     <state width="1108" height="296" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1593809509661" />
     <state width="1041" height="164" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621107" />
-    <state width="1108" height="296" key="GridCell.Tab.0.right" timestamp="1593809509667">
+    <state width="1303" height="235" key="GridCell.Tab.0.right" timestamp="1593814656334">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
+    <state width="1303" height="235" key="GridCell.Tab.0.right/-1068.-1415.3440.1415/0.25.1440.875@0.25.1440.875" timestamp="1593814656334" />
     <state width="1398" height="164" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593373275010" />
     <state width="1398" height="164" key="GridCell.Tab.0.right/0.23.1440.836@0.23.1440.836" timestamp="1593373578051" />
     <state width="1638" height="387" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554060" />
