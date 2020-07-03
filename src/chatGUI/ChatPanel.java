@@ -287,6 +287,7 @@ public class ChatPanel extends JPanel {
         this.add(chatScroll);
 
         JLabel req = new JLabel("Song Requests");
+        req.setForeground(Color.WHITE);
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 33));
         req.setBounds(353, 18, 300, 60);
         this.add(req);
