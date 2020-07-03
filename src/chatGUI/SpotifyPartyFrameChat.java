@@ -73,7 +73,6 @@ public class SpotifyPartyFrameChat extends JFrame {
     {
         setLocation(100, 100);
         setSize(700, 600);
-        setResizable(false);
         setDefaultCloseOperation(this.HIDE_ON_CLOSE);
     }
 

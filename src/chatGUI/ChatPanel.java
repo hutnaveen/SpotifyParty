@@ -58,28 +58,93 @@ public class ChatPanel extends JPanel {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
+        code.setFocusable(false);
         code.setBorder(new EmptyBorder(0,0,0,0));
         code.setForeground(Color.GRAY);
-        code.setBounds(40, 10, 195, 30);
+        code.setBounds(40, 30, 195, 30);
         code.setEditable(false);
+        final String[] theCode = {""};
         code.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                theCode[0] = code.getText();
                 StringSelection selection = new StringSelection(code.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
+                code.setText("Code Copied");
+            }
+
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                code.setText(theCode[0]);
             }
         });
         this.add(code);
 
-        JLabel text = new JLabel("Friends", SwingConstants.CENTER);
-        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
-        text.setForeground(Color.WHITE);
-        text.setBounds(-70, 20, 400, 100);
-        this.add(text);
+        /*
+        JLabel friends = new JLabel("Friends", SwingConstants.CENTER);
+        friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
+        friends.setForeground(Color.WHITE);
+        friends.setBounds(-20, 40, 200, 100);
+        this.add(friends);
+
+        JLabel lyrics = new JLabel("Lyrics", SwingConstants.CENTER);
+        lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
+        lyrics.setForeground(Color.WHITE);
+        lyrics.setBounds(70, 40, 200, 100);
+        this.add(lyrics);
+         */
+
+        JTextPane friends = new JTextPane();
+        friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        friends.setText("Friends");
+        friends.setBorder(new EmptyBorder(0, 0, 0 ,0));
+        friends.setOpaque(false);
+        friends.setFocusable(false);
+        friends.setEditable(false);
+        friends.setBounds(43, 80, 80, 30);
+        friends.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                friends.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
+                friends.setText("Friends");
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+                friends.setText("Friends");
+            }
+        });
+        this.add(friends);
+
+        JTextPane lyrics = new JTextPane();
+        lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        lyrics.setText("Lyrics");
+        lyrics.setBorder(new EmptyBorder(0, 0, 0 ,0));
+        lyrics.setOpaque(false);
+        lyrics.setFocusable(false);
+        lyrics.setEditable(false);
+        lyrics.setBounds(143, 80, 70, 30);
+        lyrics.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
+                lyrics.setText("Lyrics");
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+                lyrics.setText("Lyrics");
+            }
+        });
+        this.add(lyrics);
+
 
         song = new JTextPane();
+        song.setFocusable(false);
         song.setBorder(new EmptyBorder(0, 0, 0 ,0));
         song.setOpaque(false);
         song.setForeground(Color.WHITE);
@@ -89,10 +154,11 @@ public class ChatPanel extends JPanel {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(10, 527, 230, 17);
+        song.setBounds(10, 547, 230, 17);
         this.add(song);
 
         artist = new JTextPane();
+        artist.setFocusable(false);
         artist.setBorder(new EmptyBorder(0, 0, 0 ,0));
         artist.setOpaque(false);
         artist.setForeground(Color.GRAY);
@@ -102,16 +168,16 @@ public class ChatPanel extends JPanel {
         SimpleAttributeSet center2 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center2, StyleConstants.ALIGN_CENTER);
         doc2.setParagraphAttributes(0, doc2.getLength(), center2, false);
-        artist.setBounds(10, 547, 230, 17);
+        artist.setBounds(10, 567, 230, 17);
         this.add(artist);
 
 
         area = new JTextPane();
+        area.setFocusable(false);
         area.setBorder(new EmptyBorder(0, 0, 0 ,0));
         area.setAutoscrolls(true);
         area.setEditable(false);
         area.setForeground(Color.WHITE);
-        //addNames("fuck","shaush", "emilia", "is", "hotter", "than ", "emma", "watosn");
         area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 15));
         area.setOpaque(false);
         StyledDocument doc3 = area.getStyledDocument();
@@ -137,11 +203,11 @@ public class ChatPanel extends JPanel {
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
         areaScroll.setBackground(new Color(40, 40, 40));
-        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 300));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        areaScroll.setBounds(25, 110, 200, 250);
+        areaScroll.setBounds(25, 130, 200, 250);
         this.add(areaScroll);
         try {
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
@@ -155,7 +221,7 @@ public class ChatPanel extends JPanel {
             e.printStackTrace();
         }
         RoundJTextField type = new RoundJTextField(380);
-        type.setBounds(260, 525, 380, 40);
+        type.setBounds(260, 545, 380, 40);
         type.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -173,7 +239,7 @@ public class ChatPanel extends JPanel {
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
         AbstractButton play = makeButton("", playIcon);
-        play.setBounds(645, 525, 40, 40);
+        play.setBounds(645, 545, 40, 40);
         play.addActionListener(e -> {
             try {
                 RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
@@ -192,6 +258,7 @@ public class ChatPanel extends JPanel {
 
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.getViewport().setView(Chat.back);
+        Chat.back.setFocusable(false);
         chatScroll.setBounds(250, 0, 450, 517);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
@@ -254,9 +321,9 @@ public class ChatPanel extends JPanel {
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
 
-            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 14, 24, 24, this);
+            g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 34, 24, 24, this);
             if(artworkURL != null)
-                g.drawImage(ImageIO.read(artworkURL), 55, 380, 140, 140, this);
+                g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         }
         catch (Exception e)
         {
