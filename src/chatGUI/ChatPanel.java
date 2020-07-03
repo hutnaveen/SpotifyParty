@@ -3,6 +3,7 @@ package chatGUI;
 import client.TCPClient;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
+import lyrics.LyricFinder;
 import main.SpotifyParty;
 import model.TrackInfo;
 import server.TCPServer;
@@ -48,7 +49,10 @@ public class ChatPanel extends JPanel {
     public static RoundJTextField type;
     public static HashSet<String> names = new HashSet<>();
     public static String uri = "";
+    public JScrollPane areaScroll;
     private URL artworkURL;
+    public boolean setLyrics = false;
+    final String[] theCode = {""};
 
     public boolean me = true;
 
@@ -58,12 +62,12 @@ public class ChatPanel extends JPanel {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
+        code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0,0,0,0));
         code.setForeground(Color.GRAY);
         code.setBounds(40, 30, 195, 30);
         code.setEditable(false);
-        final String[] theCode = {""};
         code.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -74,74 +78,19 @@ public class ChatPanel extends JPanel {
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
             }
-
+            @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
                 code.setText(theCode[0]);
             }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                //code.setFont();
+
+            }
         });
         this.add(code);
-
-        /*
-        JLabel friends = new JLabel("Friends", SwingConstants.CENTER);
-        friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
-        friends.setForeground(Color.WHITE);
-        friends.setBounds(-20, 40, 200, 100);
-        this.add(friends);
-
-        JLabel lyrics = new JLabel("Lyrics", SwingConstants.CENTER);
-        lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
-        lyrics.setForeground(Color.WHITE);
-        lyrics.setBounds(70, 40, 200, 100);
-        this.add(lyrics);
-         */
-
-        JTextPane friends = new JTextPane();
-        friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
-        friends.setText("Friends");
-        friends.setBorder(new EmptyBorder(0, 0, 0 ,0));
-        friends.setOpaque(false);
-        friends.setFocusable(false);
-        friends.setEditable(false);
-        friends.setBounds(43, 80, 80, 30);
-        friends.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                friends.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
-                friends.setText("Friends");
-            }
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
-                friends.setText("Friends");
-            }
-        });
-        this.add(friends);
-
-        JTextPane lyrics = new JTextPane();
-        lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
-        lyrics.setText("Lyrics");
-        lyrics.setBorder(new EmptyBorder(0, 0, 0 ,0));
-        lyrics.setOpaque(false);
-        lyrics.setFocusable(false);
-        lyrics.setEditable(false);
-        lyrics.setBounds(143, 80, 70, 30);
-        lyrics.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
-                lyrics.setText("Lyrics");
-            }
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
-                lyrics.setText("Lyrics");
-            }
-        });
-        this.add(lyrics);
-
 
         song = new JTextPane();
         song.setFocusable(false);
@@ -196,7 +145,7 @@ public class ChatPanel extends JPanel {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JScrollPane areaScroll = new JScrollPane();
+        areaScroll = new JScrollPane();
         areaScroll.getViewport().setFocusable(false);
         areaScroll.getViewport().setView(area);
         areaScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -207,7 +156,7 @@ public class ChatPanel extends JPanel {
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        areaScroll.setBounds(25, 130, 200, 250);
+        areaScroll.setBounds(25, 120, 210, 250);
         this.add(areaScroll);
         try {
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
@@ -256,6 +205,67 @@ public class ChatPanel extends JPanel {
         });
         this.add(play);
 
+        JTextPane friends = new JTextPane();
+        friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        friends.setText("Friends");
+        friends.setBorder(new EmptyBorder(0, 0, 0 ,0));
+        friends.setOpaque(false);
+        friends.setFocusable(false);
+        friends.setEditable(false);
+        friends.setBounds(43, 80, 80, 30);
+        friends.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                friends.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
+                friends.setText("Friends");
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+                friends.setText("Friends");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                setLyrics = false;
+                addNames();
+            }
+        });
+        this.add(friends);
+
+        JTextPane lyrics = new JTextPane();
+        lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        lyrics.setText("Lyrics");
+        lyrics.setBorder(new EmptyBorder(0, 0, 0 ,0));
+        lyrics.setOpaque(false);
+        lyrics.setFocusable(false);
+        lyrics.setEditable(false);
+        lyrics.setBounds(143, 80, 70, 30);
+        lyrics.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
+                lyrics.setText("Lyrics");
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+                lyrics.setText("Lyrics");
+            }
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                areaScroll.setAutoscrolls(false);
+                areaScroll.getVerticalScrollBar().setUnitIncrement(5);
+                setLyrics = true;
+                addLyrics();
+            }
+        });
+        this.add(lyrics);
+
+
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.getViewport().setView(Chat.back);
         Chat.back.setFocusable(false);
@@ -289,6 +299,12 @@ public class ChatPanel extends JPanel {
         area.setText(str);
     }
 
+    public void addLyrics() {
+        if(setLyrics) {
+            area.setText(LyricFinder.getLyrics(song.getText(), artist.getText()));
+        }
+    }
+
     public TrackInfo updateData(String trackID)
     {
         TrackInfo inf = SpotifyUtils.getTrackInfo(trackID);
@@ -296,6 +312,7 @@ public class ChatPanel extends JPanel {
         song.setText(inf.getName());
         artist.setText(inf.getArtist());
         color = inf.getDominantColor().darker();
+        addLyrics();
         repaint();
         return inf;
     }
