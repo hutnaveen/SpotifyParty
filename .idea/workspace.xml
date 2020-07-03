@@ -25,10 +25,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04bb8db9-bbbc-45a8-9c79-87feb30d9364" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lyrics/LyricFinder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lyrics/LyricScraper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/ChatPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/chatGUI/SpotifyPartyFrameChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricScraper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lyrics/LyricFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lyrics/LyricFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lyrics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lyrics/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +89,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Test (1)">
     <configuration name="DuckDuckGoSearch" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="lyrics.DuckDuckGoSearch" />
       <module name="SpotifyParty-master" />
@@ -92,8 +103,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GoogleCrawler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="lyrics.GoogleCrawler" />
+    <configuration name="LyricFinder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lyrics.LyricFinder" />
       <module name="SpotifyParty-master" />
       <extension name="coverage">
         <pattern>
@@ -131,6 +142,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.Test" />
+      <module name="SpotifyParty-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="lyrics.Test" />
       <module name="SpotifyParty-master" />
@@ -146,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test (1)" />
+        <item itemvalue="Application.LyricFinder" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.SpotifyPartyChat" />
         <item itemvalue="Application.Test (1)" />
-        <item itemvalue="Application.DuckDuckGoSearch" />
-        <item itemvalue="Application.GoogleCrawler" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +197,7 @@
       <workItem from="1593573947797" duration="44000" />
       <workItem from="1593593163125" duration="12000" />
       <workItem from="1593595091039" duration="2097000" />
-      <workItem from="1593742972366" duration="18801000" />
+      <workItem from="1593742972366" duration="20785000" />
     </task>
     <servers />
   </component>
@@ -216,7 +240,7 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="496" y="364" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1593022974532" />
-    <state width="678" height="264" key="GridCell.Tab.0.bottom" timestamp="1593799284792">
+    <state width="1108" height="296" key="GridCell.Tab.0.bottom" timestamp="1593801817352">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="164" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593373275010" />
@@ -224,9 +248,9 @@
     <state width="1638" height="387" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554061" />
     <state width="1238" height="221" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217636" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
-    <state width="678" height="264" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1593799284792" />
+    <state width="1108" height="296" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1593801817352" />
     <state width="1041" height="164" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="678" height="264" key="GridCell.Tab.0.center" timestamp="1593799284789">
+    <state width="1108" height="296" key="GridCell.Tab.0.center" timestamp="1593801817350">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="164" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593373275009" />
@@ -234,9 +258,9 @@
     <state width="1638" height="387" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554059" />
     <state width="1238" height="221" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
-    <state width="678" height="264" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1593799284789" />
+    <state width="1108" height="296" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1593801817350" />
     <state width="1041" height="164" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621108" />
-    <state width="678" height="264" key="GridCell.Tab.0.left" timestamp="1593799284788">
+    <state width="1108" height="296" key="GridCell.Tab.0.left" timestamp="1593801817349">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="164" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593373275008" />
@@ -244,9 +268,9 @@
     <state width="1638" height="387" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554058" />
     <state width="1238" height="221" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217634" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
-    <state width="678" height="264" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1593799284788" />
+    <state width="1108" height="296" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1593801817349" />
     <state width="1041" height="164" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621107" />
-    <state width="678" height="264" key="GridCell.Tab.0.right" timestamp="1593799284791">
+    <state width="1108" height="296" key="GridCell.Tab.0.right" timestamp="1593801817351">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="164" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593373275010" />
@@ -254,7 +278,7 @@
     <state width="1638" height="387" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1592959554060" />
     <state width="1238" height="221" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
-    <state width="678" height="264" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1593799284791" />
+    <state width="1108" height="296" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1593801817351" />
     <state width="1041" height="164" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
     <state width="768" height="282" key="GridCell.Tab.1.bottom" timestamp="1593761095282">
       <screen x="0" y="25" width="1440" height="875" />
@@ -308,12 +332,12 @@
     <state x="418" y="82" width="604" height="735" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1593042038652" />
     <state x="785" y="115" width="605" height="716" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1593758925863" />
     <state x="916" y="130" width="705" height="838" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593212729176" />
-    <state x="397" y="234" width="670" height="560" key="search.everywhere.popup" timestamp="1593766222508">
+    <state x="397" y="234" width="670" height="560" key="search.everywhere.popup" timestamp="1593800908310">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="463" y="268" width="670" height="657" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1592959370241" />
     <state x="529" y="275" width="670" height="676" key="search.everywhere.popup/0.23.1920.1057@0.23.1920.1057" timestamp="1592602485961" />
-    <state x="397" y="234" width="670" height="560" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1593766222508" />
+    <state x="397" y="234" width="670" height="560" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1593800908310" />
     <state x="463" y="270" width="670" height="656" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593159122173" />
   </component>
   <component name="XDebuggerManager">
@@ -321,7 +345,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/server/TCPServer.java</url>
-          <line>156</line>
+          <line>160</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

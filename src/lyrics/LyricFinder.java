@@ -3,10 +3,16 @@ import model.SearchResult;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import spotifyAPI.SpotifyAppleScriptWrapper;
+
 import java.io.IOException;
 import java.util.List;
 
 public class LyricFinder {
+    public static void main(String[] args) {
+        SpotifyAppleScriptWrapper api = new SpotifyAppleScriptWrapper();
+        System.out.println(getLyrics(api.getTrackName().trim(), api.getTrackArtist().trim()));
+    }
     public static String getLyrics(String song, String artist)
     {
         List<SearchResult> results = DuckDuckGoSearch.getSearchResults(song + " " + artist + " genius lyrics");
