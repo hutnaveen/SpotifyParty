@@ -209,6 +209,7 @@ public class ChatPanel extends JPanel {
         JTextPane friends = new JTextPane();
         friends.setForeground(Color.WHITE);
         friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        friends.setForeground(Color.WHITE);
         friends.setText("Friends");
         friends.setBorder(new EmptyBorder(0, 0, 0 ,0));
         friends.setOpaque(false);
@@ -240,6 +241,7 @@ public class ChatPanel extends JPanel {
         JTextPane lyrics = new JTextPane();
         lyrics.setForeground(Color.WHITE);
         lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        lyrics.setForeground(Color.WHITE);
         lyrics.setText("Lyrics");
         lyrics.setBorder(new EmptyBorder(0, 0, 0 ,0));
         lyrics.setOpaque(false);
