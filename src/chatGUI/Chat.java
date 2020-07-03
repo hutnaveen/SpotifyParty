@@ -36,7 +36,7 @@ public class Chat extends JPanel {
         size = 0;
         for(int i = 0; i < requestTabs.size(); i++) {
             if(!(requestTabs.get(i).url.equals(link))) {
-                requestTabs.get(i).setBounds(10, 10 + size++ *110, 430, 110);
+                requestTabs.get(i).setBounds(10, 70 + size++ *110, 430, 110);
                 back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
                 back.add(requestTabs.get(i));
             } else {

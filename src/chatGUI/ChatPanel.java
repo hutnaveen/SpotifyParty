@@ -86,6 +86,7 @@ public class ChatPanel extends JPanel {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
+                theCode[0] = code.getText();
                 //code.setFont();
 
             }
@@ -206,6 +207,7 @@ public class ChatPanel extends JPanel {
         this.add(play);
 
         JTextPane friends = new JTextPane();
+        friends.setForeground(Color.WHITE);
         friends.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
         friends.setForeground(Color.WHITE);
         friends.setText("Friends");
@@ -213,7 +215,7 @@ public class ChatPanel extends JPanel {
         friends.setOpaque(false);
         friends.setFocusable(false);
         friends.setEditable(false);
-        friends.setBounds(43, 80, 80, 30);
+        friends.setBounds(43, 75, 80, 30);
         friends.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -237,6 +239,7 @@ public class ChatPanel extends JPanel {
         this.add(friends);
 
         JTextPane lyrics = new JTextPane();
+        lyrics.setForeground(Color.WHITE);
         lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
         lyrics.setForeground(Color.WHITE);
         lyrics.setText("Lyrics");
@@ -244,7 +247,7 @@ public class ChatPanel extends JPanel {
         lyrics.setOpaque(false);
         lyrics.setFocusable(false);
         lyrics.setEditable(false);
-        lyrics.setBounds(143, 80, 70, 30);
+        lyrics.setBounds(143, 75, 70, 30);
         lyrics.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -259,7 +262,7 @@ public class ChatPanel extends JPanel {
             }
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                areaScroll.setAutoscrolls(false);
+                areaScroll.getVerticalScrollBar().setValue(areaScroll.getVerticalScrollBar().getMinimum());
                 areaScroll.getVerticalScrollBar().setUnitIncrement(5);
                 setLyrics = true;
                 addLyrics();
@@ -271,7 +274,7 @@ public class ChatPanel extends JPanel {
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.getViewport().setView(Chat.back);
         Chat.back.setFocusable(false);
-        chatScroll.setBounds(250, 0, 450, 517);
+        chatScroll.setBounds(250, 70, 450, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
@@ -283,6 +286,10 @@ public class ChatPanel extends JPanel {
 
         this.add(chatScroll);
 
+        JLabel req = new JLabel("Song Requests");
+        req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 33));
+        req.setBounds(353, 18, 300, 60);
+        this.add(req);
     }
 
     public static void addNames(String... name) {
@@ -303,7 +310,14 @@ public class ChatPanel extends JPanel {
 
     public void addLyrics() {
         if(setLyrics) {
-            area.setText(LyricFinder.getLyrics(song.getText(), artist.getText()));
+            try {
+                area.setText(LyricFinder.getLyrics(song.getText(), artist.getText()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                area.setText("Lyrics are not supported for this song yet but our " +
+                        "team is working hard to get it supported! " +
+                        "\n Or just try again, it fucks up sometimes, java be like that \n\n Sorry! :(");
+            }
         }
     }
 
