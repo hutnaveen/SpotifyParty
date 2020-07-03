@@ -87,6 +87,7 @@ public class RequestTab extends JPanel {
         });
 
         song = new JTextPane();
+        song.setFocusable(false);
         song.setOpaque(false);
         song.setText(info.getName());
         song.setBorder(new EmptyBorder(0,0,0,0));
@@ -102,6 +103,7 @@ public class RequestTab extends JPanel {
         this.add(song);
 
         artist = new JTextPane();
+        artist.setFocusable(false);
         artist.setOpaque(false);
         artist.setText(info.getArtist());
         artist.setBorder(new EmptyBorder(0,0,0,0));
@@ -115,6 +117,20 @@ public class RequestTab extends JPanel {
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         artist.setBounds(80, 69, 275, 25);
         this.add(artist);
+
+        JTextPane inv = new JTextPane();
+        inv.setText("");
+        inv.setOpaque(false);
+        inv.setBorder(new EmptyBorder(0,0,0,0));
+        inv.setBounds(10, 39, 60, 60);
+        inv.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                api.playTrack(info.getId());
+            }
+        });
+        this.add(inv);
 
         animate(this);
         /*
