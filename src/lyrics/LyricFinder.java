@@ -1,5 +1,7 @@
 package lyrics;
 import model.SearchResult;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,7 +22,7 @@ public class LyricFinder {
         {
             if(result.getUrl().endsWith("-lyrics") && result.getTitle().endsWith("| Genius Lyrics"))
             {
-                return (getLyrics(result.getUrl()).trim());
+                return (StringEscapeUtils.unescapeHtml4(getLyrics(result.getUrl()).trim()));
             }
         }
         return null;
