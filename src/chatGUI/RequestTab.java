@@ -30,10 +30,6 @@ public class RequestTab extends JPanel {
 
     public RequestTab(String link, String str) {
         url = link;
-        System.out.println(link + " " + str);
-        this.info = SpotifyUtils.getTrackInfo(url);
-        Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
-        Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         name = str;
         this.setLayout(null);
@@ -126,6 +122,11 @@ public class RequestTab extends JPanel {
             }
         });
         this.add(inv);
+
+        System.out.println(link + " " + str);
+        this.info = SpotifyUtils.getTrackInfo(url);
+        Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+        Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         animate(this);
         /*
