@@ -7,6 +7,7 @@ import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import gui.SpotifyPartyPanel;
+import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import model.Streams;
@@ -148,7 +149,7 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
-                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                            SpotifyPlayerHistory.getHistory().add(SpotifyPartyPanelChat.chatPanel.updateData(tempTrack));
                         }
                     }
                 } catch (SpotifyException e) {

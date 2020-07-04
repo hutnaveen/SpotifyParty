@@ -1,7 +1,6 @@
 package lyrics;
 import model.SearchResult;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,13 +8,14 @@ import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LyricFinder {
     public static void main(String[] args) {
         SpotifyAppleScriptWrapper api = new SpotifyAppleScriptWrapper();
         System.out.println(getLyrics(api.getTrackName().trim(), api.getTrackArtist().trim()));
     }
-    public static String getLyrics(String song, String artist)
+    public static String getLyrics(String song, String artist, boolean special)
     {
         try {
             List<SearchResult> results = DuckDuckGoSearch.getSearchResults(song + " " + artist + " genius lyrics");
@@ -27,26 +27,52 @@ public class LyricFinder {
         }catch (Exception e)
         {
            // System.err.println(e.getMessage());
-            return "well shit it looks like we dont have lyrics for this song\n or out api just be trippin \n this shit is open source so shit be like that";
+            return "well shit it looks like we dont have lyrics for this song or our api just be trippin this shit is open source so shit be like that";
+
         }
-        return "well shit it looks like we dont have lyrics for this song\n or out api just be trippin \n this shit is open source so shit be like that";
+        return "well shit it looks like we dont have lyrics for this song or our api just be trippin this shit is open source so shit be like that";
     }
-    public static String getLyrics(String song, String artist, boolean special)
+    public static String getLyrics(String song, String artist)
     {
-            if (special)
-                return getLyrics(song.replaceAll("[^a-zA-Z0-9]", " "), artist);
-            else
-                return getLyrics(song, artist);
+        try {
+            artist = artist.toLowerCase().replace(" ", "-");
+            int index = song.indexOf('[');
+            if (index != -1) {
+                song = song.substring(0, index).trim();
+            }
+            index = song.indexOf("(feat. ");
+            if (index != -1) {
+                song = song.substring(0, song.indexOf("(")).trim();
+            }
+            song = song.toLowerCase().replace(" ", "-").trim();
+            List<Character> list = song.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+            for (int i = 0; i < list.size(); i++) {
+                if (!Character.isLetter(list.get(i)) && !Character.isDigit(list.get(i)) && !(list.get(i) == 45) && list.get(i) != ':') {
+                    list.remove(i--);
+                }
+            }
+            Character[] refArray = (Character[]) list.toArray(new Character[list.size()]);
+            char[] charArray = new char[refArray.length];
+            for (int i = 0; i < refArray.length; i++) {
+                charArray[i] = refArray[i];
+            }
+            song = String.valueOf(charArray).trim();
+            String url = ("https://genius.com/" + artist + "-" + song + "-lyrics");
+            return getLyrics(url.replace(":", "-")).replace("---", "-").replace("--", "-");
+        }
+        catch (Exception e)
+        {
+            return getLyrics(song, artist, true);
+        }
     }
     private static String getLyrics(String url)
     {
         try {
             Document doc = Jsoup.connect(url).get();
             Element e = doc.getElementsByClass("lyrics").get(0);
-            return (e.html().replace("<br>", "\n").replaceAll("<[^>]*>", ""));
+            return StringEscapeUtils.unescapeHtml4((e.html().replace("<br>", "\n").replaceAll("<[^>]*>", ""))).trim().replace("  ", " ");
         } catch (IOException e) {
-            e.printStackTrace();
+            return "well shit it looks like we dont have lyrics for this song or our api just be trippin this shit is open source so shit be like that";
         }
-        return null;
     }
 }

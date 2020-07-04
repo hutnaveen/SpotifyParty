@@ -1,33 +1,27 @@
 package chatGUI;
 
 import interfaces.SpotifyPlayerAPI;
-import model.TrackInfo;
+import model.Track;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
-import java.sql.SQLOutput;
 
-import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
 public class RequestTab extends JPanel {
     public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public String url;
 
-    private TrackInfo info;
+    private Track info;
 
     public JTextPane song;
     public JTextPane artist;
@@ -123,6 +117,7 @@ public class RequestTab extends JPanel {
         inv.setOpaque(false);
         inv.setBorder(new EmptyBorder(0,0,0,0));
         inv.setBounds(10, 39, 60, 60);
+        inv.setEditable(false);
         inv.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -148,18 +143,24 @@ public class RequestTab extends JPanel {
 
     public void animate(JComponent obj) {
         obj.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                api.playTrack(info.getId());
+            }
+
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                song.setForeground(Color.GREEN);
+                song.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 18));
             }
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                song.setForeground(Color.WHITE);
+                song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
             }
         });
     }
 
-    public TrackInfo getData() {
+    public Track getData() {
         return this.info;
     }
 

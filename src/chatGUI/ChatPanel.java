@@ -1,43 +1,44 @@
 package chatGUI;
 
-import client.TCPClient;
-import exception.SpotifyException;
+import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
-import main.SpotifyParty;
-import model.TrackInfo;
+import model.Track;
 import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static chatGUI.SpotifyPartyPanelChat.cli;
+import static chatGUI.SpotifyPartyPanelChat.host;
 import static gui.GUIUtil.makeButton;
 import static gui.GUIUtil.resizeIcon;
 
-public class ChatPanel extends JPanel {
+public class ChatPanel extends JPanel implements DragGestureListener, DragSourceListener
+{
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static Color color = new Color(30,30,30);
     public static JTextPane area;
@@ -46,9 +47,9 @@ public class ChatPanel extends JPanel {
     public static RoundJTextField code;
     public static AbstractButton copy;
     public static Chat chat  = new Chat();
-    public static RoundJTextField type;
     public static HashSet<String> names = new HashSet<>();
-    public static String uri = "";
+    private static RoundJTextField type = new RoundJTextField(380);
+    //public static String uri = "";
     public JScrollPane areaScroll;
     private URL artworkURL;
     public boolean setLyrics = false;
@@ -77,18 +78,14 @@ public class ChatPanel extends JPanel {
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                code.setText(theCode[0]);
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                theCode[0] = code.getText();
-                //code.setFont();
-
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException interruptedException) {
+                        interruptedException.printStackTrace();
+                    }
+                    code.setText(theCode[0]);
+                }).start();
             }
         });
         this.add(code);
@@ -170,38 +167,38 @@ public class ChatPanel extends JPanel {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        RoundJTextField type = new RoundJTextField(380);
         type.setBounds(260, 545, 380, 40);
+
         type.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                type.setText("");
             }
             public void mouseExited(MouseEvent e) {
-                try {
+               /* try {
                     uri = type.getText();
                     type.setText(SpotifyUtils.getTrackInfo(type.getText()).getName() + " - " + SpotifyUtils.getTrackInfo(type.getText()).getArtist());
                 } catch(Exception e1) {
                     uri = type.getText();
-                }
+                }*/
             }
         });
+        type.setCaretColor(Color.GREEN);
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
         AbstractButton play = makeButton("", playIcon);
         play.setBounds(645, 545, 40, 40);
+
         play.addActionListener(e -> {
-            try {
-                RequestTab tab = new RequestTab(uri, SpotifyPartyPanelChat.FriendName);
-                chat.addRequest(tab);
-                if(SpotifyPartyPanelChat.host)
-                    TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim()+ " " +SpotifyPartyPanelChat.FriendName, null);
-                else
-                    cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
-                type.setText("");
-            } catch (Exception e1) {
-                e1.printStackTrace();
-                type.setText("INVALID URI");
+            recommendationHandler();
+        });
+        type.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode() == KeyEvent.VK_ENTER)
+                {
+                    recommendationHandler();
+                }
             }
         });
         this.add(play);
@@ -233,6 +230,7 @@ public class ChatPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 setLyrics = false;
+                areaScroll.setAutoscrolls(true);
                 addNames();
             }
         });
@@ -262,8 +260,9 @@ public class ChatPanel extends JPanel {
             }
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                areaScroll.setAutoscrolls(false);
                 areaScroll.getVerticalScrollBar().setValue(areaScroll.getVerticalScrollBar().getMinimum());
-                areaScroll.getVerticalScrollBar().setUnitIncrement(5);
+                areaScroll.getVerticalScrollBar().setUnitIncrement(4);
                 setLyrics = true;
                 addLyrics();
             }
@@ -274,6 +273,7 @@ public class ChatPanel extends JPanel {
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.getViewport().setView(Chat.back);
         Chat.back.setFocusable(false);
+        this.setPreferredSize(new Dimension(450, 460));
         chatScroll.setBounds(250, 70, 450, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
@@ -288,8 +288,8 @@ public class ChatPanel extends JPanel {
 
         JLabel req = new JLabel("Song Requests");
         req.setForeground(Color.WHITE);
-        req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 33));
-        req.setBounds(353, 18, 300, 60);
+        req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
+        req.setBounds(353, 5, 300, 60);
         this.add(req);
     }
 
@@ -308,10 +308,89 @@ public class ChatPanel extends JPanel {
         }
         area.setText(str);
     }
+    private void recommendationHandler()
+    {
+        boolean work = true;
+        RequestTab tab = null;
+        if(!type.getText().isBlank() && !type.getText().isEmpty()) {
 
+            if(type.getText().trim().startsWith("!"))
+            {
+                  if(host)
+                  {
+                if(type.getText().trim().substring(1).toLowerCase().contains("next"))
+                {
+                    api.nextTrack();
+                }
+                else if(type.getText().trim().substring(1).toLowerCase().contains("prev"))
+                {
+                    api.previousTrack();
+                }
+                else if(type.getText().trim().substring(1).toLowerCase().contains("play:"))
+                {
+                        try {
+                            String str = type.getText().trim().substring(1).toLowerCase();
+                            str = str.substring(str.indexOf("play:") + 5).trim();
+                            api.playTrack(SpotifyUtils.findSong(str).getId());
+                        }catch (Exception e)
+                        {
+                            work = false;
+                        }
+                        if(work)
+                            type.setText("");
+                        else {
+                            type.setText("can't find that song");
+                            type.selectAll();
+                        }
+                }
+                else if(type.getText().trim().substring(1).toLowerCase().contains("history"))
+                {
+                    for(Track item: SpotifyPlayerHistory.getHistory())
+                    {
+                        Chat.addRequest(new RequestTab(item.getId(), SpotifyPartyPanelChat.FriendName));
+                    }
+                }
+                  }
+                if (type.getText().trim().substring(1).toLowerCase().contains("pause")) {
+                    api.pause();
+                } else if (type.getText().trim().substring(1).toLowerCase().contains("play")) {
+                    api.play();
+                } else if (type.getText().trim().substring(1).toLowerCase().contains("stop")) {
+                    System.exit(0);
+                }
+                if(work)
+                type.setText("");
+            }
+            else {
+                boolean worked = true;
+                try {
+                    tab = new RequestTab(type.getText().trim(), SpotifyPartyPanelChat.FriendName);
+                    if (SpotifyPartyPanelChat.host)
+                        TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName, null);
+                    else
+                        cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
+                    //type.setText("");
+                } catch (Exception e1) {
+                    try {
+                        tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getId(), SpotifyPartyPanelChat.FriendName);
+                    } catch (Exception e3) {
+                        type.setText("can't find that song");
+                        type.selectAll();
+                        worked = (false);
+                    }
+                }
+                if (worked) {
+                    if (tab != null)
+                        chat.addRequest(tab);
+                    type.setText("");
+                }
+            }
+        }
+    }
     public void addLyrics() {
         if(setLyrics) {
             try {
+                areaScroll.setAutoscrolls(false);
                 area.setText(LyricFinder.getLyrics(song.getText(), artist.getText()));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -322,9 +401,9 @@ public class ChatPanel extends JPanel {
         }
     }
 
-    public TrackInfo updateData(String trackID)
+    public Track updateData(String trackID)
     {
-        TrackInfo inf = SpotifyUtils.getTrackInfo(trackID);
+        Track inf = SpotifyUtils.getTrackInfo(trackID);
         artworkURL = inf.getThumbnailURL();
         song.setText(inf.getName());
         artist.setText(inf.getArtist());
@@ -334,7 +413,7 @@ public class ChatPanel extends JPanel {
         return inf;
     }
 
-    public TrackInfo updateData()
+    public Track updateData()
     {
         return updateData(api.getTrackId());
     }
@@ -363,5 +442,34 @@ public class ChatPanel extends JPanel {
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void dragGestureRecognized(DragGestureEvent dragGestureEvent) {
+
+    }
+
+    @Override
+    public void dragEnter(DragSourceDragEvent dragSourceDragEvent) {
+
+    }
+
+    @Override
+    public void dragOver(DragSourceDragEvent dragSourceDragEvent) {
+
+    }
+
+    @Override
+    public void dropActionChanged(DragSourceDragEvent dragSourceDragEvent) {
+
+    }
+
+    @Override
+    public void dragExit(DragSourceEvent dragSourceEvent) {
+
+    }
+
+    @Override
+    public void dragDropEnd(DragSourceDropEvent dragSourceDropEvent) {
     }
 }
