@@ -27,31 +27,8 @@
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/exception/SpotifyException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/exception/SpotifyException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtil$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtil$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GuestPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/HostPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/StartingPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/Gateway.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/Gateway.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +168,7 @@
       <workItem from="1592950455524" duration="8016000" />
       <workItem from="1593105032480" duration="410000" />
       <workItem from="1593202690236" duration="17044000" />
-      <workItem from="1593816043736" duration="1236000" />
+      <workItem from="1593816043736" duration="3942000" />
     </task>
     <servers />
   </component>
@@ -234,7 +211,7 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="496" y="364" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1593022974532" />
-    <state width="2005" height="331" key="GridCell.Tab.0.bottom" timestamp="1593817250453">
+    <state width="2005" height="160" key="GridCell.Tab.0.bottom" timestamp="1593818211198">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593814070529" />
@@ -243,8 +220,8 @@
     <state width="1238" height="221" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217636" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
     <state width="1041" height="164" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="2005" height="331" key="GridCell.Tab.0.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250453" />
-    <state width="2005" height="331" key="GridCell.Tab.0.center" timestamp="1593817250450">
+    <state width="2005" height="160" key="GridCell.Tab.0.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1593818211198" />
+    <state width="2005" height="160" key="GridCell.Tab.0.center" timestamp="1593818211197">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593814070528" />
@@ -253,8 +230,8 @@
     <state width="1238" height="221" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1041" height="164" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621108" />
-    <state width="2005" height="331" key="GridCell.Tab.0.center/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250450" />
-    <state width="2005" height="331" key="GridCell.Tab.0.left" timestamp="1593817250449">
+    <state width="2005" height="160" key="GridCell.Tab.0.center/0.25.3440.1415@0.25.3440.1415" timestamp="1593818211197" />
+    <state width="2005" height="160" key="GridCell.Tab.0.left" timestamp="1593818211196">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593814070528" />
@@ -263,8 +240,8 @@
     <state width="1238" height="221" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217634" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
     <state width="1041" height="164" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621107" />
-    <state width="2005" height="331" key="GridCell.Tab.0.left/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250449" />
-    <state width="2005" height="331" key="GridCell.Tab.0.right" timestamp="1593817250452">
+    <state width="2005" height="160" key="GridCell.Tab.0.left/0.25.3440.1415@0.25.3440.1415" timestamp="1593818211196" />
+    <state width="2005" height="160" key="GridCell.Tab.0.right" timestamp="1593818211197">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593814070529" />
@@ -273,35 +250,35 @@
     <state width="1238" height="221" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1041" height="164" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="2005" height="331" key="GridCell.Tab.0.right/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250452" />
-    <state width="2005" height="331" key="GridCell.Tab.1.bottom" timestamp="1593817250455">
+    <state width="2005" height="160" key="GridCell.Tab.0.right/0.25.3440.1415@0.25.3440.1415" timestamp="1593818211197" />
+    <state width="2005" height="331" key="GridCell.Tab.1.bottom" timestamp="1593817877407">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593539031834" />
     <state width="1398" height="272" key="GridCell.Tab.1.bottom/0.23.1440.836@0.23.1440.836" timestamp="1593482749254" />
     <state width="1041" height="172" key="GridCell.Tab.1.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664466" />
-    <state width="2005" height="331" key="GridCell.Tab.1.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250455" />
-    <state width="2005" height="331" key="GridCell.Tab.1.center" timestamp="1593817250454">
+    <state width="2005" height="331" key="GridCell.Tab.1.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1593817877407" />
+    <state width="2005" height="331" key="GridCell.Tab.1.center" timestamp="1593817877403">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1593539031833" />
     <state width="1398" height="272" key="GridCell.Tab.1.center/0.23.1440.836@0.23.1440.836" timestamp="1593482749253" />
     <state width="1041" height="172" key="GridCell.Tab.1.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664465" />
-    <state width="2005" height="331" key="GridCell.Tab.1.center/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250454" />
-    <state width="2005" height="331" key="GridCell.Tab.1.left" timestamp="1593817250454">
+    <state width="2005" height="331" key="GridCell.Tab.1.center/0.25.3440.1415@0.25.3440.1415" timestamp="1593817877403" />
+    <state width="2005" height="331" key="GridCell.Tab.1.left" timestamp="1593817877402">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1593539031833" />
     <state width="1398" height="272" key="GridCell.Tab.1.left/0.23.1440.836@0.23.1440.836" timestamp="1593482749253" />
     <state width="1041" height="172" key="GridCell.Tab.1.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664464" />
-    <state width="2005" height="331" key="GridCell.Tab.1.left/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250454" />
-    <state width="2005" height="331" key="GridCell.Tab.1.right" timestamp="1593817250455">
+    <state width="2005" height="331" key="GridCell.Tab.1.left/0.25.3440.1415@0.25.3440.1415" timestamp="1593817877402" />
+    <state width="2005" height="331" key="GridCell.Tab.1.right" timestamp="1593817877403">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1593539031834" />
     <state width="1398" height="272" key="GridCell.Tab.1.right/0.23.1440.836@0.23.1440.836" timestamp="1593482749254" />
     <state width="1041" height="172" key="GridCell.Tab.1.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664465" />
-    <state width="2005" height="331" key="GridCell.Tab.1.right/0.25.3440.1415@0.25.3440.1415" timestamp="1593817250455" />
+    <state width="2005" height="331" key="GridCell.Tab.1.right/0.25.3440.1415@0.25.3440.1415" timestamp="1593817877403" />
     <state x="352" y="80" key="SettingsEditor" timestamp="1592603102560">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
@@ -320,12 +297,12 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="861" y="234" width="840" height="1025" key="dock-window-1/0.25.1680.1025@0.25.1680.1025" timestamp="1593207895245" />
-    <state x="999" y="154" width="1443" height="1156" key="find.popup" timestamp="1593816370345">
+    <state x="1017" y="156" width="1443" height="1156" key="find.popup" timestamp="1593819642504">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state x="418" y="82" width="604" height="735" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1593560757885" />
     <state x="916" y="130" width="705" height="838" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593212729176" />
-    <state x="999" y="154" width="1443" height="1156" key="find.popup/0.25.3440.1415@0.25.3440.1415" timestamp="1593816370345" />
+    <state x="1017" y="156" width="1443" height="1156" key="find.popup/0.25.3440.1415@0.25.3440.1415" timestamp="1593819642504" />
     <state x="397" y="215" width="670" height="576" key="search.everywhere.popup" timestamp="1593800375744">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -344,7 +321,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/client/TCPClient.java</url>
-          <line>49</line>
+          <line>52</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

@@ -82,7 +82,6 @@ public class TCPServer
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                     System.out.println(NetworkUtils.getLocalIP());
-                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -103,7 +102,9 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                new ClientListener(in);
             }
+
         });
         reciver.start();
     }
