@@ -415,7 +415,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             }
             else {
                 try {
-                    api.playTrack(SpotifyUtils.findSong(type.getText().toLowerCase()).getId());
+                    api.playTrack(SpotifyUtils.findSong(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).getId());
                 } catch (Exception e) {
                     System.out.println("Trying Uri");
                     try {
