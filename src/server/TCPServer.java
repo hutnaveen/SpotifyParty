@@ -7,6 +7,7 @@ import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
 import gui.SpotifyPartyFrame;
 import gui.SpotifyPartyPanel;
+import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import model.Streams;
@@ -80,7 +81,6 @@ public class TCPServer
                     dos = new DataOutputStream(s.getOutputStream());
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                     System.out.println(NetworkUtils.getLocalIP());
-                    new ClientListener(in);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -101,7 +101,9 @@ public class TCPServer
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                new ClientListener(in);
             }
+
         });
         reciver.start();
     }
@@ -145,7 +147,7 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
-                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                            SpotifyPlayerHistory.getHistory().add(SpotifyPartyPanelChat.chatPanel.updateData(tempTrack));
                         }
                     }
                 } catch (SpotifyException e) {

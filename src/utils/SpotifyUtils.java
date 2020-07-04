@@ -1,27 +1,23 @@
 package utils;
 
-import model.TrackInfo;
+import model.Track;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Scanner;
 
 public class SpotifyUtils{
-    public static TrackInfo getTrackInfo(String id)
+    public static Track getTrackInfo(String id)
     {
         String param1 = "";
         String param2 = "";
-        TrackInfo info = new TrackInfo();
+        Track info = new Track();
         if(id.contains("spotify:")) {
             info.setId(id);
             id = id.replace("spotify:", "");
@@ -81,29 +77,20 @@ public class SpotifyUtils{
         info.setPopularity(Integer.parseInt(result.substring(beg, result.indexOf(",",beg))));
         return info;
     }
-    public static String getURLInfo(URL url) {
+    public static Track findSong(String search) {
         //Retrieving the contents of the specified page
-
+            search.trim();
+            String txt = ("https://songbpm.com/searches/" + search.replace(" ", "-"));
+        Document doc = null;
         try {
-            Document doc = Jsoup.connect("http://open.spotify.com/search/perfect").get();
-            for (Element el: doc.children()) {
-                if(el.getAllElements().size()!= 0)
-                    for(Element e: el.getAllElements())
-                         System.out.println(e.text());
-            }
+            doc = Jsoup.connect(txt).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+        Element e = doc.select("a").get(3);
+        return getTrackInfo(e.attr("href"));
     }
     public static void main(String[] args) {
-        try {
-            URL url = new URL("http://open.spotify.com/search/perfect");
-            System.out.println(getURLInfo(url));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(findSong("you need to calm down"));
     }
 }
