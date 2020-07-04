@@ -415,6 +415,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     api.playTrack(SpotifyUtils.findSong(type.getText().toLowerCase()).getId());
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");
+                    type.setText("Cannot find song, Sorry!");
                 }
             }
         } else {
@@ -432,6 +433,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     chat.addRequest(tab);
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");
+                    type.setText("Cannot find song, Sorry!");
                 }
             }
         }
