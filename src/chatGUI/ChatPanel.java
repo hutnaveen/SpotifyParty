@@ -28,6 +28,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -171,16 +172,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
         type.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                type.setText("");
-            }
             public void mouseExited(MouseEvent e) {
-               /* try {
-                    uri = type.getText();
-                    type.setText(SpotifyUtils.getTrackInfo(type.getText()).getName() + " - " + SpotifyUtils.getTrackInfo(type.getText()).getArtist());
-                } catch(Exception e1) {
-                    uri = type.getText();
-                }*/
+                try {
+                    type.setText(SpotifyUtils.getTrackInfo(type.getText()).getName() + " " + SpotifyUtils.getTrackInfo(type.getText()).getArtist());
+                } catch(Exception e1) {}
             }
         });
         type.setCaretColor(Color.GREEN);
@@ -190,7 +185,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         play.setBounds(645, 545, 40, 40);
 
         play.addActionListener(e -> {
-            recommendationHandler();
+            //recommendationHandler();
+            recHandler();
         });
         type.addKeyListener(new KeyAdapter() {
             @Override
@@ -415,16 +411,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             }
             else {
                 try {
+                    System.out.println(type.getText());
                     api.playTrack(SpotifyUtils.findSong(type.getText().toLowerCase()).getId());
                 } catch (Exception e) {
-                    System.out.println("Trying Uri");
-                    try {
-                        String iD = SpotifyUtils.getTrackInfo(type.getText()).getId();
-                        api.playTrack(iD);
-                    } catch (Exception e2) {
-                        System.out.println("Cannot find song");
-                        type.setText("Sorry, cannot find song");
-                    }
+                    System.out.println("Cannot find song, Sorry!");
                 }
             }
         } else {
@@ -441,12 +431,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     RequestTab tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getId(), SpotifyPartyPanelChat.FriendName);
                     chat.addRequest(tab);
                 } catch (Exception e) {
-                    try {
-                        RequestTab tab = new RequestTab(type.getText().trim(), SpotifyPartyPanelChat.FriendName);
-                        chat.addRequest(tab);
-                    } catch (Exception e2) {
-                        type.setText("Sorry, cannot find song");
-                    }
+                    System.out.println("Cannot find song, Sorry!");
                 }
             }
         }
