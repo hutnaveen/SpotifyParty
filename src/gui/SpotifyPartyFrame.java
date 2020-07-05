@@ -24,7 +24,7 @@ public class SpotifyPartyFrame extends JFrame {
     {
         Image image = null;
         try {
-            image = ImageIO.read(getClass().getResource("/logo.png"));
+            image = ImageIO.read(getClass().getResource("logo.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
