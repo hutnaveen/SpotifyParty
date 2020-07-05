@@ -169,15 +169,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             e.printStackTrace();
         }
         type.setBounds(260, 545, 380, 40);
-
-        type.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    //type.setText(SpotifyUtils.getTrackInfo(type.getText()).getName() + " " + SpotifyUtils.getTrackInfo(type.getText()).getArtist());
-                } catch(Exception e1) {}
-            }
-        });
         type.setCaretColor(Color.GREEN);
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/Untitled.png")), 40, 40);
