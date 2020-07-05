@@ -341,7 +341,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     {
                         for(Track item: SpotifyPlayerHistory.getHistory())
                         {
-                            Chat.addRequest(new RequestTab(item.getId(), SpotifyPartyPanelChat.FriendName));
+                            if(item!=null)
+                                this.chat.addRequest(new RequestTab(item.getId(), SpotifyPartyPanelChat.FriendName));
                         }
                     }
                     else
