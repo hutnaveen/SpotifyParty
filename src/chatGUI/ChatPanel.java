@@ -354,7 +354,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         }catch (Exception e) {
                             String str = type.getText().trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", " ");
                             try {
-                                api.playTrack(SpotifyUtils.findSong(str).getId());
+                                api.playTrack(SpotifyUtils.search(str).get(0));
                             } catch (Exception e1) {
                                 work = false;
                             }
@@ -378,7 +378,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         //type.setText("");
                     } catch (Exception e1) {
                         try {
-                            tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getId(), SpotifyPartyPanelChat.FriendName);
+                            tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getId(), SpotifyPartyPanelChat.FriendName);
                         } catch (Exception e3) {
                             type.setText("can't find that song");
                             type.selectAll();
@@ -421,7 +421,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             else {
                 try {
                     System.out.println(type.getText());
-                    api.playTrack(SpotifyUtils.findSong(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).getId());
+                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).get(0).getId());
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");
                     type.setText("Cannot find song, Sorry!");
@@ -438,7 +438,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             }
             else {
                 try {
-                    RequestTab tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getId(), SpotifyPartyPanelChat.FriendName);
+                    RequestTab tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getId(), SpotifyPartyPanelChat.FriendName);
                     chat.addRequest(tab);
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");

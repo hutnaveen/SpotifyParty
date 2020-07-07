@@ -43,6 +43,8 @@ public class TCPServer
         if(diffNetWork) {
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
+                UPnP.closePortTCP(serverPort);
+                UPnP.waitInit();
                 star = (UPnP.openPortTCP((serverPort)));
                 System.out.println(star);
                 log("" + star);
@@ -147,7 +149,7 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
-                            SpotifyPlayerHistory.getHistory().add(SpotifyPartyPanelChat.chatPanel.updateData(tempTrack));
+                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
                         }
                     }
                 } catch (SpotifyException e) {

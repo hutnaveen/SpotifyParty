@@ -116,6 +116,4 @@ public class NetworkUtils {
         }
     }
 
-    public static void main(String[] args) {
-    }
 }

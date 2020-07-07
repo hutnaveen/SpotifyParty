@@ -1,6 +1,7 @@
 package spotifyAPI;
 
 import interfaces.SpotifyPlayerAPI;
+import model.Track;
 import utils.OSXUtils;
 import utils.SpotifyUtils;
 
@@ -19,6 +20,11 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void playTrack(Track song) {
+        playTrack(song.getId());
     }
 
 

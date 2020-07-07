@@ -1,6 +1,7 @@
 package interfaces;
 
 import exception.SpotifyException;
+import model.Track;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -27,5 +28,6 @@ public interface SpotifyPlayerAPI {
     public  String getTrackId();
     public  String getTrackName();
     public void playTrack(String id);
+    public void playTrack(Track song);
     public void saveTrack(String trackId);
 }

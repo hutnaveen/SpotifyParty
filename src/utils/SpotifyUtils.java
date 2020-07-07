@@ -1,15 +1,19 @@
 package utils;
 
+import lyrics.DuckDuckGoSearch;
+import model.SearchResult;
 import model.Track;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SpotifyUtils{
@@ -77,6 +81,11 @@ public class SpotifyUtils{
         info.setPopularity(Integer.parseInt(result.substring(beg, result.indexOf(",",beg))));
         return info;
     }
+
+    /**
+     * you can use search instead of the legacy findSong
+     */
+    @Deprecated
     public static Track findSong(String search) {
         //Retrieving the contents of the specified page
             search.trim();
@@ -90,7 +99,24 @@ public class SpotifyUtils{
         Element e = doc.select("a").get(3);
         return getTrackInfo(e.attr("href"));
     }
+    public static List<Track> search(String search)
+    {
+        ArrayList<Track> list = new ArrayList<>();
+        List<SearchResult> results = DuckDuckGoSearch.getSearchResults(search + " spotify track");
+        for(SearchResult result: results)
+        {
+            if(result.getUrl().startsWith("https://open.spotify.com/track/"))
+            {
+                list.add(SpotifyUtils.getTrackInfo(result.getUrl()));
+            }
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
-        System.out.println(findSong("you need to calm down"));
+        for (Track track: search("the woo"))
+        {
+            System.out.println(track);
+        }
     }
 }
