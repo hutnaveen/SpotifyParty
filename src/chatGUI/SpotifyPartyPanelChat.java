@@ -78,7 +78,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             if(code != null)
             {
                 FriendName = JoinPartyPanel.name.getText();
-                ChatPanel.addNames(JoinPartyPanel.name.getText());
                 cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
