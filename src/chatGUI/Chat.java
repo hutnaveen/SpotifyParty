@@ -1,7 +1,12 @@
 package chatGUI;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -9,6 +14,7 @@ import java.util.ArrayList;
 public class Chat extends JPanel {
     public static int size = 0;
     public static JTextPane back;
+    public static JTextPane chat;
     public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
 
     public Chat() {
@@ -19,16 +25,21 @@ public class Chat extends JPanel {
 
         back = new JTextPane();
         back.setAutoscrolls(true);
-        back.setBackground(Color.GRAY);
         back.setOpaque(false);
         back.setEditable(false);
+
+        chat = new JTextPane();
+        chat.setAutoscrolls(true);
+        chat.setOpaque(false);
+        chat.setEditable(false);
+
     }
 
     public static void addRequest(RequestTab pane)
     {
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);
-        back.add(pane);
+        chat.add(pane);
     }
     public static void redraw(String link) {
         back.removeAll();
@@ -44,6 +55,21 @@ public class Chat extends JPanel {
                 i--;
             }
         }
+    }
+
+    public static void addText(String text) {
+        StyledDocument doc = chat.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+
+        chat.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 20));
+        chat.setForeground(Color.GREEN);
+        chat.setText(chat.getText() + "\n" + SpotifyPartyPanelChat.FriendName);
+
+        chat.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 15));
+        chat.setForeground(Color.WHITE);
+        chat.setText(chat.getText() + "\n" + text + "\n");
     }
 
     public void paintComponent(Graphics g) {

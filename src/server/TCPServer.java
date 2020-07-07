@@ -96,7 +96,7 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    ChatPanel.addNames(it);
+                    //ChatPanel.addNames(it);
                     sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -199,7 +199,7 @@ class ClientListener implements Runnable
                 switch (str[1])
                 {
                     case "usr":
-                        ChatPanel.addNames(str[2].trim());
+                        //ChatPanel.addNames(str[2].trim());
                         TCPServer.sendToClients("usr " + str[2].trim(),in);
                         break;
                     case "request":
