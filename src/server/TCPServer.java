@@ -87,6 +87,7 @@ public class TCPServer
                     e.printStackTrace();
                 }
                 System.out.println("added");
+                ChatPanel.guest.setText(stream.size() + 1 + "");
                 log("added");
                 stream.put(in, dos);
                 try {
@@ -144,9 +145,9 @@ public class TCPServer
         sender = new Thread(() -> {
             while (true) {
                 try {
-                    String tempTrack = api.getTrackId();
+                    String tempTrack = api.getTrackUri();
                     if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
+                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);

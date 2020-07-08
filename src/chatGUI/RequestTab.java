@@ -1,6 +1,7 @@
 package chatGUI;
 
 import interfaces.SpotifyPlayerAPI;
+import model.Artist;
 import model.Track;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
@@ -30,7 +31,6 @@ public class RequestTab extends JPanel {
 
     public RequestTab(String link, String str) {
         url = link;
-
         name = str;
         this.setLayout(null);
         this.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -53,8 +53,11 @@ public class RequestTab extends JPanel {
 
         if(SpotifyPartyPanelChat.host) {
             MenuItem play = new MenuItem("Play");
-            System.out.println(info.getId());
-            play.addActionListener(e -> api.playTrack(info.getId()));
+            info = SpotifyUtils.getTrack(link);
+            if(info == null)
+             info = SpotifyUtils.search(link).get(0);
+            System.out.println(info.getUri());
+            play.addActionListener(e -> api.playTrack(info.getUri()));
             menu.add(play);
 
             MenuItem delete = new MenuItem("Delete");
@@ -95,7 +98,13 @@ public class RequestTab extends JPanel {
         artist = new JTextPane();
         artist.setFocusable(false);
         artist.setOpaque(false);
-        artist.setText(info.getArtist());
+        StringBuilder artists = new StringBuilder();
+        for(Artist art: info.getArtists())
+        {
+            artists.append(art.getName() + ", ");
+        }
+        artists.replace(artists.length()-2, artists.length(), "");
+        artist.setText(artists.toString());
         artist.setBorder(new EmptyBorder(0,0,0,0));
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
@@ -118,13 +127,12 @@ public class RequestTab extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                api.playTrack(info.getId());
+                api.playTrack(info.getUri());
             }
         });
         this.add(inv);
 
         System.out.println(link + " " + str);
-        this.info = SpotifyUtils.getTrackInfo(url);
         Chat.chat.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
         Chat.chat.setText(Chat.chat.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
@@ -147,7 +155,7 @@ public class RequestTab extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                api.playTrack(info.getId());
+                api.playTrack(info.getUri());
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -178,7 +186,7 @@ public class RequestTab extends JPanel {
             g2d.setPaint(gp);
             g2d.fillRoundRect(0, 30, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(SpotifyUtils.getTrackInfo(url).getThumbnailURL()), 10, 39, 60, 60, this);
+            g.drawImage(ImageIO.read(SpotifyUtils.getTrack(url).getAlbum().getImages().get(2).getUrl()), 10, 39, 60, 60, this);
         }
         catch (Exception e)
         {
@@ -188,6 +196,6 @@ public class RequestTab extends JPanel {
 
     @Override
     public String toString() {
-        return info.getId() + ";" + name;
+        return info.getUri() + ";" + name;
     }
 }

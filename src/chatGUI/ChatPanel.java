@@ -3,6 +3,7 @@ package chatGUI;
 import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
+import model.Artist;
 import model.Track;
 import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
@@ -28,10 +29,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.HashSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static chatGUI.SpotifyPartyPanelChat.cli;
 import static chatGUI.SpotifyPartyPanelChat.host;
@@ -46,6 +44,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
+    public static JTextField guest = new JTextField();
     public static AbstractButton copy;
     public static Chat chat  = new Chat();
     public static HashSet<String> names = new HashSet<>();
@@ -175,7 +174,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         play.setBounds(645, 545, 40, 40);
 
         play.addActionListener(e -> {
-            chat.addRequest(new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName));
+            ChatPanel.chat.addRequest(new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName));
             //recommendationHandler();
         });
         type.addKeyListener(new KeyAdapter() {
@@ -256,20 +255,18 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
         this.add(chatScroll);
 
-        JLabel req = new JLabel("Spotify Party");
+        JLabel req = new JLabel("Spotify Recs");
         req.setForeground(Color.WHITE);
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
         req.setBounds(353, 5, 300, 60);
         this.add(req);
-
-        JTextField guest = new JTextField();
         guest.setBorder(new EmptyBorder(0, 0, 0 ,0));
         guest.setEditable(false);
         guest.setOpaque(false);
         guest.setFocusable(false);
         guest.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 14));
         guest.setForeground(Color.WHITE);
-        guest.setText("29");
+        guest.setText("0");
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
     }
@@ -321,7 +318,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         work = true;
                         try
                         {
-                            api.playTrack(SpotifyUtils.getTrackInfo(type.getText().trim()).getId());
+                            api.playTrack(SpotifyUtils.getTrack(type.getText().trim()).getId());
                         }catch (Exception e) {
                             String str = type.getText().trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", " ");
                             try {
@@ -349,7 +346,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         String str = type.getText().trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", " ");
                         try {
 
-                            tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getId(), SpotifyPartyPanelChat.FriendName);
+                            tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                         } catch (Exception e3) {
                             type.setText("can't find that song");
                             type.selectAll();
@@ -370,7 +367,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 try {
 
                     System.out.println(type.getText());
-                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).get(0).getId());
+                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).get(0).getUri());
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");
                     type.setText("Cannot find song, Sorry!");
@@ -387,7 +384,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             }
             else {
                 try {
-                    tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getId(), SpotifyPartyPanelChat.FriendName);
+                    tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     tab = new RequestTab(type.getText().trim(), SpotifyPartyPanelChat.FriendName);
                     if (SpotifyPartyPanelChat.host)
                         TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName, null);
@@ -422,10 +419,22 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
     public Track updateData(String trackID)
     {
-        Track inf = SpotifyUtils.getTrackInfo(trackID);
-        artworkURL = inf.getThumbnailURL();
-        song.setText(inf.getName());
-        artist.setText(inf.getArtist());
+        Track inf = SpotifyUtils.getTrack(trackID);
+        artworkURL = inf.getAlbum().getImages().get(1).getUrl();
+        if(inf.getName().length() > 33)
+            song.setText(inf.getName().substring(0, 30) + " ...");
+        else
+            song.setText(inf.getName());
+        StringBuilder artists = new StringBuilder();
+        for(Artist art: inf.getArtists())
+        {
+            artists.append(art.getName() + ", ");
+        }
+        artists.replace(artists.length()-2, artists.length(), "");
+        if(artists.length() > 38)
+            artist.setText(artists.toString().substring(0, 34) + " ...");
+        else
+            artist.setText(artists.toString());
         color = inf.getDominantColor().darker();
         addLyrics();
         repaint();
@@ -434,7 +443,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
     public Track updateData()
     {
-        return updateData(api.getTrackId());
+        return updateData(api.getTrackUri());
     }
     public static void setCode(String tcode)
     {

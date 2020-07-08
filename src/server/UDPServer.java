@@ -85,7 +85,7 @@ public class UDPServer {
 					SpotifyPartyFrame.status.setLabel("Guests: " + clients.size());
 					SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, clients.size() + 1));
 					try {
-						sendToClients(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+						sendToClients(api.getTrackUri() + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
 					} catch (SpotifyException e) {
 						e.printStackTrace();
 					}
@@ -102,9 +102,9 @@ public class UDPServer {
 		sender = new Thread(() -> {
 			while (true) {
 				try {
-					String tempTrack = api.getTrackId();
+					String tempTrack = api.getTrackUri();
 					if (!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
-						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
 				} catch (SpotifyException e) {
 					e.printStackTrace();
 				}

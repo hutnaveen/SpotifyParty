@@ -1,15 +1,11 @@
 package spotifyAPI;
-
 import interfaces.SpotifyPlayerAPI;
+import model.Artist;
 import model.Track;
 import utils.OSXUtils;
 import utils.SpotifyUtils;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.List;
 
 public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     public void playTrack(String id){
@@ -24,24 +20,9 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
 
     @Override
     public void playTrack(Track song) {
-        playTrack(song.getId());
+        playTrack(song.getUri());
     }
 
-
-    @Override
-    public void saveTrack(String trackId) {
-
-    }
-
-    public BufferedImage getArtworkImage()
-    {
-        try {
-            return ImageIO.read(getArtworkURL());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
     public boolean isSingle()
     {
        /* String str = getTrackInfo();
@@ -50,7 +31,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
             return true;*/
         return false;
     }
-    public  void increaseVolume(int am)
+    private void increaseVolume(int am)
     {
         try {
             OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
@@ -65,7 +46,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
     }
-    public  void decreaseVolume(int am)
+    private void decreaseVolume(int am)
     {
         try {
             OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
@@ -83,14 +64,17 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     }
 
     @Override
-    public void setVolume(int am) {
+    public void setVolume(int vol) {
+        try {
+            OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
+                    "\tset sound volume to" +vol+"\n" +
+                    "end tell");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public  URL getArtworkURL()
-    {
-        return SpotifyUtils.getTrackInfo(getTrackId()).getThumbnailURL();
-    }
-    public  void togglePlay()
+    public void playPause()
     {
         try {
             OSXUtils.runAppleCmd("\n" +
@@ -134,7 +118,8 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         }
 
     }
-    public long getPlayerPosition()
+
+    public long getPlayBackPosition()
     {
         try {
             String str = OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
@@ -172,7 +157,13 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
 
     @Override
     public int getVolume() {
-        return 0;
+        try {
+           return Integer.parseInt(OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
+                    "\tget sound volume\n" +
+                    "end tell").trim());
+        } catch (IOException e) {
+           return -1;
+        }
     }
 
     public  boolean isPlaying()
@@ -208,6 +199,12 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Artist> getTrackArtists() {
+        return getPlayingTrack().getArtists();
+    }
+
     public String getTrackArtist()
     {
         try {
@@ -219,16 +216,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         }
         return "";
     }
-   /* public  java.util.List<String> getTrackArtists()
-    {
-        java.util.List<String> names = new ArrayList<>();
-        String str = getTrackInfo();
-        int pos1 = str.indexOf("a song by") + 10;
-        String ret = str.substring(pos1, str.indexOf(" on Spotify", pos1));
-        for(String s: ret.split(", "))
-            names.add(s);
-        return names;
-    }*/
+
     public  String getTrackAlbum()
     {
         try {
@@ -239,12 +227,10 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
         return "";
-       /*String s = getTrackInfo();
-       int pos1 = s.indexOf("alt=") + 5;
-       return s.substring(pos1, s.indexOf('\"', pos1)).trim().replace("&#039;", "'");*/
     }
-    public  String getTrackId()
-    {
+
+    @Override
+    public String getTrackUri() {
         try {
             return OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
                     "\treturn spotify url of the current track\n" +
@@ -254,11 +240,9 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         }
         return null;
     }
+
     public String getTrackName()
     {
-       /*String str = getTrackInfo();
-       int pos = str.indexOf("name\":") + 7;
-       return str.substring(pos, str.indexOf("\"",pos)).replace("\\u2019","'").replace("\\", "");*/
         try {
             return OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
                     "\tname of current track\n" +
@@ -269,23 +253,8 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
         return "";
     }
 
-    public String getTrackInfo()
-    {
-
-
-       /* try {
-            return OSXUtils.runAppleScript("tell application \"Spotify\"\n" +
-                    "\tset long_id to id of current track\n" +
-                    "\tset AppleScript's text item delimiters to \":\"\n" +
-                    "\tset short_id to long_id's third text item\n" +
-                    "\tset _art to do shell script \"curl -s -X GET 'https://open.spotify.com/track/\" & short_id & \"' \"\n" +
-                    "end tell\n" +
-                    "\n" +
-                    "\n" +
-                    "return _art");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        return null;
+    @Override
+    public Track getPlayingTrack() {
+        return SpotifyUtils.getTrack(getTrackUri());
     }
 }

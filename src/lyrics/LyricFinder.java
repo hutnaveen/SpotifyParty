@@ -4,17 +4,12 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import spotifyAPI.SpotifyAppleScriptWrapper;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LyricFinder {
-    public static void main(String[] args) {
-        SpotifyAppleScriptWrapper api = new SpotifyAppleScriptWrapper();
-        System.out.println(getLyrics(api.getTrackName().trim(), api.getTrackArtist().trim()));
-    }
+
     public static String getLyrics(String song, String artist, boolean special)
     {
         try {
@@ -34,18 +29,20 @@ public class LyricFinder {
     }
     public static String getLyrics(String song, String artist)
     {
+        String tSong = song;
+        String tArtist = song;
         try {
-            artist = artist.toLowerCase().replace(" ", "-");
+            tArtist = tArtist.toLowerCase().replace(" ", "-");
             int index = song.indexOf('[');
             if (index != -1) {
-                song = song.substring(0, index).trim();
+                tSong = tSong.substring(0, index).trim();
             }
-            index = song.indexOf("(feat. ");
+            index = tSong.indexOf("(feat. ");
             if (index != -1) {
-                song = song.substring(0, song.indexOf("(")).trim();
+                tSong = tSong.substring(0, tSong.indexOf("(")).trim();
             }
-            song = song.toLowerCase().replace(" ", "-").trim();
-            List<Character> list = song.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+            tSong = tSong.toLowerCase().replace(" ", "-").trim();
+            List<Character> list = tSong.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
             for (int i = 0; i < list.size(); i++) {
                 if (!Character.isLetter(list.get(i)) && !Character.isDigit(list.get(i)) && !(list.get(i) == 45) && list.get(i) != ':') {
                     list.remove(i--);
@@ -57,7 +54,7 @@ public class LyricFinder {
                 charArray[i] = refArray[i];
             }
             song = String.valueOf(charArray).trim();
-            String url = ("https://genius.com/" + artist + "-" + song + "-lyrics");
+            String url = ("https://genius.com/" + tArtist + "-" + tSong + "-lyrics");
             return getLyrics(url.replace(":", "-")).replace("---", "-").replace("--", "-");
         }
         catch (Exception e)

@@ -1,33 +1,31 @@
 package interfaces;
 
 import exception.SpotifyException;
+import model.Artist;
 import model.Track;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.List;
 
 public interface SpotifyPlayerAPI {
-    public BufferedImage getArtworkImage();
     public  boolean isSingle();
-    public  void increaseVolume(int am);
-    public  void decreaseVolume(int am);
-    public void setVolume(int am);
-    public URL getArtworkURL() throws SpotifyException;
-    public  void togglePlay();
+    public void setVolume(int vol);
+    public  void playPause();
     public  void play();
     public  void pause();
-    public  long getPlayerPosition() throws SpotifyException;
+    public  long getPlayBackPosition() throws SpotifyException;
     public  void setPlayBackPosition(long pos);
     public long getDuration() throws SpotifyException;
     public int getVolume() throws SpotifyException;
     public  boolean isPlaying() throws SpotifyException;
     public  void nextTrack();
     public  void previousTrack();
-    public String getTrackArtist();
+    public List<Artist> getTrackArtists();
     public  String getTrackAlbum();
-    public  String getTrackId();
+    public  String getTrackUri();
     public  String getTrackName();
+    public Track getPlayingTrack();
     public void playTrack(String id);
     public void playTrack(Track song);
-    public void saveTrack(String trackId);
 }

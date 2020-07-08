@@ -1,6 +1,9 @@
 package utils;
 
+import com.google.gson.Gson;
 import lyrics.DuckDuckGoSearch;
+import lyrics.LyricFinder;
+import model.Artist;
 import model.SearchResult;
 import model.Track;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -17,7 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SpotifyUtils{
-    public static Track getTrackInfo(String id)
+    /*public static Track getTrackInfo(String id)
     {
         String param1 = "";
         String param2 = "";
@@ -52,7 +55,7 @@ public class SpotifyUtils{
             while (true) {
                 assert sc != null;
                 if (!sc.hasNext()) break;
-                sb.append(sc.next()).append("\n");
+                sb.append(sc.next()).append(" ");
                 //System.out.println(sc.next());
             }
         }
@@ -63,6 +66,8 @@ public class SpotifyUtils{
         String result = sb.toString();
         //Removing the HTML tags
         result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
+        result = result.substring(result.indexOf("\"playback-control.skip-back\":\"Previous\",\"playback-control.skip-forward\":\"Next\"}") + 79);
+        System.out.println(result);
         int beg = result.indexOf("\"name\":") + 8;
         info.setArtist(result.substring(beg, result.indexOf("\"",beg)).replace("\n", " "));
         info.setArtist(StringEscapeUtils.unescapeJava(info.getArtist()));
@@ -81,7 +86,7 @@ public class SpotifyUtils{
         info.setPopularity(Integer.parseInt(result.substring(beg, result.indexOf(",",beg))));
         return info;
     }
-
+*/
     /**
      * you can use search instead of the legacy findSong
      */
@@ -97,7 +102,12 @@ public class SpotifyUtils{
             e.printStackTrace();
         }
         Element e = doc.select("a").get(3);
-        return getTrackInfo(e.attr("href"));
+        return getTrack(e.attr("href"));
+    }
+    public static Track getTrack(String id)
+    {
+        Gson son = new Gson();
+        return son.fromJson(getTrackJson(id), Track.class);
     }
     public static List<Track> search(String search)
     {
@@ -107,16 +117,84 @@ public class SpotifyUtils{
         {
             if(result.getUrl().startsWith("https://open.spotify.com/track/"))
             {
-                list.add(SpotifyUtils.getTrackInfo(result.getUrl()));
+                list.add(SpotifyUtils.getTrack(result.getUrl()));
             }
         }
         return list;
     }
 
-    public static void main(String[] args) {
-        for (Track track: search("the woo"))
-        {
-            System.out.println(track);
+    public static int getBPM(String song, String artist)
+    {
+        song = song.toLowerCase();
+        artist = artist.toLowerCase().trim();
+        int index = song.indexOf("(");
+        if (index != -1)
+            song = song.substring(0, index).trim();
+        index = song.indexOf("feat.");
+        if (index != -1)
+            song = song.substring(0, index).trim();
+        try {
+            String txt = ("https://songbpm.com/searches/" + song.replace(" ", "-") +"-"+ artist.replace(" ", "-")).replace("---", "-").replace("--", "-");
+            Document doc = Jsoup.connect(txt).get();
+            Element e = doc.getElementsByClass("text-center").get(2);
+            String text = e.text().trim();
+            return Integer.parseInt(text.substring(0, text.indexOf(" ")).trim());
+        } catch (Exception e) {
+            return -1;
         }
+    }
+    public static String getLyrics(String id)
+    {
+        return getLyrics(SpotifyUtils.getTrack(id));
+    }
+    public static String getLyrics(Track song)
+    {
+        return LyricFinder.getLyrics(song.getName(),(song.getArtists().get(0).getName()));
+    }
+    private static String getTrackJson(String id) {
+        String param1 = "";
+        String param2 = "";
+        if (id.contains("spotify:")) {
+            id = id.replace("spotify:", "");
+            param1 = id.substring(0, id.indexOf(":"));
+            param2 = id.substring(id.lastIndexOf(":") + 1);
+        } else if (id.contains("https://open.spotify.com/")) {
+            /*id.replace("https://open.spotify.com/", "spotify:").replace("/", ":");
+            id = id.replace("https://open.spotify.com/", "");
+            param1 = id.substring(0, id.indexOf("/"));*/
+            param2 = id.substring(id.lastIndexOf("/") + 1);
+        }
+        URL url = null;
+        try {
+            url = new URL("https://open.spotify.com/embed/track/" + param2);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        //Retrieving the contents of the specified page
+        Scanner sc = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+            assert url != null;
+            sc = new Scanner(url.openStream());
+
+            //Instantiating the StringBuffer class to hold the result
+            while (true) {
+                assert sc != null;
+                if (!sc.hasNext()) break;
+                sb.append(sc.next()).append(" ");
+                //System.out.println(sc.next());
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        //Retrieving the String from the String Buffer object
+        String result = sb.toString();
+        //Removing the HTML tags
+        result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
+        result = result.substring(result.lastIndexOf("{\"album\""));
+        return result;
+    }
+    public static void main(String[] args) {
+         Track track = getTrack("spotify:track:56uXDJRCuoS7abX3SkzHKQ");
     }
 }

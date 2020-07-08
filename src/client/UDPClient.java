@@ -94,10 +94,10 @@ public class UDPClient {
    }
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
-            String tempTrack = api.getTrackId();
+            String tempTrack = api.getTrackUri();
             boolean tempPlaying = api.isPlaying();
             log(""+tempPlaying);
-            long tempPos = api.getPlayerPosition();
+            long tempPos = api.getPlayBackPosition();
             if (!tempTrack.contains(":ad:")) {
                 if (trackID.equals("ice")) {
                     api.pause();
