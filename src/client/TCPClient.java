@@ -1,8 +1,7 @@
 package client;
 
-import chatGUI.*;
+import gui.*;
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
@@ -47,7 +46,6 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SpotifyPartyFrame.status.setLabel("Connected!");
         try {
             String names = dis.readUTF().replace("[", "").replace("]", "");
             //ChatPanel.addNames(names.split(","));
@@ -61,12 +59,6 @@ public class TCPClient
     {
         updater.stop();
         tempUpdate.stop();
-        try {
-            SpotifyParty.writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SpotifyPartyFrame.status.setLabel("Welcome");
     }
     private void trackUpdater() {
         updater = new Thread(() -> {
@@ -179,13 +171,6 @@ public class TCPClient
     }
     private boolean log(String msg)
     {
-        if(SpotifyParty.writer != null) {
-            try {
-                SpotifyParty.writer.append(msg).append("\n");
-            } catch (IOException e) {
-                return false;
-            }
-        }
         return true;
     }
 }

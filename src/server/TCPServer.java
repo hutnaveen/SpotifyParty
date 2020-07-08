@@ -1,31 +1,25 @@
 package server;
 
-import chatGUI.Chat;
-import chatGUI.ChatPanel;
-import chatGUI.RequestTab;
-import chatGUI.SpotifyPartyPanelChat;
+import gui.ChatPanel;
+import gui.RequestTab;
+import gui.SpotifyPartyPanelChat;
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
-import gui.SpotifyPartyPanel;
-import history.SpotifyPlayerHistory;
+
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
-import model.Streams;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
-import static chatGUI.ChatPanel.names;
+import static gui.ChatPanel.names;
 
 public class TCPServer
 {
@@ -66,7 +60,6 @@ public class TCPServer
         startSender();
         System.out.println("Server is started!");
         log("Server Started");
-        SpotifyPartyFrame.status.setLabel("Guests: 0");
     }
 
 
@@ -132,12 +125,6 @@ public class TCPServer
     {
         sender.stop();
         reciver.stop();
-        try {
-            SpotifyParty.writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SpotifyPartyFrame.status.setLabel("Waiting");
         System.out.println("Server Stopped");
     }
     private void startSender()
@@ -168,13 +155,6 @@ public class TCPServer
     }
     private boolean log(String msg)
     {
-        if(SpotifyParty.writer != null) {
-            try {
-                SpotifyParty.writer.append(msg).append("\n");
-            } catch (IOException e) {
-                return false;
-            }
-        }
         return true;
     }
 

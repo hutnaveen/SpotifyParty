@@ -1,7 +1,6 @@
 package client;
 
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
@@ -41,7 +40,6 @@ public class UDPClient {
            e.printStackTrace();
        }
        sendToServer("add me");
-       SpotifyPartyFrame.status.setLabel("Connected!");
        trackUpdater();
       System.out.println("Client is started! Port: " + clientSocket.getLocalPort());
    }
@@ -49,12 +47,6 @@ public class UDPClient {
     {
         updater.stop();
         tempUpdate.stop();
-        try {
-            SpotifyParty.writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SpotifyPartyFrame.status.setLabel("Welcome");
     }
    private void trackUpdater()
    {
@@ -156,13 +148,6 @@ public class UDPClient {
    }
     private boolean log(String msg)
     {
-        if(SpotifyParty.writer != null) {
-            try {
-                SpotifyParty.writer.append(msg).append("\n");
-            } catch (IOException e) {
-                return false;
-            }
-        }
         return true;
     }
 }
