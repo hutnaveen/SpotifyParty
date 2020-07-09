@@ -34,6 +34,7 @@ public class JoinPartyPanel extends JPanel {
         try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
+
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/fonts/CircularSpUIv3T-Bold.7eb7d0f7.ttf").getFile())));
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/fonts/CircularSpUIv3T-Light.89e4be2e.ttf").getFile())));
         } catch (IOException |FontFormatException e) {
