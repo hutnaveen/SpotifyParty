@@ -42,6 +42,7 @@ public class TCPServer
         else
             System.exit(69);
         if(diffNetWork) {
+
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 UPnP.closePortUDP(serverPort);
@@ -53,6 +54,7 @@ public class TCPServer
                 else
                     UPnP.closePortTCP((serverPort));
             }
+
         }
         try {
             ss = new ServerSocket(serverPort);
@@ -140,7 +142,26 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
-                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                            try {
+                                SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                            }catch (Exception e)
+                            {
+                                new Thread(() -> {
+                                    try {
+                                        Thread.sleep(3000);
+                                    } catch (InterruptedException interruptedException) {
+                                        interruptedException.printStackTrace();
+                                    }
+                                    try
+                                    {
+                                        SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+
+                                    }catch (Exception e1)
+                                    {
+
+                                    }
+                                }).start();
+                            }
                         }
                     }
                 } catch (SpotifyException e) {
@@ -191,7 +212,7 @@ class ClientListener implements Runnable
                     case "chat":
                         org = org.substring(org.indexOf(' ')+1);
                         org = org.substring(org.indexOf(' ')+1);
-                        String name = org;
+                        String name = org.substring(0, org.indexOf(' '));
                         String message = org.substring(org.indexOf(' ')+1);
                         ChatPanel.chat.addText(message, name);
                         TCPServer.sendToClients("chat " + name+ " " + message, in);
