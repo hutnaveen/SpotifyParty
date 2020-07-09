@@ -139,7 +139,26 @@ public class TCPServer
                         sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
-                            SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                            try {
+                                SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                            }catch (Exception e)
+                            {
+                                new Thread(() -> {
+                                    try {
+                                        Thread.sleep(3000);
+                                    } catch (InterruptedException interruptedException) {
+                                        interruptedException.printStackTrace();
+                                    }
+                                    try
+                                    {
+                                        SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+
+                                    }catch (Exception e1)
+                                    {
+
+                                    }
+                                }).start();
+                            }
                         }
                     }
                 } catch (SpotifyException e) {
