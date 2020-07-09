@@ -2,9 +2,7 @@ package gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -14,6 +12,7 @@ public class Chat extends JPanel {
     public static JTextPane back;
     public static JTextPane chat;
     public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
+    public String prev = "";
 
     public Chat() {
         this.setLayout(null);
@@ -30,6 +29,7 @@ public class Chat extends JPanel {
         chat.setAutoscrolls(true);
         chat.setOpaque(false);
         chat.setEditable(false);
+        chat.setMargin(new Insets(10, 10, 0, 10));
 
     }
 
@@ -37,7 +37,7 @@ public class Chat extends JPanel {
     {
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);
-        chat.add(pane);
+        back.add(pane);
     }
     public static void redraw(String link) {
         back.removeAll();
@@ -55,19 +55,33 @@ public class Chat extends JPanel {
         }
     }
 
-    public static void addText(String text) {
+    public void addText(String text, String name) {
         StyledDocument doc = chat.getStyledDocument();
-        SimpleAttributeSet center = new SimpleAttributeSet();
-        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        SimpleAttributeSet left = new SimpleAttributeSet();
+        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+        doc.setParagraphAttributes(0, doc.getLength(), left, false);
+        chat.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
+        Style style = chat.addStyle("I'm a Style", null);
 
-        chat.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 20));
-        chat.setForeground(Color.GREEN);
-        chat.setText(chat.getText() + "\n" + SpotifyPartyPanelChat.FriendName);
+        if(!prev.equals(name)) {
+            if(name.equals(SpotifyPartyPanelChat.FriendName)) {
+                StyleConstants.setForeground(style, Color.GREEN);
+            } else {
+                StyleConstants.setForeground(style, Color.GRAY);
+            }
+            StyleConstants.setFontSize(style, 20);
 
-        chat.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 15));
-        chat.setForeground(Color.WHITE);
-        chat.setText(chat.getText() + "\n" + text + "\n");
+            try { doc.insertString(doc.getLength(), "\n" + name + "\n",style); }
+            catch (BadLocationException e){}
+        }
+
+        StyleConstants.setForeground(style, Color.WHITE);
+        StyleConstants.setFontSize(style, 15);
+
+        try { doc.insertString(doc.getLength(),  text + "\n",style); }
+        catch (BadLocationException e){}
+
+        prev = name;
     }
 
     public void paintComponent(Graphics g) {
