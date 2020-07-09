@@ -48,7 +48,7 @@ public class TCPServer
                 else
                     UPnP.closePortTCP((serverPort));
             }
-            
+
         }
         try {
             ss = new ServerSocket(serverPort);
