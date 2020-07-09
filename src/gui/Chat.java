@@ -81,7 +81,7 @@ public class Chat extends JPanel {
         try { doc.insertString(doc.getLength(),  text + "\n",style); }
         catch (BadLocationException e){}
 
-        ChatPanel.chatViewPort.setViewPosition(new Point(0, ChatPanel.chatViewPort.getHeight()));
+        ChatPanel.chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE));
         prev = name;
     }
 

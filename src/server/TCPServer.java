@@ -195,7 +195,7 @@ class ClientListener implements Runnable
                     case "chat":
                         org = org.substring(org.indexOf(' ')+1);
                         org = org.substring(org.indexOf(' ')+1);
-                        String name = org;
+                        String name = org.substring(0, org.indexOf(' '));
                         String message = org.substring(org.indexOf(' ')+1);
                         ChatPanel.chat.addText(message, name);
                         TCPServer.sendToClients("chat " + name+ " " + message, in);
