@@ -28,6 +28,9 @@ public class GUIUtilsChat {
             }
         };
     }
+    public static AbstractButton makeButton(ImageIcon icon) {
+        return makeButton("", icon);
+    }
     public static JButton makeButton(String title)
     {
         JButton button = new JButton(title);
@@ -47,19 +50,42 @@ public class GUIUtilsChat {
 class RoundJTextField extends JTextField {
     private Shape shape;
     public RoundJTextField(int size) {
-        putClientProperty("JComponent.sizeVariant", "large");
         putClientProperty("Aqua.useFocusRing", "false");
         setBorder(null);
         setOpaque(true);
-        putClientProperty("JTextField.style", "round");
         setColumns(size);
         setFont(new Font("CircularSpUIv3T-Light",Font.BOLD, 20));
         setPreferredSize(new Dimension(40, 40));
-        putClientProperty("JTextComponent.selectContentOnFocusGained", "true");
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);
         setCaretColor(Color.BLACK);
         setOpaque(false); // As suggested by @AVD in comment.
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE && get().isEmpty()|| get().isBlank())
+                {
+                    System.out.println("up");
+                    e.consume();
+                    setText(" ");
+                    moveCaretPosition(1);
+                }
+
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(isEditable() && get().isEmpty()|| get().isBlank())
+                {
+                    e.consume();
+                    setText(" ");
+                    moveCaretPosition(1);
+                }
+            }
+        });
     }
     protected void paintComponent(Graphics g) {
         g.setColor(getBackground());
@@ -76,6 +102,19 @@ class RoundJTextField extends JTextField {
         }
         return shape.contains(x, y);
     }
+    private String get()
+    {
+        return super.getText();
+    }
+    @Override
+    public String getText() {
+        return super.getText().trim();
+    }
+    @Override
+    public void setText(String text) {
+        super.setText(" " + text);
+    }
+
 }
 
 class RoundTextArea extends JTextArea {

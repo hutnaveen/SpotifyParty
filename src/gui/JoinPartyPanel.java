@@ -26,7 +26,7 @@ public class JoinPartyPanel extends JPanel {
         this.setLayout(null);
 
         ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/slice4.png")), 200, 70);
-        enter = makeButton("", icon);
+        enter = makeButton(icon);
         enter.setBounds(250, 325,200, 70);
         this.add(enter);
 

@@ -185,7 +185,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         type.setCaretColor(Color.GREEN);
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 40, 40);
-        AbstractButton play = makeButton("", playIcon);
+        AbstractButton play = makeButton(playIcon);
         play.setBounds(645, 545, 40, 40);
 
         play.addActionListener(e -> {
@@ -309,7 +309,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         this.add(guest);
 
         ImageIcon ic = resizeIcon(new ImageIcon(getClass().getResource("/images/logo.png")), 20, 20);
-        AbstractButton mode = makeButton("", ic);
+        AbstractButton mode = makeButton(ic);
         mode.setBounds(677, 3, 22, 22);
         mode.addActionListener(e -> {
             if(chatSwitch) {
