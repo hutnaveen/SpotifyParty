@@ -190,7 +190,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         play.setBounds(645, 545, 40, 40);
 
         play.addActionListener(e -> {
-            if (chatSwitch) {
+            if (chatSwitch && !type.getText().isEmpty() && !type.getText().isBlank()) {
                 chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                 if (!host)
                     cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
@@ -206,7 +206,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (chatSwitch) {
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
                         chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                         if (!host)
                             cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
@@ -215,7 +215,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         type.setText("");
                     }
                 } else {
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
                         recommendationHandler();
 
                     }

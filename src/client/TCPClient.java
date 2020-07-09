@@ -98,7 +98,7 @@ public class TCPClient
                 else if(playerData[0].equals("chat"))
                 {
                     org = org.substring(org.indexOf(' ')+1);
-                    String name = org;
+                    String name = org.substring(0, org.indexOf(' ')+1);
                     String message = org.substring(org.indexOf(' ')+1);
                     ChatPanel.chat.addText(message, name);
                 }
