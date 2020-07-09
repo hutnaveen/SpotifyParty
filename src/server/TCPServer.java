@@ -35,6 +35,7 @@ public class TCPServer
         api = new SpotifyAppleScriptWrapper();
         boolean star;
         if(diffNetWork) {
+
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 UPnP.closePortTCP(serverPort);
@@ -47,6 +48,7 @@ public class TCPServer
                 else
                     UPnP.closePortTCP((serverPort));
             }
+            
         }
         try {
             ss = new ServerSocket(serverPort);
