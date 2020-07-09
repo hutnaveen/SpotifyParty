@@ -264,7 +264,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         reqScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         reqScroll.getVerticalScrollBar().setUnitIncrement(16);
         reqScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        reqScroll.setVisible(false);
         this.add(reqScroll);
 
         JScrollPane chatScroll = new JScrollPane();
@@ -316,12 +315,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 Chat.back.setVisible(true);
                 Chat.chat.setVisible(false);
                 req.setText("Song Requests");
-                System.out.println("Requests");
             } else {
                 Chat.back.setVisible(false);
                 Chat.chat.setVisible(true);
                 req.setText("Party Chat");
-                System.out.println("The chat");
             }
             chatSwitch = !chatSwitch;
         });
