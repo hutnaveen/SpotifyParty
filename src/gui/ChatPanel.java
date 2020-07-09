@@ -1,5 +1,6 @@
 package gui;
 
+import client.TCPClient;
 import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
@@ -175,6 +176,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         play.addActionListener(e -> {
             if(chatSwitch) {
                 chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                if(!host)
+                    cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText());
+                else
+                    server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText(), null);
                 type.setText("");
             } else {
                 recommendationHandler();
@@ -187,8 +192,11 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 if(chatSwitch) {
                     if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                         chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        if(!host)
+                            cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText());
+                        else
+                            server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText(), null);
                         type.setText("");
-                        System.out.println("Typed");
                     }
                 } else {
                     if(e.getKeyCode() == KeyEvent.VK_ENTER) {
