@@ -4,6 +4,7 @@ import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
+import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.NetworkUtils;
 
@@ -64,8 +65,10 @@ public class TCPClient
         updater = new Thread(() -> {
             while (true) {
                 String[] playerData = null;
+                String org = "";
                 try {
-                    playerData = dis.readUTF().split(" ");
+                    org = dis.readUTF();
+                    playerData = org.split(" ");
                 } catch (java.io.EOFException e) {
                     quit();
                     System.exit(-2);
@@ -91,6 +94,13 @@ public class TCPClient
                     }
                     Chat.requestTabs = tabs;
                     Chat.redraw("");
+                }
+                else if(playerData[0].equals("chat"))
+                {
+                    org = org.substring(org.indexOf(' ')+1);
+                    String name = org;
+                    String message = org.substring(org.indexOf(' ')+1);
+                    ChatPanel.chat.addText(message, name);
                 }
                 else {
                     try {

@@ -1,8 +1,10 @@
 package gui;
 
+import client.TCPClient;
 import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
+import main.SpotifyParty;
 import model.Artist;
 import model.Track;
 import server.TCPServer;
@@ -24,10 +26,7 @@ import java.awt.dnd.DragSourceDragEvent;
 import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.net.URL;
 import java.util.HashSet;
 
@@ -53,7 +52,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public JScrollPane areaScroll;
     private URL artworkURL;
     final String[] theCode = {""};
-    public boolean chatSwitch = true;
+    public boolean chatSwitch = false;
 
     public ChatPanel() {
         this.setLayout(null);
@@ -148,7 +147,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
         areaScroll.setBackground(new Color(40, 40, 40));
-        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
@@ -175,8 +174,16 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         play.setBounds(645, 545, 40, 40);
 
         play.addActionListener(e -> {
-            ChatPanel.chat.addRequest(new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName));
-            //recommendationHandler();
+            if(chatSwitch) {
+                chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                if(!host)
+                    cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText());
+                else
+                    server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText(), null);
+                type.setText("");
+            } else {
+                recommendationHandler();
+            }
         });
         type.addKeyListener(new KeyAdapter() {
             @Override
@@ -184,7 +191,11 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 super.keyPressed(e);
                 if(chatSwitch) {
                     if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        Chat.addText(type.getText());
+                        chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        if(!host)
+                            cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText());
+                        else
+                            server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName +" " + type.getText(), null);
                         type.setText("");
                     }
                 } else {
@@ -245,7 +256,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         Chat.chat.setFocusable(false);
         chatScroll.getViewport().setView(Chat.chat);
         this.setPreferredSize(new Dimension(450, 460));
-        chatScroll.setBounds(250, 70, 450, 460);
+        chatScroll.setBounds(270, 70, 410, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
@@ -254,13 +265,24 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         chatScroll.getVerticalScrollBar().setUnitIncrement(16);
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
         this.add(chatScroll);
 
-        JLabel req = new JLabel("Spotify Recs");
+        JTextPane req = new JTextPane();
+        StyledDocument doc4 = req.getStyledDocument();
+        SimpleAttributeSet center4 = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center4, StyleConstants.ALIGN_CENTER);
+        doc4.setParagraphAttributes(0, doc4.getLength(), center4, false);
         req.setForeground(Color.WHITE);
+        req.setEditable(false);
+        req.setOpaque(false);
+        req.setFocusable(false);
+        req.setBorder(new EmptyBorder(0,0,0,0));
+        req.setText("Song Requests");
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
-        req.setBounds(353, 5, 300, 60);
+        req.setBounds(250, 30, 450, 40);
         this.add(req);
+
         guest.setBorder(new EmptyBorder(0, 0, 0 ,0));
         guest.setEditable(false);
         guest.setOpaque(false);
@@ -270,6 +292,25 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setText("0");
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
+
+        ImageIcon ic = resizeIcon(new ImageIcon(getClass().getResource("/images/logo.png")), 20, 20);
+        AbstractButton mode = makeButton("", ic);
+        mode.setBounds(670, 10, 22, 22);
+        mode.addActionListener(e -> {
+            if(chatSwitch) {
+                Chat.back.setVisible(true);
+                Chat.chat.setVisible(false);
+                req.setText("Song Requests");
+                System.out.println("Requests");
+            } else {
+                Chat.back.setVisible(false);
+                Chat.chat.setVisible(true);
+                req.setText("Party Chat");
+                System.out.println("The chat");
+            }
+            chatSwitch = !chatSwitch;
+        });
+        this.add(mode);
     }
 
     private void recommendationHandler()
