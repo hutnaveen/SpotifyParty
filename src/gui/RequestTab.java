@@ -134,8 +134,8 @@ public class RequestTab extends JPanel {
         this.add(inv);
 
         System.out.println(link + " " + str);
-        Chat.chat.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
-        Chat.chat.setText(Chat.chat.getText() + "\n\n\n\n\n\n\n\n\n\n");
+        Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+        Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         animate(this);
         /*
