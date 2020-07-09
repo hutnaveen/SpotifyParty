@@ -15,13 +15,7 @@ public class SpotifyParty {
         System.setProperty("apple.awt.UIElement", "true");
         try {
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
         try {

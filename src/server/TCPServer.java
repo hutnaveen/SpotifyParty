@@ -1,12 +1,9 @@
 package server;
 
-import chatGUI.Chat;
-import chatGUI.ChatPanel;
-import chatGUI.RequestTab;
-import chatGUI.SpotifyPartyPanelChat;
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
-import gui.SpotifyPartyPanel;
+import gui.ChatPanel;
+import gui.RequestTab;
+import gui.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import model.Streams;
@@ -24,7 +21,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static chatGUI.ChatPanel.names;
+import static gui.ChatPanel.names;
+
 
 public class TCPServer
 {
@@ -50,7 +48,6 @@ public class TCPServer
                 UPnP.waitInit();
                 star = (UPnP.openPortTCP((serverPort)));
                 System.out.println(star);
-                log("" + star);
                 if (star)
                     break;
                 else
@@ -68,8 +65,7 @@ public class TCPServer
         startConnector();
         startSender();
         System.out.println("Server is started!");
-        log("Server Started");
-        SpotifyPartyFrame.status.setLabel("Guests: 0");
+
     }
 
 
@@ -90,7 +86,6 @@ public class TCPServer
                     e.printStackTrace();
                 }
                 System.out.println("added");
-                log("added");
                 stream.put(in, dos);
                 try {
                     if (dos != null) {
@@ -101,7 +96,6 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    ChatPanel.addNames(it);
                     sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -134,12 +128,6 @@ public class TCPServer
     {
         sender.stop();
         reciver.stop();
-        try {
-            SpotifyParty.writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SpotifyPartyFrame.status.setLabel("Waiting");
         System.out.println("Server Stopped");
     }
     private void startSender()
@@ -147,9 +135,9 @@ public class TCPServer
         sender = new Thread(() -> {
             while (true) {
                 try {
-                    String tempTrack = api.getTrackId();
+                    String tempTrack = api.getTrackUri();
                     if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis(), null);
+                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis(), null);
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
@@ -167,17 +155,6 @@ public class TCPServer
 
         });
         sender.start();
-    }
-    private boolean log(String msg)
-    {
-        if(SpotifyParty.writer != null) {
-            try {
-                SpotifyParty.writer.append(msg).append("\n");
-            } catch (IOException e) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public int getServerPort() {
@@ -204,7 +181,6 @@ class ClientListener implements Runnable
                 switch (str[1])
                 {
                     case "usr":
-                        ChatPanel.addNames(str[2].trim());
                         TCPServer.sendToClients("usr " + str[2].trim(),in);
                         break;
                     case "request":
@@ -214,7 +190,7 @@ class ClientListener implements Runnable
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                System.exit(-69);
+                t.stop();
             }
         }
     }
