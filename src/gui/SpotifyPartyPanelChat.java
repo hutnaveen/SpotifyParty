@@ -14,7 +14,14 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
     CardLayout cl = new CardLayout();
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
-    public  static ChatPanel chatPanel = new ChatPanel();
+    public  static ChatPanel chatPanel;
+    static {
+        try {
+            chatPanel = new ChatPanel();
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
     public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
 

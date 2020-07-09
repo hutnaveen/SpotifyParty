@@ -1,10 +1,7 @@
 package gui;
-
-import client.TCPClient;
 import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
-import main.SpotifyParty;
 import model.Artist;
 import model.Track;
 import server.TCPServer;
@@ -54,7 +51,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     final String[] theCode = {""};
     public boolean chatSwitch = false;
 
-    public ChatPanel() {
+    public ChatPanel() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         this.setLayout(null);
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
@@ -129,18 +126,46 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         areaScroll = new JScrollPane();
+        final long[] start = {0};
+        final boolean[] running = {false};
+        areaScroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
+                start[0] = System.currentTimeMillis();
+            }
+        });
+        areaScroll.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+                start[0] = System.currentTimeMillis();
+                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 300));
+                if (!running[0]) {
+                    running[0] = true;
+                    new Thread(() -> {
+                        System.out.println("start");
+                        while ((System.currentTimeMillis() - start[0]) < 1000) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println("running");
+                        }
+                        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+                        areaScroll.repaint();
+                        areaScroll.revalidate();
+                        area.repaint();
+                        area.revalidate();
+                        System.out.println("end");
+                        running[0] = false;
+                    }).start();
+                }
+            }
+
+        });
+
         areaScroll.getViewport().setFocusable(false);
         areaScroll.getViewport().setView(area);
         areaScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -150,22 +175,12 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
-        areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         areaScroll.setBounds(25, 120, 210, 250);
         areaScroll.getVerticalScrollBar().setUnitIncrement(4);
-        addLyrics();
         this.add(areaScroll);
-        try {
-            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+        addLyrics();
+        UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         type.setBounds(260, 545, 380, 40);
         type.setCaretColor(Color.GREEN);
         this.add(type);
@@ -280,7 +295,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setBorder(new EmptyBorder(0,0,0,0));
         req.setText("Song Requests");
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
-        req.setBounds(250, 30, 450, 40);
+        req.setBounds(250, 20, 450, 40);
         this.add(req);
 
         guest.setBorder(new EmptyBorder(0, 0, 0 ,0));
@@ -295,7 +310,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
         ImageIcon ic = resizeIcon(new ImageIcon(getClass().getResource("/images/logo.png")), 20, 20);
         AbstractButton mode = makeButton("", ic);
-        mode.setBounds(670, 10, 22, 22);
+        mode.setBounds(677, 3, 22, 22);
         mode.addActionListener(e -> {
             if(chatSwitch) {
                 Chat.back.setVisible(true);

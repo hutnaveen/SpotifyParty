@@ -31,37 +31,6 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
             return true;*/
         return false;
     }
-    private void increaseVolume(int am)
-    {
-        try {
-            OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
-                    "\tset currentvol to get sound volume\n" +
-                    "\tif currentvol > "+ (100-am)+" then\n" +
-                    "\t\tset sound volume to 100\n" +
-                    "\telse\n" +
-                    "\t\tset sound volume to currentvol + "+am+"\n" +
-                    "\tend if\n" +
-                    "end tell");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    private void decreaseVolume(int am)
-    {
-        try {
-            OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
-                    "    set currentvol to get sound volume\n" +
-                    "    -- volume wraps at 100 to 0\n" +
-                    "    if currentvol < " + am +" then\n" +
-                    "        set sound volume to 0\n" +
-                    "    else\n" +
-                    "        set sound volume to currentvol - "+am+"\n" +
-                    "    end if\n" +
-                    "end tell\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void setVolume(int vol) {
