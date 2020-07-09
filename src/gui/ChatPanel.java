@@ -147,7 +147,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
         areaScroll.setBackground(new Color(40, 40, 40));
-        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         areaScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
@@ -249,7 +249,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         reqScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         reqScroll.getVerticalScrollBar().setUnitIncrement(16);
         reqScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        //reqScroll.setVisible(false);
+        reqScroll.setVisible(false);
         this.add(reqScroll);
 
         JScrollPane chatScroll = new JScrollPane();
@@ -265,7 +265,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0,0,0,0));
         chatScroll.getVerticalScrollBar().setUnitIncrement(16);
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        //chatScroll.setVisible(false);
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
         this.add(chatScroll);
 
         JTextPane req = new JTextPane();
