@@ -1,11 +1,7 @@
 package client;
 
-import chatGUI.ChatPanel;
-import chatGUI.JoinPartyPanel;
-import chatGUI.RequestTab;
-import chatGUI.SpotifyPartyPanelChat;
+import gui.*;
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
@@ -16,6 +12,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -35,7 +32,6 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         System.out.println(id + " " + msg.trim());
     }
 
@@ -50,10 +46,9 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SpotifyPartyFrame.status.setLabel("Connected!");
         try {
             String names = dis.readUTF().replace("[", "").replace("]", "");
-            ChatPanel.addNames(names.split(","));
+            //ChatPanel.addNames(names.split(","));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,12 +59,6 @@ public class TCPClient
     {
         updater.stop();
         tempUpdate.stop();
-        try {
-            SpotifyParty.writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SpotifyPartyFrame.status.setLabel("Welcome");
     }
     private void trackUpdater() {
         updater = new Thread(() -> {
@@ -84,11 +73,24 @@ public class TCPClient
                     e.printStackTrace();
                 }
                 if (playerData[0].equals("usr")) {
-                    ChatPanel.addNames(playerData[1]);
+                    //ChatPanel.addNames(playerData[1]);
                 }
                 else if(playerData[0].equals("request"))
                 {
                     ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    ChatPanel.chat.revalidate();
+                    //Chat.redraw("");
+                }
+                else if(playerData[0].equals("addAll"))
+                {
+                     ArrayList<RequestTab> tabs = new ArrayList<>();
+                    for(String rec: playerData[1].split(","))
+                    {
+                        String[] dat = rec.split(";");
+                        tabs.add(new RequestTab(dat[0], dat[1]));
+                    }
+                    Chat.requestTabs = tabs;
+                    Chat.redraw("");
                 }
                 else {
                     try {
@@ -117,10 +119,10 @@ public class TCPClient
 
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
-            String tempTrack = api.getTrackId();
+            String tempTrack = api.getTrackUri();
             boolean tempPlaying = api.isPlaying();
             log(""+tempPlaying);
-            long tempPos = api.getPlayerPosition();
+            long tempPos = api.getPlayBackPosition();
             if (!tempTrack.contains(":ad:")) {
                 if (trackID.equals("ice")) {
                     api.pause();
@@ -158,7 +160,7 @@ public class TCPClient
                 System.out.println("mans playing an add");
                 log("an add is playing");
                 try {
-                    Thread.sleep(15000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -169,13 +171,6 @@ public class TCPClient
     }
     private boolean log(String msg)
     {
-        if(SpotifyParty.writer != null) {
-            try {
-                SpotifyParty.writer.append(msg).append("\n");
-            } catch (IOException e) {
-                return false;
-            }
-        }
         return true;
     }
 }

@@ -1,8 +1,6 @@
 package server;
 
 import exception.SpotifyException;
-import gui.SpotifyPartyFrame;
-import gui.SpotifyPartyPanel;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
@@ -57,7 +55,6 @@ public class UDPServer {
 		startReceiver();
 		startSender();
 		System.out.println("Server is started!");
-		SpotifyPartyFrame.status.setLabel("Guests: 0");
 
 	}
 
@@ -82,10 +79,8 @@ public class UDPServer {
 				if (!clients.containsKey("" + tad + tPort)) {
 					System.out.println("added");
 					clients.put("" + tad + tPort, new ClientInfo(tad, tPort));
-					SpotifyPartyFrame.status.setLabel("Guests: " + clients.size());
-					SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, clients.size() + 1));
 					try {
-						sendToClients(api.getTrackId() + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+						sendToClients(api.getTrackUri() + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
 					} catch (SpotifyException e) {
 						e.printStackTrace();
 					}
@@ -102,9 +97,9 @@ public class UDPServer {
 		sender = new Thread(() -> {
 			while (true) {
 				try {
-					String tempTrack = api.getTrackId();
+					String tempTrack = api.getTrackUri();
 					if (!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
-						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayerPosition() + " " + System.currentTimeMillis());
+						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
 				} catch (SpotifyException e) {
 					e.printStackTrace();
 				}
@@ -144,13 +139,6 @@ public class UDPServer {
 	public void quit() {
 		sender.stop();
 		reciver.stop();
-		try {
-			if (SpotifyParty.writer != null)
-				SpotifyParty.writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		SpotifyPartyFrame.status.setLabel("Waiting");
 		System.out.println("Server Stopped");
 	}
 }
