@@ -1,8 +1,6 @@
 package gui;
-<<<<<<< HEAD
 import utils.Sound;
-=======
->>>>>>> 05ceaf5172713f5c9b74b0a317455f33c4de2510
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +43,6 @@ public class Notification{
         String finalTitle = title;
         String finalDescription = description;
 
-<<<<<<< HEAD
                 panel = new JPanel() {
                     @Override
                     protected void paintComponent(Graphics g) {
@@ -85,47 +82,6 @@ public class Notification{
                 frame.setLocation(width - (setWidth + 20), 40);
                 frame.add(panel);
                 frame.setAlwaysOnTop(true);
-=======
-        panel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setFont(new Font("", Font.PLAIN, 14));
-                g.setColor(new Color(200, 200, 200));
-                g.drawImage(icon, 10, 10, 17, 17, this);
-                g.drawString(appName, 32, 23);
-                g.setColor(Color.white);
-                g.setFont(new Font("", Font.BOLD, 13));
-                g.drawString(finalTitle, 10, 44);
-                g.setFont(new Font("", Font.PLAIN, 12));
-                g.drawString(finalDescription, 10, 62);
-            }
-        };
-        panel.setBackground(new Color(50,50,50));
-        final int[] x = {0};
-        frame.getRootPane().addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                if (e.getX() > x[0])
-                    close();
-            }
-        });
-        frame.getRootPane().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                x[0] = e.getX();
-            }
-        });
-        panel.setOpaque(false);
-        int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        int setWidth = 340;
-        frame.setSize(setWidth, 77);
-        frame.setLocation(width - (setWidth + 20), 40);
-        frame.add(panel);
-        frame.setAlwaysOnTop(true);
->>>>>>> 05ceaf5172713f5c9b74b0a317455f33c4de2510
     }
     public Notification(Image icon, String appName, String title, String description)
     {
@@ -160,26 +116,7 @@ public class Notification{
             }).start();
         }
         prevNotif = this;
-<<<<<<< HEAD
         Sound.playSound(Sound.class.getResource("/sounds/IbizaNotif.wav"));
-    }
-    public void close()
-    {
-            new Thread(() -> {
-                int width = Toolkit.getDefaultToolkit().getScreenSize().width;
-                while (alive && frame.getX() < width - 5) {
-                    frame.setLocation(frame.getX() + 5, frame.getY());
-                    try {
-                        Thread.sleep(5);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                frame.dispose();
-                alive = false;
-            }).start();
-=======
-        //Sound.playSound(Sound.class.getResource("/sounds/IbizaNotif.wav"));
     }
     public void close()
     {
@@ -196,15 +133,10 @@ public class Notification{
             frame.dispose();
             alive = false;
         }).start();
->>>>>>> 05ceaf5172713f5c9b74b0a317455f33c4de2510
     }
     public void exit()
     {
         frame.dispose();
         alive = false;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 05ceaf5172713f5c9b74b0a317455f33c4de2510

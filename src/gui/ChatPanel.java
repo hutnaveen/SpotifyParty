@@ -423,7 +423,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     for (Track item : SpotifyPlayerHistory.getHistory()) {
                         work = true;
                         try {
-                            api.playTrack(SpotifyUtils.getTrack(type.getText().trim()).getId());
+                            api.playTrack(SpotifyUtils.getTrack(type.getText().trim()).getUri());
                         } catch (Exception e) {
                             String str = type.getText().trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", " ");
                             try {
@@ -439,7 +439,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                             type.selectAll();
                         }
                         if (item != null)
-                            this.chat.addRequest(new RequestTab(item.getId(), SpotifyPartyPanelChat.FriendName));
+                            this.chat.addRequest(new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName));
                     }
                 } else {
                     work = true;
@@ -492,7 +492,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 } catch (Exception e1) {
                     try {
-                        tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getId(), SpotifyPartyPanelChat.FriendName);
+                        tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getUri(), SpotifyPartyPanelChat.FriendName);
                     } catch (Exception e3) {
                         type.setText("can't find that song");
                         type.selectAll();
