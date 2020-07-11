@@ -221,7 +221,6 @@ class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 System.exit(-69);
             }
         }
