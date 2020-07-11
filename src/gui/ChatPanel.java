@@ -287,7 +287,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
         chatScroll.setAutoscrolls(true);
         chatViewPort.setAutoscrolls(true);
-        //chatScroll.setVisible(false);
         this.add(chatScroll);
 
         JTextPane req = new JTextPane();
