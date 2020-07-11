@@ -1,3 +1,4 @@
+/*
 package webView;
 
 import javafx.application.Platform;
@@ -70,13 +71,15 @@ public class SwingFXWebView extends JPanel {
         add(swingButton, BorderLayout.SOUTH);
     }
 
-    /**
+    */
+/**
      * createScene
      *
      * Note: Key is that Scene needs to be created and run on "FX user thread"
      *       NOT on the AWT-EventQueue Thread
      *
-     */
+     *//*
+
     private void createScene() {
         Platform.runLater(new Runnable() {
             @Override
@@ -103,4 +106,4 @@ public class SwingFXWebView extends JPanel {
         });
 
             }
-}
+}*/

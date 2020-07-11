@@ -68,7 +68,7 @@ public class Chat extends JPanel {
     }
     boolean you;
     public void addText(String text, String name) {
-        if(spfc.getRootPane().isVisible()) {
+        if(spfc.isActive() ) {
             System.out.println("hi");
             Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
             notification.addActivationListener(new ActionListener() {
