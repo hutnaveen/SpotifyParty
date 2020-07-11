@@ -477,7 +477,9 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        api.playTrack(type.getText());
+                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        Chat.addRequest(tab);
+                        //api.playTrack(type.getText());
                         type.setText("");
                     } catch (Exception e2) {
                         type.setText("Cannot find song");
