@@ -66,9 +66,8 @@ public class Chat extends JPanel {
             }
         }
     }
-    int i = 0;
+    boolean you;
     public void addText(String text, String name) {
-        i++;
         if(spfc.getRootPane().isVisible()) {
             System.out.println("hi");
             Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
@@ -83,27 +82,42 @@ public class Chat extends JPanel {
         }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
+        SimpleAttributeSet right = new SimpleAttributeSet();
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
-        doc.setParagraphAttributes(0, doc.getLength(), left, false);
+        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+       // doc.setParagraphAttributes(0, doc.getLength(), left, false);
         chat.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
         Style style = chat.addStyle("I'm a Style", null);
-
         if(!prev.equals(name)) {
             if(name.equals(SpotifyPartyPanelChat.FriendName)) {
+                you = true;
                 StyleConstants.setForeground(style, Color.GREEN);
             } else {
+                you = false;
                 StyleConstants.setForeground(style, Color.GRAY);
             }
             StyleConstants.setFontSize(style, 20);
 
-            try { doc.insertString(doc.getLength(), "\n" + name + "\n",style); }
+            try {
+                doc.insertString(doc.getLength(), "\n" + name + "\n",style);
+                if(you)
+                    doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n").length(), doc.getLength(), right, false);
+                else
+                    doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n").length(), doc.getLength(), left, false);
+            }
             catch (BadLocationException e){}
         }
 
         StyleConstants.setForeground(style, Color.WHITE);
         StyleConstants.setFontSize(style, 15);
 
-        try { doc.insertString(doc.getLength(),  text + "\n",style); }
+        try {
+            doc.insertString(doc.getLength(),  text + "\n",style);
+            if(you)
+                doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), right, false);
+            else
+                doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
+        }
         catch (BadLocationException e){}
 
         ChatPanel.chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
