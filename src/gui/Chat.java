@@ -10,9 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-
-
 public class Chat extends JPanel {
     public static int size = 0;
     public static JTextPane back;
