@@ -4,7 +4,13 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static gui.SpotifyPartyPanelChat.spfc;
 
 
 public class Chat extends JPanel {
@@ -13,8 +19,14 @@ public class Chat extends JPanel {
     public static JTextPane chat;
     public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
     public String prev = "";
-
+    private static BufferedImage icon;
     public Chat() {
+        try {
+            icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
         this.setLayout(null);
 
         this.setLocation(0, 0);
@@ -54,8 +66,21 @@ public class Chat extends JPanel {
             }
         }
     }
-
+    int i = 0;
     public void addText(String text, String name) {
+        i++;
+        if(spfc.getRootPane().isVisible()) {
+            System.out.println("hi");
+            Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
+            notification.addActivationListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    spfc.toFront();
+                    spfc.requestFocus();
+                }
+            });
+            notification.send();
+        }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);

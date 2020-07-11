@@ -7,7 +7,6 @@ import model.Track;
 import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,23 +16,17 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DragSourceDropEvent;
-import java.awt.dnd.DragSourceEvent;
-import java.awt.dnd.DragSourceListener;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
-
 import static gui.GUIUtilsChat.makeButton;
 import static gui.GUIUtilsChat.resizeIcon;
 import static gui.SpotifyPartyPanelChat.cli;
 import static gui.SpotifyPartyPanelChat.host;
 
-
-public class ChatPanel extends JPanel implements DragGestureListener, DragSourceListener {
+public class ChatPanel extends JPanel {
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static Color color = new Color(30, 30, 30);
     public static JTextPane area;
@@ -51,7 +44,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     private URL artworkURL;
     final String[] theCode = {""};
     public boolean chatSwitch = false;
-
     public ChatPanel() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         this.setLayout(null);
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
@@ -129,44 +121,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         area.setBackground(new Color(40, 40, 40));
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         areaScroll = new JScrollPane();
-        final long[] start = {0};
-        final boolean[] running = {false};
-        areaScroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
-                start[0] = System.currentTimeMillis();
-            }
-        });
-        areaScroll.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-                start[0] = System.currentTimeMillis();
-                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
-                if (!running[0]) {
-                    running[0] = true;
-                    new Thread(() -> {
-                        System.out.println("start");
-                        while ((System.currentTimeMillis() - start[0]) < 1000) {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("running");
-                        }
-                        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-                        areaScroll.repaint();
-                        areaScroll.revalidate();
-                        area.repaint();
-                        area.revalidate();
-                        System.out.println("end");
-                        running[0] = false;
-                    }).start();
-                }
-            }
-
-        });
-
         areaScroll.getViewport().setFocusable(false);
         areaScroll.getViewport().setView(area);
         areaScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -568,17 +522,4 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void dragGestureRecognized(DragGestureEvent dragGestureEvent) {}
-    @Override
-    public void dragEnter(DragSourceDragEvent dragSourceDragEvent) {}
-    @Override
-    public void dragOver(DragSourceDragEvent dragSourceDragEvent) {}
-    @Override
-    public void dropActionChanged(DragSourceDragEvent dragSourceDragEvent) {}
-    @Override
-    public void dragExit(DragSourceEvent dragSourceEvent) {}
-    @Override
-    public void dragDropEnd(DragSourceDropEvent dsde) {}
 }
