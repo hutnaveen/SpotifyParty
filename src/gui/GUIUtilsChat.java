@@ -173,7 +173,7 @@ class RoundTextArea extends JTextArea {
     }
     private String get()
     {
-       return super.getText();
+        return super.getText();
     }
     @Override
     public String getText() {
@@ -231,6 +231,3 @@ class RoundBorder implements Border {
         return false;
     }
 }
-
-
-

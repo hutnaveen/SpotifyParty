@@ -10,9 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static gui.SpotifyPartyPanelChat.spfc;
-
-
 public class Chat extends JPanel {
     public static int size = 0;
     public static JTextPane back;
@@ -68,7 +65,8 @@ public class Chat extends JPanel {
     }
     boolean you;
     public void addText(String text, String name) {
-        if(spfc.isActive() ) {
+        /*
+        if(spfc.getRootPane().isVisible()) {
             System.out.println("hi");
             Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
             notification.addActivationListener(new ActionListener() {
@@ -80,12 +78,14 @@ public class Chat extends JPanel {
             });
             notification.send();
         }
+
+         */
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
         SimpleAttributeSet right = new SimpleAttributeSet();
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
-       // doc.setParagraphAttributes(0, doc.getLength(), left, false);
+        // doc.setParagraphAttributes(0, doc.getLength(), left, false);
         chat.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 20));
         Style style = chat.addStyle("I'm a Style", null);
         if(!prev.equals(name)) {
