@@ -198,7 +198,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText(), null);
                 type.setText("");
             } else {
-                recommendationHandler();
+                //recommendationHandler();
+                recHandler();
             }
         });
         type.addKeyListener(new KeyAdapter() {
@@ -216,8 +217,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     }
                 } else {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
-                        recommendationHandler();
-
+                        //recommendationHandler();
+                        recHandler();
                     }
                 }
             }
@@ -329,6 +330,59 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             chatSwitch = !chatSwitch;
         });
         this.add(mode);
+    }
+
+    public void recHandler() {
+        if(host) {
+            if (type.getText().trim().toLowerCase().equals("pause!")) {
+                api.pause();
+                type.setText("");
+            } else if (type.getText().trim().toLowerCase().equals("play!")) {
+                api.play();
+                type.setText("");
+            } else if (type.getText().trim().toLowerCase().contains("next!")) {
+                api.nextTrack();
+                type.setText("");
+            } else if (type.getText().trim().toLowerCase().contains("prev!")) {
+                api.previousTrack();
+                type.setText("");
+            } else {
+                try {
+                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
+                    type.setText("");
+                } catch (Exception e) {
+                    try {
+                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        Chat.addRequest(tab);
+                        //api.playTrack(type.getText());
+                        type.setText("");
+                    } catch (Exception e2) {
+                        type.setText("Cannot find song");
+                    }
+                }
+            }
+        } else {
+            if (type.getText().trim().toLowerCase().equals("pause!")) {
+                api.pause();
+            } else if (type.getText().trim().toLowerCase().equals("play!")) {
+                api.play();
+            } else {
+                try {
+                    RequestTab tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                    Chat.addRequest(tab);
+                    type.setText("");
+                } catch (Exception e) {
+                    try {
+                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        Chat.addRequest(tab);
+                        type.setText("");
+                    } catch (Exception e2) {
+                        type.setText("Cannot find song");
+                    }
+                }
+            }
+
+        }
     }
 
     private void recommendationHandler() {
