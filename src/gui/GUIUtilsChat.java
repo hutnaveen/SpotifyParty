@@ -3,11 +3,15 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
 
 public class GUIUtilsChat {
     public static AbstractButton makeButton(String title, ImageIcon icon) {
@@ -64,12 +68,29 @@ class RoundJTextField extends JTextField {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if(isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE && get().isEmpty()|| get().isBlank())
+                try {
+                    if (isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE && get().isEmpty() || get().isBlank() || (getSelectedText()!= null && getSelectedText().equals(get()))) {
+                        e.consume();
+                        setText(" ");
+                        setCaretPosition(1);
+                        //moveCaretPosition(1);
+                    } if (isEditable() && e.getKeyCode() == KeyEvent.VK_DELETE) {
+                        setText(get().substring(0, get().length() - 1));
+                    } if (e.isMetaDown() && e.getKeyCode() == KeyEvent.VK_V) {
+                        System.out.println("here");
+                        Clipboard clipboard = Toolkit
+                                .getDefaultToolkit().getSystemClipboard();
+                        try {
+                            System.out.println(clipboard.getData(DataFlavor.stringFlavor));
+                            setText((String) clipboard.getData(DataFlavor.stringFlavor));
+                        } catch (UnsupportedFlavorException | IOException unsupportedFlavorException) {
+                            unsupportedFlavorException.printStackTrace();
+                        }
+
+                    }
+                }catch (Exception e1)
                 {
-                    System.out.println("up");
-                    e.consume();
-                    setText(" ");
-                    moveCaretPosition(1);
+                    e1.printStackTrace();
                 }
 
             }
@@ -82,7 +103,8 @@ class RoundJTextField extends JTextField {
                 {
                     e.consume();
                     setText(" ");
-                    moveCaretPosition(1);
+                    setCaretPosition(1);
+                    //moveCaretPosition(1);
                 }
             }
         });

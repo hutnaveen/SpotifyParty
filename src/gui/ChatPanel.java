@@ -183,7 +183,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         addLyrics();
         UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         type.setBounds(260, 545, 380, 40);
-        type.setCaretColor(Color.GREEN);
+        type.setCaretColor(Color.BLACK);
+        type.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 15));
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 40, 40);
         AbstractButton play = makeButton(playIcon);
