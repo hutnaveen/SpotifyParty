@@ -1,25 +1,28 @@
 package server;
 
+import exception.SpotifyException;
 import gui.ChatPanel;
 import gui.RequestTab;
 import gui.SpotifyPartyPanelChat;
-import exception.SpotifyException;
-
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
+import model.Streams;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static gui.ChatPanel.names;
+
 
 public class TCPServer
 {
@@ -34,15 +37,18 @@ public class TCPServer
     {
         api = new SpotifyAppleScriptWrapper();
         boolean star;
+        if(UPnP.isUPnPAvailable())
+            System.out.println("gucci");
+        else
+            System.exit(69);
         if(diffNetWork) {
 
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
-                UPnP.closePortTCP(serverPort);
+                UPnP.closePortUDP(serverPort);
                 UPnP.waitInit();
                 star = (UPnP.openPortTCP((serverPort)));
                 System.out.println(star);
-                log("" + star);
                 if (star)
                     break;
                 else
@@ -61,7 +67,7 @@ public class TCPServer
         startConnector();
         startSender();
         System.out.println("Server is started!");
-        log("Server Started");
+
     }
 
 
@@ -82,8 +88,6 @@ public class TCPServer
                     e.printStackTrace();
                 }
                 System.out.println("added");
-                ChatPanel.guest.setText(stream.size() + 1 + "");
-                log("added");
                 stream.put(in, dos);
                 try {
                     if (dos != null) {
@@ -94,7 +98,6 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    //ChatPanel.addNames(it);
                     sendToClients("usr " + it, null);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -174,10 +177,6 @@ public class TCPServer
         });
         sender.start();
     }
-    private boolean log(String msg)
-    {
-        return true;
-    }
 
     public int getServerPort() {
         return serverPort;
@@ -204,7 +203,6 @@ class ClientListener implements Runnable
                 switch (str[1])
                 {
                     case "usr":
-                        //ChatPanel.addNames(str[2].trim());
                         TCPServer.sendToClients("usr " + str[2].trim(),in);
                         break;
                     case "request":
@@ -221,8 +219,7 @@ class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(-69);
+                t.stop();
             }
         }
     }

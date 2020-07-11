@@ -22,7 +22,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
-    public  SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
+    public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
 
     public static boolean host;
