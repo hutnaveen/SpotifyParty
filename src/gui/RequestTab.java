@@ -3,6 +3,7 @@ package gui;
 import interfaces.SpotifyPlayerAPI;
 import model.Artist;
 import model.Track;
+import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
@@ -63,7 +64,8 @@ public class RequestTab extends JPanel {
 
             MenuItem delete = new MenuItem("Delete");
             delete.addActionListener(e -> {
-                    Chat.redraw(url);
+                Chat.redraw(url);
+                TCPServer.sendToClients("delte " + url);
             });
             menu.add(delete);
         }

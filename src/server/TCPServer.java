@@ -98,7 +98,7 @@ public class TCPServer
                 }
                 try {
                     String it = in.readUTF();
-                    sendToClients("usr " + it, null);
+                    sendToClients("usr " + it);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -107,6 +107,10 @@ public class TCPServer
 
         });
         reciver.start();
+    }
+    public static void sendToClients(String msg)
+    {
+        sendToClients(msg, null);
     }
     public static void sendToClients(String msg, DataInputStream exc)
     {
@@ -138,8 +142,11 @@ public class TCPServer
             while (true) {
                 try {
                     String tempTrack = api.getTrackUri();
-                    if(!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis(), null);
+                    if(tempTrack.contains(":ad:")) {
+                        sendToClients(tempTrack + " false " + api.getPlayBackPosition() + " " + api.getDuration());
+                    }
+                    if(!tempTrack.isBlank() && !tempTrack.equals("ice")) {
+                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             try {

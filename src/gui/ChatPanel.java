@@ -195,7 +195,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 if (!host)
                     cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 else
-                    server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText(), null);
+                    server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 type.setText("");
             } else {
                 //recommendationHandler();
@@ -212,7 +212,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         if (!host)
                             cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         else
-                            server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText(), null);
+                            server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         type.setText("");
                     }
                 } else {
@@ -487,7 +487,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     tab = new RequestTab(type.getText().trim(), SpotifyPartyPanelChat.FriendName);
                     if (SpotifyPartyPanelChat.host)
-                        TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName, null);
+                        TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName);
                     else
                         cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 } catch (Exception e1) {
