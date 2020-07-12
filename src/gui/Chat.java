@@ -67,6 +67,8 @@ public class Chat extends JPanel {
     }
     boolean you;
     public void addText(String text, String name) {
+        text = reformat(text);
+
         if(!spfc.isActive()) {
             System.out.println("hi");
             Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
@@ -123,6 +125,21 @@ public class Chat extends JPanel {
 
         ChatPanel.chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
+    }
+
+    public String reformat(String text) {
+        int space = 34;
+        while(space < text.length()) {
+            int counter = 0;
+            while(text.charAt(space) != ' ' && counter < 7) {
+                space++;
+                counter++;
+            }
+            counter = 0;
+            text = text.substring(0, space) + "\n" + text.substring(space);
+            space += 34;
+        }
+        return text;
     }
 
     public void paintComponent(Graphics g) {
