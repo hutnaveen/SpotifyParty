@@ -10,18 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static main.SpotifyParty.chatPanel;
+
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
     CardLayout cl = new CardLayout();
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
-    public  static ChatPanel chatPanel;
-    static {
-        try {
-            chatPanel = new ChatPanel();
-        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
     public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
 

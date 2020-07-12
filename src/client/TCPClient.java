@@ -80,7 +80,7 @@ public class TCPClient
                 }
                 else if(playerData[0].equals("request"))
                 {
-                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    Requests.addRequest(new RequestTab(playerData[1], playerData[2]));
                     ChatPanel.chat.revalidate();
                     //Chat.redraw("");
                 }
@@ -92,8 +92,8 @@ public class TCPClient
                         String[] dat = rec.split(";");
                         tabs.add(new RequestTab(dat[0], dat[1]));
                     }
-                    Chat.requestTabs = tabs;
-                    Chat.redraw("");
+                    Requests.requestTabs = tabs;
+                    Requests.redraw("");
                 }
                 else if(playerData[0].equals("chat"))
                 {
@@ -140,7 +140,7 @@ public class TCPClient
                 } else {
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
-                        SpotifyPartyPanelChat.chatPanel.updateData(trackID);
+                        SpotifyParty.chatPanel.updateData(trackID);
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);

@@ -2,6 +2,7 @@ package gui;
 import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
+import main.SpotifyParty;
 import model.Artist;
 import model.Track;
 import server.TCPServer;
@@ -49,11 +50,39 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     final String[] theCode = {""};
     public static boolean chatSwitch = false;
     public static JTextPane req;
+    public static Back back = new Back();
 
+    public static CardLayout cl = new CardLayout();
+    public static Requests requestsPanel = new Requests();
     public static AbstractButton mode;
+    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 20, 20);
+        mode = makeButton(ic);}
 
-    public ChatPanel() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    public ChatPanel() {
         this.setLayout(null);
+
+        JPanel back = new JPanel();
+        back.setLayout(cl);
+        back.setOpaque(false);
+        back.add(chat, "ChatPanel");
+        back.add(requestsPanel, "RequestsPanel");
+        getMode().setActionCommand("Clicked");
+        getMode().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Hello");
+                if(chatSwitch) {
+                    SpotifyParty.chatPanel.req.setText("Song Requests");
+                    cl.show(back, "RequestPanel");
+                } else {
+                    SpotifyParty.chatPanel.req.setText("Party Chat");
+                    cl.show(back, "ChatPanel");
+                }
+                chatSwitch = !chatSwitch;
+            }
+        });
+        cl.show(back, "ChatPanel");
+
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
@@ -127,7 +156,17 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         areaScroll = new JScrollPane();
         final long[] start = {0};
         final boolean[] running = {false};
@@ -181,7 +220,17 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.getVerticalScrollBar().setUnitIncrement(4);
         this.add(areaScroll);
         addLyrics();
-        UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+        try {
+            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         type.setBounds(260, 545, 380, 40);
         type.setCaretColor(Color.GREEN);
         this.add(type);
@@ -277,15 +326,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
 
-        ImageIcon ic = resizeIcon(new ImageIcon(getClass().getResource("/images/logo.png")), 20, 20);
-        mode = makeButton(ic);
         mode.setBounds(677, 3, 22, 22);
         this.add(mode);
 
-        Back backPanel = new Back();
-        backPanel.setBounds(250, 0, 450, 460);
-        this.add(backPanel);
+        back.setBounds(250, 0, 450, 460);
+        this.add(back);
+
     }
+
 
     public void recHandler() {
         if(host) {
