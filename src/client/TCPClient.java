@@ -91,7 +91,7 @@ public class TCPClient
                 }
                 if (playerData[0].equals("delete"))
                 {
-                    Chat.redraw(playerData[1]);
+                    Requests.redraw(playerData[1]);
                     ChatPanel.chat.revalidate();
                 }
                 else if(playerData[0].equals("request"))

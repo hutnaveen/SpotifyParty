@@ -19,6 +19,7 @@ public class Chat extends JPanel {
     public JViewport chatViewPort;
 
     public Chat() {
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         try {
             icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
         } catch (
@@ -70,8 +71,6 @@ public class Chat extends JPanel {
             });
             notification.send();
         }
-
-
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
         SimpleAttributeSet right = new SimpleAttributeSet();

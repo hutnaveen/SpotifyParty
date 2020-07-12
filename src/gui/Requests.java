@@ -8,20 +8,20 @@ import java.util.ArrayList;
 public class Requests extends JPanel {
     public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
     public JScrollPane reqScroll;
-    public static JTextPane back;
+    public static JTextPane backText;
     public static int size = 0;
 
     public Requests() {
         this.setLayout(null);
-
-        back = new JTextPane();
-        back.setAutoscrolls(true);
-        back.setOpaque(false);
-        back.setEditable(false);
-        back.setFocusable(false);
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
+        backText = new JTextPane();
+        backText.setAutoscrolls(true);
+        backText.setOpaque(false);
+        backText.setEditable(false);
+        backText.setFocusable(false);
 
         reqScroll = new JScrollPane();
-        reqScroll.getViewport().setView(back);
+        reqScroll.getViewport().setView(backText);
         //this.setPreferredSize(new Dimension(450, 460));
         reqScroll.setBounds(0, 0, 450, 460);
         reqScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -40,18 +40,18 @@ public class Requests extends JPanel {
     {
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);
-        back.add(pane);
+        backText.add(pane);
     }
 
     public static void redraw(String link) {
-        back.removeAll();
-        back.setText("");
+        backText.removeAll();
+        backText.setText("");
         size = 0;
         for(int i = 0; i < requestTabs.size(); i++) {
             if(!(requestTabs.get(i).url.equals(link))) {
                 requestTabs.get(i).setBounds(10, 70 + size++ *110, 430, 110);
-                back.setText(back.getText() + "\n\n\n\n\n\n\n\n\n\n");
-                back.add(requestTabs.get(i));
+                backText.setText(backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
+                backText.add(requestTabs.get(i));
             } else {
                 requestTabs.remove(requestTabs.get(i));
                 i--;

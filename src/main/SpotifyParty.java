@@ -1,6 +1,5 @@
 package main;
 
-import gui.BackContainer;
 import gui.ChatPanel;
 import gui.SpotifyPartyPanelChat;
 import utils.OSXUtils;

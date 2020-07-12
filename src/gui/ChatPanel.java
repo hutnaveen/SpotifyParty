@@ -1,11 +1,8 @@
 package gui;
-import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
-import main.SpotifyParty;
 import model.Artist;
 import model.Track;
-import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
@@ -44,38 +41,38 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static JTextField guest = new JTextField();
     public static Chat chat = new Chat();
     public static HashSet<String> names = new HashSet<>();
-    private static RoundJTextField type = new RoundJTextField(380);
+    private static final RoundJTextField type = new RoundJTextField(380);
     public JScrollPane areaScroll;
     private URL artworkURL;
     final String[] theCode = {""};
     public static boolean chatSwitch = false;
     public static JTextPane req;
-    public static Back back = new Back();
-
     public static CardLayout cl = new CardLayout();
-    public static Requests requestsPanel = new Requests();
+    public static Requests requestPanel = new Requests();
     public static AbstractButton mode;
     static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 20, 20);
         mode = makeButton(ic);}
 
     public ChatPanel() {
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
-
         JPanel back = new JPanel();
+        back.putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         back.setLayout(cl);
-        back.setOpaque(false);
+        
+     //  back.setOpaque(false);
         back.add(chat, "ChatPanel");
-        back.add(requestsPanel, "RequestsPanel");
+        back.add(requestPanel, "RequestPanel");
         getMode().setActionCommand("Clicked");
         getMode().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Hello");
                 if(chatSwitch) {
-                    SpotifyParty.chatPanel.req.setText("Song Requests");
+                    req.setText("Song Requests");
                     cl.show(back, "RequestPanel");
                 } else {
-                    SpotifyParty.chatPanel.req.setText("Party Chat");
+                    req.setText("Party Chat");
                     cl.show(back, "ChatPanel");
                 }
                 chatSwitch = !chatSwitch;
@@ -300,7 +297,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         });
          */
         this.add(lyrics);
-
 
         req = new JTextPane();
         StyledDocument doc4 = req.getStyledDocument();
