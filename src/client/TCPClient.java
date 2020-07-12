@@ -8,6 +8,10 @@ import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.NetworkUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -17,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static gui.SpotifyPartyPanelChat.FriendName;
+
 public class TCPClient
 {
     private SpotifyPlayerAPI api;
@@ -25,8 +31,8 @@ public class TCPClient
     private DataOutputStream dos;
     private Thread updater;
     private Thread tempUpdate;
-    private String id = NetworkUtils.getLocalIP() + NetworkUtils.getPublicIP();
-
+    private String id = FriendName;
+    private BufferedImage icon;
     public void writeToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
@@ -38,6 +44,11 @@ public class TCPClient
 
     public TCPClient(String serverIP, int serverPort)
     {
+        try {
+            icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         api = new SpotifyAppleScriptWrapper();
         try {
             InetAddress ip = InetAddress.getByName(serverIP);
@@ -77,6 +88,11 @@ public class TCPClient
                 }
                 if (playerData[0].equals("usr")) {
                     //ChatPanel.addNames(playerData[1]);
+                }
+                if (playerData[0].equals("delete"))
+                {
+                    Chat.redraw(playerData[1]);
+                    ChatPanel.chat.revalidate();
                 }
                 else if(playerData[0].equals("request"))
                 {
@@ -126,7 +142,8 @@ public class TCPClient
         });
         updater.start();
     }
-
+    boolean ad = false;
+    long time = Integer.MIN_VALUE;
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
             String tempTrack = api.getTrackUri();
@@ -134,6 +151,8 @@ public class TCPClient
             log(""+tempPlaying);
             long tempPos = api.getPlayBackPosition();
             if (!tempTrack.contains(":ad:")) {
+                ad = false;
+                time = Integer.MIN_VALUE;
                 if (trackID.equals("ice")) {
                     api.pause();
                     autoPause = true;
@@ -166,7 +185,12 @@ public class TCPClient
                         autoPause = true;
                     }
                 }
-            }else {
+            }else if(!ad || time >= pos){
+                ad = true;
+                api.pause();
+                time = pos;
+                Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT","ad playing " + (timeStamp - pos)/1000 + " sec left",5000);
+                notif.send();
                 System.out.println("mans playing an add");
                 log("an add is playing");
                 try {

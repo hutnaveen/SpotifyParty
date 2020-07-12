@@ -18,6 +18,7 @@ public class Notification{
     private long timeOut;
     private static Notification prevNotif;
     private JPanel panel;
+    private ActionEvent event;
     public Notification(Image icon, String name, String title, String description, long timeOut) {
         System.setProperty("apple.awt.UIElement", "true");
         try {
@@ -93,9 +94,14 @@ public class Notification{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String str = appName +":" + title + ":" + description;
-                exit();
-                listener.actionPerformed(new ActionEvent(this, str.hashCode(),str));
+                if(event == null)
+                    exit();
+                else {
+                    String str = appName + ":" + title + ":" + description;
+                    exit();
+                    event = new ActionEvent(this, str.hashCode(), str);
+                    listener.actionPerformed(event);
+                }
             }
         });
     }
