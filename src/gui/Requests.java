@@ -14,7 +14,6 @@ public class Requests extends JPanel {
     public Requests() {
         this.setLayout(null);
         this.setOpaque(false);
-
         //putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         backText = new JTextPane();
         backText.setFocusable(false);
@@ -22,8 +21,8 @@ public class Requests extends JPanel {
         backText.setOpaque(false);
         backText.setEditable(false);
         backText.requestFocus();
-
         JScrollPane reqScroll = new JScrollPane();
+        reqScroll.putClientProperty("JScrollPane.style", "overlay");
         backViewPort = reqScroll.getViewport();
         reqScroll.getViewport().setView(backText);
         reqScroll.setBounds(0, 0, 450, 460);
