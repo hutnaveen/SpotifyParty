@@ -382,6 +382,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         //cli.sendToServer("request " + type.getText() + " " + FriendName);
                         type.setText("");
                     } catch (Exception e2) {
+                        e2.printStackTrace();
                         type.setText("Cannot find song");
                     }
                 }
