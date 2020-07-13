@@ -19,6 +19,8 @@ public class Chat extends JPanel {
     public JViewport chatViewPort;
 
     public Chat() {
+        this.setOpaque(false);
+
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         try {
             icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
@@ -33,12 +35,11 @@ public class Chat extends JPanel {
         chat.setAutoscrolls(true);
         chat.setOpaque(false);
         chat.setEditable(false);
-        chat.setMargin(new Insets(10, 10, 0, 10));
+
         JScrollPane chatScroll = new JScrollPane();
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
-        //this.setPreferredSize(new Dimension(450, 460));
-        chatScroll.setBounds(0, 0, 410, 460);
+        chatScroll.setBounds(20, 0, 410, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
@@ -51,7 +52,17 @@ public class Chat extends JPanel {
         chatScroll.setAutoscrolls(true);
         chatViewPort.setAutoscrolls(true);
         this.add(chatScroll);
-
+        try {
+            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 
     public String prev = "";
@@ -119,7 +130,7 @@ public class Chat extends JPanel {
         int space = 34;
         while(space < text.length()) {
             int counter = 0;
-            while(text.charAt(space) != ' ' && counter < 7) {
+            while(text.charAt(space) != ' ' && counter < 4 && space < text.length()) {
                 space++;
                 counter++;
             }

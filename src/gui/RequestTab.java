@@ -138,17 +138,6 @@ public class RequestTab extends JPanel {
         Requests.backText.setText(Requests.backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         animate(this);
-        /*
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if(SpotifyPartyPanelChat.host) {
-                    api.playTrack(uri);
-                }
-            }
-        });
-         */
     }
 
     public void animate(JComponent obj) {

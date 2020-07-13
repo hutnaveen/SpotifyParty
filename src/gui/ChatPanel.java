@@ -45,7 +45,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public JScrollPane areaScroll;
     private URL artworkURL;
     final String[] theCode = {""};
-    public static boolean chatSwitch = false;
+    public boolean chatSwitch = true;
     public static JTextPane req;
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
@@ -245,6 +245,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 type.setText("");
             } else {
                 //recommendationHandler();
+                System.out.println("Pass 1");
                 recHandler();
             }
         });
@@ -308,7 +309,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setOpaque(false);
         req.setFocusable(false);
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
-        req.setText("Song Requests");
+        req.setText("Party Chat");
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
         req.setBounds(250, 20, 450, 40);
         this.add(req);
@@ -325,7 +326,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         mode.setBounds(677, 3, 22, 22);
         this.add(mode);
 
-        back.setBounds(250, 0, 450, 460);
+        back.setBounds(250, 70, 450, 460);
         this.add(back);
 
     }
@@ -351,6 +352,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     type.setText("");
                 } catch (Exception e) {
                     try {
+                        System.out.println("Pass 2");
                         RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         //api.playTrack(type.getText());
