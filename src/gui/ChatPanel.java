@@ -348,14 +348,16 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 type.setText("");
             } else {
                 try {
+                    Track track = SpotifyUtils.search(type.getText().trim()).get(0);
                     api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
                     type.setText("");
+                    TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
                 } catch (Exception e) {
                     try {
-                        System.out.println("Pass 2");
                         RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         //api.playTrack(type.getText());
+                        TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
                         type.setText("");
                     } catch (Exception e2) {
                         type.setText("Cannot find song");
@@ -372,10 +374,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     Track track = SpotifyUtils.search(type.getText().trim()).get(0);
                     RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
-                    if(host)
-                        TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
-                    else
-                        cli.sendToServer("request " + track.getUri() + " " + FriendName);
+                    cli.sendToServer("request " + track.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
