@@ -105,6 +105,10 @@ public class RequestTab extends JPanel {
             artists.append(art.getName() + ", ");
         }
         artists.replace(artists.length()-2, artists.length(), "");
+        if(artists.length() > 26) {
+            artists.delete(26, artists.length());
+            artists.append("...");
+        }
         artist.setText(artists.toString());
         artist.setBorder(new EmptyBorder(0,0,0,0));
         artist.setForeground(Color.GRAY);
@@ -138,17 +142,6 @@ public class RequestTab extends JPanel {
         Requests.backText.setText(Requests.backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         animate(this);
-        /*
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if(SpotifyPartyPanelChat.host) {
-                    api.playTrack(uri);
-                }
-            }
-        });
-         */
     }
 
     public void animate(JComponent obj) {
