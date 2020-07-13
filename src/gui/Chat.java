@@ -48,7 +48,7 @@ public class Chat extends JPanel {
         chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.getVerticalScrollBar().setUnitIncrement(16);
         chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         chatScroll.setAutoscrolls(true);
         chatViewPort.setAutoscrolls(true);
         this.add(chatScroll);
