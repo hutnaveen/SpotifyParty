@@ -31,6 +31,7 @@ public class RequestTab extends JPanel {
     public String name;
 
     public RequestTab(String link, String str) {
+        info = SpotifyUtils.getTrack(link);
         url = link;
         name = str;
         this.setLayout(null);
@@ -54,7 +55,6 @@ public class RequestTab extends JPanel {
 
         if(SpotifyPartyPanelChat.host) {
             MenuItem play = new MenuItem("Play");
-            info = SpotifyUtils.getTrack(link);
             if(info == null)
              info = SpotifyUtils.search(link).get(0);
             System.out.println(info.getUri());
@@ -104,11 +104,14 @@ public class RequestTab extends JPanel {
         {
             artists.append(art.getName() + ", ");
         }
+        /*
         artists.replace(artists.length()-2, artists.length(), "");
         if(artists.length() > 26) {
             artists.delete(26, artists.length());
             artists.append("...");
         }
+
+         */
         artist.setText(artists.toString());
         artist.setBorder(new EmptyBorder(0,0,0,0));
         artist.setForeground(Color.GRAY);
