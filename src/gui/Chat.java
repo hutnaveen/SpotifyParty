@@ -19,8 +19,7 @@ public class Chat extends JPanel {
     public JViewport chatViewPort;
 
     public Chat() {
-        this.setOpaque(false);
-
+       this.setOpaque(false);
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         try {
             icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
@@ -28,8 +27,8 @@ public class Chat extends JPanel {
                 IOException e) {
             e.printStackTrace();
         }
-        this.setLayout(null);
-
+       this.setLayout(null);
+        putClientProperty("JScrollPane.style", "overlay");
         chat = new JTextPane();
         chat.setFocusable(false);
         chat.setAutoscrolls(true);
@@ -37,6 +36,7 @@ public class Chat extends JPanel {
         chat.setEditable(false);
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.putClientProperty("JScrollPane.style", "overlay");
+        chat.putClientProperty("JScrollPane.style", "overlay");
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
         chatScroll.setBounds(20, 0, 410, 460);
