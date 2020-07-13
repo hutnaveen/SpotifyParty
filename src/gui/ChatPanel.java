@@ -59,8 +59,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         JPanel back = new JPanel();
         back.putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         back.setLayout(cl);
-        
-     //  back.setOpaque(false);
         back.add(chat, "ChatPanel");
         back.add(requestPanel, "RequestPanel");
         getMode().setActionCommand("Clicked");
