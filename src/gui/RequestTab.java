@@ -83,10 +83,7 @@ public class RequestTab extends JPanel {
         song = new JTextPane();
         song.setFocusable(false);
         song.setOpaque(false);
-        try {
-            song.setText(info.getName());
-        } catch (Exception e) {}
-
+        song.setText(info.getName());
         song.setBorder(new EmptyBorder(0,0,0,0));
         song.setForeground(Color.WHITE);
         song.setEditable(false);
