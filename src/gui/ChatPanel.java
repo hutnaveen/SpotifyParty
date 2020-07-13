@@ -3,6 +3,7 @@ import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
 import model.Artist;
 import model.Track;
+import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
@@ -27,6 +28,7 @@ import java.util.HashSet;
 
 import static gui.GUIUtilsChat.makeButton;
 import static gui.GUIUtilsChat.resizeIcon;
+import static gui.SpotifyPartyPanelChat.FriendName;
 import static gui.SpotifyPartyPanelChat.cli;
 import static gui.SpotifyPartyPanelChat.host;
 
@@ -237,7 +239,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             if (chatSwitch && !type.getText().isEmpty() && !type.getText().isBlank()) {
                 chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                 if (!host)
-                    cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                    cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 else
                     server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 type.setText("");
@@ -255,7 +257,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
                         chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                         if (!host)
-                            cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                            cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         else
                             server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         type.setText("");
@@ -367,13 +369,22 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 api.play();
             } else {
                 try {
-                    RequestTab tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                    Track track = SpotifyUtils.search(type.getText().trim()).get(0);
+                    RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
+                    if(host)
+                        TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
+                    else
+                        cli.sendToServer("request " + track.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
                         RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
+                        if(host)
+                            TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
+                        else
+                            cli.sendToServer("request " + type.getText() + " " + FriendName);
                         type.setText("");
                     } catch (Exception e2) {
                         type.setText("Cannot find song");

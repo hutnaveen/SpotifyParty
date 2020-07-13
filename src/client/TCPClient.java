@@ -4,13 +4,9 @@ import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
-import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
-import utils.NetworkUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,7 +29,7 @@ public class TCPClient
     private Thread tempUpdate;
     private String id = FriendName;
     private BufferedImage icon;
-    public void writeToServer(String msg) {
+    public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
         } catch (IOException e) {
@@ -64,7 +60,7 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        writeToServer("name " + JoinPartyPanel.name.getText());
+        sendToServer("name " + JoinPartyPanel.name.getText());
         trackUpdater();
     }
     public void quit()

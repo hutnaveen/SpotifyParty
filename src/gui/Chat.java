@@ -36,6 +36,7 @@ public class Chat extends JPanel {
         chat.setOpaque(false);
         chat.setEditable(false);
         JScrollPane chatScroll = new JScrollPane();
+        chatScroll.putClientProperty("JScrollPane.style", "overlay");
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
         chatScroll.setBounds(20, 0, 410, 460);
@@ -141,9 +142,9 @@ public class Chat extends JPanel {
                 }
             }
             if(next != null)
-                return ret.append("\n").append(temp).append("\n").append(next).toString().trim();
+                return (ret.toString().trim()+ ("\n") + (temp)).trim() + ("\n") + (next).trim();
             else
-                return ret.append("\n").append(temp).toString().trim();
+                return (ret.toString().trim() + ("\n") + (temp)).trim();
         }else
             return text;
     }
