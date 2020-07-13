@@ -115,18 +115,6 @@ public class Chat extends JPanel {
     }
 
     public static String reformat(String text) {
-       /* int space = 34;
-        while(space < text.length()) {
-            int counter = 0;
-            while(text.charAt(space) != ' ' && counter < 4 && space < text.length()) {
-                space++;
-                counter++;
-            }
-            counter = 0;
-            text = text.substring(0, space) + "\n" + text.substring(space);
-            space += 34;
-        }
-        return text;*/
         if(text.length() > 34) {
             StringBuilder ret = new StringBuilder();
             String str[] = text.split(" ");
@@ -138,28 +126,37 @@ public class Chat extends JPanel {
                     next = null;
                 }
                 if(temp.length() < 34 - str[i].length())
-                    temp.append(str[i]);
+                    temp.append(str[i]).append(" ");
                 else {
-                    ret.append(temp.toString().trim() + "\n");
+                    ret.append(temp.toString().trim()).append("\n");
                     temp = new StringBuilder();
-                    next = (str[i]);
+                    if (str[i].length() > 34) {
+                        StringBuilder builder = new StringBuilder(str[i]);
+                        for(int a = 0; a < builder.length()/34 + 1; a++)
+                            builder.insert(a*34,"\n");
+                        ret.append(builder.toString().trim()).append(" ");
+                    }
+                    else
+                        next = str[i]+ " ";
                 }
             }
             if(next != null)
-             return ret.append(next).toString();
+                return ret.append("\n").append(temp).append("\n").append(next).toString().trim();
             else
-                return ret.append(next).toString();
+                return ret.append("\n").append(temp).toString().trim();
         }else
             return text;
     }
-
+    private static String resize(String text)
+    {
+       /* StringBuilder builder = new StringBuilder(text);
+        for(int i = 0; i < builder.length()/34 + 1; i++)
+            builder.insert(i*34,"\n");
+        return builder.toString().trim();*/
+        return null;
+    }
     public static void main(String[] args) {
-
-        StringBuilder builder = new StringBuilder(text);
-        for(int i = 0; i < builder.length()/34 + 1; i++) builder.insert(i*32,"\n");
-        return  builder.toString().trim();
-
-        String re = "sdhfhadskfhasdkfkhasdklfhsdkfhasdlfhasdlkfhsdlkfh";
+        String re = "";
         re = reformat(re);
         System.out.println(re);
     }
