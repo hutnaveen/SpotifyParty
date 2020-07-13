@@ -373,16 +373,13 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     Track track = SpotifyUtils.search(type.getText().trim()).get(0);
                     RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
-                    cli.sendToServer("request " + track.getUri() + " " + FriendName);
+                    //cli.sendToServer("request " + track.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
                         RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
-                        if(host)
-                            TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
-                        else
-                            cli.sendToServer("request " + type.getText() + " " + FriendName);
+                        //cli.sendToServer("request " + type.getText() + " " + FriendName);
                         type.setText("");
                     } catch (Exception e2) {
                         type.setText("Cannot find song");
