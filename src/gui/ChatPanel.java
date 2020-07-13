@@ -244,8 +244,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 type.setText("");
             } else {
-                recommendationHandler();
-                //recHandler();
+                //recommendationHandler();
+                recHandler();
             }
         });
         type.addKeyListener(new KeyAdapter() {
@@ -263,8 +263,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     }
                 } else {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
-                        recommendationHandler();
-                        //recHandler();
+                        //recommendationHandler();
+                        recHandler();
                     }
                 }
             }
@@ -349,13 +349,13 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 try {
                     Track track = SpotifyUtils.search(type.getText().trim()).get(0);
                     api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
-                    type.setText("");
                     TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
+                    type.setText("");
                 } catch (Exception e) {
                     try {
-                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
-                        Requests.addRequest(tab);
-                        //api.playTrack(type.getText());
+                        //RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        //Requests.addRequest(tab);
+                        api.playTrack(type.getText());
                         TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
                         type.setText("");
                     } catch (Exception e2) {
