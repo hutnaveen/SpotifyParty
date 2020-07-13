@@ -177,7 +177,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             @Override
             public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
                 start[0] = System.currentTimeMillis();
-                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 300));
+                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
                 if (!running[0]) {
                     running[0] = true;
                     new Thread(() -> {
@@ -209,7 +209,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
         areaScroll.setBackground(new Color(40, 40, 40));
-        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));

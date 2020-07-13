@@ -21,6 +21,7 @@ public class Requests extends JPanel {
         backText.setAutoscrolls(true);
         //backText.setOpaque(false);
         //backText.setEditable(false);
+        backText.requestFocus();
         backText.setText("HELLO THERE!!!! CAN YOU SEE ME??");
 
         JScrollPane reqScroll = new JScrollPane();
@@ -29,7 +30,7 @@ public class Requests extends JPanel {
         reqScroll.setBounds(20, 0, 410, 460);
         reqScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         //reqScroll.setOpaque(false);
-        //reqScroll.getViewport().setOpaque(false);
+        reqScroll.getViewport().setOpaque(false);
         reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
         reqScroll.getVerticalScrollBar().setOpaque(false);
         reqScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));

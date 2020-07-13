@@ -35,7 +35,6 @@ public class Chat extends JPanel {
         chat.setAutoscrolls(true);
         chat.setOpaque(false);
         chat.setEditable(false);
-
         JScrollPane chatScroll = new JScrollPane();
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
