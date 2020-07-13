@@ -39,7 +39,7 @@ public class Requests extends JPanel {
         reqScroll.setAutoscrolls(true);
         backViewPort.setAutoscrolls(true);
         this.add(reqScroll);
-/*
+
         try {
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         } catch (ClassNotFoundException e) {
@@ -52,7 +52,7 @@ public class Requests extends JPanel {
             e.printStackTrace();
         }
         
- */
+
     }
 
     public static void addRequest(RequestTab pane)
