@@ -9,7 +9,7 @@ public class Requests extends JPanel {
     public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
     public static JTextPane backText;
     public static int size = 0;
-    public JViewport backViewPort;
+    public static JViewport backViewPort;
 
     public Requests() {
         this.setLayout(null);
@@ -57,11 +57,10 @@ public class Requests extends JPanel {
 
     public static void addRequest(RequestTab pane)
     {
-        System.out.println("Pass 3");
+        backViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);
         backText.add(pane);
-        System.out.println("Pass 4");
 
     }
 
@@ -71,7 +70,7 @@ public class Requests extends JPanel {
         size = 0;
         for(int i = 0; i < requestTabs.size(); i++) {
             if(!(requestTabs.get(i).url.equals(link))) {
-                requestTabs.get(i).setBounds(10, 70 + size++ *110, 430, 110);
+                requestTabs.get(i).setBounds(10, 10 + size++ *110, 430, 110);
                 backText.setText(backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
                 backText.add(requestTabs.get(i));
             } else {

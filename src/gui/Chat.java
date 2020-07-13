@@ -114,8 +114,8 @@ public class Chat extends JPanel {
         prev = name;
     }
 
-    public String reformat(String text) {
-        int space = 34;
+    public static String reformat(String text) {
+       /* int space = 34;
         while(space < text.length()) {
             int counter = 0;
             while(text.charAt(space) != ' ' && counter < 4 && space < text.length()) {
@@ -126,6 +126,41 @@ public class Chat extends JPanel {
             text = text.substring(0, space) + "\n" + text.substring(space);
             space += 34;
         }
-        return text;
+        return text;*/
+        if(text.length() > 34) {
+            StringBuilder ret = new StringBuilder();
+            String str[] = text.split(" ");
+            StringBuilder temp = new StringBuilder();
+            String next = null;
+            for (int i = 0; i < str.length; i++) {
+                if(next != null) {
+                    temp.append(next);
+                    next = null;
+                }
+                if(temp.length() < 34 - str[i].length())
+                    temp.append(str[i]);
+                else {
+                    ret.append(temp.toString().trim() + "\n");
+                    temp = new StringBuilder();
+                    next = (str[i]);
+                }
+            }
+            if(next != null)
+             return ret.append(next).toString();
+            else
+                return ret.append(next).toString();
+        }else
+            return text;
+    }
+
+    public static void main(String[] args) {
+
+        StringBuilder builder = new StringBuilder(text);
+        for(int i = 0; i < builder.length()/34 + 1; i++) builder.insert(i*32,"\n");
+        return  builder.toString().trim();
+
+        String re = "sdhfhadskfhasdkfkhasdklfhsdkfhasdlfhasdlkfhsdlkfh";
+        re = reformat(re);
+        System.out.println(re);
     }
 }
