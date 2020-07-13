@@ -51,6 +51,7 @@ public class Chat extends JPanel {
         chatScroll.setAutoscrolls(true);
         chatViewPort.setAutoscrolls(true);
         this.add(chatScroll);
+        /*
         try {
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         } catch (ClassNotFoundException e) {
@@ -62,6 +63,8 @@ public class Chat extends JPanel {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
+         */
     }
 
     public String prev = "";

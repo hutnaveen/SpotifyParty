@@ -17,19 +17,18 @@ public class Requests extends JPanel {
 
         //putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         backText = new JTextPane();
-        //backText.setFocusable(false);
+        backText.setFocusable(false);
         backText.setAutoscrolls(true);
-        //backText.setOpaque(false);
-        //backText.setEditable(false);
+        backText.setOpaque(false);
+        backText.setEditable(false);
         backText.requestFocus();
-        backText.setText("HELLO THERE!!!! CAN YOU SEE ME??");
 
         JScrollPane reqScroll = new JScrollPane();
         backViewPort = reqScroll.getViewport();
         reqScroll.getViewport().setView(backText);
-        reqScroll.setBounds(20, 0, 410, 460);
+        reqScroll.setBounds(0, 0, 450, 460);
         reqScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
-        //reqScroll.setOpaque(false);
+        reqScroll.setOpaque(false);
         reqScroll.getViewport().setOpaque(false);
         reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
         reqScroll.getVerticalScrollBar().setOpaque(false);
