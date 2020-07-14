@@ -43,7 +43,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static JTextField guest = new JTextField();
     public static Chat chat = new Chat();
     public static HashSet<String> names = new HashSet<>();
-    private static final RoundJTextField type = new RoundJTextField(380);
+    public static RoundJTextField type = new RoundJTextField(380);
     public JScrollPane areaScroll;
     private URL artworkURL;
     final String[] theCode = {""};
@@ -348,19 +348,26 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             } else {
                 try {
                     Track track = SpotifyUtils.search(type.getText().trim()).get(0);
-                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
-                    TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
-                    type.setText("");
-                } catch (Exception e) {
-                    try {
-                        //RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
-                        //Requests.addRequest(tab);
-                        api.playTrack(type.getText());
-                        TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
+                    if(track != null) {
+                        RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                        Requests.addRequest(tab);
+                        //api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
+                        TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
                         type.setText("");
-                    } catch (Exception e2) {
-                        type.setText("Cannot find song");
+                    }else
+                    {
+                        track = SpotifyUtils.getTrack(type.getText());
+                        if(track != null) {
+                            RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                            Requests.addRequest(tab);
+                            TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
+                            //api.playTrack(type.getText());
+                            type.setText("");
+                        }else
+                            type.setText("Cannot find song");
                     }
+                } catch (Exception e) {
+                    type.setText("Cannot find song");
                 }
             }
         } else {
@@ -371,20 +378,26 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             } else {
                 try {
                     Track track = SpotifyUtils.search(type.getText().trim()).get(0);
-                    RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
-                    Requests.addRequest(tab);
-                    //cli.sendToServer("request " + track.getUri() + " " + FriendName);
-                    type.setText("");
-                } catch (Exception e) {
-                    try {
-                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                    if(track != null) {
+                        RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
-                        //cli.sendToServer("request " + type.getText() + " " + FriendName);
+                        //api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
+                        cli.sendToServer("request " + track.getUri() + " " + FriendName);
                         type.setText("");
-                    } catch (Exception e2) {
-                        e2.printStackTrace();
-                        type.setText("Cannot find song");
+                    }else
+                    {
+                        track = SpotifyUtils.getTrack(type.getText());
+                        if(track != null) {
+                            RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                            Requests.addRequest(tab);
+                            cli.sendToServer("request " + type.getText() + " " + FriendName);
+                            //api.playTrack(type.getText());
+                            type.setText("");
+                        }else
+                            type.setText("Cannot find song");
                     }
+                } catch (Exception e) {
+                    type.setText("Cannot find song");
                 }
             }
 
