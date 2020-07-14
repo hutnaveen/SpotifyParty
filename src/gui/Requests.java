@@ -25,7 +25,7 @@ public class Requests extends JPanel {
         reqScroll.putClientProperty("JScrollPane.style", "overlay");
         backViewPort = reqScroll.getViewport();
         reqScroll.getViewport().setView(backText);
-        reqScroll.setBounds(0, 0, 450, 460);
+        reqScroll.setBounds(0, 0, 450, 450);
         reqScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         reqScroll.setOpaque(false);
         reqScroll.getViewport().setOpaque(false);

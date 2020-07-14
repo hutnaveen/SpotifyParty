@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static gui.SpotifyPartyPanelChat.host;
 import static gui.SpotifyPartyPanelChat.spfc;
 
 public class Chat extends JPanel {
