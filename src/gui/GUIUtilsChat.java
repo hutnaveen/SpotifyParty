@@ -82,7 +82,7 @@ class RoundJTextField extends JTextField {
                                 .getDefaultToolkit().getSystemClipboard();
                         try {
                             System.out.println(clipboard.getData(DataFlavor.stringFlavor));
-                            setText((String) clipboard.getData(DataFlavor.stringFlavor));
+                            setText( (String) clipboard.getData(DataFlavor.stringFlavor));
                         } catch (UnsupportedFlavorException | IOException unsupportedFlavorException) {
                             unsupportedFlavorException.printStackTrace();
                         }

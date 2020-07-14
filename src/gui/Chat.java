@@ -2,6 +2,7 @@ package gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,59 +14,48 @@ import java.util.ArrayList;
 import static gui.SpotifyPartyPanelChat.spfc;
 
 public class Chat extends JPanel {
-    public static int size = 0;
-    public static JTextPane back;
     public static JTextPane chat;
-    public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
-    public String prev = "";
     private static BufferedImage icon;
+    public JViewport chatViewPort;
+
     public Chat() {
+       this.setOpaque(false);
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         try {
             icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
         } catch (
                 IOException e) {
             e.printStackTrace();
         }
-        this.setLayout(null);
-
-        this.setLocation(0, 0);
-        this.setAutoscrolls(true);
-
-        back = new JTextPane();
-        back.setAutoscrolls(true);
-        back.setOpaque(false);
-        back.setEditable(false);
-
+       this.setLayout(null);
+        putClientProperty("JScrollPane.style", "overlay");
         chat = new JTextPane();
+        chat.setFocusable(false);
         chat.setAutoscrolls(true);
         chat.setOpaque(false);
         chat.setEditable(false);
-        chat.setMargin(new Insets(10, 10, 0, 10));
-
+        JScrollPane chatScroll = new JScrollPane();
+        chatScroll.putClientProperty("JScrollPane.style", "overlay");
+        chat.putClientProperty("JScrollPane.style", "overlay");
+        chatViewPort = chatScroll.getViewport();
+        chatScroll.getViewport().setView(chat);
+        chatScroll.setBounds(20, 0, 410, 460);
+        chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
+        chatScroll.setOpaque(false);
+        chatScroll.getViewport().setOpaque(false);
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
+        chatScroll.getVerticalScrollBar().setOpaque(false);
+        chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
+        chatScroll.getVerticalScrollBar().setUnitIncrement(16);
+        chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
+        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
+        chatScroll.setAutoscrolls(true);
+        chatViewPort.setAutoscrolls(true);
+        this.add(chatScroll);
     }
 
-    public static void addRequest(RequestTab pane)
-    {
-        requestTabs.add(pane);
-        pane.setBounds(10, 10 +size++ *110, 430, 110);
-        back.add(pane);
-    }
-    public static void redraw(String link) {
-        back.removeAll();
-        back.setText("");
-        size = 0;
-        for(int i = 0; i < requestTabs.size(); i++) {
-            if(!(requestTabs.get(i).url.equals(link))) {
-                requestTabs.get(i).setBounds(10, 70 + size++ *110, 430, 110);
-                back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
-                back.add(requestTabs.get(i));
-            } else {
-                requestTabs.remove(requestTabs.get(i));
-                i--;
-            }
-        }
-    }
-    boolean you;
+    public String prev = "";
+    public boolean you;
     public void addText(String text, String name) {
         text = reformat(text);
 
@@ -81,8 +71,6 @@ public class Chat extends JPanel {
             });
             notification.send();
         }
-
-
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
         SimpleAttributeSet right = new SimpleAttributeSet();
@@ -123,34 +111,54 @@ public class Chat extends JPanel {
         }
         catch (BadLocationException e){}
 
-        ChatPanel.chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
+        chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
     }
 
-    public String reformat(String text) {
-        int space = 34;
-        while(space < text.length()) {
-            int counter = 0;
-            while(text.charAt(space) != ' ' && counter < 7) {
-                space++;
-                counter++;
+    public static String reformat(String text) {
+        if(text.length() > 34) {
+            StringBuilder ret = new StringBuilder();
+            String str[] = text.split(" ");
+            StringBuilder temp = new StringBuilder();
+            String next = null;
+            for (int i = 0; i < str.length; i++) {
+                if(next != null) {
+                    temp.append(next);
+                    next = null;
+                }
+                if(temp.length() < 34 - str[i].length())
+                    temp.append(str[i]).append(" ");
+                else {
+                    ret.append(temp.toString().trim()).append("\n");
+                    temp = new StringBuilder();
+                    if (str[i].length() > 34) {
+                        StringBuilder builder = new StringBuilder(str[i]);
+                        for(int a = 0; a < builder.length()/34 + 1; a++)
+                            builder.insert(a*34,"\n");
+                        ret.append(builder.toString().trim()).append(" ");
+                    }
+                    else
+                        next = str[i]+ " ";
+                }
             }
-            counter = 0;
-            text = text.substring(0, space) + "\n" + text.substring(space);
-            space += 34;
-        }
-        return text;
+            if(next != null)
+                return (ret.toString().trim()+ ("\n") + (temp)).trim() + ("\n") + (next).trim();
+            else
+                return (ret.toString().trim() + ("\n") + (temp)).trim();
+        }else
+            return text;
     }
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        try
-        {
-            g.drawImage(ImageIO.read(getClass().getResource("/images/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+    private static String resize(String text)
+    {
+       /* StringBuilder builder = new StringBuilder(text);
+        for(int i = 0; i < builder.length()/34 + 1; i++)
+            builder.insert(i*34,"\n");
+        return builder.toString().trim();*/
+        return null;
+    }
+    public static void main(String[] args) {
+        String re = "";
+        re = reformat(re);
+        System.out.println(re);
     }
 }

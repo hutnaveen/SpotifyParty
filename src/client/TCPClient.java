@@ -4,13 +4,9 @@ import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
-import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
-import utils.NetworkUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,7 +29,7 @@ public class TCPClient
     private Thread tempUpdate;
     private String id = FriendName;
     private BufferedImage icon;
-    public void writeToServer(String msg) {
+    public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
         } catch (IOException e) {
@@ -64,7 +60,7 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        writeToServer("name " + JoinPartyPanel.name.getText());
+        sendToServer("name " + JoinPartyPanel.name.getText());
         trackUpdater();
     }
     public void quit()
@@ -91,12 +87,12 @@ public class TCPClient
                 }
                 if (playerData[0].equals("delete"))
                 {
-                    Chat.redraw(playerData[1]);
+                    Requests.redraw(playerData[1]);
                     ChatPanel.chat.revalidate();
                 }
                 else if(playerData[0].equals("request"))
                 {
-                    ChatPanel.chat.addRequest(new RequestTab(playerData[1], playerData[2]));
+                    Requests.addRequest(new RequestTab(playerData[1], playerData[2]));
                     ChatPanel.chat.revalidate();
                     //Chat.redraw("");
                 }
@@ -108,8 +104,8 @@ public class TCPClient
                         String[] dat = rec.split(";");
                         tabs.add(new RequestTab(dat[0], dat[1]));
                     }
-                    Chat.requestTabs = tabs;
-                    Chat.redraw("");
+                    Requests.requestTabs = tabs;
+                    Requests.redraw("");
                 }
                 else if(playerData[0].equals("chat"))
                 {
@@ -159,7 +155,7 @@ public class TCPClient
                 } else {
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
-                        SpotifyPartyPanelChat.chatPanel.updateData(trackID);
+                        SpotifyParty.chatPanel.updateData(trackID);
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);

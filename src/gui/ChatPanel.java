@@ -1,5 +1,4 @@
 package gui;
-import history.SpotifyPlayerHistory;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
 import model.Artist;
@@ -29,6 +28,7 @@ import java.util.HashSet;
 
 import static gui.GUIUtilsChat.makeButton;
 import static gui.GUIUtilsChat.resizeIcon;
+import static gui.SpotifyPartyPanelChat.FriendName;
 import static gui.SpotifyPartyPanelChat.cli;
 import static gui.SpotifyPartyPanelChat.host;
 
@@ -41,19 +41,45 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static JTextPane artist;
     public static RoundJTextField code;
     public static JTextField guest = new JTextField();
-    public static AbstractButton copy;
     public static Chat chat = new Chat();
-    public static JScrollPane reqScroll;
-    public static JViewport chatViewPort;
     public static HashSet<String> names = new HashSet<>();
-    private static RoundJTextField type = new RoundJTextField(380);
+    private static final RoundJTextField type = new RoundJTextField(380);
     public JScrollPane areaScroll;
     private URL artworkURL;
     final String[] theCode = {""};
-    public boolean chatSwitch = false;
+    public boolean chatSwitch = true;
+    public static JTextPane req;
+    public static CardLayout cl = new CardLayout();
+    public static Requests requestPanel = new Requests();
+    public static AbstractButton mode;
+    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 20, 20);
+        mode = makeButton(ic);}
 
-    public ChatPanel() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+    public ChatPanel() {
+        putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
+        JPanel back = new JPanel();
+        back.putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
+        back.setLayout(cl);
+        back.add(chat, "ChatPanel");
+        back.add(requestPanel, "RequestPanel");
+        getMode().setActionCommand("Clicked");
+        getMode().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Hello");
+                if(chatSwitch) {
+                    req.setText("Song Requests");
+                    cl.show(back, "RequestPanel");
+                } else {
+                    req.setText("Party Chat");
+                    cl.show(back, "ChatPanel");
+                }
+                chatSwitch = !chatSwitch;
+            }
+        });
+        cl.show(back, "ChatPanel");
+
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
@@ -127,7 +153,17 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         StyleConstants.setAlignment(center3, StyleConstants.ALIGN_CENTER);
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         areaScroll = new JScrollPane();
         final long[] start = {0};
         final boolean[] running = {false};
@@ -141,7 +177,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             @Override
             public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
                 start[0] = System.currentTimeMillis();
-                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 300));
+                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
                 if (!running[0]) {
                     running[0] = true;
                     new Thread(() -> {
@@ -173,7 +209,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.setOpaque(false);
         areaScroll.getViewport().setOpaque(false);
         areaScroll.setBackground(new Color(40, 40, 40));
-        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
+        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
@@ -181,7 +217,17 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         areaScroll.getVerticalScrollBar().setUnitIncrement(4);
         this.add(areaScroll);
         addLyrics();
-        UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+        try {
+            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         type.setBounds(260, 545, 380, 40);
         type.setCaretColor(Color.GREEN);
         this.add(type);
@@ -193,7 +239,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             if (chatSwitch && !type.getText().isEmpty() && !type.getText().isBlank()) {
                 chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                 if (!host)
-                    cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                    cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 else
                     server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                 type.setText("");
@@ -210,7 +256,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
                         chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                         if (!host)
-                            cli.writeToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                            cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         else
                             server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         type.setText("");
@@ -252,43 +298,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
          */
         this.add(lyrics);
 
-
-        reqScroll = new JScrollPane();
-        reqScroll.getViewport().setView(Chat.back);
-        Chat.back.setFocusable(false);
-        this.setPreferredSize(new Dimension(450, 460));
-        reqScroll.setBounds(250, 70, 450, 460);
-        reqScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
-        reqScroll.setOpaque(false);
-        reqScroll.getViewport().setOpaque(false);
-        reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
-        reqScroll.getVerticalScrollBar().setOpaque(false);
-        reqScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
-        reqScroll.getVerticalScrollBar().setUnitIncrement(16);
-        reqScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        reqScroll.setVisible(false);
-        this.add(reqScroll);
-
-        JScrollPane chatScroll = new JScrollPane();
-        chatViewPort = chatScroll.getViewport();
-        Chat.chat.setFocusable(false);
-        chatScroll.getViewport().setView(Chat.chat);
-        this.setPreferredSize(new Dimension(450, 460));
-        chatScroll.setBounds(270, 70, 410, 460);
-        chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
-        chatScroll.setOpaque(false);
-        chatScroll.getViewport().setOpaque(false);
-        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 517));
-        chatScroll.getVerticalScrollBar().setOpaque(false);
-        chatScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
-        chatScroll.getVerticalScrollBar().setUnitIncrement(16);
-        chatScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        chatScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
-        chatScroll.setAutoscrolls(true);
-        chatViewPort.setAutoscrolls(true);
-        this.add(chatScroll);
-
-        JTextPane req = new JTextPane();
+        req = new JTextPane();
         StyledDocument doc4 = req.getStyledDocument();
         SimpleAttributeSet center4 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center4, StyleConstants.ALIGN_CENTER);
@@ -298,7 +308,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setOpaque(false);
         req.setFocusable(false);
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
-        req.setText("Song Requests");
+        req.setText("Party Chat");
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
         req.setBounds(250, 20, 450, 40);
         this.add(req);
@@ -312,25 +322,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
 
-        ImageIcon ic = resizeIcon(new ImageIcon(getClass().getResource("/images/logo.png")), 20, 20);
-        AbstractButton mode = makeButton(ic);
         mode.setBounds(677, 3, 22, 22);
-        mode.addActionListener(e -> {
-            if (chatSwitch) {
-                Chat.back.setVisible(true);
-                Chat.chat.setVisible(false);
-                req.setText("Song Requests");
-                System.out.println("Requests");
-            } else {
-                Chat.back.setVisible(false);
-                Chat.chat.setVisible(true);
-                req.setText("Party Chat");
-                System.out.println("The chat");
-            }
-            chatSwitch = !chatSwitch;
-        });
         this.add(mode);
+
+        back.setBounds(250, 70, 450, 460);
+        this.add(back);
+
     }
+
 
     public void recHandler() {
         if(host) {
@@ -348,13 +347,15 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 type.setText("");
             } else {
                 try {
-                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
+                    Track track = SpotifyUtils.search(type.getText().trim()).get(0);
+                    api.playTrack(SpotifyUtils.search(track.getUri());
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
-                        Chat.addRequest(tab);
-                        //api.playTrack(type.getText());
+                        //RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        //Requests.addRequest(tab);
+                        //TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
+                        api.playTrack(type.getText());
                         type.setText("");
                     } catch (Exception e2) {
                         type.setText("Cannot find song");
@@ -368,15 +369,19 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 api.play();
             } else {
                 try {
-                    RequestTab tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
-                    Chat.addRequest(tab);
+                    Track track = SpotifyUtils.search(type.getText().trim()).get(0);
+                    RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                    Requests.addRequest(tab);
+                    cli.sendToServer("request " + track.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
                         RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
-                        Chat.addRequest(tab);
+                        Requests.addRequest(tab);
+                        cli.sendToServer("request " + type.getText() + " " + FriendName);
                         type.setText("");
                     } catch (Exception e2) {
+                        e2.printStackTrace();
                         type.setText("Cannot find song");
                     }
                 }
@@ -384,6 +389,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
         }
     }
+
 
     private void recommendationHandler() {
         Track track = null;
@@ -402,7 +408,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 } else if (type.getText().trim().toLowerCase().contains("prev!")) {
                     api.previousTrack();
                 }
-                    /*else if(type.getText().trim().toLowerCase().contains("play!:"))
+                    else if(type.getText().trim().toLowerCase().contains("play!:"))
                     {
                         try {
                             String str = type.getText().trim().toLowerCase();
@@ -418,8 +424,9 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                             type.setText("can't find that song");
                             type.selectAll();
                         }
-                    }*/
+                    }
                 else if (type.getText().trim().toLowerCase().contains("history!")) {
+                    /*
                     for (Track item : SpotifyPlayerHistory.getHistory()) {
                         work = true;
                         try {
@@ -441,6 +448,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         if (item != null)
                             this.chat.addRequest(new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName));
                     }
+
+                     */
                 } else {
                     work = true;
                     try {
@@ -489,7 +498,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     if (SpotifyPartyPanelChat.host)
                         TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName);
                     else
-                        cli.writeToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
+                        cli.sendToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 } catch (Exception e1) {
                     try {
                         tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getUri(), SpotifyPartyPanelChat.FriendName);
@@ -502,11 +511,12 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             }
             if (work) {
                 if (tab != null)
-                    chat.addRequest(tab);
+                    Requests.addRequest(tab);
                 type.setText("");
             }
         }
     }
+
 
     public void addLyrics() {
         try {
@@ -546,6 +556,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static void setCode(String tcode) {
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
+    }
+
+    public AbstractButton getMode() {
+        return mode;
     }
 
     public void paintComponent(Graphics g) {

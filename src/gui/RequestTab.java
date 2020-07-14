@@ -3,7 +3,6 @@ package gui;
 import interfaces.SpotifyPlayerAPI;
 import model.Artist;
 import model.Track;
-import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.SpotifyUtils;
 
@@ -32,6 +31,7 @@ public class RequestTab extends JPanel {
     public String name;
 
     public RequestTab(String link, String str) {
+        info = SpotifyUtils.getTrack(link);
         url = link;
         name = str;
         this.setLayout(null);
@@ -55,7 +55,6 @@ public class RequestTab extends JPanel {
 
         if(SpotifyPartyPanelChat.host) {
             MenuItem play = new MenuItem("Play");
-            info = SpotifyUtils.getTrack(link);
             if(info == null)
              info = SpotifyUtils.search(link).get(0);
             System.out.println(info.getUri());
@@ -64,8 +63,7 @@ public class RequestTab extends JPanel {
 
             MenuItem delete = new MenuItem("Delete");
             delete.addActionListener(e -> {
-                Chat.redraw(url);
-                TCPServer.sendToClients("delte " + url);
+                    Requests.redraw(url);
             });
             menu.add(delete);
         }
@@ -106,7 +104,14 @@ public class RequestTab extends JPanel {
         {
             artists.append(art.getName() + ", ");
         }
+        /*
         artists.replace(artists.length()-2, artists.length(), "");
+        if(artists.length() > 26) {
+            artists.delete(26, artists.length());
+            artists.append("...");
+        }
+
+         */
         artist.setText(artists.toString());
         artist.setBorder(new EmptyBorder(0,0,0,0));
         artist.setForeground(Color.GRAY);
@@ -136,21 +141,10 @@ public class RequestTab extends JPanel {
         this.add(inv);
 
         System.out.println(link + " " + str);
-        Chat.back.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
-        Chat.back.setText(Chat.back.getText() + "\n\n\n\n\n\n\n\n\n\n");
+        Requests.backText.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+        Requests.backText.setText(Requests.backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
         animate(this);
-        /*
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if(SpotifyPartyPanelChat.host) {
-                    api.playTrack(uri);
-                }
-            }
-        });
-         */
     }
 
     public void animate(JComponent obj) {

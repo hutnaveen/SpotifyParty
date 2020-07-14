@@ -3,6 +3,7 @@ package server;
 import exception.SpotifyException;
 import gui.ChatPanel;
 import gui.RequestTab;
+import gui.Requests;
 import gui.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
@@ -42,7 +43,6 @@ public class TCPServer
         else
             System.exit(69);
         if(diffNetWork) {
-
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network
                 UPnP.closePortUDP(serverPort);
@@ -54,7 +54,6 @@ public class TCPServer
                 else
                     UPnP.closePortTCP((serverPort));
             }
-
         }
         try {
             ss = new ServerSocket(serverPort);
@@ -150,7 +149,7 @@ public class TCPServer
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             try {
-                                SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                                SpotifyParty.chatPanel.updateData(tempTrack);
                             }catch (Exception e)
                             {
                                 new Thread(() -> {
@@ -161,7 +160,7 @@ public class TCPServer
                                     }
                                     try
                                     {
-                                        SpotifyPartyPanelChat.chatPanel.updateData(tempTrack);
+                                        SpotifyParty.chatPanel.updateData(tempTrack);
 
                                     }catch (Exception e1)
                                     {
@@ -213,7 +212,7 @@ class ClientListener implements Runnable
                         TCPServer.sendToClients("usr " + str[2].trim(),in);
                         break;
                     case "request":
-                        ChatPanel.chat.addRequest(new RequestTab(str[2].trim(), str[3].trim()));
+                        Requests.addRequest(new RequestTab(str[2].trim(), str[3].trim()));
                         TCPServer.sendToClients("request " + str[2].trim() + " " + str[3].trim(), in);
                         break;
                     case "chat":
