@@ -43,7 +43,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static JTextField guest = new JTextField();
     public static Chat chat = new Chat();
     public static HashSet<String> names = new HashSet<>();
-    private static final RoundJTextField type = new RoundJTextField(380);
+    public static RoundJTextField type = new RoundJTextField(380);
     public JScrollPane areaScroll;
     private URL artworkURL;
     final String[] theCode = {""};
@@ -348,14 +348,15 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             } else {
                 try {
                     Track track = SpotifyUtils.search(type.getText().trim()).get(0);
-                    api.playTrack(SpotifyUtils.search(track.getUri());
+                    //api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
+                    TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        //RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
-                        //Requests.addRequest(tab);
-                        //TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
-                        api.playTrack(type.getText());
+                        RequestTab tab = new RequestTab(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        Requests.addRequest(tab);
+                        TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
+                        //api.playTrack(type.getText());
                         type.setText("");
                     } catch (Exception e2) {
                         type.setText("Cannot find song");
