@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static gui.SpotifyPartyFrameChat.menu;
+import static gui.SpotifyPartyFrameChat.quit;
 import static main.SpotifyParty.chatPanel;
 
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
@@ -41,17 +43,20 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         spfc.getHostLocal().addActionListener(this);
         spfc.getHostPublic().setActionCommand("hostPublic");
         spfc.getHostPublic().addActionListener(this);
-
+        show.addActionListener(actionEvent -> spfc.setVisible(true));
         joinPartyPanel.getEnter().setActionCommand("enterGuest");
         joinPartyPanel.getEnter().addActionListener(this);
     }
-
+    MenuItem show = new MenuItem("Show Window");
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("join")) {
             host = false;
             spfc.setVisible(true);
             cl.show(this, "joinPanel");
-
+            menu.removeAll();
+            menu.add(show);
+            menu.addSeparator();
+            menu.add(quit);
         }
         else if (e.getActionCommand().equals("hostLocal")) {
             FriendName = "Host";
@@ -60,6 +65,10 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             server = new TCPServer(false);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
+            menu.removeAll();
+            menu.add(show);
+            menu.addSeparator();
+            menu.add(quit);
         }
         else if(e.getActionCommand().equals("hostPublic")) {
             FriendName = "Host";
@@ -68,6 +77,10 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             server = new TCPServer(true);
             spfc.setVisible(true);
             cl.show(this, "chatPanel");
+            menu.removeAll();
+            menu.add(show);
+            menu.addSeparator();
+            menu.add(quit);
         }
         else if (e.getActionCommand().equals("enterGuest")) {
             String x = JoinPartyPanel.code.getText();

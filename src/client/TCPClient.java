@@ -3,7 +3,6 @@ package client;
 import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import javax.imageio.ImageIO;
@@ -18,6 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import static gui.SpotifyPartyPanelChat.FriendName;
+import static main.SpotifyParty.chatPanel;
 
 public class TCPClient
 {
@@ -155,7 +155,7 @@ public class TCPClient
                 } else {
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
-                        SpotifyParty.chatPanel.updateData(trackID);
+                        chatPanel.updateData(trackID);
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);

@@ -56,8 +56,9 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static AbstractButton mode;
     static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 20, 20);
         mode = makeButton(ic);}
-
+    private Thread changeCode;
     public ChatPanel() {
+        System.setProperty("apple.awt.UIElement", "true");
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
         JPanel back = new JPanel();
@@ -91,6 +92,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         code.setForeground(Color.GRAY);
         code.setBounds(40, 30, 195, 30);
         code.setEditable(false);
+        changeCode = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+            code.setText(theCode[0]);
+        });
         code.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -100,14 +109,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException interruptedException) {
-                        interruptedException.printStackTrace();
-                    }
-                    code.setText(theCode[0]);
-                }).start();
+                if (!changeCode.isAlive())
+                    changeCode.start();
             }
         });
         this.add(code);
@@ -322,7 +325,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setForeground(Color.WHITE);
         guest.setText("0");
         guest.setBounds(10, 30, 24, 24);
-        this.add(guest);
+        //this.add(guest);
 
         mode.setBounds(677, 3, 22, 22);
         this.add(mode);
@@ -359,7 +362,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 } catch (Exception e) {
                     //e.printStackTrace();
                     try {
-                        if(api.playTrack(type.getText()) == false) {
+                        if(!api.playTrack(type.getText())) {
                             throw new SpotifyException("");
                         }
                         type.setText("");
@@ -582,8 +585,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
-
-            //g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 34, 24, 24, this);
+            g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 32, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
