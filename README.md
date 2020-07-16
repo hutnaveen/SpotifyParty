@@ -1,5 +1,5 @@
-# SpotfiyParty
+# SpotifyParty <img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/logo.png?raw=true" alt="" width="25"/>
 
-### The simplest way to share your music with your friends!
+### The simplest way to share your music with your friends! 
 
-<img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/Example1.png?raw=true" alt="" width="400"/>
+<img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/Example1.png?raw=true" alt="" width="540"/>
