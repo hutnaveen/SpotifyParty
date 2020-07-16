@@ -8,19 +8,24 @@ import java.io.IOException;
 import java.util.List;
 
 public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
-    public void playTrack(String id){
+    public boolean playTrack(String id){
         try {
-            OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
-                    "     play track \""+id+"\"\n" +
-                    "end tell");
-        } catch (IOException e) {
-            e.printStackTrace();
+            if(SpotifyUtils.getTrack(id) != null) {
+                OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
+                        "     play track \""+id+"\"\n" +
+                        "end tell");
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void playTrack(Track song) {
-        playTrack(song.getUri());
+    public boolean playTrack(Track song) {
+        return playTrack(song.getUri());
     }
 
     public boolean isSingle()

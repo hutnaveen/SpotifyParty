@@ -90,7 +90,7 @@ public class SpotifyUtils{
     /**
      * you can use search instead of the legacy findSong
      */
-    @Deprecated
+
     public static Track findSong(String search) {
         //Retrieving the contents of the specified page
             search.trim();

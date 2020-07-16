@@ -1,4 +1,5 @@
 package gui;
+import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
 import model.Artist;
@@ -24,6 +25,7 @@ import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
 import java.awt.event.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static gui.GUIUtilsChat.makeButton;
@@ -347,27 +349,24 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 type.setText("");
             } else {
                 try {
-                    Track track = SpotifyUtils.search(type.getText().trim()).get(0);
-                    if(track != null) {
-                        RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
-                        Requests.addRequest(tab);
-                        //api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
-                        TCPServer.sendToClients("request " + track.getUri() + " " + FriendName);
+                   Track temp = SpotifyUtils.findSong(type.getText().toLowerCase());
+                    if(temp != null ) {
+                        api.playTrack(temp.getUri());
                         type.setText("");
-                    }else
-                    {
-                        track = SpotifyUtils.getTrack(type.getText());
-                        if(track != null) {
-                            RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
-                            Requests.addRequest(tab);
-                            TCPServer.sendToClients("request " + type.getText() + " " + FriendName);
-                            //api.playTrack(type.getText());
-                            type.setText("");
-                        }else
-                            type.setText("Cannot find song");
+                    } else {
+                        throw new SpotifyException("");
                     }
                 } catch (Exception e) {
-                    type.setText("Cannot find song");
+                    //e.printStackTrace();
+                    try {
+                        if(api.playTrack(type.getText()) == false) {
+                            throw new SpotifyException("");
+                        }
+                        type.setText("");
+                    } catch (Exception e1) {
+                        api.playTrack("spotify:track:42C9YmmOF7PkiHWpulxzcq");
+                        type.setText("Cant find song give this a listen instead ;)");
+                    }
                 }
             }
         } else {
@@ -377,30 +376,27 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 api.play();
             } else {
                 try {
-                    Track track = SpotifyUtils.search(type.getText().trim()).get(0);
+                    Track track = SpotifyUtils.findSong(type.getText().trim());
                     if(track != null) {
                         RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
-                        //api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim()).get(0).getUri());
                         cli.sendToServer("request " + track.getUri() + " " + FriendName);
                         type.setText("");
-                    }else
-                    {
+                    } else {
                         track = SpotifyUtils.getTrack(type.getText());
                         if(track != null) {
                             RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                             Requests.addRequest(tab);
                             cli.sendToServer("request " + type.getText() + " " + FriendName);
-                            //api.playTrack(type.getText());
                             type.setText("");
-                        }else
+                        } else {
                             type.setText("Cannot find song");
+                        }
                     }
                 } catch (Exception e) {
                     type.setText("Cannot find song");
                 }
             }
-
         }
     }
 
