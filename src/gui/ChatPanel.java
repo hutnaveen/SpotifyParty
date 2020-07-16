@@ -54,7 +54,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
     public static AbstractButton mode;
-    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 20, 20);
+    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 1, 1);
         mode = makeButton(ic);}
 
     public ChatPanel() {
@@ -311,9 +311,25 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setFocusable(false);
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
         req.setText("Party Chat");
-        req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
-        req.setBounds(250, 20, 450, 40);
+        req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        req.setBounds(250, 20, 455, 45);
+        req.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mode.doClick();
+            }
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+            }
+        });
         this.add(req);
+        /*
         guest.setBorder(new EmptyBorder(0, 0, 0, 0));
         guest.setEditable(false);
         guest.setOpaque(false);
@@ -323,8 +339,9 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setText("0");
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
+        */
 
-        mode.setBounds(677, 3, 22, 22);
+        mode.setBounds(0, 0, 1, 1);
         this.add(mode);
 
         back.setBounds(250, 70, 450, 460);
@@ -357,7 +374,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         throw new SpotifyException("");
                     }
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     try {
                         if(api.playTrack(type.getText()) == false) {
                             throw new SpotifyException("");
@@ -583,7 +599,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
 
-            //g.drawImage(ImageIO.read(getClass().getResource("/logo.png")), 10, 34, 24, 24, this);
+            g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
