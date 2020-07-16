@@ -25,8 +25,73 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/byte_buddy_1_8_15.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/spotify_web_api_java_6_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spotify-web-api-java-6.1.0-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spotify-web-api-java-6.1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/webAPI/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpotifyParty-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SpotifyParty-master.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/exception/SpotifyException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/exception/SpotifyException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Requests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Requests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundBorder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundBorder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrameChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrameChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanelChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanelChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/history/SpotifyPlayerHistory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/history/SpotifyPlayerHistory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/DuckDuckGoSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/DuckDuckGoSearch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricFinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricFinder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album$AlbumBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album$AlbumBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist$ArtistBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist$ArtistBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs$ExternalIDsBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs$ExternalIDsBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs$ExternalURLsBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs$ExternalURLsBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image$ImageBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image$ImageBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track$TrackBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track$TrackBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/Gateway.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/Gateway.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/OSXUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/OSXUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/Sound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/Sound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/SpotifyUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/SpotifyUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/webView/SwingFXWebView.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,20 +134,21 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/fonts" />
-      <recent name="$PROJECT_DIR$/src/images" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="model" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/webView" />
+      <recent name="$PROJECT_DIR$/src/fonts" />
+      <recent name="$PROJECT_DIR$/src/images" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.SpotifyParty">
+  <component name="RunManager" selected="Application.Test (1)">
     <configuration name="Chat" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.Chat" />
       <module name="SpotifyParty-master" />
@@ -135,12 +201,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SpotifyUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="utils.SpotifyUtils" />
+    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="webAPI.Test" />
       <module name="SpotifyParty-master" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="utils.*" />
+          <option name="PATTERN" value="webAPI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -163,11 +229,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test (1)" />
         <item itemvalue="Application.SpotifyParty" />
         <item itemvalue="Application.Chat" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.SpotifyUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -199,6 +265,7 @@
       <workItem from="1594633470997" duration="210000" />
       <workItem from="1594634113371" duration="1308000" />
       <workItem from="1594675728902" duration="3930000" />
+      <workItem from="1594721944688" duration="3493000" />
     </task>
     <servers />
   </component>
@@ -255,7 +322,7 @@
     </state>
     <state x="66" y="239" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1594525138226" />
     <state x="59" y="231" width="1221" height="569" key="#xdebugger.evaluate/0.25.1280.775@0.25.1280.775" timestamp="1594206763527" />
-    <state width="974" height="150" key="GridCell.Tab.0.bottom" timestamp="1594711220135">
+    <state width="967" height="278" key="GridCell.Tab.0.bottom" timestamp="1594777609408">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594526264465" />
@@ -264,9 +331,9 @@
     <state width="1238" height="221" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217636" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
     <state width="1238" height="162" key="GridCell.Tab.0.bottom/0.25.1280.775@0.25.1280.775" timestamp="1594296249877" />
-    <state width="974" height="150" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1594711220135" />
+    <state width="967" height="278" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1594777609408" />
     <state width="1041" height="164" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="974" height="150" key="GridCell.Tab.0.center" timestamp="1594711220134">
+    <state width="967" height="278" key="GridCell.Tab.0.center" timestamp="1594777609405">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1594526264464" />
@@ -275,9 +342,9 @@
     <state width="1238" height="221" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1238" height="162" key="GridCell.Tab.0.center/0.25.1280.775@0.25.1280.775" timestamp="1594296249875" />
-    <state width="974" height="150" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1594711220134" />
+    <state width="967" height="278" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1594777609405" />
     <state width="1041" height="164" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621108" />
-    <state width="974" height="150" key="GridCell.Tab.0.left" timestamp="1594711220133">
+    <state width="967" height="278" key="GridCell.Tab.0.left" timestamp="1594777609404">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1594526264463" />
@@ -286,9 +353,9 @@
     <state width="1238" height="221" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217634" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
     <state width="1238" height="162" key="GridCell.Tab.0.left/0.25.1280.775@0.25.1280.775" timestamp="1594296249874" />
-    <state width="974" height="150" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1594711220133" />
+    <state width="967" height="278" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1594777609404" />
     <state width="1041" height="164" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621107" />
-    <state width="974" height="150" key="GridCell.Tab.0.right" timestamp="1594711220135">
+    <state width="967" height="278" key="GridCell.Tab.0.right" timestamp="1594777609406">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1594526264465" />
@@ -297,7 +364,7 @@
     <state width="1238" height="221" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1238" height="162" key="GridCell.Tab.0.right/0.25.1280.775@0.25.1280.775" timestamp="1594296249876" />
-    <state width="974" height="150" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1594711220135" />
+    <state width="967" height="278" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1594777609406" />
     <state width="1041" height="164" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
     <state width="974" height="150" key="GridCell.Tab.1.bottom" timestamp="1594711220138">
       <screen x="0" y="25" width="1440" height="875" />
@@ -362,6 +429,10 @@
     <state x="544" y="132" width="567" height="634" key="find.popup/0.25.1280.775@0.25.1280.775" timestamp="1594296453670" />
     <state x="647" y="185" width="604" height="715" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1594676784540" />
     <state x="916" y="130" width="705" height="838" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593212729176" />
+    <state x="119" y="57" key="new project wizard" timestamp="1594777488409">
+      <screen x="0" y="25" width="1440" height="875" />
+    </state>
+    <state x="119" y="57" key="new project wizard/0.25.1440.875@0.25.1440.875" timestamp="1594777488409" />
     <state x="369" y="184" width="700" height="530" key="recent.locations.popup" timestamp="1594324916376">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -370,14 +441,14 @@
       <screen x="0" y="25" width="1280" height="775" />
     </state>
     <state x="301" y="188" key="run.anything.popup/0.25.1280.775@0.25.1280.775" timestamp="1594278579105" />
-    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup" timestamp="1594622302829">
+    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup" timestamp="1594776447345">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="397" y="215" width="670" height="576" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1593800375744" />
     <state x="463" y="268" width="670" height="657" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1592959370241" />
     <state x="529" y="275" width="670" height="676" key="search.everywhere.popup/0.23.1920.1057@0.23.1920.1057" timestamp="1592602485961" />
     <state x="353" y="210" width="670" height="496" key="search.everywhere.popup/0.25.1280.775@0.25.1280.775" timestamp="1594293443634" />
-    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1594622302829" />
+    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1594776447345" />
     <state x="463" y="270" width="670" height="656" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593159122173" />
   </component>
   <component name="XDebuggerManager">
@@ -400,7 +471,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gui/ChatPanel.java</url>
-          <line>374</line>
+          <line>381</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
