@@ -12,6 +12,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -25,15 +26,25 @@ public class TCPClient
     private boolean autoPause = false;
     private DataInputStream dis;
     private DataOutputStream dos;
+    public static boolean synced = true;
     private Thread updater;
     private Thread tempUpdate;
     private String id = FriendName;
     private BufferedImage icon;
+
+    public static boolean getSynced()
+    {
+        return synced;
+    }
     public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            if(e.getMessage().contains("Broken pipe"))
+            {
+                System.exit(8);
+            }
         }
         System.out.println(id + " " + msg.trim());
     }
@@ -152,10 +163,14 @@ public class TCPClient
                 if (trackID.equals("ice")) {
                     api.pause();
                     autoPause = true;
+                    synced = true;
+                    ChatPanel.updateIcon();
                 } else {
                     if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
                         chatPanel.updateData(trackID);
+                        synced = true;
+                        ChatPanel.updateIcon();
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
@@ -164,11 +179,20 @@ public class TCPClient
                         if (tempPlaying) {
                             api.pause();
                             autoPause = true;
+                            synced = true;
+                            ChatPanel.updateIcon();
                         }
                     } else {
                         if (autoPause) {
                             api.play();
                             autoPause = false;
+                            synced = true;
+                            ChatPanel.updateIcon();
+                        }
+                        else
+                        {
+                            synced = false;
+                            ChatPanel.updateIcon();
                         }
                     }
                     if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
