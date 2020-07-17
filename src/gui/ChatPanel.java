@@ -312,7 +312,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
         req.setText("Party Chat");
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
-        req.setBounds(250, 20, 455, 45);
+        req.setBounds(340, 20, 255, 45);
         req.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
