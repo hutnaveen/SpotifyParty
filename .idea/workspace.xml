@@ -170,6 +170,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.SpotifyUtils" />
+      <item itemvalue="Application.SpotifyParty" />
+      <item itemvalue="Application.Chat" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Test" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.SpotifyParty" />
