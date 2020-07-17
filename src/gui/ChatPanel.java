@@ -306,7 +306,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                mode.doClick();
+                if(chatSwitch) {
+                    req.setText("Song Requests");
+                    cl.show(back, "RequestPanel");
+                } else {
+                    req.setText("Party Chat");
+                    cl.show(back, "ChatPanel");
+                }
+                chatSwitch = !chatSwitch;
             }
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
