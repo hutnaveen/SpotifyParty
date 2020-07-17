@@ -92,6 +92,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     if(cli.synced)
                     {
                         mode.setIcon(enabled);
+                        api.play();
                     }
                     else
                     {
