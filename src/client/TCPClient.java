@@ -124,7 +124,7 @@ public class TCPClient
                     String message = org.substring(org.indexOf(' ')+1);
                     ChatPanel.chat.addText(message, name);
                 }
-                else if(synced){
+                else{
                     try {
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
@@ -154,49 +154,52 @@ public class TCPClient
         try {
             String tempTrack = api.getTrackUri();
             boolean tempPlaying = api.isPlaying();
-            log(""+tempPlaying);
-            long tempPos = api.getPlayBackPosition();
-            if (!tempTrack.contains(":ad:")) {
-                ad = false;
-                time = Integer.MIN_VALUE;
-                if (trackID.equals("ice")) {
-                    api.pause();
-                } else {
-                    if (!tempTrack.equals(trackID)) {
-                        api.playTrack(trackID);
-                        chatPanel.updateData(trackID);
-                        if (!tempPlaying)
-                            api.play();
-                        System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                        log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                    } else if (!playing) {
-                        if (tempPlaying) {
-                            api.pause();
+            if (!tempTrack.equals(trackID)) {
+                api.playTrack(trackID);
+                chatPanel.updateData(trackID);
+                if (!tempPlaying)
+                    api.play();
+                System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                log("" + pos + (System.currentTimeMillis() - timeStamp) + 2000);
+            }
+            log("" + tempPlaying);
+            if (synced) {
+                long tempPos = api.getPlayBackPosition();
+                if (!tempTrack.contains(":ad:")) {
+                    ad = false;
+                    time = Integer.MIN_VALUE;
+                    if (trackID.equals("ice")) {
+                        api.pause();
+                    } else {
+                        if (!playing) {
+                            if (tempPlaying) {
+                                api.pause();
+                            }
+                        }
+                        if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                            System.out.println("Time: " + pos + " Player: " + tempPos);
+                            log("Time: " + pos + " Player: " + tempPos);
+                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
                         }
                     }
-                    if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
-                        System.out.println("Time: " + pos + " Player: " + tempPos);
-                        log("Time: " + pos + " Player: " + tempPos);
-                        api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                } else if (!ad || time >= pos) {
+                    ad = true;
+                    api.pause();
+                    time = pos;
+                    Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT", "ad playing " + (timeStamp - pos) / 1000 + " sec left", 5000);
+                    notif.send();
+                    System.out.println("mans playing an add");
+                    log("an add is playing");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-            }else if(!ad || time >= pos){
-                ad = true;
-                api.pause();
-                time = pos;
-                Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT","ad playing " + (timeStamp - pos)/1000 + " sec left",5000);
-                notif.send();
-                System.out.println("mans playing an add");
-                log("an add is playing");
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
-        } catch (SpotifyException e) {
-            e.printStackTrace();
-        }
+            } catch(SpotifyException e){
+                e.printStackTrace();
+            }
     }
     private boolean log(String msg)
     {
