@@ -321,9 +321,11 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
         */
-        mode.setBounds(10, 34, 24, 24);
-        if(!host)
+
+        if(!host) {
             this.add(mode);
+            mode.setBounds(10, 34, 24, 24);
+        }
 
         back.setBounds(250, 70, 450, 460);
         this.add(back);
