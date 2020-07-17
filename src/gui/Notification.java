@@ -127,7 +127,7 @@ public class Notification{
     }
     public void close()
     {
-        new Thread(() -> {
+        /*new Thread(() -> {
             int width = Toolkit.getDefaultToolkit().getScreenSize().width;
             while (alive && frame.getX() < width - 5) {
                 frame.setLocation(frame.getX() + 5, frame.getY());
@@ -139,7 +139,8 @@ public class Notification{
             }
             frame.dispose();
             alive = false;
-        }).start();
+        }).start();*/
+        exit();
     }
     public void exit()
     {
