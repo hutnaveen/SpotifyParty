@@ -26,7 +26,13 @@
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Requests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Requests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/NetworkUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/NetworkUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +244,7 @@
       <screen x="0" y="25" width="1280" height="775" />
     </state>
     <state x="59" y="231" width="1221" height="569" key="#xdebugger.evaluate/0.25.1280.775@0.25.1280.775" timestamp="1594206763527" />
-    <state width="1633" height="260" key="GridCell.Tab.0.bottom" timestamp="1594686229149">
+    <state width="1238" height="260" key="GridCell.Tab.0.bottom" timestamp="1594977742198">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593900459180" />
@@ -249,8 +255,8 @@
     <state width="1086" height="176" key="GridCell.Tab.0.bottom/0.25.1280.775@0.25.1280.775" timestamp="1594208196341" />
     <state width="1026" height="227" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1593913488650" />
     <state width="1041" height="164" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="1633" height="260" key="GridCell.Tab.0.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1594686229149" />
-    <state width="1633" height="260" key="GridCell.Tab.0.center" timestamp="1594686229148">
+    <state width="1238" height="260" key="GridCell.Tab.0.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742198" />
+    <state width="1238" height="260" key="GridCell.Tab.0.center" timestamp="1594977742196">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593900459179" />
@@ -261,8 +267,8 @@
     <state width="1086" height="176" key="GridCell.Tab.0.center/0.25.1280.775@0.25.1280.775" timestamp="1594208196340" />
     <state width="1026" height="227" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1593913488646" />
     <state width="1041" height="164" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621108" />
-    <state width="1633" height="260" key="GridCell.Tab.0.center/0.25.3440.1415@0.25.3440.1415" timestamp="1594686229148" />
-    <state width="1633" height="260" key="GridCell.Tab.0.left" timestamp="1594686229147">
+    <state width="1238" height="260" key="GridCell.Tab.0.center/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742196" />
+    <state width="1238" height="260" key="GridCell.Tab.0.left" timestamp="1594977742195">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593900459179" />
@@ -273,8 +279,8 @@
     <state width="1086" height="176" key="GridCell.Tab.0.left/0.25.1280.775@0.25.1280.775" timestamp="1594208196339" />
     <state width="1026" height="227" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1593913488644" />
     <state width="1041" height="164" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621107" />
-    <state width="1633" height="260" key="GridCell.Tab.0.left/0.25.3440.1415@0.25.3440.1415" timestamp="1594686229147" />
-    <state width="1633" height="260" key="GridCell.Tab.0.right" timestamp="1594686229148">
+    <state width="1238" height="260" key="GridCell.Tab.0.left/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742195" />
+    <state width="1238" height="260" key="GridCell.Tab.0.right" timestamp="1594977742197">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
     <state width="1398" height="231" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593900459180" />
@@ -285,7 +291,7 @@
     <state width="1086" height="176" key="GridCell.Tab.0.right/0.25.1280.775@0.25.1280.775" timestamp="1594208196340" />
     <state width="1026" height="227" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1593913488648" />
     <state width="1041" height="164" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
-    <state width="1633" height="260" key="GridCell.Tab.0.right/0.25.3440.1415@0.25.3440.1415" timestamp="1594686229148" />
+    <state width="1238" height="260" key="GridCell.Tab.0.right/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742197" />
     <state width="2005" height="331" key="GridCell.Tab.1.bottom" timestamp="1594344127750">
       <screen x="0" y="25" width="3440" height="1415" />
     </state>
@@ -366,12 +372,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/client/TCPClient.java</url>
-          <line>159</line>
+          <line>169</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gui/RequestTab.java</url>
-          <line>181</line>
+          <line>183</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -381,7 +387,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gui/ChatPanel.java</url>
-          <line>438</line>
+          <line>420</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
