@@ -152,7 +152,9 @@ public class RequestTab extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                api.playTrack(info.getUri());
+                if(SpotifyPartyPanelChat.host) {
+                    api.playTrack(info.getUri());
+                }
             }
 
             public void mouseEntered(MouseEvent e) {

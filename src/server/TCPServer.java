@@ -7,7 +7,6 @@ import gui.Requests;
 import gui.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
-import model.Streams;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -23,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import static gui.ChatPanel.names;
+import static main.SpotifyParty.chatPanel;
 
 
 public class TCPServer
@@ -149,7 +149,7 @@ public class TCPServer
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             try {
-                                SpotifyParty.chatPanel.updateData(tempTrack);
+                                chatPanel.updateData(tempTrack);
                             }catch (Exception e)
                             {
                                 new Thread(() -> {
@@ -160,8 +160,7 @@ public class TCPServer
                                     }
                                     try
                                     {
-                                        SpotifyParty.chatPanel.updateData(tempTrack);
-
+                                        chatPanel.updateData(tempTrack);
                                     }catch (Exception e1)
                                     {
 

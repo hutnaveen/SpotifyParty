@@ -1,8 +1,11 @@
 package gui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Requests extends JPanel {
@@ -34,7 +37,7 @@ public class Requests extends JPanel {
         reqScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         reqScroll.getVerticalScrollBar().setUnitIncrement(16);
         reqScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
+        reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         reqScroll.setAutoscrolls(true);
         backViewPort.setAutoscrolls(true);
         this.add(reqScroll);
@@ -53,14 +56,22 @@ public class Requests extends JPanel {
         
 
     }
-
+    public static BufferedImage icon;
+    static {
+        try {
+            icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void addRequest(RequestTab pane)
     {
+        Notification notif = new Notification(icon, "SpotifyParty", "SONG REQUEST", pane.getName() + "added a song request", 6000);
+        notif.send();
         backViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);
         backText.add(pane);
-
     }
 
     public static void redraw(String link) {

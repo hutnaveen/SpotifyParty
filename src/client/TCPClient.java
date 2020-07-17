@@ -3,7 +3,6 @@ package client;
 import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import javax.imageio.ImageIO;
@@ -13,27 +12,38 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
 import static gui.SpotifyPartyPanelChat.FriendName;
+import static main.SpotifyParty.chatPanel;
 
 public class TCPClient
 {
     private SpotifyPlayerAPI api;
-    private boolean autoPause = false;
     private DataInputStream dis;
     private DataOutputStream dos;
+    public static boolean synced = true;
     private Thread updater;
     private Thread tempUpdate;
     private String id = FriendName;
     private BufferedImage icon;
+
+    public static boolean getSynced()
+    {
+        return synced;
+    }
     public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            if(e.getMessage().contains("Broken pipe"))
+            {
+                System.exit(8);
+            }
         }
         System.out.println(id + " " + msg.trim());
     }
@@ -114,7 +124,7 @@ public class TCPClient
                     String message = org.substring(org.indexOf(' ')+1);
                     ChatPanel.chat.addText(message, name);
                 }
-                else {
+                else{
                     try {
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
@@ -144,60 +154,52 @@ public class TCPClient
         try {
             String tempTrack = api.getTrackUri();
             boolean tempPlaying = api.isPlaying();
-            log(""+tempPlaying);
-            long tempPos = api.getPlayBackPosition();
-            if (!tempTrack.contains(":ad:")) {
-                ad = false;
-                time = Integer.MIN_VALUE;
-                if (trackID.equals("ice")) {
-                    api.pause();
-                    autoPause = true;
-                } else {
-                    if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
-                        api.playTrack(trackID);
-                        SpotifyParty.chatPanel.updateData(trackID);
-                        if (!tempPlaying)
-                            api.play();
-                        System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                        log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                    } else if (!playing) {
-                        if (tempPlaying) {
-                            api.pause();
-                            autoPause = true;
-                        }
+            if (!tempTrack.equals(trackID)) {
+                api.playTrack(trackID);
+                chatPanel.updateData(trackID);
+                if (!tempPlaying)
+                    api.play();
+                System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                log("" + pos + (System.currentTimeMillis() - timeStamp) + 2000);
+            }
+            log("" + tempPlaying);
+            if (synced) {
+                long tempPos = api.getPlayBackPosition();
+                if (!tempTrack.contains(":ad:")) {
+                    ad = false;
+                    time = Integer.MIN_VALUE;
+                    if (trackID.equals("ice")) {
+                        api.pause();
                     } else {
-                        if (autoPause) {
-                            api.play();
-                            autoPause = false;
+                        if (!playing) {
+                            if (tempPlaying) {
+                                api.pause();
+                            }
+                        }
+                        if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                            System.out.println("Time: " + pos + " Player: " + tempPos);
+                            log("Time: " + pos + " Player: " + tempPos);
+                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
                         }
                     }
-                    if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
-                        System.out.println("Time: " + pos + " Player: " + tempPos);
-                        log("Time: " + pos + " Player: " + tempPos);
-                        api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                } else if (!ad || time >= pos) {
+                    ad = true;
+                    api.pause();
+                    time = pos;
+                    Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT", "ad playing " + (timeStamp - pos) / 1000 + " sec left", 5000);
+                    notif.send();
+                    System.out.println("mans playing an add");
+                    log("an add is playing");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    else if(tempPos == 0)
-                    {
-                        autoPause = true;
-                    }
-                }
-            }else if(!ad || time >= pos){
-                ad = true;
-                api.pause();
-                time = pos;
-                Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT","ad playing " + (timeStamp - pos)/1000 + " sec left",5000);
-                notif.send();
-                System.out.println("mans playing an add");
-                log("an add is playing");
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
-        } catch (SpotifyException e) {
-            e.printStackTrace();
-        }
+            } catch(SpotifyException e){
+                e.printStackTrace();
+            }
     }
     private boolean log(String msg)
     {

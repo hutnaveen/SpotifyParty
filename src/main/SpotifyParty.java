@@ -11,13 +11,11 @@ import java.io.IOException;
  * @author Naveen Govindaraju, Dhaunsh Ramkumar
  */
 public class SpotifyParty {
+    public static ChatPanel chatPanel = null;
     public static boolean darkMode = true;
-    public  static ChatPanel chatPanel;
-    static {
-        chatPanel = new ChatPanel();
-    }
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
+        chatPanel = new ChatPanel();
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         try {
             darkMode = OSXUtils.runAppleScript("tell application \"System Events\"\n" +

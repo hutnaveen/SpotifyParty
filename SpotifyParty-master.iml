@@ -16,5 +16,7 @@
     <orderEntry type="library" name="JLyrics-0.3" level="project" />
     <orderEntry type="library" name="gson-2.8.6" level="project" />
     <orderEntry type="library" name="lombok" level="project" />
+    <orderEntry type="library" name="byte-buddy-1.8.15" level="project" />
+    <orderEntry type="library" name="spotify-web-api-java-6.1.0" level="project" />
   </component>
 </module>
