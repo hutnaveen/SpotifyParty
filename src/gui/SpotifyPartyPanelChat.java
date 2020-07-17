@@ -20,7 +20,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
     public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
-
     public static boolean host;
     TCPServer server;
     public static TCPClient cli ;
