@@ -54,11 +54,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
     public static AbstractButton mode;
-    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 20, 20);
+    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 1, 1);
         mode = makeButton(ic);}
-    private Thread changeCode;
+
     public ChatPanel() {
-        System.setProperty("apple.awt.UIElement", "true");
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
         JPanel back = new JPanel();
@@ -92,14 +91,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         code.setForeground(Color.GRAY);
         code.setBounds(40, 30, 195, 30);
         code.setEditable(false);
-        changeCode = new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
-            code.setText(theCode[0]);
-        });
         code.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -109,8 +100,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
-                if (!changeCode.isAlive())
-                    changeCode.start();
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException interruptedException) {
+                        interruptedException.printStackTrace();
+                    }
+                    code.setText(theCode[0]);
+                }).start();
             }
         });
         this.add(code);
@@ -314,9 +311,25 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setFocusable(false);
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
         req.setText("Party Chat");
-        req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
-        req.setBounds(250, 20, 450, 40);
+        req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        req.setBounds(250, 20, 455, 45);
+        req.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                mode.doClick();
+            }
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+            }
+        });
         this.add(req);
+        /*
         guest.setBorder(new EmptyBorder(0, 0, 0, 0));
         guest.setEditable(false);
         guest.setOpaque(false);
@@ -325,9 +338,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setForeground(Color.WHITE);
         guest.setText("0");
         guest.setBounds(10, 30, 24, 24);
-        //this.add(guest);
+        this.add(guest);
+        */
 
-        mode.setBounds(677, 3, 22, 22);
+        mode.setBounds(0, 0, 1, 1);
         this.add(mode);
 
         back.setBounds(250, 70, 450, 460);
@@ -360,9 +374,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                         throw new SpotifyException("");
                     }
                 } catch (Exception e) {
-                    //e.printStackTrace();
                     try {
-                        if(!api.playTrack(type.getText())) {
+                        if(api.playTrack(type.getText()) == false) {
                             throw new SpotifyException("");
                         }
                         type.setText("");
@@ -585,7 +598,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
-            g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 32, 24, 24, this);
+
+            g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {

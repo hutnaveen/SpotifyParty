@@ -34,7 +34,7 @@ public class Requests extends JPanel {
         reqScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         reqScroll.getVerticalScrollBar().setUnitIncrement(16);
         reqScroll.getVerticalScrollBar().setBackground(new Color(30, 30, 30));
-        reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(5, 300));
+        reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
         reqScroll.setAutoscrolls(true);
         backViewPort.setAutoscrolls(true);
         this.add(reqScroll);
