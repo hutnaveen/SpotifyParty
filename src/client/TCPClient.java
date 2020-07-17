@@ -23,7 +23,6 @@ import static main.SpotifyParty.chatPanel;
 public class TCPClient
 {
     private SpotifyPlayerAPI api;
-    private boolean autoPause = false;
     private DataInputStream dis;
     private DataOutputStream dos;
     public static boolean synced = true;
@@ -125,7 +124,7 @@ public class TCPClient
                     String message = org.substring(org.indexOf(' ')+1);
                     ChatPanel.chat.addText(message, name);
                 }
-                else {
+                else if(synced){
                     try {
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
@@ -162,15 +161,10 @@ public class TCPClient
                 time = Integer.MIN_VALUE;
                 if (trackID.equals("ice")) {
                     api.pause();
-                    autoPause = true;
-                    synced = true;
-                    ChatPanel.updateIcon();
                 } else {
-                    if ((tempPlaying || autoPause) && !tempTrack.equals(trackID)) {
+                    if (!tempTrack.equals(trackID)) {
                         api.playTrack(trackID);
                         chatPanel.updateData(trackID);
-                        synced = true;
-                        ChatPanel.updateIcon();
                         if (!tempPlaying)
                             api.play();
                         System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
@@ -178,31 +172,12 @@ public class TCPClient
                     } else if (!playing) {
                         if (tempPlaying) {
                             api.pause();
-                            autoPause = true;
-                            synced = true;
-                            ChatPanel.updateIcon();
-                        }
-                    } else {
-                        if (autoPause) {
-                            api.play();
-                            autoPause = false;
-                            synced = true;
-                            ChatPanel.updateIcon();
-                        }
-                        else
-                        {
-                            synced = false;
-                            ChatPanel.updateIcon();
                         }
                     }
                     if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
                         System.out.println("Time: " + pos + " Player: " + tempPos);
                         log("Time: " + pos + " Player: " + tempPos);
                         api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
-                    }
-                    else if(tempPos == 0)
-                    {
-                        autoPause = true;
                     }
                 }
             }else if(!ad || time >= pos){

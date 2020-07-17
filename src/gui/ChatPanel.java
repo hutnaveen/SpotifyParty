@@ -61,20 +61,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         ImageIcon ic = enabled;
         mode = makeButton(ic);
     }
-    public static void updateIcon()
-    {
-        if(!host)
-        {
-            if(cli.synced)
-            {
-                mode.setIcon(enabled);
-            }
-            else
-            {
-                mode.setIcon(disabled);
-            }
-        }
-    }
     public ChatPanel() {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
@@ -92,12 +78,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     if(cli.synced)
                     {
                         mode.setIcon(enabled);
-                        api.play();
                     }
                     else
                     {
                         mode.setIcon(disabled);
-                        api.pause();
                     }
                 }
             }
