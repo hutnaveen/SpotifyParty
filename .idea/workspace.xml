@@ -25,106 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/model/SearchResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/Example2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/Example3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/Example4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/Example5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/images/Example6.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/META-INF/SpotifyParty-master.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/exception/SpotifyException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/CircularSpUICyrOnly-Bold.67641b90.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/CircularSpUIv3T-Bold.7eb7d0f7.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/CircularSpUIv3T-Light.89e4be2e.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/GT-Walsheim-Pro-Trial-Condensed-Medium.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Requests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundBorder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrameChat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanelChat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/history/SpotifyPlayerHistory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/3dots.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/SpotifyBG.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/backButton.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/play.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/DuckDuckGoSearch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricFinder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album$AlbumBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist$ArtistBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs$ExternalIDsBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs$ExternalURLsBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image$ImageBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/SearchResult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Streams.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track$TrackBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/sounds/CyberSexNofif.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/sounds/IbizaNotif.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/Gateway.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/OSXUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/Sound.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/SpotifyUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spotify-web-api-java-6.1.0-sources.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spotify-web-api-java-6.1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TCPClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ChatPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ChatPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/SpotifyPartyFrameChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SpotifyPartyFrameChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/SpotifyPartyPanelChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/SpotifyPartyPanelChat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/SpotifyParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SpotifyParty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/SearchResult.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Streams.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TCPServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/webAPI/Test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,10 +74,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/images" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/webView" />
       <recent name="$PROJECT_DIR$/src/fonts" />
-      <recent name="$PROJECT_DIR$/src/images" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -307,6 +213,8 @@
       <workItem from="1594634113371" duration="1308000" />
       <workItem from="1594675728902" duration="3930000" />
       <workItem from="1594721944688" duration="3493000" />
+      <workItem from="1594899812333" duration="518000" />
+      <workItem from="1594931302268" duration="1807000" />
     </task>
     <servers />
   </component>
@@ -482,14 +390,14 @@
       <screen x="0" y="25" width="1280" height="775" />
     </state>
     <state x="301" y="188" key="run.anything.popup/0.25.1280.775@0.25.1280.775" timestamp="1594278579105" />
-    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup" timestamp="1594889992322">
+    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup" timestamp="1594931682538">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="397" y="215" width="670" height="576" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1593800375744" />
     <state x="463" y="268" width="670" height="657" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1592959370241" />
     <state x="529" y="275" width="670" height="676" key="search.everywhere.popup/0.23.1920.1057@0.23.1920.1057" timestamp="1592602485961" />
     <state x="353" y="210" width="670" height="496" key="search.everywhere.popup/0.25.1280.775@0.25.1280.775" timestamp="1594293443634" />
-    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1594889992322" />
+    <state x="397" y="234" width="670" height="158" key="search.everywhere.popup/0.25.1440.875@0.25.1440.875" timestamp="1594931682538" />
     <state x="463" y="270" width="670" height="656" key="search.everywhere.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593159122173" />
   </component>
   <component name="XDebuggerManager">
