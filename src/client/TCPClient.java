@@ -12,6 +12,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -32,8 +33,12 @@ public class TCPClient
     public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            if(e.getMessage().contains("Broken pipe"))
+            {
+                System.exit(8);
+            }
         }
         System.out.println(id + " " + msg.trim());
     }
