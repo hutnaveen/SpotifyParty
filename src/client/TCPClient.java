@@ -12,7 +12,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,11 +29,8 @@ public class TCPClient
     private Thread tempUpdate;
     private String id = FriendName;
     private BufferedImage icon;
+    public static String prevSong = null;
 
-    public static boolean getSynced()
-    {
-        return synced;
-    }
     public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
@@ -152,18 +148,15 @@ public class TCPClient
     long time = Integer.MIN_VALUE;
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
-            String tempTrack = api.getTrackUri();
-            boolean tempPlaying = api.isPlaying();
-            if (!tempTrack.equals(trackID)) {
-                api.playTrack(trackID);
+            if (!synced && (prevSong == null || !prevSong.equals(trackID)))
+            {
+                prevSong = trackID;
                 chatPanel.updateData(trackID);
-                if (!tempPlaying)
-                    api.play();
-                System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                log("" + pos + (System.currentTimeMillis() - timeStamp) + 2000);
             }
-            log("" + tempPlaying);
-            if (synced) {
+            if(synced) {
+                String tempTrack = api.getTrackUri();
+                boolean tempPlaying = api.isPlaying();
+                log("" + tempPlaying);
                 long tempPos = api.getPlayBackPosition();
                 if (!tempTrack.contains(":ad:")) {
                     ad = false;
@@ -171,12 +164,22 @@ public class TCPClient
                     if (trackID.equals("ice")) {
                         api.pause();
                     } else {
-                        if (!playing) {
-                            if (tempPlaying) {
-                                api.pause();
-                            }
+                        if (!tempTrack.equals(trackID)) {
+                            api.playTrack(trackID);
+                            chatPanel.updateData(trackID);
+                            System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                            log("" + pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 2500);
                         }
-                        if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                        if(tempPlaying != playing)
+                        {
+                            if (playing)
+                                api.play();
+                            else
+                                api.pause();
+                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                        }
+                        if (Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
                             System.out.println("Time: " + pos + " Player: " + tempPos);
                             log("Time: " + pos + " Player: " + tempPos);
                             api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
@@ -186,7 +189,7 @@ public class TCPClient
                     ad = true;
                     api.pause();
                     time = pos;
-                    Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT", "ad playing " + (timeStamp - pos) / 1000 + " sec left", 5000);
+                    Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT", "The host is playing an ad", 5000);
                     notif.send();
                     System.out.println("mans playing an add");
                     log("an add is playing");
@@ -197,9 +200,9 @@ public class TCPClient
                     }
                 }
             }
-            } catch(SpotifyException e){
-                e.printStackTrace();
-            }
+        } catch (SpotifyException e) {
+            e.printStackTrace();
+        }
     }
     private boolean log(String msg)
     {
