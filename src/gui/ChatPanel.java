@@ -48,7 +48,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static RoundJTextField type = new RoundJTextField(380);
     public JScrollPane areaScroll;
     private URL artworkURL;
-    final String[] theCode = {""};
+    public final static String[] theCode = {""};
     public boolean chatSwitch = true;
     public static JTextPane req;
     public static CardLayout cl = new CardLayout();
@@ -100,14 +100,13 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException interruptedException) {
-                        interruptedException.printStackTrace();
-                    }
-                    code.setText(theCode[0]);
-                }).start();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                code.setText(theCode[0]);
+
             }
         });
         this.add(code);
@@ -590,6 +589,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static void setCode(String tcode) {
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
+        theCode[0] = tcode;
+
     }
 
     public AbstractButton getMode() {

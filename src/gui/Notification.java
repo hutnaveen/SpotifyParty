@@ -29,8 +29,9 @@ public class Notification{
         frame = new JFrame();
         frame.getRootPane().putClientProperty("Aqua.windowStyle", "noTitleBar");
         frame.getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantDark");
-        frame.getRootPane().setBackground(new Color(50,50,50));
-        frame.setBackground(new Color(50,50,50));
+        frame.getRootPane().setBackground(new Color(70,70,70));
+        frame.setBackground(new Color(70,70,70));
+        frame.setResizable(false);
         this.title = title;
         this.appName = name;
         this.timeOut = timeOut;
