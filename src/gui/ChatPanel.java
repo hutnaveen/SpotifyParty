@@ -165,44 +165,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             e.printStackTrace();
         }
         areaScroll = new JScrollPane();
-        final long[] start = {0};
-        final boolean[] running = {false};
-        areaScroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
-                start[0] = System.currentTimeMillis();
-            }
-        });
-        areaScroll.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-                start[0] = System.currentTimeMillis();
-                areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
-                if (!running[0]) {
-                    running[0] = true;
-                    new Thread(() -> {
-                        System.out.println("start");
-                        while ((System.currentTimeMillis() - start[0]) < 1000) {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            System.out.println("running");
-                        }
-                        areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-                        areaScroll.repaint();
-                        areaScroll.revalidate();
-                        area.repaint();
-                        area.revalidate();
-                        System.out.println("end");
-                        running[0] = false;
-                    }).start();
-                }
-            }
-
-        });
-
         areaScroll.getViewport().setFocusable(false);
         areaScroll.getViewport().setView(area);
         areaScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
