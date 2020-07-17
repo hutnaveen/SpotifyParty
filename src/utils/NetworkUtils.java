@@ -45,7 +45,7 @@ public class NetworkUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return (socket.getRemoteSocketAddress().toString());
+        return ""+(socket.getPort());
     }
     public static String simpleEncode(String ip, int port, int size)
     {
