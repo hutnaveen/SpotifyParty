@@ -24,6 +24,7 @@ import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -54,9 +55,26 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
     public static AbstractButton mode;
-    static { ImageIcon ic = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 1, 1);
-        mode = makeButton(ic);}
-
+    public static ImageIcon enabled = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 24, 24);
+    public static ImageIcon disabled = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/neglogo.png")), 24, 24);
+    static {
+        ImageIcon ic = enabled;
+        mode = makeButton(ic);
+    }
+    public static void updateIcon()
+    {
+        if(!host)
+        {
+            if(cli.synced)
+            {
+                mode.setIcon(enabled);
+            }
+            else
+            {
+                mode.setIcon(disabled);
+            }
+        }
+    }
     public ChatPanel() {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
@@ -65,19 +83,22 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         back.setLayout(cl);
         back.add(chat, "ChatPanel");
         back.add(requestPanel, "RequestPanel");
-        getMode().setActionCommand("Clicked");
-        getMode().addActionListener(new ActionListener() {
+        mode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Hello");
-                if(chatSwitch) {
-                    req.setText("Song Requests");
-                    cl.show(back, "RequestPanel");
-                } else {
-                    req.setText("Party Chat");
-                    cl.show(back, "ChatPanel");
+                if(!host)
+                {
+                    cli.synced = !cli.synced;
+                    if(cli.synced)
+                    {
+                        mode.setIcon(enabled);
+                    }
+                    else
+                    {
+                        mode.setIcon(disabled);
+                        api.pause();
+                    }
                 }
-                chatSwitch = !chatSwitch;
             }
         });
         cl.show(back, "ChatPanel");
@@ -308,8 +329,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         guest.setBounds(10, 30, 24, 24);
         this.add(guest);
         */
-
-        mode.setBounds(0, 0, 1, 1);
+        mode.setBounds(10, 34, 24, 24);
         this.add(mode);
 
         back.setBounds(250, 70, 450, 460);
@@ -554,10 +574,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
     }
 
-    public AbstractButton getMode() {
-        return mode;
-    }
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
@@ -568,8 +584,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
-
-            g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
+            //g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
