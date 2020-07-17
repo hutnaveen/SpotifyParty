@@ -92,6 +92,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     if(cli.synced)
                     {
                         mode.setIcon(enabled);
+                        api.play();
                     }
                     else
                     {
@@ -330,7 +331,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         this.add(guest);
         */
         mode.setBounds(10, 34, 24, 24);
-        this.add(mode);
+        if(!host)
+            this.add(mode);
 
         back.setBounds(250, 70, 450, 460);
         this.add(back);
@@ -584,7 +586,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
-            //g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
+            if(host)
+                g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
