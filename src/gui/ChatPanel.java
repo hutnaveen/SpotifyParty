@@ -313,7 +313,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         req.setText("Party Chat");
         req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
         req.setBounds(340, 20, 255, 45);
-        req.addMouseListener(new MouseAdapter() {
+
+        JTextPane invs = new JTextPane();
+        invs.setEditable(false);
+        invs.setOpaque(false);
+        invs.setFocusable(false);
+        invs.setBorder(new EmptyBorder(0, 0, 0, 0));
+        invs.setBounds(420, 25, 95, 35);
+        invs.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -328,6 +335,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
             }
         });
+        this.add(invs);
         this.add(req);
         /*
         guest.setBorder(new EmptyBorder(0, 0, 0, 0));
