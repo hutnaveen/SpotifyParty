@@ -317,7 +317,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         invs.setOpaque(false);
         invs.setFocusable(false);
         invs.setBorder(new EmptyBorder(0, 0, 0, 0));
-        invs.setBounds(420, 35, 95, 28);
+        invs.setBounds(415, 35, 105, 28);
         invs.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
