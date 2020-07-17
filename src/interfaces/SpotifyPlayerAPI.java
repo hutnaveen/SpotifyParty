@@ -26,6 +26,6 @@ public interface SpotifyPlayerAPI {
     public  String getTrackUri();
     public  String getTrackName();
     public Track getPlayingTrack();
-    public void playTrack(String id);
-    public void playTrack(Track song);
+    public boolean playTrack(String id);
+    public boolean playTrack(Track song);
 }
