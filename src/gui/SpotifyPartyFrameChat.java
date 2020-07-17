@@ -24,7 +24,8 @@ public class SpotifyPartyFrameChat extends JFrame {
         }
     }
 
-    private static PopupMenu menu = new PopupMenu();
+    public static PopupMenu menu = new PopupMenu();
+    public static MenuItem quit = new MenuItem("Quit");
     public static MenuItem status = new MenuItem("Welcome to Spotify Party!");
     public SpotifyPartyFrameChat()
     {
@@ -39,8 +40,6 @@ public class SpotifyPartyFrameChat extends JFrame {
     }
     private void initializeTrayIcon()
     {
-
-        MenuItem quit = new MenuItem("Quit");
         quit.addActionListener(actionEvent -> System.exit(0));
         join = new MenuItem("Join Party");
         hostLocal = new MenuItem("Host Local Party");
