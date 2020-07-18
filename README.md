@@ -1,9 +1,8 @@
-<p align="right">
-  <a href="https://github.com/naveengovind/SpotifyParty/releases"><img src="https://img.shields.io/github/downloads/naveengovind/SpotifyParty/total.svg?colorB=97CA00"></a>
-</p>
 
-# SpotifyParty <img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/logo.png?raw=true" alt="" width="25"/>
 
+# SpotifyParty <img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/logo.png?raw=true" alt="" width="25"/> 
+<img src="https://img.shields.io/github/downloads/naveengovind/SpotifyParty/total.svg?colorB=97CA00">
+ 
 ### The simplest way to share your music! 
 
 <img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/Example1.png?raw=true" alt="" width="300"/>
