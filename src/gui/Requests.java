@@ -66,7 +66,7 @@ public class Requests extends JPanel {
     }
     public static void addRequest(RequestTab pane)
     {
-        Notification notif = new Notification(icon, "SpotifyParty", "SONG REQUEST", pane.getName() + "added a song request", 6000);
+        Notification notif = new Notification(icon, "SpotifyParty", "SONG REQUEST", "a new song request was added", 6000);
         notif.send();
         backViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         requestTabs.add(pane);
