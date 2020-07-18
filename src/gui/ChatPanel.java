@@ -201,19 +201,21 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 40, 40);
         AbstractButton play = makeButton(playIcon);
-        play.setBounds(645, 545, 40, 40);
+        play.setBounds(647, 545, 40, 40);
 
         play.addActionListener(e -> {
-            if (chatSwitch && !type.getText().isEmpty() && !type.getText().isBlank()) {
-                chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
-                if (!host)
-                    cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
-                else
-                    server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
-                type.setText("");
-            } else {
-                //recommendationHandler();
-                recHandler();
+            if(!type.getText().isEmpty() && !type.getText().isBlank()) {
+                if (chatSwitch) {
+                    chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                    if (!host)
+                        cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                    else
+                        server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                    type.setText("");
+                } else {
+                    //recommendationHandler();
+                    recHandler();
+                }
             }
         });
         type.addKeyListener(new KeyAdapter() {
@@ -324,7 +326,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
         if(!host) {
             this.add(mode);
-            mode.setBounds(10, 34, 24, 24);
+            mode.setBounds(10, 33, 24, 24);
         }else
         {
             mode.setEnabled(false);
@@ -584,7 +586,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
             if(host)
-                g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 34, 24, 24, this);
+                g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 33, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
