@@ -87,6 +87,9 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             if(code != null)
             {
                 FriendName = JoinPartyPanel.name.getText();
+                if(FriendName.contains(" ")) {
+                    FriendName = FriendName.replace(" ", "-");
+                }
                 cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
