@@ -148,12 +148,13 @@ public class TCPClient
     long time = Integer.MIN_VALUE;
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
+            System.out.println(synced);
             if (!synced && (prevSong == null || !prevSong.equals(trackID)))
             {
                 prevSong = trackID;
                 chatPanel.updateData(trackID);
             }
-            if(synced) {
+            else if(synced) {
                 String tempTrack = api.getTrackUri();
                 boolean tempPlaying = api.isPlaying();
                 log("" + tempPlaying);
