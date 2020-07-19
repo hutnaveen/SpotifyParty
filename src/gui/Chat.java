@@ -67,7 +67,7 @@ public class Chat extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     spfc.toFront();
-                    spfc.requestFocus();
+                    spfc.setVisible(true);
                 }
             });
             notification.send();
