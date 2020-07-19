@@ -83,7 +83,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         }
         else if (e.getActionCommand().equals("enterGuest")) {
             String x = JoinPartyPanel.code.getText();
-            String p = x;
             Object[] code = NetworkUtils.simpleDecode(x);
             if(code != null)
             {
@@ -93,7 +92,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
-                ChatPanel.setCode(p);
+                ChatPanel.theCode[0] = x;
+                ChatPanel.setCode(x);
                 menu.removeAll();
                 menu.add(show);
                 menu.addSeparator();

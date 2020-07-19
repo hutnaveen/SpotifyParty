@@ -106,11 +106,11 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                code.setText(theCode[0]);
+                if(!(code.getText().isEmpty() || code.getText().isBlank() || theCode[0].isBlank() || theCode[0].isEmpty()))
+                    code.setText(theCode[0]);
 
             }
         });
@@ -566,7 +566,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public static void setCode(String tcode) {
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
-        theCode[0] = tcode;
     }
 
     public void paintComponent(Graphics g) {
