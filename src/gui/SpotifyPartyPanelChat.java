@@ -69,6 +69,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             menu.add(show);
             menu.addSeparator();
             menu.add(quit);
+            chatPanel.updateData();
+
         }
         else if(e.getActionCommand().equals("hostPublic")) {
             FriendName = "Host";
@@ -81,6 +83,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             menu.add(show);
             menu.addSeparator();
             menu.add(quit);
+            chatPanel.updateData();
+
         }
         else if (e.getActionCommand().equals("enterGuest")) {
             String x = JoinPartyPanel.code.getText();
