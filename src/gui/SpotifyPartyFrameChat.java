@@ -60,8 +60,8 @@ public class SpotifyPartyFrameChat extends JFrame {
         menu.addSeparator();
         menu.add(join);
         menu.addSeparator();
-        menu.add(hostLocal);
-        menu.addSeparator();
+        //menu.add(hostLocal);
+        //menu.addSeparator();
         menu.add(hostPublic);
         menu.addSeparator();
         menu.add(quit);

@@ -379,26 +379,23 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             } else if (type.getText().trim().toLowerCase().equals("play!")) {
                 api.play();
             } else {
+                Track track;
                 try {
-                    Track track = SpotifyUtils.findSong(type.getText().trim());
-                    if(track != null) {
+                    track = SpotifyUtils.findSong(type.getText().trim());
+                    RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                    Requests.addRequest(tab);
+                    cli.sendToServer("request " + track.getUri() + " " + FriendName);
+                    type.setText("");
+                } catch (Exception e) {
+                    try {
+                        track = SpotifyUtils.getTrack(type.getText());
                         RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
-                        cli.sendToServer("request " + track.getUri() + " " + FriendName);
+                        cli.sendToServer("request " + type.getText() + " " + FriendName);
                         type.setText("");
-                    } else {
-                        track = SpotifyUtils.getTrack(type.getText());
-                        if(track != null) {
-                            RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
-                            Requests.addRequest(tab);
-                            cli.sendToServer("request " + type.getText() + " " + FriendName);
-                            type.setText("");
-                        } else {
-                            type.setText("Cannot find song");
-                        }
+                    } catch (Exception e1) {
+                        type.setText("Cannot find song");
                     }
-                } catch (Exception e) {
-                    type.setText("Cannot find song");
                 }
             }
         }
