@@ -11,6 +11,7 @@ import spotifyAPI.SpotifyAppleScriptWrapper;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import static gui.ChatPanel.names;
+import static gui.GUIUtilsChat.resizeIcon;
 import static main.SpotifyParty.chatPanel;
 
 
@@ -40,8 +42,15 @@ public class TCPServer
         boolean star;
         if(UPnP.isUPnPAvailable())
             System.out.println("gucci");
-        else
+        else {
+            Object[] options = {"OK"};
+            JFrame frame = new JFrame();
+            frame.setAlwaysOnTop(true);
+            JOptionPane.showOptionDialog(frame, "Looks like the internet your connected to does not support port forwarding.\n No worries you can still join a party and host a local party.", "Can't Start Public Party",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
+                    resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 50, 50), options, options[0]);
             System.exit(69);
+        }
         if(diffNetWork) {
             for(; serverPort <= 9100; serverPort ++) {
                 //only needed if the clients are not on the same network

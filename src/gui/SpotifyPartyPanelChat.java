@@ -52,11 +52,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             host = false;
             spfc.setVisible(true);
             cl.show(this, "joinPanel");
-            menu.removeAll();
-            menu.add(show);
-            menu.addSeparator();
-            menu.add(quit);
-            chatPanel.updateData();
         }
         else if (e.getActionCommand().equals("hostLocal")) {
             FriendName = "Host";
@@ -99,6 +94,10 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
                 ChatPanel.setCode(p);
+                menu.removeAll();
+                menu.add(show);
+                menu.addSeparator();
+                menu.add(quit);
             } else {
                 JoinPartyPanel.two = true;
                 JoinPartyPanel.code.setForeground(Color.RED);
