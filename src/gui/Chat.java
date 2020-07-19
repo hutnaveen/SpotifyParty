@@ -59,15 +59,14 @@ public class Chat extends JPanel {
     public boolean you;
     public void addText(String text, String name) {
         text = reformat(text);
-
         if(!spfc.isActive()) {
             System.out.println("hi");
             Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
             notification.addActivationListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    spfc.toFront();
                     spfc.setVisible(true);
+                    spfc.toFront();
                 }
             });
             notification.send();
