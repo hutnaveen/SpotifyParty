@@ -330,9 +330,8 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         }else
         {
             mode.setEnabled(false);
-            mode.setFocusable(false);
         }
-
+        mode.setFocusable(false);
         back.setBounds(250, 70, 450, 460);
         this.add(back);
 
@@ -567,12 +566,10 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public Track updateData() {
         return updateData(api.getTrackUri());
     }
-
     public static void setCode(String tcode) {
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
         theCode[0] = tcode;
-
     }
 
     public void paintComponent(Graphics g) {
