@@ -101,14 +101,11 @@ public class RequestTab extends JPanel {
             for (Artist art : info.getArtists()) {
                 artists.append(art.getName() + ", ");
             }
-        /*
-        artists.replace(artists.length()-2, artists.length(), "");
-        if(artists.length() > 26) {
-            artists.delete(26, artists.length());
-            artists.append("...");
-        }
-
-         */
+            artists.replace(artists.length()-2, artists.length(), "");
+            if(artists.length() > 26) {
+                artists.delete(26, artists.length());
+                artists.append("...");
+            }
             artist.setText(artists.toString());
             artist.setBorder(new EmptyBorder(0, 0, 0, 0));
             artist.setForeground(Color.GRAY);
