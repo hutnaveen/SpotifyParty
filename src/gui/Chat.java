@@ -150,7 +150,7 @@ public class Chat extends JPanel {
             return text;
     }
 
-    
+
     private static String resize(String text)
     {
        /* StringBuilder builder = new StringBuilder(text);
