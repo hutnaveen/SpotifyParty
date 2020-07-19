@@ -1,7 +1,7 @@
 # SpotifyParty <img src="https://github.com/naveengovind/SpotifyParty/blob/master/src/images/logo.png?raw=true" alt="" width="25"/> 
  
  <p>
-  <a href="https://github.com/naveengovind/SpotifyParty/releases/download/v0.1-alpha/SpotfiyParty.dmg"><img src="https://img.shields.io/github/downloads/naveengovind/SpotifyParty/total.svg?colorB=97CA00"></a>
+  <a href="https://github.com/naveengovind/SpotifyParty/releases/download/v0.2-alpha/SpotifyParty.dmg"><img src="https://img.shields.io/github/downloads/naveengovind/SpotifyParty/total.svg?colorB=97CA00"></a>
 </p>
  
  
