@@ -101,6 +101,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                theCode[0] = code.getText();
                 StringSelection selection = new StringSelection(code.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
@@ -109,9 +110,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if(!(code.getText().isEmpty() || code.getText().isBlank() || theCode[0].isBlank() || theCode[0].isEmpty()))
-                    code.setText(theCode[0]);
-
+                code.setText(theCode[0]);
             }
         });
         this.add(code);
