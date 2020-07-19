@@ -196,6 +196,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        type.setFont(new Font("CircularSpUIv3T-Light",Font.BOLD, 15));
         type.setBounds(260, 545, 380, 40);
         type.setCaretColor(Color.GREEN);
         this.add(type);
