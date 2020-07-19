@@ -1,13 +1,11 @@
 package main;
 
 import gui.ChatPanel;
-import gui.Notification;
 import gui.SpotifyPartyPanelChat;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import utils.OSXUtils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -57,12 +55,12 @@ public class SpotifyParty {
                 Object[] options = { "UPDATE", "CANCEL" };
                 JFrame frame = new JFrame();
                 frame.setAlwaysOnTop(true);
-                int selectedValue = JOptionPane.showOptionDialog(frame, "Would you like to update SpotifyParty?", "Update Available",
+                int selectedValue = JOptionPane.showOptionDialog(frame, "Would you like to download the new version of SpotifyParty?", "Update Available",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                         resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 50, 50), options, options[0]);
                 if(selectedValue == 0)
                 {
-                    String urlStr = "https://github.com/naveengovind/SpotifyParty/releases/download/"+newVersion.trim()+"/SpotfiyParty.dmg";
+                    String urlStr = "https://github.com/naveengovind/SpotifyParty/releases/download/"+newVersion.trim()+"/SpotifyParty.dmg";
                     URL url = new URL(urlStr);
                     Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
                     if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
@@ -74,8 +72,8 @@ public class SpotifyParty {
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+
         }
     }
 

@@ -6,6 +6,7 @@ import interfaces.SpotifyPlayerAPI;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static gui.GUIUtilsChat.resizeIcon;
 import static gui.SpotifyPartyPanelChat.FriendName;
+import static gui.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.chatPanel;
 
 public class TCPClient
@@ -38,6 +41,13 @@ public class TCPClient
             e.printStackTrace();
             if(e.getMessage().contains("Broken pipe"))
             {
+                spfc.setVisible(false);
+                Object[] options = {"OK"};
+                JFrame frame = new JFrame();
+                frame.setAlwaysOnTop(true);
+                JOptionPane.showOptionDialog(frame, "The host ended the party", "Party ended",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
+                        resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 50, 50), options, options[0]);
                 System.exit(8);
             }
         }

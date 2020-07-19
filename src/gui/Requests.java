@@ -41,7 +41,6 @@ public class Requests extends JPanel {
         reqScroll.setAutoscrolls(true);
         backViewPort.setAutoscrolls(true);
         this.add(reqScroll);
-
         try {
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         } catch (ClassNotFoundException e) {
@@ -53,7 +52,6 @@ public class Requests extends JPanel {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        
 
     }
     public static BufferedImage icon;
