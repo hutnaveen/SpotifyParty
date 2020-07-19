@@ -102,7 +102,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 theCode[0] = code.getText();
-                StringSelection selection = new StringSelection(theCode[0]);
+                StringSelection selection = new StringSelection(code.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
                 code.setText("Code Copied");
