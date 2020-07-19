@@ -11,6 +11,7 @@ public class SpotifyPartyFrameChat extends JFrame {
     public MenuItem join;
     public MenuItem hostLocal;
     public MenuItem hostPublic;
+    //public boolean updateAvalibe = true;
 
     public static TrayIcon  trayIcon = new TrayIcon(new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB), "");
     private  SystemTray tray = SystemTray.getSystemTray();
@@ -37,6 +38,15 @@ public class SpotifyPartyFrameChat extends JFrame {
         toFront();
         initializeFrame();
         initializeTrayIcon();
+
+        /*
+        if(updateAvalibe) {
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame, "A new update to SpotifyParty should" +
+                    " be on out website :)", "Update Avalible!", JOptionPane.PLAIN_MESSAGE);
+        }
+
+         */
     }
     private void initializeTrayIcon()
     {

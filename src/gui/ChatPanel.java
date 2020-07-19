@@ -335,7 +335,6 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
 
         back.setBounds(250, 70, 450, 460);
         this.add(back);
-
     }
 
 
