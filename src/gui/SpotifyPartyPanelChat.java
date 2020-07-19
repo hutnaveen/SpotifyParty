@@ -56,6 +56,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             menu.add(show);
             menu.addSeparator();
             menu.add(quit);
+            chatPanel.updateData();
         }
         else if (e.getActionCommand().equals("hostLocal")) {
             FriendName = "Host";
@@ -83,17 +84,17 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         }
         else if (e.getActionCommand().equals("enterGuest")) {
             String x = JoinPartyPanel.code.getText();
+            String p = x;
             Object[] code = NetworkUtils.simpleDecode(x);
             if(code != null)
             {
+                System.out.println(x);
                 FriendName = JoinPartyPanel.name.getText();
-                if(FriendName.contains(" ")) {
-                    FriendName = FriendName.replace(" ", "-");
-                }
+                FriendName = FriendName.replace(" ", "-");
                 cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
-                ChatPanel.setCode(x);
+                ChatPanel.setCode(p);
             } else {
                 JoinPartyPanel.two = true;
                 JoinPartyPanel.code.setForeground(Color.RED);
