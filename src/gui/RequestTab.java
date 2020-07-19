@@ -102,8 +102,8 @@ public class RequestTab extends JPanel {
                 artists.append(art.getName() + ", ");
             }
             artists.replace(artists.length()-2, artists.length(), "");
-            if(artists.length() > 26) {
-                artists.delete(26, artists.length());
+            if(artists.length() > 35) {
+                artists.delete(35, artists.length());
                 artists.append("...");
             }else
             {
