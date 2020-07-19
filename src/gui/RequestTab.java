@@ -105,6 +105,10 @@ public class RequestTab extends JPanel {
             if(artists.length() > 26) {
                 artists.delete(26, artists.length());
                 artists.append("...");
+            }else
+            {
+                String art = artists.toString();
+                artists.delete(art.lastIndexOf(','), artists.length());
             }
             artist.setText(artists.toString());
             artist.setBorder(new EmptyBorder(0, 0, 0, 0));
