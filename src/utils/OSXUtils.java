@@ -19,7 +19,7 @@ public class OSXUtils {
         String as[] = new String[]{"osascript", "-e", script};
         Runtime.getRuntime().exec(as);
     }
-    private static String processToString(Process process)
+    public static String processToString(Process process)
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder builder = new StringBuilder();
