@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lyrics.DuckDuckGoSearch;
 import lyrics.LyricFinder;
 import model.Artist;
+import model.SearchItem;
 import model.SearchResult;
 import model.Track;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -18,6 +19,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static utils.OSXUtils.processToString;
 
 public class SpotifyUtils{
     /*public static Track getTrackInfo(String id)
@@ -88,9 +91,9 @@ public class SpotifyUtils{
     }
 */
     /**
-     * you can use search instead of the legacy findSong
+     * you can use altSearch instead of the legacy findSong
      */
-
+    @Deprecated
     public static Track findSong(String search) {
         //Retrieving the contents of the specified page
             search.trim();
@@ -109,6 +112,7 @@ public class SpotifyUtils{
         Gson son = new Gson();
         return son.fromJson(getTrackJson(id), Track.class);
     }
+    @Deprecated
     public static List<Track> search(String search)
     {
         ArrayList<Track> list = new ArrayList<>();
@@ -121,6 +125,19 @@ public class SpotifyUtils{
             }
         }
         return list;
+    }
+    public static SearchItem altSearch(String search)
+    {
+        String as[] = new String[]{"sh", SpotifyUtils.class.getResource("/search/test.sh").getPath(), search};
+        Runtime runtime = Runtime.getRuntime();
+        Process process = null;
+        try {
+            process = runtime.exec(as);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson son = new Gson();
+        return son.fromJson(processToString(process), SearchItem.class);
     }
 
     public static int getBPM(String song, String artist)
@@ -193,5 +210,9 @@ public class SpotifyUtils{
         result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
         result = result.substring(result.lastIndexOf("{\"album\""));
         return result;
+    }
+
+    public static void main(String[] args) {
+        altSearch("hello");
     }
 }

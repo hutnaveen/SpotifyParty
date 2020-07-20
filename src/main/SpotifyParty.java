@@ -24,6 +24,7 @@ public class SpotifyParty {
     public static final String VERSION = "v0.2-alpha";
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
+
         System.setErr(new PrintStream(new OutputStream() {
             @Override
             public void write(int arg0) throws IOException {
