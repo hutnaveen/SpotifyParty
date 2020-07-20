@@ -26,14 +26,99 @@
   <component name="ChangeListManager">
     <list default="true" id="91b9fda2-be1a-4de1-afac-18533c6ef9c7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ChatPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ChatPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/TCPClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/client/UDPClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/exception/SpotifyException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/CircularSpUICyrOnly-Bold.67641b90.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/CircularSpUIv3T-Bold.7eb7d0f7.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/CircularSpUIv3T-Light.89e4be2e.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/GT-Walsheim-Pro-Trial-Condensed-Medium.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/fonts/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Chat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/ChatPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/GUIUtilsChat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/JoinPartyPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RequestTab.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/Requests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundBorder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundJTextField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/RoundTextArea.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyFrameChat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/gui/SpotifyPartyPanelChat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/history/SpotifyPlayerHistory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/3dots.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleCode.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleCodeCopied.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleDownlaod.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleDragToApplications.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleJoinPanel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleShareURI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/ExampleStatusBar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/SpotifyBG.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/backButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/neglogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/play.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/images/slice4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/interfaces/SpotifyPlayerAPI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/DuckDuckGoSearch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/lyrics/LyricFinder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/main/SpotifyParty.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album$AlbumBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Album.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist$ArtistBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Artist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs$ExternalIDsBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalIDs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs$ExternalURLsBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/ExternalURLs.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image$ImageBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Image.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/SearchResult$SearchResultBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/SearchResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track$TrackBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/model/Track.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/ClientListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/TCPServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/server/UDPServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/sounds/CyberSexNofif.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/sounds/IbizaNotif.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/spotifyAPI/SpotifyAppleScriptWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/Gateway.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder$GatewayListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/GatewayFinder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/upnp/UPnP.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/NetworkUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/OSXUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/Sound.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SpotifyParty-master/utils/SpotifyUtils.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,6 +299,8 @@
       <workItem from="1594506479910" duration="6271000" />
       <workItem from="1595030830290" duration="564000" />
       <workItem from="1595113197360" duration="10406000" />
+      <workItem from="1595192121223" duration="167000" />
+      <workItem from="1595235330929" duration="237000" />
     </task>
     <servers />
   </component>
@@ -269,7 +356,7 @@
       <screen x="0" y="25" width="1280" height="775" />
     </state>
     <state x="59" y="231" width="1221" height="569" key="#xdebugger.evaluate/0.25.1280.775@0.25.1280.775" timestamp="1594206763527" />
-    <state width="974" height="133" key="GridCell.Tab.0.bottom" timestamp="1595130665818">
+    <state width="974" height="131" key="GridCell.Tab.0.bottom" timestamp="1595135026545">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1595127617987" />
@@ -278,10 +365,10 @@
     <state width="1238" height="221" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217636" />
     <state width="1105" height="408" key="GridCell.Tab.0.bottom/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879710" />
     <state width="1086" height="176" key="GridCell.Tab.0.bottom/0.25.1280.775@0.25.1280.775" timestamp="1594208196341" />
-    <state width="974" height="133" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1595130665818" />
+    <state width="974" height="131" key="GridCell.Tab.0.bottom/0.25.1440.875@0.25.1440.875" timestamp="1595135026545" />
     <state width="1041" height="164" key="GridCell.Tab.0.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
     <state width="1238" height="260" key="GridCell.Tab.0.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742198" />
-    <state width="974" height="133" key="GridCell.Tab.0.center" timestamp="1595130665816">
+    <state width="974" height="131" key="GridCell.Tab.0.center" timestamp="1595135026544">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1595127617986" />
@@ -290,10 +377,10 @@
     <state width="1238" height="221" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.center/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1086" height="176" key="GridCell.Tab.0.center/0.25.1280.775@0.25.1280.775" timestamp="1594208196340" />
-    <state width="974" height="133" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1595130665815" />
+    <state width="974" height="131" key="GridCell.Tab.0.center/0.25.1440.875@0.25.1440.875" timestamp="1595135026544" />
     <state width="1041" height="164" key="GridCell.Tab.0.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621108" />
     <state width="1238" height="260" key="GridCell.Tab.0.center/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742196" />
-    <state width="974" height="133" key="GridCell.Tab.0.left" timestamp="1595130665814">
+    <state width="974" height="131" key="GridCell.Tab.0.left" timestamp="1595135026543">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1595127617986" />
@@ -302,10 +389,10 @@
     <state width="1238" height="221" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217634" />
     <state width="1105" height="408" key="GridCell.Tab.0.left/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879708" />
     <state width="1086" height="176" key="GridCell.Tab.0.left/0.25.1280.775@0.25.1280.775" timestamp="1594208196339" />
-    <state width="974" height="133" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1595130665814" />
+    <state width="974" height="131" key="GridCell.Tab.0.left/0.25.1440.875@0.25.1440.875" timestamp="1595135026543" />
     <state width="1041" height="164" key="GridCell.Tab.0.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621107" />
     <state width="1238" height="260" key="GridCell.Tab.0.left/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742195" />
-    <state width="974" height="133" key="GridCell.Tab.0.right" timestamp="1595130665817">
+    <state width="974" height="131" key="GridCell.Tab.0.right" timestamp="1595135026545">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="171" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1595127617987" />
@@ -314,43 +401,43 @@
     <state width="1238" height="221" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1592602217635" />
     <state width="1105" height="408" key="GridCell.Tab.0.right/0.23.3440.1417@0.23.3440.1417" timestamp="1592538879709" />
     <state width="1086" height="176" key="GridCell.Tab.0.right/0.25.1280.775@0.25.1280.775" timestamp="1594208196340" />
-    <state width="974" height="133" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1595130665817" />
+    <state width="974" height="131" key="GridCell.Tab.0.right/0.25.1440.875@0.25.1440.875" timestamp="1595135026545" />
     <state width="1041" height="164" key="GridCell.Tab.0.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593235621109" />
     <state width="1238" height="260" key="GridCell.Tab.0.right/0.25.3440.1415@0.25.3440.1415" timestamp="1594977742197" />
-    <state width="974" height="131" key="GridCell.Tab.1.bottom" timestamp="1595130413336">
+    <state width="974" height="131" key="GridCell.Tab.1.bottom" timestamp="1595135026547">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593539031834" />
     <state width="1398" height="272" key="GridCell.Tab.1.bottom/0.23.1440.836@0.23.1440.836" timestamp="1593482749254" />
     <state width="1086" height="176" key="GridCell.Tab.1.bottom/0.25.1280.775@0.25.1280.775" timestamp="1594208196346" />
-    <state width="974" height="131" key="GridCell.Tab.1.bottom/0.25.1440.875@0.25.1440.875" timestamp="1595130413336" />
+    <state width="974" height="131" key="GridCell.Tab.1.bottom/0.25.1440.875@0.25.1440.875" timestamp="1595135026547" />
     <state width="1041" height="172" key="GridCell.Tab.1.bottom/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664466" />
     <state width="2005" height="331" key="GridCell.Tab.1.bottom/0.25.3440.1415@0.25.3440.1415" timestamp="1594344127750" />
-    <state width="974" height="131" key="GridCell.Tab.1.center" timestamp="1595130413334">
+    <state width="974" height="131" key="GridCell.Tab.1.center" timestamp="1595135026546">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1593539031833" />
     <state width="1398" height="272" key="GridCell.Tab.1.center/0.23.1440.836@0.23.1440.836" timestamp="1593482749253" />
     <state width="1086" height="176" key="GridCell.Tab.1.center/0.25.1280.775@0.25.1280.775" timestamp="1594208196343" />
-    <state width="974" height="131" key="GridCell.Tab.1.center/0.25.1440.875@0.25.1440.875" timestamp="1595130413334" />
+    <state width="974" height="131" key="GridCell.Tab.1.center/0.25.1440.875@0.25.1440.875" timestamp="1595135026546" />
     <state width="1041" height="172" key="GridCell.Tab.1.center/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664465" />
     <state width="2005" height="331" key="GridCell.Tab.1.center/0.25.3440.1415@0.25.3440.1415" timestamp="1594344127749" />
-    <state width="974" height="131" key="GridCell.Tab.1.left" timestamp="1595130413333">
+    <state width="974" height="131" key="GridCell.Tab.1.left" timestamp="1595135026546">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1593539031833" />
     <state width="1398" height="272" key="GridCell.Tab.1.left/0.23.1440.836@0.23.1440.836" timestamp="1593482749253" />
     <state width="1086" height="176" key="GridCell.Tab.1.left/0.25.1280.775@0.25.1280.775" timestamp="1594208196342" />
-    <state width="974" height="131" key="GridCell.Tab.1.left/0.25.1440.875@0.25.1440.875" timestamp="1595130413333" />
+    <state width="974" height="131" key="GridCell.Tab.1.left/0.25.1440.875@0.25.1440.875" timestamp="1595135026546" />
     <state width="1041" height="172" key="GridCell.Tab.1.left/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664464" />
     <state width="2005" height="331" key="GridCell.Tab.1.left/0.25.3440.1415@0.25.3440.1415" timestamp="1594344127749" />
-    <state width="974" height="131" key="GridCell.Tab.1.right" timestamp="1595130413335">
+    <state width="974" height="131" key="GridCell.Tab.1.right" timestamp="1595135026547">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state width="1398" height="272" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1593539031834" />
     <state width="1398" height="272" key="GridCell.Tab.1.right/0.23.1440.836@0.23.1440.836" timestamp="1593482749254" />
     <state width="1086" height="176" key="GridCell.Tab.1.right/0.25.1280.775@0.25.1280.775" timestamp="1594208196345" />
-    <state width="974" height="131" key="GridCell.Tab.1.right/0.25.1440.875@0.25.1440.875" timestamp="1595130413335" />
+    <state width="974" height="131" key="GridCell.Tab.1.right/0.25.1440.875@0.25.1440.875" timestamp="1595135026547" />
     <state width="1041" height="172" key="GridCell.Tab.1.right/0.25.1680.1025@0.25.1680.1025" timestamp="1593234664465" />
     <state width="2005" height="331" key="GridCell.Tab.1.right/0.25.3440.1415@0.25.3440.1415" timestamp="1594344127750" />
     <state x="632" y="102" key="SettingsEditor" timestamp="1594506426478">
@@ -379,12 +466,12 @@
       <screen x="0" y="25" width="1680" height="1025" />
     </state>
     <state x="861" y="234" width="840" height="1025" key="dock-window-1/0.25.1680.1025@0.25.1680.1025" timestamp="1593207895245" />
-    <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1595130657468">
+    <state x="418" y="105" width="604" height="715" key="find.popup" timestamp="1595131004711">
       <screen x="0" y="25" width="1440" height="875" />
     </state>
     <state x="418" y="82" width="604" height="735" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1593560757885" />
     <state x="544" y="132" width="567" height="634" key="find.popup/0.25.1280.775@0.25.1280.775" timestamp="1594204634155" />
-    <state x="418" y="105" width="604" height="715" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1595130657468" />
+    <state x="418" y="105" width="604" height="715" key="find.popup/0.25.1440.875@0.25.1440.875" timestamp="1595131004711" />
     <state x="916" y="130" width="705" height="838" key="find.popup/0.25.1680.1025@0.25.1680.1025" timestamp="1593212729176" />
     <state x="1462" y="220" width="1524" height="1158" key="find.popup/0.25.3440.1415@0.25.3440.1415" timestamp="1594512591905" />
     <state x="448" y="235" key="run.anything.popup" timestamp="1594980885560">
