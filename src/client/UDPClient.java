@@ -2,12 +2,9 @@ package client;
 
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
-import time.TimeUtils;
+import utils.TimeUtils;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.*;
 import java.util.Arrays;

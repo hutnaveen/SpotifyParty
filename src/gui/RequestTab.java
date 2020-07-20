@@ -1,5 +1,6 @@
 package gui;
 
+import chatGUI.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
 import model.Artist;
 import model.Track;
@@ -16,7 +17,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static gui.GUIUtilsChat.resizeIcon;
+import static utils.GUIUtils.resizeIcon;
 
 
 public class RequestTab extends JPanel {

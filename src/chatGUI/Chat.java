@@ -1,4 +1,6 @@
-package gui;
+package chatGUI;
+
+import gui.Notification;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,10 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import static gui.SpotifyPartyPanelChat.host;
-import static gui.SpotifyPartyPanelChat.spfc;
+import static chatGUI.SpotifyPartyPanelChat.spfc;
 
 public class Chat extends JPanel {
     public static JTextPane chat;
@@ -157,10 +157,5 @@ public class Chat extends JPanel {
             builder.insert(i*34,"\n");
         return builder.toString().trim();*/
         return null;
-    }
-    public static void main(String[] args) {
-        String re = "";
-        re = reformat(re);
-        System.out.println(re);
     }
 }

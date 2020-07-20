@@ -2,20 +2,15 @@ package server;
 
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
-import time.TimeUtils;
+import utils.TimeUtils;
 import upnp.UPnP;
-import utils.NetworkUtils;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

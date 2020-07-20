@@ -1,5 +1,4 @@
 package gui;
-import utils.Sound;
 
 
 import javax.swing.*;
@@ -123,7 +122,6 @@ public class Notification{
             }).start();
         }
         prevNotif = this;
-        Sound.playSound(Sound.class.getResource("/sounds/IbizaNotif.wav"));
     }
     public void close()
     {

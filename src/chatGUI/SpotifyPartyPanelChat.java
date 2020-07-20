@@ -1,7 +1,8 @@
 
-package gui;
+package chatGUI;
 
 import client.TCPClient;
+import gui.JoinPartyPanel;
 import server.TCPServer;
 import utils.NetworkUtils;
 
@@ -10,14 +11,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static gui.SpotifyPartyFrameChat.menu;
-import static gui.SpotifyPartyFrameChat.quit;
+import static chatGUI.SpotifyPartyFrameChat.menu;
+import static chatGUI.SpotifyPartyFrameChat.quit;
 import static main.SpotifyParty.chatPanel;
 
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
     CardLayout cl = new CardLayout();
-    public  JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
+    public JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
     public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
     public static boolean host;

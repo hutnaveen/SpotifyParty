@@ -1,12 +1,15 @@
-package gui;
+package chatGUI;
 import exception.SpotifyException;
-import fonts.Test;
+import gui.RequestTab;
+import gui.Requests;
+import gui.RoundJTextField;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
 import model.Artist;
 import model.Track;
 import server.TCPServer;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import utils.GUIUtils;
 import utils.SpotifyUtils;
 
 import javax.imageio.ImageIO;
@@ -25,22 +28,20 @@ import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static gui.GUIUtilsChat.makeButton;
-import static gui.GUIUtilsChat.resizeIcon;
-import static gui.SpotifyPartyPanelChat.FriendName;
-import static gui.SpotifyPartyPanelChat.cli;
-import static gui.SpotifyPartyPanelChat.host;
+import static utils.GUIUtils.makeButton;
+import static utils.GUIUtils.resizeIcon;
+import static chatGUI.SpotifyPartyPanelChat.FriendName;
+import static chatGUI.SpotifyPartyPanelChat.cli;
+import static chatGUI.SpotifyPartyPanelChat.host;
 
 
-public class ChatPanel extends JPanel implements DragGestureListener, DragSourceListener {
+public class ChatPanel extends JPanel{
     public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static Color color = new Color(30, 30, 30);
     public static JTextPane area;
@@ -99,7 +100,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Test.class.getResource("/fonts/Arial Unicode MS.ttf").getFile())));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/fonts/Arial Unicode MS.ttf").getFile())));
             System.out.println(Arrays.toString(ge.getAllFonts()));
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
@@ -552,25 +553,28 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
     public Track updateData(String trackID) {
         Track inf = SpotifyUtils.getTrack(trackID);
         artworkURL = inf.getAlbum().getImages().get(1).getUrl();
-        if (inf.getName().length() > 33)
-            song.setText(inf.getName().substring(0, 30) + " ...");
-        else
-            song.setText(inf.getName());
+        song.setText(resize(inf.getName(), song.getFont(), 174));
         StringBuilder artists = new StringBuilder();
         for (Artist art : inf.getArtists()) {
             artists.append(art.getName() + ", ");
         }
         artists.replace(artists.length() - 2, artists.length(), "");
-        if (artists.length() > 38)
-            artist.setText(artists.toString().substring(0, 34) + " ...");
-        else
-            artist.setText(artists.toString());
+      //  System.out.println(GUIUtils.getTextWidth("Murda (feat. Cory Gunz, Cap", artist.getFont()));
+        artist.setText(resize(artists.toString(), artist.getFont(), 194));
         color = inf.getDominantColor().darker();
         addLyrics();
         repaint();
         return inf;
     }
-
+    private String resize(String str, Font font, int max)
+    {
+        if(GUIUtils.getTextWidth(str, font) <= max)
+            return str;
+        StringBuilder ret = new StringBuilder(str);
+        while (GUIUtils.getTextWidth(ret.toString(), font) > max)
+            ret.replace(ret.length()-1,ret.length(), "");
+        return ret.toString()+ " ...";
+    }
     public Track updateData() {
         return updateData(api.getTrackUri());
     }
@@ -596,35 +600,5 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void dragGestureRecognized(DragGestureEvent dragGestureEvent) {
-
-    }
-
-    @Override
-    public void dragEnter(DragSourceDragEvent dragSourceDragEvent) {
-
-    }
-
-    @Override
-    public void dragOver(DragSourceDragEvent dragSourceDragEvent) {
-
-    }
-
-    @Override
-    public void dropActionChanged(DragSourceDragEvent dragSourceDragEvent) {
-
-    }
-
-    @Override
-    public void dragExit(DragSourceEvent dragSourceEvent) {
-
-    }
-
-    @Override
-    public void dragDropEnd(DragSourceDropEvent dsde) {
-
     }
 }

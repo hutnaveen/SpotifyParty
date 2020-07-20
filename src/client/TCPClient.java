@@ -1,10 +1,11 @@
 package client;
 
+import chatGUI.ChatPanel;
 import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import spotifyAPI.SpotifyAppleScriptWrapper;
-import time.TimeUtils;
+import utils.TimeUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import static gui.GUIUtilsChat.resizeIcon;
-import static gui.SpotifyPartyPanelChat.FriendName;
-import static gui.SpotifyPartyPanelChat.spfc;
+import static utils.GUIUtils.resizeIcon;
+import static chatGUI.SpotifyPartyPanelChat.FriendName;
+import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.chatPanel;
 
 public class TCPClient
