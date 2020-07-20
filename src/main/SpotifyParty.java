@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
-import java.sql.SQLOutput;
 
 import static gui.GUIUtilsChat.resizeIcon;
 

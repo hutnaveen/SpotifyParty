@@ -4,6 +4,7 @@ import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import time.TimeUtils;
 
 import java.awt.*;
 import java.io.File;
@@ -63,8 +64,8 @@ public class UDPClient {
                String[] playerData = new String(receivePacket.getData(), 0, receivePacket.getLength()).split(" ");
                try {
                    long fact = Long.parseLong(playerData[3].trim());
-                   System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
-                   log((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
+                   System.out.println((Arrays.toString(playerData)) + " " + new Date(TimeUtils.getAppleTime()) + " " + new Date(fact));
+                   log((Arrays.toString(playerData)) + " " + new Date(TimeUtils.getAppleTime()) + " " + new Date(fact));
                    long t = Long.parseLong(playerData[2].trim());
                    String[] finalPlayerData = playerData;
                    if(tempUpdate != null) {
@@ -100,8 +101,7 @@ public class UDPClient {
                         api.playTrack(trackID);
                         if (!tempPlaying)
                             api.play();
-                        System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                        log(""+pos + (System.currentTimeMillis() - timeStamp) + 2000);
+                        System.out.println(pos + (TimeUtils.getAppleTime() - timeStamp) + 2000);
                     } else if (!playing) {
                         if (tempPlaying) {
                             api.pause();
@@ -113,10 +113,9 @@ public class UDPClient {
                             autoPause = false;
                         }
                     }
-                    if (tempPlaying && Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                    if (tempPlaying && Math.abs((TimeUtils.getAppleTime() - timeStamp) + pos - tempPos) > 2000) {
                         System.out.println("Time: " + pos + " Player: " + tempPos);
-                        log("Time: " + pos + " Player: " + tempPos);
-                        api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                        api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
                     }
                     else if(tempPos == 0)
                     {

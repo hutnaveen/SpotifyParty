@@ -8,6 +8,7 @@ import gui.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import time.TimeUtils;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
@@ -154,7 +155,7 @@ public class TCPServer
                         sendToClients(tempTrack + " false " + api.getPlayBackPosition() + " " + api.getDuration());
                     }
                     if(!tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
+                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + TimeUtils.getAppleTime());
                         if(!tempTrack.equals(last)) {
                             last = tempTrack;
                             try {
