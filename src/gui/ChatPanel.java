@@ -1,5 +1,6 @@
 package gui;
 import exception.SpotifyException;
+import fonts.Test;
 import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
 import model.Artist;
@@ -25,8 +26,11 @@ import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import static gui.GUIUtilsChat.makeButton;
@@ -92,6 +96,14 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+        try {
+            GraphicsEnvironment ge =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Test.class.getResource("/fonts/Arial Unicode MS.ttf").getFile())));
+            System.out.println(Arrays.toString(ge.getAllFonts()));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
         code.setForeground(Color.GRAY);
@@ -151,7 +163,7 @@ public class ChatPanel extends JPanel implements DragGestureListener, DragSource
         area.setAutoscrolls(true);
         area.setEditable(false);
         area.setForeground(Color.WHITE);
-        area.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 15));
+        area.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
         area.setOpaque(false);
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
