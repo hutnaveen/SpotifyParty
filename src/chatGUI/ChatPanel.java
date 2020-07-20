@@ -366,7 +366,7 @@ public class ChatPanel extends JPanel{
                 type.setText("");
             } else {
                 try {
-                   Track temp = SpotifyUtils.findSong(type.getText().toLowerCase());
+                   Track temp = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     if(temp != null ) {
                         api.playTrack(temp.getUri());
                         type.setText("");
@@ -393,7 +393,7 @@ public class ChatPanel extends JPanel{
             } else {
                 Track track;
                 try {
-                    track = SpotifyUtils.findSong(type.getText().trim());
+                    track = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
                     cli.sendToServer("request " + track.getUri() + " " + FriendName);
@@ -436,7 +436,7 @@ public class ChatPanel extends JPanel{
                         try {
                             String str = type.getText().trim().toLowerCase();
                             str = str.substring(str.indexOf("play!:") + 6).trim();
-                            api.playTrack(SpotifyUtils.findSong(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).getUri());
+                            api.playTrack(SpotifyUtils.altSearch(str).getTracks().getItems().get(0).getUri());
                         }catch (Exception e)
                         {
                             work = false;
@@ -524,7 +524,7 @@ public class ChatPanel extends JPanel{
                         cli.sendToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 } catch (Exception e1) {
                     try {
-                        tab = new RequestTab(SpotifyUtils.findSong(type.getText().trim()).getUri(), SpotifyPartyPanelChat.FriendName);
+                        tab = new RequestTab(SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     } catch (Exception e3) {
                         type.setText("can't find that song");
                         type.selectAll();
