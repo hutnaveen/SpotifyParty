@@ -10,8 +10,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
-import static gui.GUIUtilsChat.makeButton;
-import static gui.GUIUtilsChat.resizeIcon;
+import static utils.GUIUtils.makeButton;
+import static utils.GUIUtils.resizeIcon;
 
 public class JoinPartyPanel extends JPanel {
     public AbstractButton enter;

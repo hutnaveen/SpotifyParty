@@ -159,9 +159,9 @@ public class SpotifyUtils{
             param1 = id.substring(0, id.indexOf(":"));
             param2 = id.substring(id.lastIndexOf(":") + 1);
         } else if (id.contains("https://open.spotify.com/")) {
-            /*id.replace("https://open.spotify.com/", "spotify:").replace("/", ":");
+            id.replace("https://open.spotify.com/", "spotify:").replace("/", ":");
             id = id.replace("https://open.spotify.com/", "");
-            param1 = id.substring(0, id.indexOf("/"));*/
+            param1 = id.substring(0, id.indexOf("/"));
             param2 = id.substring(id.lastIndexOf("/") + 1);
         }
         URL url = null;
@@ -193,8 +193,5 @@ public class SpotifyUtils{
         result = result.replaceAll("<[^>]*>", "").replace("\\/", "/");
         result = result.substring(result.lastIndexOf("{\"album\""));
         return result;
-    }
-    public static void main(String[] args) {
-         Track track = getTrack("spotify:track:56uXDJRCuoS7abX3SkzHKQ");
     }
 }

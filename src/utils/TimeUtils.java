@@ -1,4 +1,4 @@
-package time;
+package utils;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;
@@ -20,7 +20,6 @@ public class TimeUtils {
             e.printStackTrace();
         }
     }
-
     public static long getDefaultTime() {
         return getAppleTime();
     }

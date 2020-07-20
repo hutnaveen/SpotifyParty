@@ -1,30 +1,26 @@
 package server;
 
 import exception.SpotifyException;
-import gui.ChatPanel;
+import chatGUI.ChatPanel;
 import gui.RequestTab;
 import gui.Requests;
-import gui.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
-import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
-import time.TimeUtils;
+import utils.TimeUtils;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
-import static gui.ChatPanel.names;
-import static gui.GUIUtilsChat.resizeIcon;
+import static chatGUI.ChatPanel.names;
+import static utils.GUIUtils.resizeIcon;
 import static main.SpotifyParty.chatPanel;
 
 
@@ -195,47 +191,5 @@ public class TCPServer
 
     public int getServerPort() {
         return serverPort;
-    }
-}
-class ClientListener implements Runnable
-{
-    DataInputStream in;
-    Thread t = new Thread(this);
-    public ClientListener(DataInputStream id)
-    {
-        in = id;
-        t.start();
-    }
-
-    @Override
-    public void run() {
-        while (true)
-        {
-            try {
-                String org = in.readUTF().trim();
-                String[] str = org.split(" ");
-                System.out.println(Arrays.toString(str));
-                switch (str[1])
-                {
-                    case "usr":
-                        TCPServer.sendToClients("usr " + str[2].trim(),in);
-                        break;
-                    case "request":
-                        Requests.addRequest(new RequestTab(str[2].trim(), str[3].trim()));
-                        TCPServer.sendToClients("request " + str[2].trim() + " " + str[3].trim(), in);
-                        break;
-                    case "chat":
-                        org = org.substring(org.indexOf(' ')+1);
-                        org = org.substring(org.indexOf(' ')+1);
-                        String name = org.substring(0, org.indexOf(' '));
-                        String message = org.substring(org.indexOf(' ')+1);
-                        ChatPanel.chat.addText(message, name);
-                        TCPServer.sendToClients("chat " + name+ " " + message, in);
-                        break;
-                }
-            } catch (Exception e) {
-                t.stop();
-            }
-        }
     }
 }

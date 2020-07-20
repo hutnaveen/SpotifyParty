@@ -1,4 +1,4 @@
-package gui;
+package chatGUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

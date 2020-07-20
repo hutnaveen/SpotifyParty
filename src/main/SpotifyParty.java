@@ -1,7 +1,7 @@
 package main;
 
-import gui.ChatPanel;
-import gui.SpotifyPartyPanelChat;
+import chatGUI.ChatPanel;
+import chatGUI.SpotifyPartyPanelChat;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import utils.OSXUtils;
@@ -13,7 +13,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
 
-import static gui.GUIUtilsChat.resizeIcon;
+import static utils.GUIUtils.resizeIcon;
 
 /**
  * @author Naveen Govindaraju, Dhaunsh Ramkumar
