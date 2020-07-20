@@ -4,6 +4,7 @@ import gui.*;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import time.TimeUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -133,8 +134,7 @@ public class TCPClient
                 else{
                     try {
                         long fact = Long.parseLong(playerData[3].trim());
-                        System.out.println((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
-                        log((Arrays.toString(playerData)) + " " + new Date(System.currentTimeMillis()) + " " + new Date(fact));
+                        System.out.println((Arrays.toString(playerData)) + " " + new Date(TimeUtils.getAppleTime()) + " " + new Date(fact));
                         long t = Long.parseLong(playerData[2].trim());
                         String[] finalPlayerData = playerData;
                         if (tempUpdate != null) {
@@ -178,9 +178,8 @@ public class TCPClient
                         if (!tempTrack.equals(trackID)) {
                             api.playTrack(trackID);
                             chatPanel.updateData(trackID);
-                            System.out.println(pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                            log("" + pos + (System.currentTimeMillis() - timeStamp) + 2000);
-                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 2500);
+                            System.out.println(pos + (TimeUtils.getAppleTime() - timeStamp) + 2000);
+                            api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 2500);
                         }
                         if(tempPlaying != playing)
                         {
@@ -188,12 +187,12 @@ public class TCPClient
                                 api.play();
                             else
                                 api.pause();
-                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                            api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
                         }
-                        if (Math.abs((System.currentTimeMillis() - timeStamp) + pos - tempPos) > 2000) {
+                        if (Math.abs((TimeUtils.getAppleTime() - timeStamp) + pos - tempPos) > 2000) {
                             System.out.println("Time: " + pos + " Player: " + tempPos);
                             log("Time: " + pos + " Player: " + tempPos);
-                            api.setPlayBackPosition(pos + (System.currentTimeMillis() - timeStamp) + 1500);
+                            api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
                         }
                     }
                 } else if (!ad || time >= pos) {

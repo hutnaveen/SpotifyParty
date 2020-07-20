@@ -1,7 +1,6 @@
 package exception;
 
 import interfaces.SpotifyPlayerAPI;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,8 +16,6 @@ public class SpotifyException extends Exception{
     {
             BufferedWriter writer = null;
             try {
-                ///Users/naveen/Documents/Flow/src/exception/log.txt
-                //writer = new PrintWriter(new File(SpotifyException.class.getResource("/exception/log.txt").getPath()));
                 writer = new BufferedWriter(new FileWriter(new File("log.txt"), true));
                 writer.append("Time: ").append(String.valueOf(System.currentTimeMillis())).append(" Msg: ").append(msg);
                 writer.newLine();

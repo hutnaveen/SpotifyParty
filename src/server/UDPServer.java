@@ -4,6 +4,7 @@ import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import main.SpotifyParty;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import time.TimeUtils;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
@@ -80,7 +81,7 @@ public class UDPServer {
 					System.out.println("added");
 					clients.put("" + tad + tPort, new ClientInfo(tad, tPort));
 					try {
-						sendToClients(api.getTrackUri() + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
+						sendToClients(api.getTrackUri() + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + TimeUtils.getAppleTime());
 					} catch (SpotifyException e) {
 						e.printStackTrace();
 					}
@@ -99,7 +100,7 @@ public class UDPServer {
 				try {
 					String tempTrack = api.getTrackUri();
 					if (!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
-						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + System.currentTimeMillis());
+						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + TimeUtils.getAppleTime());
 				} catch (SpotifyException e) {
 					e.printStackTrace();
 				}
