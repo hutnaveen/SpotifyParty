@@ -258,7 +258,15 @@ public class SpotWebSkimmer implements SpotifyPlayerAPI {
         try {
             Response response = client.newCall(request).execute();
             Gson son = new Gson();
-            return son.fromJson(response.body().string(), PlayerData.class);
+            String data = response.body().string();
+            if(data.startsWith("{\n" +
+                    "  \"error\":"))
+            {
+                System.out.println("REDFLAGS");
+                System.out.println(data);
+                System.exit(100);
+            }
+            return son.fromJson(data, PlayerData.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

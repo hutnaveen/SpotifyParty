@@ -1,0 +1,290 @@
+package spotifyAPI;
+
+import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+import exception.SpotifyException;
+import interfaces.SpotifyPlayerAPI;
+import model.Artist;
+import model.Item;
+import model.OAuthTokenData;
+import model.PlayerData;
+import model.RandomString;
+import oAuth.OAuthHTTPServer;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.springframework.security.crypto.keygen.Base64StringKeyGenerator;
+import org.springframework.security.crypto.keygen.StringKeyGenerator;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.List;
+
+public class SpotifyWebAPI implements SpotifyPlayerAPI {
+    OAuthTokenData oAuthToken;
+    final URI redirect;
+    final String ogRedirect = "http%3A%2F%2Flocalhost%3A8081%2Fhello";
+    final String encoded = "YzFjYTEzNGExM2E3NGExYjk1MDQ2ZDY5YzhlZjExZDE6OTVjMzk3ZGRiOTM5NDQzMTgxYmFjZDU0ZWIxN2JiODU=";
+    final String clientID = "c1ca134a13a74a1b95046d69c8ef11d1";
+    RandomString random = new RandomString(94);
+    String randomString;
+    String code;
+    public SpotifyWebAPI() throws URISyntaxException {
+         final StringKeyGenerator secureKeyGenerator =
+        new Base64StringKeyGenerator(Base64.getUrlEncoder().withoutPadding(), 96);
+
+        //randomString = random.nextString();
+        randomString = secureKeyGenerator.generateKey();
+        //String sha256 = getSHA256(randomString);
+        //String urlEncoded = Base64.getUrlEncoder().withoutPadding().encodeToString(sha256.getBytes());
+        String urlEncoded =  createHash(randomString);
+
+
+     //   System.out.println("Random String="+ randomString);
+      //  System.out.println("urlEncoded String="+ urlEncoded);
+        //redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=c1ca134a13a74a1b95046d69c8ef11d1&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state%2Cuser-read-email%2C");
+        redirect = new URI("https://accounts.spotify.com:443/authorize?client_id="+clientID+"&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state&code_challenge="+urlEncoded+"&code_challenge_method=S256");
+        OAuthHTTPServer server = new OAuthHTTPServer(8081);
+        try {
+            Desktop.getDesktop().browse(redirect);
+            code = (server.getCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        oAuthToken = getToken();
+       // System.out.println(oAuthToken.getAccess_token());
+      //  System.out.println(oAuthToken.getRefresh_token());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //reFreshToken();
+    }
+
+    private static String createHash(String value) {
+       try {
+           MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+           byte[] digest = md.digest(value.getBytes(StandardCharsets.US_ASCII));
+
+           return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+        return null;
+    }
+    private String getSHA256(String originalString){
+        return Hashing.sha256()
+                .hashString(originalString, StandardCharsets.UTF_8)
+                .toString();
+    }
+
+    private OAuthTokenData getToken()
+    {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded;charset=UTF-8");
+
+        RequestBody body = RequestBody.create(mediaType, "client_id="+clientID+"&grant_type=authorization_code&code="+code+"&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&code_verifier="+randomString);
+        Request request = new Request.Builder()
+                .url("https://accounts.spotify.com/api/token")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            Gson son = new Gson();
+            String bod = response.body().string();
+            System.out.println(bod);
+            return son.fromJson(bod, OAuthTokenData.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private OAuthTokenData reFreshToken()
+    {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(mediaType, "grant_type=refresh_token&refresh_token="+oAuthToken.getRefresh_token()+"&client_id=c1ca134a13a74a1b95046d69c8ef11d1");
+        Request request = new Request.Builder()
+                .url("https://accounts.spotify.com/api/token")
+                .method("POST", body)
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            Gson son = new Gson();
+            String dat = response.body().string();
+        //    System.out.println("\n\n" + dat);
+            return son.fromJson(dat, OAuthTokenData.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    public boolean isSingle() {
+        return false;
+    }
+
+
+    @Override
+    public void setVolume(int am) {
+
+    }
+
+    @Override
+    public void playPause() {
+        try {
+            if(isPlaying())
+                pause();
+            else
+                play();
+        }catch (SpotifyException e)
+        {
+
+        }
+    }
+
+    @Override
+    public void play() {
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public long getPlayBackPosition() throws SpotifyException {
+        return getPlayerData().getProgress_ms();
+    }
+
+    @Override
+    public void setPlayBackPosition(long pos) {
+
+    }
+
+    @Override
+    public long getDuration() throws SpotifyException{
+        return getPlayingTrack().getDuration_ms();
+    }
+
+    @Override
+    public int getVolume() throws SpotifyException{
+        return getPlayerData().getDevice().getVolume_percent();
+    }
+
+    @Override
+    public boolean isPlaying() throws SpotifyException{
+        return getPlayerData().is_playing();
+    }
+
+    @Override
+    public void nextTrack() {
+
+    }
+
+    @Override
+    public void previousTrack() {
+    }
+
+    @Override
+    public List<Artist> getTrackArtists() {
+        return getPlayingTrack().getArtists();
+    }
+
+    @Override
+    public String getTrackAlbum() {
+        return getPlayingTrack().getAlbum().getName();
+    }
+
+    @Override
+    public String getTrackUri() {
+        return getPlayingTrack().getUri();
+    }
+
+    @Override
+    public String getTrackName() {
+        return getPlayingTrack().getName();
+    }
+
+    @Override
+    public Item getPlayingTrack() {
+        return getPlayerData().getItem();
+    }
+
+    // TODO: 4/15/20
+    @Override
+    public boolean playTrack(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean playTrack(Item song) {
+        return false;
+    }
+    public void saveTrack(String trackId) {
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "");
+        Request request = new Request.Builder()
+                .url("https://api.spotify.com/v1/me/tracks?ids=" + trackId.substring(trackId.lastIndexOf(':')+1))
+                .method("PUT", body)
+                .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + oAuthToken.getAccess_token())
+                .addHeader("Cookie", "sp_t=e780e37cec7d9c68eb85bda1a53c77a1")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public PlayerData getPlayerData()
+    {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("https://api.spotify.com/v1/me/player")
+                .method("GET", null)
+                .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + oAuthToken.getAccess_token())
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            Gson son = new Gson();
+            String data = response.body().string();
+            if(data.startsWith("{\n" +
+                    "  \"error\":"))
+            {
+                System.out.println("REDFLAGS");
+                System.out.println(data);
+                System.exit(100);
+            }
+            return son.fromJson(data, PlayerData.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) throws URISyntaxException {
+        new SpotifyWebAPI();
+    }
+}
