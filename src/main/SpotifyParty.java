@@ -28,12 +28,12 @@ public class SpotifyParty {
     public static SpotifyPlayerAPI api;
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
-        System.setErr(new PrintStream(new OutputStream() {
+        /*System.setErr(new PrintStream(new OutputStream() {
             @Override
             public void write(int arg0) throws IOException {
 
             }
-        }));
+        }));*/
         checkForUpdate();
         chatPanel = new ChatPanel();
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
