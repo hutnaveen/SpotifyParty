@@ -6,6 +6,7 @@ import gui.ChooseParty;
 import gui.JoinPartyPanel;
 import main.SignUp;
 import server.TCPServer;
+import spotifyAPI.OSXSpotifyAPI;
 import utils.NetworkUtils;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import static chatGUI.SpotifyPartyFrameChat.menu;
 import static chatGUI.SpotifyPartyFrameChat.quit;
 import static main.SpotifyParty.chatPanel;
+import static main.SpotifyParty.api;
 
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
@@ -59,6 +61,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     MenuItem show = new MenuItem("Show Window");
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("LogIn")) {
+            api = new OSXSpotifyAPI(signUp.email.getText(), signUp.pass.getText());
             cl.show(this, "ChooseParty");
         }
         if (e.getActionCommand().equals("join")) {
