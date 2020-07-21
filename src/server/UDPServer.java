@@ -27,7 +27,6 @@ public class UDPServer {
 	int serverPort = 9009;
 
 	public UDPServer(boolean diffNetWork) {
-		api = new SpotifyAppleScriptWrapper();
 
 		clients = new HashMap<>();
 		try {

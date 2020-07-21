@@ -1,13 +1,13 @@
 package history;
 
-import model.Track;
+import model.Item;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public class SpotifyPlayerHistory extends ArrayList<Track> {
+public class SpotifyPlayerHistory extends ArrayList<Item> {
     private static SpotifyPlayerHistory history = new SpotifyPlayerHistory();
     private SpotifyPlayerHistory()
     {
@@ -30,30 +30,30 @@ public class SpotifyPlayerHistory extends ArrayList<Track> {
     }
 
     @Override
-    public Track remove(int index) {
+    public Item remove(int index) {
         return null;
     }
 
     @Override
-    public boolean removeIf(Predicate<? super Track> filter) {
+    public boolean removeIf(Predicate<? super Item> filter) {
         return false;
     }
 
     @Override
-    public void replaceAll(UnaryOperator<Track> operator) {
+    public void replaceAll(UnaryOperator<Item> operator) {
     }
 
     @Override
-    public Track set(int index, Track element) {
+    public Item set(int index, Item element) {
         return null;
     }
 
     @Override
-    public void add(int index, Track element) {
+    public void add(int index, Item element) {
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends Track> c) {
+    public boolean addAll(int index, Collection<? extends Item> c) {
         return false;
     }
 
