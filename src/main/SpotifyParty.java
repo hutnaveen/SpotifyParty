@@ -25,10 +25,9 @@ public class SpotifyParty {
     public static ChatPanel chatPanel = null;
     public static boolean darkMode = true;
     public static final String VERSION = "v0.2-alpha";
-    public final static SpotifyPlayerAPI api = new OSXSpotifyAPI("<UserName>", "<Pass>");
+    public static SpotifyPlayerAPI api;
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
-
         System.setErr(new PrintStream(new OutputStream() {
             @Override
             public void write(int arg0) throws IOException {

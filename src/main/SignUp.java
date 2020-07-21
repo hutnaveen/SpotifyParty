@@ -14,7 +14,7 @@ import static utils.GUIUtils.makeButton;
 import static utils.GUIUtils.resizeIcon;
 
 public class SignUp extends JPanel {
-    public static JTextField name;
+    public static JTextField pass;
     public static JTextField email;
     public AbstractButton enter;
 
@@ -50,18 +50,18 @@ public class SignUp extends JPanel {
         email.setBounds(145, 250, 400, 50);
         this.add(email);
 
-        name = new RoundJTextField(400);
-        name.setForeground(Color.GRAY);
-        name.setText("Password");
-        name.addMouseListener(new MouseAdapter() {
+        pass = new RoundJTextField(400);
+        pass.setForeground(Color.GRAY);
+        pass.setText("Password");
+        pass.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                     super.mousePressed(e);
-                    name.setForeground(Color.BLACK);
+                    pass.setForeground(Color.BLACK);
             }
         });
-        name.setBounds(145, 310, 400, 50);
-        this.add(name);
+        pass.setBounds(145, 310, 400, 50);
+        this.add(pass);
 
         ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/slice4.png")), 180, 60);
         enter = makeButton(icon);
