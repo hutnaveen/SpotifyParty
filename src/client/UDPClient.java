@@ -22,7 +22,6 @@ public class UDPClient {
     private Thread tempUpdate;
     public UDPClient(String serverIP, int serverPort, int clientSocketNum)
    {
-       api = new SpotifyAppleScriptWrapper();
       // api.play();
        this.serverPort = serverPort;
        try {

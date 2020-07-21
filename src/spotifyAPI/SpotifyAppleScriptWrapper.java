@@ -1,7 +1,7 @@
 package spotifyAPI;
 import interfaces.SpotifyPlayerAPI;
 import model.Artist;
-import model.Track;
+import model.Item;
 import utils.OSXUtils;
 import utils.SpotifyUtils;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     }
 
     @Override
-    public boolean playTrack(Track song) {
+    public boolean playTrack(Item song) {
         return playTrack(song.getUri());
     }
 
@@ -228,7 +228,7 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     }
 
     @Override
-    public Track getPlayingTrack() {
+    public Item getPlayingTrack() {
         return SpotifyUtils.getTrack(getTrackUri());
     }
 }

@@ -3,16 +3,13 @@ package utils;
 import com.google.gson.Gson;
 import lyrics.DuckDuckGoSearch;
 import lyrics.LyricFinder;
-import model.Artist;
 import model.SearchItem;
 import model.SearchResult;
-import model.Track;
-import org.apache.commons.lang3.StringEscapeUtils;
+import model.Item;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -94,7 +91,7 @@ public class SpotifyUtils{
      * you can use altSearch instead of the legacy findSong
      */
     @Deprecated
-    public static Track findSong(String search) {
+    public static Item findSong(String search) {
         //Retrieving the contents of the specified page
             search.trim();
             String txt = ("https://songbpm.com/searches/" + search.replace(" ", "-"));
@@ -107,15 +104,15 @@ public class SpotifyUtils{
         Element e = doc.select("a").get(3);
         return getTrack(e.attr("href"));
     }
-    public static Track getTrack(String id)
+    public static Item getTrack(String id)
     {
         Gson son = new Gson();
-        return son.fromJson(getTrackJson(id), Track.class);
+        return son.fromJson(getTrackJson(id), Item.class);
     }
     @Deprecated
-    public static List<Track> search(String search)
+    public static List<Item> search(String search)
     {
-        ArrayList<Track> list = new ArrayList<>();
+        ArrayList<Item> list = new ArrayList<>();
         List<SearchResult> results = DuckDuckGoSearch.getSearchResults(search + " spotify track");
         for(SearchResult result: results)
         {
@@ -164,7 +161,7 @@ public class SpotifyUtils{
     {
         return getLyrics(SpotifyUtils.getTrack(id));
     }
-    public static String getLyrics(Track song)
+    public static String getLyrics(Item song)
     {
         return LyricFinder.getLyrics(song.getName(),(song.getArtists().get(0).getName()));
     }

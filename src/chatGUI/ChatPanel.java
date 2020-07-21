@@ -3,12 +3,10 @@ import exception.SpotifyException;
 import gui.RequestTab;
 import gui.Requests;
 import gui.RoundJTextField;
-import interfaces.SpotifyPlayerAPI;
 import lyrics.LyricFinder;
 import model.Artist;
-import model.Track;
+import model.Item;
 import server.TCPServer;
-import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.GUIUtils;
 import utils.SpotifyUtils;
 
@@ -21,12 +19,6 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.dnd.DragGestureEvent;
-import java.awt.dnd.DragGestureListener;
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DragSourceDropEvent;
-import java.awt.dnd.DragSourceEvent;
-import java.awt.dnd.DragSourceListener;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
@@ -39,10 +31,9 @@ import static utils.GUIUtils.resizeIcon;
 import static chatGUI.SpotifyPartyPanelChat.FriendName;
 import static chatGUI.SpotifyPartyPanelChat.cli;
 import static chatGUI.SpotifyPartyPanelChat.host;
-
+import static main.SpotifyParty.api;
 
 public class ChatPanel extends JPanel{
-    public static SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public static Color color = new Color(30, 30, 30);
     public static JTextPane area;
     public static JTextPane song;
@@ -366,7 +357,7 @@ public class ChatPanel extends JPanel{
                 type.setText("");
             } else {
                 try {
-                   Track temp = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                   Item temp = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     if(temp != null ) {
                         api.playTrack(temp.getUri());
                         type.setText("");
@@ -391,17 +382,17 @@ public class ChatPanel extends JPanel{
             } else if (type.getText().trim().toLowerCase().equals("play!")) {
                 api.play();
             } else {
-                Track track;
+                Item item;
                 try {
-                    track = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
-                    RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                    item = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                    RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
-                    cli.sendToServer("request " + track.getUri() + " " + FriendName);
+                    cli.sendToServer("request " + item.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        track = SpotifyUtils.getTrack(type.getText());
-                        RequestTab tab = new RequestTab(track.getUri(), SpotifyPartyPanelChat.FriendName);
+                        item = SpotifyUtils.getTrack(type.getText());
+                        RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         cli.sendToServer("request " + type.getText() + " " + FriendName);
                         type.setText("");
@@ -415,7 +406,7 @@ public class ChatPanel extends JPanel{
 
 
     private void recommendationHandler() {
-        Track track = null;
+        Item item = null;
         boolean work = true;
         RequestTab tab = null;
         if (!type.getText().isBlank() && !type.getText().isEmpty()) {
@@ -550,8 +541,8 @@ public class ChatPanel extends JPanel{
         }
     }
 
-    public Track updateData(String trackID) {
-        Track inf = SpotifyUtils.getTrack(trackID);
+    public Item updateData(String trackID) {
+        Item inf = SpotifyUtils.getTrack(trackID);
         artworkURL = inf.getAlbum().getImages().get(1).getUrl();
         song.setText(resize(inf.getName(), song.getFont(), 174));
         StringBuilder artists = new StringBuilder();
@@ -575,7 +566,7 @@ public class ChatPanel extends JPanel{
             ret.replace(ret.length()-1,ret.length(), "");
         return ret.toString()+ " ...";
     }
-    public Track updateData() {
+    public Item updateData() {
         return updateData(api.getTrackUri());
     }
     public static void setCode(String tcode) {

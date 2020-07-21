@@ -1,10 +1,8 @@
 package gui;
 
 import chatGUI.SpotifyPartyPanelChat;
-import interfaces.SpotifyPlayerAPI;
 import model.Artist;
-import model.Track;
-import spotifyAPI.SpotifyAppleScriptWrapper;
+import model.Item;
 import utils.SpotifyUtils;
 
 import javax.imageio.ImageIO;
@@ -16,15 +14,14 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import static main.SpotifyParty.api;
 import static utils.GUIUtils.resizeIcon;
 
 
 public class RequestTab extends JPanel {
-    public SpotifyPlayerAPI api = new SpotifyAppleScriptWrapper();
     public String url;
 
-    private Track info;
+    private Item info;
 
     public JTextPane song;
     public JTextPane artist;
@@ -170,7 +167,7 @@ public class RequestTab extends JPanel {
         });
     }
 
-    public Track getData() {
+    public Item getData() {
         return this.info;
     }
 
