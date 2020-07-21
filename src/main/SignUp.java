@@ -62,7 +62,6 @@ public class SignUp extends JPanel {
         });
         pass.setBounds(145, 310, 400, 50);
         this.add(pass);
-
         ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/slice4.png")), 180, 60);
         enter = makeButton(icon);
         enter.setBounds(250, 375,180, 60);
