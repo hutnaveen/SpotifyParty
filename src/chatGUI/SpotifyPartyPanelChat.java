@@ -2,7 +2,9 @@
 package chatGUI;
 
 import client.TCPClient;
+import gui.ChooseParty;
 import gui.JoinPartyPanel;
+import main.SignUp;
 import server.TCPServer;
 import utils.NetworkUtils;
 
@@ -19,6 +21,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
     CardLayout cl = new CardLayout();
     public JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
+    public SignUp signUp = new SignUp();
+    public ChooseParty chooseParty = new ChooseParty();
     public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
     public static boolean host;
@@ -33,27 +37,36 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         super();
         ChatPanel.code.setText("");
         this.setLayout(cl);
+        this.add(signUp, "signUp");
         this.add(joinPartyPanel, "joinPanel");
         this.add(chatPanel, "chatPanel");
+        this.add(chooseParty, "ChooseParty");
         spfc.add(this);
 
-        spfc.getJoin().setActionCommand("join");
-        spfc.getJoin().addActionListener(this);
-        spfc.getHostLocal().setActionCommand("hostLocal");
-        spfc.getHostLocal().addActionListener(this);
-        spfc.getHostPublic().setActionCommand("hostPublic");
-        spfc.getHostPublic().addActionListener(this);
-        show.addActionListener(actionEvent -> spfc.setVisible(true));
+        chooseParty.getJoin().setActionCommand("join");
+        chooseParty.getJoin().addActionListener(this);
+        chooseParty.getHost().setActionCommand("hostPublic");
+        chooseParty.getHost().addActionListener(this);
+        //show.addActionListener(actionEvent -> spfc.setVisible(true));
+        signUp.getEnter().setActionCommand("LogIn");
+        signUp.getEnter().addActionListener(this);
         joinPartyPanel.getEnter().setActionCommand("enterGuest");
         joinPartyPanel.getEnter().addActionListener(this);
+
+        spfc.setVisible(true);
+        cl.show(this, "signUp");
     }
     MenuItem show = new MenuItem("Show Window");
     public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("LogIn")) {
+            cl.show(this, "ChooseParty");
+        }
         if (e.getActionCommand().equals("join")) {
             host = false;
             spfc.setVisible(true);
             cl.show(this, "joinPanel");
         }
+        /*
         else if (e.getActionCommand().equals("hostLocal")) {
             FriendName = "Host";
             host = true;
@@ -68,6 +81,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             chatPanel.updateData();
 
         }
+
+         */
         else if(e.getActionCommand().equals("hostPublic")) {
             FriendName = "Host";
             host = true;
@@ -104,7 +119,6 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 JoinPartyPanel.code.setForeground(Color.RED);
                 JoinPartyPanel.code.setText("INVALID CODE");
             }
-
         }
     }
 }
