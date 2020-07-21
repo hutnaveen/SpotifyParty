@@ -51,7 +51,7 @@ public class SpotifyPartyFrameChat extends JFrame {
     private void initializeTrayIcon()
     {
         quit.addActionListener(actionEvent -> System.exit(0));
-        /*
+
         join = new MenuItem("Join Party");
         hostLocal = new MenuItem("Host Local Party");
         hostPublic = new MenuItem("Host Public Party");
@@ -66,8 +66,8 @@ public class SpotifyPartyFrameChat extends JFrame {
         menu.add(hostPublic);
         menu.addSeparator();
 
-         */
-        //menu.add(quit);
+
+        menu.add(quit);
         try {
             trayIcon = new TrayIcon(image, "SpotifyParty", menu );
             tray.add(trayIcon);
