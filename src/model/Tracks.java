@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class Tracks {
     private URL href;
-    private List<Track> items;
+    private List<Item> items;
     private int limit;
     private URL next;
     private int offset;

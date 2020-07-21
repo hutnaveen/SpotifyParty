@@ -3,8 +3,7 @@ package client;
 import chatGUI.ChatPanel;
 import gui.*;
 import exception.SpotifyException;
-import interfaces.SpotifyPlayerAPI;
-import spotifyAPI.SpotifyAppleScriptWrapper;
+import main.SpotifyParty;
 import utils.TimeUtils;
 
 import javax.imageio.ImageIO;
@@ -26,7 +25,6 @@ import static main.SpotifyParty.chatPanel;
 
 public class TCPClient
 {
-    private SpotifyPlayerAPI api;
     private DataInputStream dis;
     private DataOutputStream dos;
     public static boolean synced = true;
@@ -63,7 +61,6 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        api = new SpotifyAppleScriptWrapper();
         try {
             InetAddress ip = InetAddress.getByName(serverIP);
             Socket s = new Socket(ip, serverPort);
@@ -166,39 +163,39 @@ public class TCPClient
                 chatPanel.updateData(trackID);
             }
             else if(synced) {
-                String tempTrack = api.getTrackUri();
-                boolean tempPlaying = api.isPlaying();
+                String tempTrack = SpotifyParty.api.getTrackUri();
+                boolean tempPlaying =SpotifyParty.api.isPlaying();
                 log("" + tempPlaying);
-                long tempPos = api.getPlayBackPosition();
+                long tempPos = SpotifyParty.api.getPlayBackPosition();
                 if (!tempTrack.contains(":ad:")) {
                     ad = false;
                     time = Integer.MIN_VALUE;
                     if (trackID.equals("ice")) {
-                        api.pause();
+                        SpotifyParty.api.pause();
                     } else {
                         if (!tempTrack.equals(trackID)) {
-                            api.playTrack(trackID);
+                            SpotifyParty.api.playTrack(trackID);
                             chatPanel.updateData(trackID);
                             System.out.println(pos + (TimeUtils.getAppleTime() - timeStamp) + 2000);
-                            api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 2500);
+                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 2500);
                         }
                         if(tempPlaying != playing)
                         {
                             if (playing)
-                                api.play();
+                                SpotifyParty.api.play();
                             else
-                                api.pause();
-                            api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
+                                SpotifyParty.api.pause();
+                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
                         }
                         if (Math.abs((TimeUtils.getAppleTime() - timeStamp) + pos - tempPos) > 2000) {
                             System.out.println("Time: " + pos + " Player: " + tempPos);
                             log("Time: " + pos + " Player: " + tempPos);
-                            api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
+                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
                         }
                     }
                 } else if (!ad || time >= pos) {
                     ad = true;
-                    api.pause();
+                    SpotifyParty.api.pause();
                     time = pos;
                     Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT", "The host is playing an ad", 5000);
                     notif.send();
