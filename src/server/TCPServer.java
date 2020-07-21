@@ -22,11 +22,10 @@ import java.util.HashMap;
 import static chatGUI.ChatPanel.names;
 import static utils.GUIUtils.resizeIcon;
 import static main.SpotifyParty.chatPanel;
-
+import static main.SpotifyParty.api;
 
 public class TCPServer
 {
-    private final SpotifyPlayerAPI api;
     public static HashMap<DataInputStream, DataOutputStream> stream = new HashMap<>();
     private ServerSocket ss;
     private Thread reciver;
@@ -35,7 +34,6 @@ public class TCPServer
     String last;
     public TCPServer(boolean diffNetWork)
     {
-        api = new SpotifyAppleScriptWrapper();
         boolean star;
         if(UPnP.isUPnPAvailable())
             System.out.println("gucci");

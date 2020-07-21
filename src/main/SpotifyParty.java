@@ -2,8 +2,11 @@ package main;
 
 import chatGUI.ChatPanel;
 import chatGUI.SpotifyPartyPanelChat;
+import interfaces.SpotifyPlayerAPI;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import spotifyAPI.OSXSpotifyAPI;
+import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.OSXUtils;
 
 import javax.swing.*;
@@ -22,6 +25,7 @@ public class SpotifyParty {
     public static ChatPanel chatPanel = null;
     public static boolean darkMode = true;
     public static final String VERSION = "v0.2-alpha";
+    public final static SpotifyPlayerAPI api = new OSXSpotifyAPI("<UserName>", "<Pass>");
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
 
