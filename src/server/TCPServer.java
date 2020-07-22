@@ -173,11 +173,11 @@ public class TCPServer
                             }
                         }
                     }
-                } catch (SpotifyException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                   // e.printStackTrace();
                 }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

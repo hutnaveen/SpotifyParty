@@ -39,12 +39,12 @@ public class Item {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int x1 = 0 + 1;
-        int y1 = 0 + bi.getHeight();
+        int x1 = 1;
+        int y1 = bi.getHeight();
         int sumr = 0, sumg = 0, sumb = 0;
         int num= 0;
         for (int x = 0; x < x1; x++) {
-            for (int y = 1; y < y1; y++) {
+            for (int y = 0; y < y1; y++) {
                 Color pixel = new Color(bi.getRGB(x, y));
                 sumr += pixel.getRed();
                 sumg += pixel.getGreen();
@@ -52,7 +52,40 @@ public class Item {
                 num++;
             }
         }
-        return new Color((sumr / num), sumg / num, sumb / num);
+         x1 = bi.getWidth();
+         y1 = 1;
+        for (int x = 0; x < x1; x++) {
+            for (int y = 0; y < y1; y++) {
+                Color pixel = new Color(bi.getRGB(x, y));
+                sumr += pixel.getRed();
+                sumg += pixel.getGreen();
+                sumb += pixel.getBlue();
+                num++;
+            }
+        }
+        x1 = bi.getWidth();
+        y1 = bi.getHeight();
+        for (int x = bi.getWidth()-1; x < x1; x++) {
+            for (int y = 0; y < y1; y++) {
+                Color pixel = new Color(bi.getRGB(x, y));
+                sumr += pixel.getRed();
+                sumg += pixel.getGreen();
+                sumb += pixel.getBlue();
+                num++;
+            }
+        }
+        x1 = bi.getWidth();
+        y1 = bi.getHeight();
+        for (int x = 0; x < x1; x++) {
+            for (int y = bi.getHeight()-1; y < y1; y++) {
+                Color pixel = new Color(bi.getRGB(x, y));
+                sumr += pixel.getRed();
+                sumg += pixel.getGreen();
+                sumb += pixel.getBlue();
+                num++;
+            }
+        }
+        return new Color(sumr / num, sumg / num, sumb / num);
        // return Color.decode(dominantColor);
     }
 }
