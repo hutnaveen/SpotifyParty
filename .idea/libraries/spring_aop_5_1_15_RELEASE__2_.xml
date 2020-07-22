@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="spring-aop-5.1.15.RELEASE (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/spring-aop-5.1.15.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/spring-beans-5.1.15.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/spring-context-5.1.15.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/spring-core-5.1.15.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/spring-expression-5.1.15.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/spring-jcl-5.1.15.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/spring-security-core-5.1.11.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
