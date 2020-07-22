@@ -76,7 +76,7 @@ public class UDPServer {
 					clients.put("" + tad + tPort, new ClientInfo(tad, tPort));
 					try {
 						sendToClients(api.getTrackUri() + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + TimeUtils.getAppleTime());
-					} catch (SpotifyException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -95,7 +95,7 @@ public class UDPServer {
 					String tempTrack = api.getTrackUri();
 					if (!tempTrack.contains(":ad:") && !tempTrack.isBlank() && !tempTrack.equals("ice"))
 						sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + TimeUtils.getAppleTime());
-				} catch (SpotifyException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				try {

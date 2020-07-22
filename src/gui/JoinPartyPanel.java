@@ -19,7 +19,6 @@ public class JoinPartyPanel extends JPanel {
     public static boolean one = true;
     public static boolean two = true;
 
-    public static JTextField name;
     public static JTextField code;
 
     public JoinPartyPanel() {
@@ -65,24 +64,8 @@ public class JoinPartyPanel extends JPanel {
                 }
             }
         });
-        code.setBounds(355, 250, 200, 50);
+        code.setBounds(145, 250, 400, 50);
         this.add(code);
-        name = new RoundJTextField(200);
-        name.setForeground(Color.GRAY);
-        name.setText("Name");
-        name.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if(one) {
-                    super.mousePressed(e);
-                    name.setForeground(Color.BLACK);
-                    one = !one;
-                }
-            }
-        });
-        name.setBounds(145, 250, 200, 50);
-        this.add(name);
-        name.setSelectionEnd(0);
         code.setSelectionEnd(0);
 
     }
