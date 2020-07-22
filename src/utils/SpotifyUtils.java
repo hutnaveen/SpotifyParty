@@ -87,80 +87,6 @@ public class SpotifyUtils{
         return info;
     }
 */
-    /**
-     * you can use altSearch instead of the legacy findSong
-     */
-    @Deprecated
-    public static Item findSong(String search) {
-        //Retrieving the contents of the specified page
-            search.trim();
-            String txt = ("https://songbpm.com/searches/" + search.replace(" ", "-"));
-        Document doc = null;
-        try {
-            doc = Jsoup.connect(txt).get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Element e = doc.select("a").get(3);
-        return getTrack(e.attr("href"));
-    }
-    public static Item getTrack(String id)
-    {
-        Gson son = new Gson();
-        return son.fromJson(getTrackJson(id), Item.class);
-    }
-    @Deprecated
-    public static List<Item> search(String search)
-    {
-        ArrayList<Item> list = new ArrayList<>();
-        List<SearchResult> results = DuckDuckGoSearch.getSearchResults(search + " spotify track");
-        for(SearchResult result: results)
-        {
-            if(result.getUrl().startsWith("https://open.spotify.com/track/"))
-            {
-                list.add(SpotifyUtils.getTrack(result.getUrl()));
-            }
-        }
-        return list;
-    }
-    public static SearchItem altSearch(String search)
-    {
-        String as[] = new String[]{"sh", SpotifyUtils.class.getResource("/search/test.sh").getPath(), search};
-        Runtime runtime = Runtime.getRuntime();
-        Process process = null;
-        try {
-            process = runtime.exec(as);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Gson son = new Gson();
-        return son.fromJson(processToString(process), SearchItem.class);
-    }
-
-    public static int getBPM(String song, String artist)
-    {
-        song = song.toLowerCase();
-        artist = artist.toLowerCase().trim();
-        int index = song.indexOf("(");
-        if (index != -1)
-            song = song.substring(0, index).trim();
-        index = song.indexOf("feat.");
-        if (index != -1)
-            song = song.substring(0, index).trim();
-        try {
-            String txt = ("https://songbpm.com/searches/" + song.replace(" ", "-") +"-"+ artist.replace(" ", "-")).replace("---", "-").replace("--", "-");
-            Document doc = Jsoup.connect(txt).get();
-            Element e = doc.getElementsByClass("text-center").get(2);
-            String text = e.text().trim();
-            return Integer.parseInt(text.substring(0, text.indexOf(" ")).trim());
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-    public static String getLyrics(String id)
-    {
-        return getLyrics(SpotifyUtils.getTrack(id));
-    }
     public static String getLyrics(Item song)
     {
         return LyricFinder.getLyrics(song.getName(),(song.getArtists().get(0).getName()));
@@ -210,6 +136,6 @@ public class SpotifyUtils{
     }
 
     public static void main(String[] args) {
-        altSearch("hello");
+
     }
 }

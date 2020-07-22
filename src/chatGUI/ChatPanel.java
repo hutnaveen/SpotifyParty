@@ -6,6 +6,7 @@ import gui.RoundJTextField;
 import lyrics.LyricFinder;
 import model.Artist;
 import model.Item;
+import model.UserData;
 import server.TCPServer;
 import utils.GUIUtils;
 import utils.SpotifyUtils;
@@ -20,6 +21,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -50,13 +52,6 @@ public class ChatPanel extends JPanel{
     public static JTextPane req;
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
-    public static AbstractButton mode;
-    public static ImageIcon enabled = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 24, 24);
-    public static ImageIcon disabled = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/neglogo.png")), 24, 24);
-    static {
-        ImageIcon ic = enabled;
-        mode = makeButton(ic);
-    }
     public ChatPanel() {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
@@ -65,23 +60,6 @@ public class ChatPanel extends JPanel{
         back.setLayout(cl);
         back.add(chat, "ChatPanel");
         back.add(requestPanel, "RequestPanel");
-        mode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(!host)
-                {
-                    cli.synced = !cli.synced;
-                    if(cli.synced)
-                    {
-                        mode.setIcon(enabled);
-                    }
-                    else
-                    {
-                        mode.setIcon(disabled);
-                    }
-                }
-            }
-        });
         cl.show(back, "ChatPanel");
 
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
@@ -94,7 +72,7 @@ public class ChatPanel extends JPanel{
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/fonts/Arial Unicode MS.ttf").getFile())));
             System.out.println(Arrays.toString(ge.getAllFonts()));
         } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -328,14 +306,6 @@ public class ChatPanel extends JPanel{
         this.add(guest);
         */
 
-        if(!host) {
-            this.add(mode);
-            mode.setBounds(10, 33, 24, 24);
-        }else
-        {
-            mode.setEnabled(false);
-        }
-        mode.setFocusable(false);
         back.setBounds(250, 70, 450, 460);
         this.add(back);
     }
@@ -357,7 +327,7 @@ public class ChatPanel extends JPanel{
                 type.setText("");
             } else {
                 try {
-                   Item temp = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                   Item temp = api.search(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     if(temp != null ) {
                         api.playTrack(temp.getUri());
                         type.setText("");
@@ -384,14 +354,14 @@ public class ChatPanel extends JPanel{
             } else {
                 Item item;
                 try {
-                    item = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                    item = api.search(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
                     cli.sendToServer("request " + item.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        item = SpotifyUtils.getTrack(type.getText());
+                        item = api.search(type.getText()).getTracks().getItems().get(0);
                         RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         cli.sendToServer("request " + type.getText() + " " + FriendName);
@@ -427,7 +397,7 @@ public class ChatPanel extends JPanel{
                         try {
                             String str = type.getText().trim().toLowerCase();
                             str = str.substring(str.indexOf("play!:") + 6).trim();
-                            api.playTrack(SpotifyUtils.altSearch(str).getTracks().getItems().get(0).getUri());
+                            api.playTrack(api.search(str).getTracks().getItems().get(0).getUri());
                         }catch (Exception e)
                         {
                             work = false;
@@ -472,7 +442,7 @@ public class ChatPanel extends JPanel{
                         String str = type.getText().trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", " ");
                         try {
 
-                            tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                            tab = new RequestTab(api.search(type.getText().trim()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                         } catch (Exception e3) {
                             type.setText("can't find that song");
                             type.selectAll();
@@ -492,7 +462,7 @@ public class ChatPanel extends JPanel{
                 try {
 
                     System.out.println(type.getText());
-                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).get(0).getUri());
+                    api.playTrack(api.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).getTracks().getItems().get(0).getUri());
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");
                     type.setText("Cannot find song, Sorry!");
@@ -507,7 +477,7 @@ public class ChatPanel extends JPanel{
                 type.setText("");
             } else {
                 try {
-                    tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                    tab = new RequestTab(api.search(type.getText().trim()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     tab = new RequestTab(type.getText().trim(), SpotifyPartyPanelChat.FriendName);
                     if (SpotifyPartyPanelChat.host)
                         TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName);
@@ -515,7 +485,7 @@ public class ChatPanel extends JPanel{
                         cli.sendToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 } catch (Exception e1) {
                     try {
-                        tab = new RequestTab(SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                        tab = new RequestTab(api.search(type.getText().toLowerCase()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     } catch (Exception e3) {
                         type.setText("can't find that song");
                         type.selectAll();
@@ -542,7 +512,7 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
-        Item inf = SpotifyUtils.getTrack(trackID);
+        Item inf = api.getTrackInfo(trackID);
         artworkURL = inf.getAlbum().getImages().get(1).getUrl();
         song.setText(resize(inf.getName(), song.getFont(), 174));
         StringBuilder artists = new StringBuilder();
@@ -573,7 +543,7 @@ public class ChatPanel extends JPanel{
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
     }
-
+    private BufferedImage profile = null;
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
@@ -584,8 +554,18 @@ public class ChatPanel extends JPanel{
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
-            if(host)
-                g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 33, 24, 24, this);
+            if(profile == null)
+            {
+                UserData dat = api.getUserData();
+                if(dat.getImages() == null || dat.getImages().isEmpty())
+                {
+                    profile = ImageIO.read(getClass().getResource("/images/logo.png"));
+                }else
+                {
+                    profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
+                }
+            }
+            g.drawImage(profile, 10, 33, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {

@@ -1,10 +1,10 @@
 package spotifyAPI;
 
-public class OSXSpotifyAPI extends SpotWebSkimmer {
+public class OSXSpotifyAPI extends SpotifyWebAPI {
     SpotifyAppleScriptWrapper wrapper;
-    public OSXSpotifyAPI(String user, String pass)
+    public OSXSpotifyAPI()
     {
-        super(user, pass);
+        super();
         wrapper = new SpotifyAppleScriptWrapper();
     }
     @Override
