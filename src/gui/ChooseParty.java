@@ -40,11 +40,11 @@ public class ChooseParty extends JPanel {
         host.setBounds(345, 305,170, 75);
         this.add(host);
 
-        JLabel load = new JLabel("Loading...", SwingConstants.CENTER);
-        load.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
-        load.setForeground(Color.WHITE);
-        load.setBounds(350, 307, 160, 70);
-        this.add(load);
+        JLabel load2 = new JLabel("Loading...", SwingConstants.CENTER);
+        load2.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        load2.setForeground(Color.WHITE);
+        load2.setBounds(350, 307, 160, 70);
+        this.add(load2);
     }
 
     public AbstractButton getJoin() {return join;}

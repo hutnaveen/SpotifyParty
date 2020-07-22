@@ -30,6 +30,12 @@ public class JoinPartyPanel extends JPanel {
         enter.setBounds(250, 325,200, 70);
         this.add(enter);
 
+        JLabel load = new JLabel("Loading...", SwingConstants.CENTER);
+        load.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        load.setForeground(Color.WHITE);
+        load.setBounds(255, 330, 190, 65);
+        this.add(load);
+
         JLabel text = new JLabel("Join Party", SwingConstants.CENTER);
         try {
             GraphicsEnvironment ge =

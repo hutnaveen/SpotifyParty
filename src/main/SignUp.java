@@ -58,14 +58,22 @@ public class SignUp extends JPanel {
             public void mousePressed(MouseEvent e) {
                     super.mousePressed(e);
                     pass.setForeground(Color.BLACK);
+                    pass.setText("");
             }
         });
         pass.setBounds(145, 310, 400, 50);
         this.add(pass);
+
         ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/slice4.png")), 180, 60);
         enter = makeButton(icon);
         enter.setBounds(250, 375,180, 60);
         this.add(enter);
+
+        JLabel load = new JLabel("Loading...", SwingConstants.CENTER);
+        load.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        load.setForeground(Color.WHITE);
+        load.setBounds(255, 380, 170, 55);
+        this.add(load);
     }
 
     public AbstractButton getEnter() {return enter;}
