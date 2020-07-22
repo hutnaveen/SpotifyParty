@@ -536,8 +536,13 @@ public class ChatPanel extends JPanel{
             ret.replace(ret.length()-1,ret.length(), "");
         return ret.toString()+ " ...";
     }
-    public Item updateData() {
-        return updateData(api.getTrackUri());
+    public Item updateData(){
+        try {
+            return updateData(api.getTrackUri());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public static void setCode(String tcode) {
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));

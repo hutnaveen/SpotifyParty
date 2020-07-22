@@ -1,8 +1,5 @@
 package client;
-
-import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
-import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.TimeUtils;
 
 import java.io.IOException;
@@ -127,7 +124,7 @@ public class UDPClient {
                     e.printStackTrace();
                 }
             }
-        } catch (SpotifyException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

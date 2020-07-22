@@ -60,10 +60,9 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (props.getProperty("refreshToken") != null) {
-                oAuthToken = new OAuthTokenData();
-                oAuthToken.setRefresh_token(props.getProperty("refreshToken"));
-                oAuthToken = reFreshToken();
+            String refresh = props.getProperty("refreshToken");
+            if (refresh != null) {
+                oAuthToken = reFreshToken(refresh);
             }
         }
         if(oAuthToken == null){
@@ -148,12 +147,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         }
         return null;
     }
-    private OAuthTokenData reFreshToken()
+    private OAuthTokenData reFreshToken(String token)
     {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-        RequestBody body = RequestBody.create(mediaType, "grant_type=refresh_token&refresh_token="+oAuthToken.getRefresh_token()+"&client_id="+clientID);
+        RequestBody body = RequestBody.create(mediaType, "grant_type=refresh_token&refresh_token="+token+"&client_id="+clientID);
         Request request = new Request.Builder()
                 .url("https://accounts.spotify.com/api/token")
                 .method("POST", body)
@@ -175,6 +174,10 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         }
         return null;
     }
+    private OAuthTokenData reFreshToken()
+    {
+        return reFreshToken(oAuthToken.getRefresh_token());
+    }
     @Override
     public boolean isSingle() {
         return false;
@@ -187,16 +190,11 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     }
 
     @Override
-    public void playPause() {
-        try {
+    public void playPause() throws IOException {
             if(isPlaying())
                 pause();
             else
                 play();
-        }catch (SpotifyException e)
-        {
-
-        }
     }
 
     @Override
@@ -208,7 +206,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     }
 
     @Override
-    public long getPlayBackPosition() throws SpotifyException {
+    public long getPlayBackPosition() throws IOException {
         return getPlayerData().getProgress_ms();
     }
 
@@ -218,17 +216,17 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     }
 
     @Override
-    public long getDuration() throws SpotifyException{
+    public long getDuration() throws IOException {
         return getPlayingTrack().getDuration_ms();
     }
 
     @Override
-    public int getVolume() throws SpotifyException{
+    public int getVolume() throws IOException {
         return getPlayerData().getDevice().getVolume_percent();
     }
 
     @Override
-    public boolean isPlaying() throws SpotifyException{
+    public boolean isPlaying() throws IOException {
         return getPlayerData().is_playing();
     }
 
@@ -242,31 +240,28 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     }
 
     @Override
-    public List<Artist> getTrackArtists() {
+    public List<Artist> getTrackArtists() throws IOException {
         return getPlayingTrack().getArtists();
     }
 
     @Override
-    public String getTrackAlbum() {
+    public String getTrackAlbum() throws IOException {
         return getPlayingTrack().getAlbum().getName();
     }
 
     @Override
-    public String getTrackUri() {
-        Item item= getPlayingTrack();
-        if(item == null)
-            return new SpotifyAppleScriptWrapper().getTrackUri();
-        else
-            return item.getUri();
+    public String getTrackUri() throws IOException {
+        Item item = getPlayingTrack();
+        return item.getUri();
     }
 
     @Override
-    public String getTrackName() {
+    public String getTrackName() throws IOException {
         return getPlayingTrack().getName();
     }
 
     @Override
-    public Item getPlayingTrack() {
+    public Item getPlayingTrack() throws IOException {
         return getPlayerData().getItem();
     }
 
@@ -299,8 +294,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
     }
-    public PlayerData getPlayerData()
-    {
+    public PlayerData getPlayerData() throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -310,7 +304,6 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Authorization", "Bearer " + oAuthToken.getAccess_token())
                 .build();
-        try {
             Response response = client.newCall(request).execute();
             Gson son = new Gson();
             String data = response.body().string();
@@ -321,11 +314,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
                 System.out.println(data);
                 System.exit(100);
             }
-            return son.fromJson(data, PlayerData.class);
-        } catch (IOException e) {
-            e.printStackTrace();
+            PlayerData ret = son.fromJson(data, PlayerData.class);
+        if(ret==null)
+        {
+            System.out.println(data);
         }
-        return null;
+        return ret;
     }
     public Item getTrackInfo(String id)
     {
@@ -395,7 +389,4 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         return null;
     }
 
-    public static void main(String[] args) throws URISyntaxException {
-        new SpotifyWebAPI();
-    }
 }
