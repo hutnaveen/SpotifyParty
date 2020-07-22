@@ -144,7 +144,7 @@ public class TCPClient
                         }
 
                     } catch (Exception e) {
-                       // e.printStackTrace();
+                       e.printStackTrace();
                     }
                 }
             }
@@ -176,7 +176,7 @@ public class TCPClient
                             SpotifyParty.api.playTrack(trackID);
                             chatPanel.updateData(trackID);
                             System.out.println(pos + (TimeUtils.getAppleTime() - timeStamp) + 2000);
-                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 2500);
+                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
                         }
                         if(tempPlaying != playing)
                         {
