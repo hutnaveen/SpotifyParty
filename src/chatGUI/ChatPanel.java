@@ -6,6 +6,7 @@ import gui.RoundJTextField;
 import lyrics.LyricFinder;
 import model.Artist;
 import model.Item;
+import model.UserData;
 import server.TCPServer;
 import utils.GUIUtils;
 import utils.SpotifyUtils;
@@ -20,6 +21,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -50,13 +52,6 @@ public class ChatPanel extends JPanel{
     public static JTextPane req;
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
-    public static AbstractButton mode;
-    public static ImageIcon enabled = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 24, 24);
-    public static ImageIcon disabled = resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/neglogo.png")), 24, 24);
-    static {
-        ImageIcon ic = enabled;
-        mode = makeButton(ic);
-    }
     public ChatPanel() {
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
@@ -65,23 +60,6 @@ public class ChatPanel extends JPanel{
         back.setLayout(cl);
         back.add(chat, "ChatPanel");
         back.add(requestPanel, "RequestPanel");
-        mode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(!host)
-                {
-                    cli.synced = !cli.synced;
-                    if(cli.synced)
-                    {
-                        mode.setIcon(enabled);
-                    }
-                    else
-                    {
-                        mode.setIcon(disabled);
-                    }
-                }
-            }
-        });
         cl.show(back, "ChatPanel");
 
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
@@ -328,14 +306,6 @@ public class ChatPanel extends JPanel{
         this.add(guest);
         */
 
-        if(!host) {
-            this.add(mode);
-            mode.setBounds(10, 33, 24, 24);
-        }else
-        {
-            mode.setEnabled(false);
-        }
-        mode.setFocusable(false);
         back.setBounds(250, 70, 450, 460);
         this.add(back);
     }
@@ -573,7 +543,7 @@ public class ChatPanel extends JPanel{
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
         code.setText(tcode);
     }
-
+    private BufferedImage profile = null;
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
@@ -584,8 +554,18 @@ public class ChatPanel extends JPanel{
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
-            if(host)
-                g.drawImage(ImageIO.read(getClass().getResource("/images/logo.png")), 10, 33, 24, 24, this);
+            if(profile == null)
+            {
+                UserData dat = api.getUserData();
+                if(dat.getImages() == null || dat.getImages().isEmpty())
+                {
+                    profile = ImageIO.read(getClass().getResource("/images/logo.png"));
+                }else
+                {
+                    profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
+                }
+            }
+            g.drawImage(profile, 10, 33, 24, 24, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
