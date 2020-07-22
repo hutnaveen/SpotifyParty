@@ -1,5 +1,4 @@
 package client;
-
 import chatGUI.ChatPanel;
 import gui.*;
 import exception.SpotifyException;
@@ -75,7 +74,7 @@ public class TCPClient
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sendToServer("name " + JoinPartyPanel.name.getText());
+        sendToServer("name " + FriendName);
         trackUpdater();
     }
     public void quit()
@@ -208,7 +207,7 @@ public class TCPClient
                     }
                 }
             }
-        } catch (SpotifyException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
