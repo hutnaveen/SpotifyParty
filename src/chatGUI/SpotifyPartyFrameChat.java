@@ -3,14 +3,15 @@ package chatGUI;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 
 public class SpotifyPartyFrameChat extends JFrame {
-    public MenuItem join;
-    public MenuItem hostLocal;
-    public MenuItem hostPublic;
+    public static MenuItem join;
+    public static MenuItem hostLocal;
+    public static MenuItem hostPublic;
     //public boolean updateAvalibe = true;
 
     public static TrayIcon  trayIcon = new TrayIcon(new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB), "");
@@ -64,6 +65,7 @@ public class SpotifyPartyFrameChat extends JFrame {
         //menu.add(hostLocal);
         //menu.addSeparator();
         menu.add(hostPublic);
+     //   hostPublic.addActionListener();
         menu.addSeparator();
 
 
