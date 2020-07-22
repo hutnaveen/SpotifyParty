@@ -144,7 +144,7 @@ public class TCPClient
                         }
 
                     } catch (Exception e) {
-                       // e.printStackTrace();
+                       e.printStackTrace();
                     }
                 }
             }

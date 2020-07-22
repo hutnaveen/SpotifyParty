@@ -60,10 +60,9 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (props.getProperty("refreshToken") != null) {
-                oAuthToken = new OAuthTokenData();
-                oAuthToken.setRefresh_token(props.getProperty("refreshToken"));
-                oAuthToken = reFreshToken();
+            String refresh = props.getProperty("refreshToken");
+            if (refresh != null) {
+                oAuthToken = reFreshToken(refresh);
             }
         }
         if(oAuthToken == null){
@@ -148,12 +147,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         }
         return null;
     }
-    private OAuthTokenData reFreshToken()
+    private OAuthTokenData reFreshToken(String token)
     {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-        RequestBody body = RequestBody.create(mediaType, "grant_type=refresh_token&refresh_token="+oAuthToken.getRefresh_token()+"&client_id="+clientID);
+        RequestBody body = RequestBody.create(mediaType, "grant_type=refresh_token&refresh_token="+token+"&client_id="+clientID);
         Request request = new Request.Builder()
                 .url("https://accounts.spotify.com/api/token")
                 .method("POST", body)
@@ -174,6 +173,10 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
         return null;
+    }
+    private OAuthTokenData reFreshToken()
+    {
+        return reFreshToken(oAuthToken.getRefresh_token());
     }
     @Override
     public boolean isSingle() {
@@ -311,7 +314,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
                 System.out.println(data);
                 System.exit(100);
             }
-            return son.fromJson(data, PlayerData.class);
+            PlayerData ret = son.fromJson(data, PlayerData.class);
+        if(ret==null)
+        {
+            System.out.println(data);
+        }
+        return ret;
     }
     public Item getTrackInfo(String id)
     {
