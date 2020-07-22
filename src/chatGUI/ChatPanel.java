@@ -539,7 +539,7 @@ public class ChatPanel extends JPanel{
     public Item updateData(){
         try {
             return updateData(api.getTrackUri());
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
         return null;
