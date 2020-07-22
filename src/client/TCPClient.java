@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static main.SpotifyParty.api;
 import static utils.GUIUtils.resizeIcon;
 import static chatGUI.SpotifyPartyPanelChat.FriendName;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
@@ -27,7 +28,6 @@ public class TCPClient
 {
     private DataInputStream dis;
     private DataOutputStream dos;
-    public static boolean synced = true;
     private Thread updater;
     private Thread tempUpdate;
     private String id = FriendName;
@@ -156,13 +156,13 @@ public class TCPClient
     long time = Integer.MIN_VALUE;
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
-            System.out.println(synced);
-            if (!synced && (prevSong == null || !prevSong.equals(trackID)))
+            //System.out.println(api.getPlayerData().getDevice().is_private_session());
+            if (api.getPlayerData().getDevice().is_private_session() && (prevSong == null || !prevSong.equals(trackID)))
             {
                 prevSong = trackID;
                 chatPanel.updateData(trackID);
             }
-            else if(synced) {
+            else if(!api.getPlayerData().getDevice().is_private_session()) {
                 String tempTrack = SpotifyParty.api.getTrackUri();
                 boolean tempPlaying =SpotifyParty.api.isPlaying();
                 log("" + tempPlaying);

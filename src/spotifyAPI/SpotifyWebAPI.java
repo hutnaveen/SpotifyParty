@@ -8,8 +8,9 @@ import model.Artist;
 import model.Item;
 import model.OAuthTokenData;
 import model.PlayerData;
-import model.RandomString;
+
 import model.SearchItem;
+import model.UserData;
 import oAuth.OAuthHTTPServer;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -39,7 +40,6 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     URI redirect = null;
     final String ogRedirect = "http%3A%2F%2Flocalhost%3A8081%2Fhello";
     final String clientID = "c1ca134a13a74a1b95046d69c8ef11d1";
-    RandomString random = new RandomString(94);
     String randomString;
     String code;
     Properties props;
@@ -74,11 +74,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             }
             final StringKeyGenerator secureKeyGenerator =
                     new Base64StringKeyGenerator(Base64.getUrlEncoder().withoutPadding(), 96);
-
-            //randomString = random.nextString();
             randomString = secureKeyGenerator.generateKey();
-            //String sha256 = getSHA256(randomString);
-            //String urlEncoded = Base64.getUrlEncoder().withoutPadding().encodeToString(sha256.getBytes());
             String urlEncoded = createHash(randomString);
 
 
@@ -86,7 +82,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             //  System.out.println("urlEncoded String="+ urlEncoded);
             //redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=c1ca134a13a74a1b95046d69c8ef11d1&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state%2Cuser-read-email%2C");
             try {
-                redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=" + clientID + "&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state%2Cuser-read-email%2C&code_challenge=" + urlEncoded + "&code_challenge_method=S256");
+                redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=" + clientID + "&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state%2Cuser-read-email%2C%2Cuser-read-private%2C&code_challenge=" + urlEncoded + "&code_challenge_method=S256");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -114,19 +110,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     private static String createHash(String value) {
        try {
            MessageDigest md = MessageDigest.getInstance("SHA-256");
-
            byte[] digest = md.digest(value.getBytes(StandardCharsets.US_ASCII));
-
            return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
        }catch (Exception e){
            e.printStackTrace();
        }
         return null;
-    }
-    private String getSHA256(String originalString){
-        return Hashing.sha256()
-                .hashString(originalString, StandardCharsets.UTF_8)
-                .toString();
     }
 
     private OAuthTokenData getToken()
@@ -303,7 +292,6 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Authorization", "Bearer " + oAuthToken.getAccess_token())
-                .addHeader("Cookie", "sp_t=e780e37cec7d9c68eb85bda1a53c77a1")
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -381,6 +369,32 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         }
         return null;
     }
+    public UserData getUserData()
+    {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("https://api.spotify.com/v1/me")
+                .method("GET", null)
+                .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + oAuthToken.getAccess_token())
+                .build();
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson son = new Gson();
+        try {
+            return son.fromJson(response.body().string(), UserData.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) throws URISyntaxException {
         new SpotifyWebAPI();
     }
