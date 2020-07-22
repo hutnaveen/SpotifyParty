@@ -2,10 +2,9 @@ package spotifyAPI;
 
 public class OSXSpotifyAPI extends SpotifyWebAPI {
     SpotifyAppleScriptWrapper wrapper;
-    public OSXSpotifyAPI()
-    {
+    public OSXSpotifyAPI() {
         super();
-        wrapper = new SpotifyAppleScriptWrapper();
+       wrapper = new SpotifyAppleScriptWrapper();
     }
     @Override
     public void nextTrack() {
