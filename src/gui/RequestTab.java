@@ -29,7 +29,7 @@ public class RequestTab extends JPanel {
     public String name;
 
     public RequestTab(String link, String str) {
-        info = SpotifyUtils.getTrack(link);
+        info = api.getTrackInfo(link);
             url = link;
             name = str;
             this.setLayout(null);
@@ -184,7 +184,7 @@ public class RequestTab extends JPanel {
             g2d.setPaint(gp);
             g2d.fillRoundRect(0, 30, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(SpotifyUtils.getTrack(url).getAlbum().getImages().get(2).getUrl()), 10, 39, 60, 60, this);
+            g.drawImage(ImageIO.read(api.getTrackInfo(url).getAlbum().getImages().get(2).getUrl()), 10, 39, 60, 60, this);
         }
         catch (Exception e)
         {

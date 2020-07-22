@@ -12,7 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class GUIUtils {
@@ -64,5 +66,15 @@ public class GUIUtils {
         FontRenderContext frc = new FontRenderContext(affinetransform,true,true);
         return  (int)(font.getStringBounds(text, frc).getHeight());
     }
+    public static BufferedImage circleCrop(BufferedImage in)
+    {
+        int width = in.getWidth();
+        BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = circleBuffer.createGraphics();
+        g2.setClip(new Ellipse2D.Float(0, 0, width, width));
+        g2.drawImage(in, 0, 0, width, width, null);
+        return circleBuffer;
+    }
+
 }
 
