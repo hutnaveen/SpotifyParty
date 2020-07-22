@@ -94,7 +94,7 @@ public class ChatPanel extends JPanel{
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/fonts/Arial Unicode MS.ttf").getFile())));
             System.out.println(Arrays.toString(ge.getAllFonts()));
         } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -357,7 +357,7 @@ public class ChatPanel extends JPanel{
                 type.setText("");
             } else {
                 try {
-                   Item temp = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                   Item temp = api.search(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     if(temp != null ) {
                         api.playTrack(temp.getUri());
                         type.setText("");
@@ -384,14 +384,14 @@ public class ChatPanel extends JPanel{
             } else {
                 Item item;
                 try {
-                    item = SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                    item = api.search(type.getText().toLowerCase()).getTracks().getItems().get(0);
                     RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
                     cli.sendToServer("request " + item.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        item = SpotifyUtils.getTrack(type.getText());
+                        item = api.search(type.getText()).getTracks().getItems().get(0);
                         RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         cli.sendToServer("request " + type.getText() + " " + FriendName);
@@ -427,7 +427,7 @@ public class ChatPanel extends JPanel{
                         try {
                             String str = type.getText().trim().toLowerCase();
                             str = str.substring(str.indexOf("play!:") + 6).trim();
-                            api.playTrack(SpotifyUtils.altSearch(str).getTracks().getItems().get(0).getUri());
+                            api.playTrack(api.search(str).getTracks().getItems().get(0).getUri());
                         }catch (Exception e)
                         {
                             work = false;
@@ -472,7 +472,7 @@ public class ChatPanel extends JPanel{
                         String str = type.getText().trim().toLowerCase().replaceAll("[^a-zA-Z0-9]", " ");
                         try {
 
-                            tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                            tab = new RequestTab(api.search(type.getText().trim()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                         } catch (Exception e3) {
                             type.setText("can't find that song");
                             type.selectAll();
@@ -492,7 +492,7 @@ public class ChatPanel extends JPanel{
                 try {
 
                     System.out.println(type.getText());
-                    api.playTrack(SpotifyUtils.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).get(0).getUri());
+                    api.playTrack(api.search(type.getText().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", " ")).getTracks().getItems().get(0).getUri());
                 } catch (Exception e) {
                     System.out.println("Cannot find song, Sorry!");
                     type.setText("Cannot find song, Sorry!");
@@ -507,7 +507,7 @@ public class ChatPanel extends JPanel{
                 type.setText("");
             } else {
                 try {
-                    tab = new RequestTab(SpotifyUtils.search(type.getText().trim()).get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                    tab = new RequestTab(api.search(type.getText().trim()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     tab = new RequestTab(type.getText().trim(), SpotifyPartyPanelChat.FriendName);
                     if (SpotifyPartyPanelChat.host)
                         TCPServer.sendToClients("request " + tab.toString().split(";")[0].trim() + " " + SpotifyPartyPanelChat.FriendName);
@@ -515,7 +515,7 @@ public class ChatPanel extends JPanel{
                         cli.sendToServer("request " + tab.toString().split(";")[0] + " " + SpotifyPartyPanelChat.FriendName);
                 } catch (Exception e1) {
                     try {
-                        tab = new RequestTab(SpotifyUtils.altSearch(type.getText().toLowerCase()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
+                        tab = new RequestTab(api.search(type.getText().toLowerCase()).getTracks().getItems().get(0).getUri(), SpotifyPartyPanelChat.FriendName);
                     } catch (Exception e3) {
                         type.setText("can't find that song");
                         type.selectAll();
@@ -542,7 +542,7 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
-        Item inf = SpotifyUtils.getTrack(trackID);
+        Item inf = api.getTrackInfo(trackID);
         artworkURL = inf.getAlbum().getImages().get(1).getUrl();
         song.setText(resize(inf.getName(), song.getFont(), 174));
         StringBuilder artists = new StringBuilder();

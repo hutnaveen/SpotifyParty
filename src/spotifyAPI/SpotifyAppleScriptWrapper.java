@@ -10,13 +10,9 @@ import java.util.List;
 public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     public boolean playTrack(String id){
         try {
-            if(SpotifyUtils.getTrack(id) != null) {
                 OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
                         "     play track \""+id+"\"\n" +
                         "end tell");
-            } else {
-                return false;
-            }
         } catch (Exception e) {
             return false;
         }
@@ -229,6 +225,6 @@ public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
 
     @Override
     public Item getPlayingTrack() {
-        return SpotifyUtils.getTrack(getTrackUri());
+        return null;
     }
 }
