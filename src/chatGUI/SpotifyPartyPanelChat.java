@@ -70,7 +70,9 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
          */
         else if(e.getActionCommand().equals("hostPublic")) {
-            FriendName = "Host";
+            //FriendName = "Host";
+            FriendName = api.getUserData().getDisplay_name();
+            FriendName = FriendName.replace(" ", "-");
             host = true;
             local = true;
             server = new TCPServer(true);
@@ -89,7 +91,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             if(code != null)
             {
                 System.out.println(x);
-                FriendName = JoinPartyPanel.name.getText();
+                FriendName = api.getUserData().getDisplay_name();
                 FriendName = FriendName.replace(" ", "-");
                 cli =  new TCPClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");

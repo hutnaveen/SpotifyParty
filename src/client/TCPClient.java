@@ -1,5 +1,4 @@
 package client;
-
 import chatGUI.ChatPanel;
 import gui.*;
 import exception.SpotifyException;
