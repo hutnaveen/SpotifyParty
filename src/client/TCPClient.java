@@ -156,12 +156,12 @@ public class TCPClient
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
             //System.out.println(api.getPlayerData().getDevice().is_private_session());
-            if (api.getPlayerData().getDevice().is_private_session() && (prevSong == null || !prevSong.equals(trackID)))
+            if (false && (prevSong == null || !prevSong.equals(trackID)))
             {
                 prevSong = trackID;
                 chatPanel.updateData(trackID);
             }
-            else if(!api.getPlayerData().getDevice().is_private_session()) {
+            else if(!false) {
                 String tempTrack = SpotifyParty.api.getTrackUri();
                 boolean tempPlaying =SpotifyParty.api.isPlaying();
                 log("" + tempPlaying);
