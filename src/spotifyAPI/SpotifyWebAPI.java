@@ -248,7 +248,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
 
     @Override
     public String getTrackUri() throws IOException {
-        Item item= getPlayingTrack();
+        Item item = getPlayingTrack();
         return item.getUri();
     }
 
@@ -381,7 +381,4 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         return null;
     }
 
-    public static void main(String[] args) throws URISyntaxException {
-        new SpotifyWebAPI();
-    }
 }
