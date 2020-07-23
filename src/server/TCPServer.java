@@ -156,20 +156,7 @@ public class TCPServer
                                 chatPanel.updateData(tempTrack);
                             }catch (Exception e)
                             {
-                                new Thread(() -> {
-                                    try {
-                                        Thread.sleep(3000);
-                                    } catch (InterruptedException interruptedException) {
-                                        interruptedException.printStackTrace();
-                                    }
-                                    try
-                                    {
-                                        chatPanel.updateData(tempTrack);
-                                    }catch (Exception e1)
-                                    {
 
-                                    }
-                                }).start();
                             }
                         }
                     }
