@@ -117,9 +117,11 @@ public class TCPServer
     }
     public static void sendToClients(String msg, DataInputStream exc)
     {
+        System.out.println(msg);
         ArrayList<DataInputStream> rem = new ArrayList<>();
         for(DataInputStream id: stream.keySet())
         {
+            System.out.println(id);
             if(!id.equals(exc)) {
                 try {
                     stream.get(id).writeUTF(msg);
@@ -156,20 +158,7 @@ public class TCPServer
                                 chatPanel.updateData(tempTrack);
                             }catch (Exception e)
                             {
-                                new Thread(() -> {
-                                    try {
-                                        Thread.sleep(3000);
-                                    } catch (InterruptedException interruptedException) {
-                                        interruptedException.printStackTrace();
-                                    }
-                                    try
-                                    {
-                                        chatPanel.updateData(tempTrack);
-                                    }catch (Exception e1)
-                                    {
-
-                                    }
-                                }).start();
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -177,7 +166,7 @@ public class TCPServer
                    // e.printStackTrace();
                 }
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
