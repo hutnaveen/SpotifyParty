@@ -512,7 +512,7 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
-        if(trackID == null) {
+        if(trackID != null) {
             Item inf = api.getTrackInfo(trackID);
             artworkURL = inf.getAlbum().getImages().get(1).getUrl();
             song.setText(resize(inf.getName(), song.getFont(), 174));

@@ -314,12 +314,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
                 System.out.println(data);
                 System.exit(100);
             }
+            System.out.println("Data received from player:" + data);
             PlayerData ret = son.fromJson(data, PlayerData.class);
-        if(ret==null)
-        {
-            System.out.println(data);
-        }
-        return ret;
+            if (ret == null) {
+                System.out.println(data);
+            }
+            return ret;
     }
     public Item getTrackInfo(String id)
     {
