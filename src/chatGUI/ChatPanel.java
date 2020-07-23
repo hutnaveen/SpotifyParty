@@ -512,20 +512,23 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
-        Item inf = api.getTrackInfo(trackID);
-        artworkURL = inf.getAlbum().getImages().get(1).getUrl();
-        song.setText(resize(inf.getName(), song.getFont(), 174));
-        StringBuilder artists = new StringBuilder();
-        for (Artist art : inf.getArtists()) {
-            artists.append(art.getName() + ", ");
+        if(trackID == null) {
+            Item inf = api.getTrackInfo(trackID);
+            artworkURL = inf.getAlbum().getImages().get(1).getUrl();
+            song.setText(resize(inf.getName(), song.getFont(), 174));
+            StringBuilder artists = new StringBuilder();
+            for (Artist art : inf.getArtists()) {
+                artists.append(art.getName() + ", ");
+            }
+            artists.replace(artists.length() - 2, artists.length(), "");
+            //  System.out.println(GUIUtils.getTextWidth("Murda (feat. Cory Gunz, Cap", artist.getFont()));
+            artist.setText(resize(artists.toString(), artist.getFont(), 194));
+            color = inf.getDominantColor().darker();
+            addLyrics();
+            repaint();
+            return inf;
         }
-        artists.replace(artists.length() - 2, artists.length(), "");
-      //  System.out.println(GUIUtils.getTextWidth("Murda (feat. Cory Gunz, Cap", artist.getFont()));
-        artist.setText(resize(artists.toString(), artist.getFont(), 194));
-        color = inf.getDominantColor().darker();
-        addLyrics();
-        repaint();
-        return inf;
+       return null;
     }
     private String resize(String str, Font font, int max)
     {
@@ -540,9 +543,8 @@ public class ChatPanel extends JPanel{
         try {
             return updateData(api.getTrackUri());
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            return updateData( null);
         }
-        return null;
     }
     public static void setCode(String tcode) {
         code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
