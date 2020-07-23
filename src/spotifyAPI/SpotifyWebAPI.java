@@ -349,7 +349,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/search?q="+q+"&type=track")
+                .url("https://api.spotify.com/v1/search?q="+q+"&type=track&limit=5")
                 .method("GET", null)
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
