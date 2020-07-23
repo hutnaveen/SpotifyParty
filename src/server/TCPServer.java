@@ -163,7 +163,7 @@ public class TCPServer
                         }
                     }
                 } catch (Exception e) {
-                   // e.printStackTrace();
+                    e.printStackTrace();
                 }
                 try {
                     Thread.sleep(1000);
