@@ -78,7 +78,7 @@ public class ChatPanel extends JPanel{
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
         code.setForeground(Color.GRAY);
-        code.setBounds(40, 30, 195, 30);
+        code.setBounds(47, 31, 195, 34);
         code.setEditable(false);
         code.addMouseListener(new MouseAdapter() {
             @Override
@@ -326,9 +326,23 @@ public class ChatPanel extends JPanel{
             } else if (type.getText().trim().toLowerCase().contains("replay!")) {
                 api.previousTrack();
                 type.setText("");
+            } else if (type.getText().trim().toLowerCase().contains("egg!")) {
+                String op = "abcdefghijklmnopqrstuvwxyz";
+                int pos = (int)(Math.random() * (op.length() - 1));
+                int pos2 = (int)(Math.random() * (op.length() - 1));
+                String search = op.substring(pos, pos + 1) + op.substring(pos2, pos2 + 1);
+                search = search.toString();
+                Item item = api.search(search.toLowerCase(), 50).getTracks().getItems().get((int)(Math.random() * 50));
+                try {
+                    api.playTrack(item.getUri());
+                    type.setText("");
+                } catch (Exception e) {
+                    api.playTrack("spotify:track:42C9YmmOF7PkiHWpulxzcq");
+                    type.setText("");
+                }
             } else {
                 try {
-                   Item temp = api.search(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                   Item temp = api.search(type.getText().toLowerCase(), 5).getTracks().getItems().get(0);
                     if(temp != null ) {
                         api.playTrack(temp.getUri());
                         type.setText("");
@@ -355,14 +369,14 @@ public class ChatPanel extends JPanel{
             } else {
                 Item item;
                 try {
-                    item = api.search(type.getText().toLowerCase()).getTracks().getItems().get(0);
+                    item = api.search(type.getText().toLowerCase(), 5).getTracks().getItems().get(0);
                     RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
                     cli.sendToServer("request " + item.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        item = api.search(type.getText()).getTracks().getItems().get(0);
+                        item = api.search(type.getText(), 5).getTracks().getItems().get(0);
                         RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         cli.sendToServer("request " + type.getText() + " " + FriendName);
@@ -375,7 +389,7 @@ public class ChatPanel extends JPanel{
         }
     }
 
-
+    /*
     private void recommendationHandler() {
         Item item = null;
         boolean work = true;
@@ -434,7 +448,6 @@ public class ChatPanel extends JPanel{
                             this.chat.addRequest(new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName));
                     }
 
-                     */
                 } else {
                     work = true;
                     try {
@@ -502,6 +515,7 @@ public class ChatPanel extends JPanel{
         }
     }
 
+     */
 
     public void addLyrics() {
         try {
@@ -573,7 +587,7 @@ public class ChatPanel extends JPanel{
                     profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
                 }
             }
-            g.drawImage(profile, 10, 33, 24, 24, this);
+            g.drawImage(profile, 9, 31, 34, 34, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {
