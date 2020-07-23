@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+import static main.SpotifyParty.defFont;
 import static utils.GUIUtils.makeButton;
 import static utils.GUIUtils.resizeIcon;
 
@@ -31,7 +32,7 @@ public class SignUp extends JPanel {
         } catch (IOException |FontFormatException e) {
             //Handle exception
         }
-        text.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 55));
+        text.setFont(new Font(defFont, Font.PLAIN, 55));
         text.setForeground(Color.WHITE);
         text.setBounds(145, 145, 400, 100);
         this.add(text);
@@ -70,7 +71,7 @@ public class SignUp extends JPanel {
         this.add(enter);
 
         JLabel load = new JLabel("Loading...", SwingConstants.CENTER);
-        load.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        load.setFont(new Font(defFont, Font.PLAIN, 30));
         load.setForeground(Color.WHITE);
         load.setBounds(255, 380, 170, 55);
         this.add(load);

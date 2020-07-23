@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -12,14 +13,16 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
+import static main.SpotifyParty.defFont;
+
 public class RoundJTextField extends JTextField {
     private Shape shape;
     public RoundJTextField(int size) {
         putClientProperty("Aqua.useFocusRing", "false");
-        setBorder(null);
+        setBorder(new EmptyBorder(new Insets(4,4,4,4)));
         setOpaque(true);
         setColumns(size);
-        setFont(new Font("CircularSpUIv3T-Light",Font.BOLD, 20));
+        setFont(new Font(defFont,Font.BOLD, 20));
         setPreferredSize(new Dimension(40, 40));
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);

@@ -17,6 +17,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static main.SpotifyParty.defFont;
+
 public class GUIUtils {
     public static AbstractButton makeButton(String title, ImageIcon icon) {
         return new JButton(title) {
@@ -43,7 +45,7 @@ public class GUIUtils {
     public static JButton makeButton(String title)
     {
         JButton button = new JButton(title);
-        button.setFont(new Font("CircularSpUIv3T-Light", Font.PLAIN, 30));
+        button.setFont(new Font(defFont, Font.PLAIN, 30));
         button.setForeground(new Color(30, 215, 96));
         return button;
     }
