@@ -322,7 +322,7 @@ public class ChatPanel extends JPanel{
             } else if (type.getText().trim().toLowerCase().contains("next!")) {
                 api.nextTrack();
                 type.setText("");
-            } else if (type.getText().trim().toLowerCase().contains("prev!")) {
+            } else if (type.getText().trim().toLowerCase().contains("replay!")) {
                 api.previousTrack();
                 type.setText("");
             } else {
