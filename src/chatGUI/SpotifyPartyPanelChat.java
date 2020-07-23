@@ -8,6 +8,7 @@ import spotifyAPI.OSXSpotifyAPI;
 import utils.NetworkUtils;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import static chatGUI.SpotifyPartyFrameChat.menu;
 import static chatGUI.SpotifyPartyFrameChat.quit;
 import static main.SpotifyParty.chatPanel;
 import static main.SpotifyParty.api;
+import static utils.GUIUtils.resizeIcon;
 
 public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public boolean local = false;
@@ -70,7 +72,13 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
          */
         else if(e.getActionCommand().equals("hostPublic")) {
-            //FriendName = "Host";
+            Object[] options = { "OK"};
+            JFrame frame = new JFrame();
+            frame.setAlwaysOnTop(true);
+            JOptionPane.showOptionDialog(frame, "Your party will start shortly!", "Spotify Party!",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 50, 50), options, options[0]);
+
             FriendName = api.getUserData().getDisplay_name();
             FriendName = FriendName.replace(" ", "-");
             host = true;
