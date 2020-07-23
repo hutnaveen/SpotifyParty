@@ -17,7 +17,7 @@ public class Album
     String id;
     List<Image> images;
     String name;
-    Date release_date;
+    String release_date;
     String release_date_precision;
     int total_tracks;
     String type;

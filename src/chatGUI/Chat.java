@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static chatGUI.SpotifyPartyPanelChat.spfc;
+import static main.SpotifyParty.defFont;
 
 public class Chat extends JPanel {
     public static JTextPane chat;
@@ -77,7 +78,7 @@ public class Chat extends JPanel {
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
         // doc.setParagraphAttributes(0, doc.getLength(), left, false);
-        chat.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
+        chat.setFont(new Font(defFont, Font.PLAIN, 20));
         Style style = chat.addStyle("I'm a Style", null);
         if(!prev.equals(name)) {
             if(name.equals(SpotifyPartyPanelChat.FriendName)) {

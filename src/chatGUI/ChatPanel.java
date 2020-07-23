@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static main.SpotifyParty.defFont;
 import static utils.GUIUtils.makeButton;
 import static utils.GUIUtils.resizeIcon;
 import static chatGUI.SpotifyPartyPanelChat.FriendName;
@@ -65,7 +66,7 @@ public class ChatPanel extends JPanel{
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
-        code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+        code.setFont(new Font(defFont, Font.PLAIN, 8));
         try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -103,7 +104,7 @@ public class ChatPanel extends JPanel{
         song.setOpaque(false);
         song.setForeground(Color.WHITE);
         song.setEditable(false);
-        song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 13));
+        song.setFont(new Font(defFont, Font.PLAIN, 13));
         StyledDocument doc = song.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
@@ -117,7 +118,7 @@ public class ChatPanel extends JPanel{
         artist.setOpaque(false);
         artist.setForeground(Color.GRAY);
         artist.setEditable(false);
-        artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 13));
+        artist.setFont(new Font(defFont, Font.PLAIN, 13));
         StyledDocument doc2 = artist.getStyledDocument();
         SimpleAttributeSet center2 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center2, StyleConstants.ALIGN_CENTER);
@@ -133,7 +134,7 @@ public class ChatPanel extends JPanel{
         area.setAutoscrolls(true);
         area.setEditable(false);
         area.setForeground(Color.WHITE);
-        area.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
+        area.setFont(new Font(defFont, Font.PLAIN, 15));
         area.setOpaque(false);
         StyledDocument doc3 = area.getStyledDocument();
         SimpleAttributeSet center3 = new SimpleAttributeSet();
@@ -177,7 +178,7 @@ public class ChatPanel extends JPanel{
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        type.setFont(new Font("CircularSpUIv3T-Light",Font.BOLD, 15));
+        type.setFont(new Font(defFont,Font.BOLD, 15));
         type.setBounds(260, 545, 380, 40);
         type.setCaretColor(Color.GREEN);
         this.add(type);
@@ -225,7 +226,7 @@ public class ChatPanel extends JPanel{
 
         JTextPane lyrics = new JTextPane();
         lyrics.setForeground(Color.WHITE);
-        lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+        lyrics.setFont(new Font(defFont, Font.PLAIN, 21));
         lyrics.setForeground(Color.WHITE);
         lyrics.setText("Lyrics");
         lyrics.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -261,7 +262,7 @@ public class ChatPanel extends JPanel{
         req.setFocusable(false);
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
         req.setText("Party Chat");
-        req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        req.setFont(new Font(defFont, Font.PLAIN, 30));
         req.setBounds(340, 20, 255, 45);
 
         JTextPane invs = new JTextPane();
@@ -285,11 +286,11 @@ public class ChatPanel extends JPanel{
             }
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                req.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 30));
+                req.setFont(new Font(defFont, Font.BOLD, 33));
             }
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                req.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+                req.setFont(new Font(defFont, Font.PLAIN, 30));
             }
         });
         this.add(invs);
@@ -512,7 +513,7 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
-        if(trackID == null) {
+        if(trackID != null) {
             Item inf = api.getTrackInfo(trackID);
             artworkURL = inf.getAlbum().getImages().get(1).getUrl();
             song.setText(resize(inf.getName(), song.getFont(), 174));
@@ -547,7 +548,7 @@ public class ChatPanel extends JPanel{
         }
     }
     public static void setCode(String tcode) {
-        code.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 11));
+        code.setFont(new Font(defFont, Font.PLAIN, 11));
         code.setText(tcode);
     }
     private BufferedImage profile = null;
