@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import static main.SpotifyParty.defFont;
+
 public class Notification{
     private String title;
     private String description;
@@ -48,14 +50,14 @@ public class Notification{
                     @Override
                     protected void paintComponent(Graphics g) {
                         super.paintComponent(g);
-                        g.setFont(new Font("", Font.PLAIN, 14));
+                        g.setFont(new Font(defFont, Font.PLAIN, 14));
                         g.setColor(new Color(200, 200, 200));
                         g.drawImage(icon, 10, 10, 17, 17, this);
                         g.drawString(appName, 32, 23);
                         g.setColor(Color.white);
-                        g.setFont(new Font("", Font.BOLD, 13));
+                        g.setFont(new Font(defFont, Font.BOLD, 13));
                         g.drawString(finalTitle, 10, 44);
-                        g.setFont(new Font("", Font.PLAIN, 12));
+                        g.setFont(new Font(defFont, Font.PLAIN, 12));
                         g.drawString(finalDescription, 10, 62);
                     }
                 };

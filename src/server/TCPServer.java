@@ -5,6 +5,7 @@ import chatGUI.ChatPanel;
 import gui.RequestTab;
 import gui.Requests;
 import interfaces.SpotifyPlayerAPI;
+import model.PlayerData;
 import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.TimeUtils;
 import upnp.UPnP;
@@ -146,16 +147,24 @@ public class TCPServer
         sender = new Thread(() -> {
             while (true) {
                 try {
-                    String tempTrack = api.getTrackUri();
+                    PlayerData playerData = api.getPlayerData();
+                    String tempTrack = playerData.getItem().getUri();
+                    System.out.println("track url: " + tempTrack);
                     if(tempTrack.contains(":ad:")) {
-                        sendToClients(tempTrack + " false " + api.getPlayBackPosition() + " " + api.getDuration());
+                        System.out.println("AD:before sendToClients");
+                        sendToClients(tempTrack + " false " + playerData.getProgress_ms() + " " + playerData.getItem().getDuration_ms());
+                        System.out.println("AD:after sendToClients");
                     }
                     if(!tempTrack.isBlank() && !tempTrack.equals("ice")) {
-                        sendToClients(tempTrack + " " + api.isPlaying() + " " + api.getPlayBackPosition() + " " + TimeUtils.getAppleTime());
+                        System.out.println("before sendToClients");
+                        sendToClients(tempTrack + " " + playerData.is_playing() + " " +playerData.getProgress_ms() + " " + TimeUtils.getAppleTime());
+                        System.out.println("after sendToClients");
                         if(!tempTrack.equals(last)) {
-                            last = tempTrack;
                             try {
+                                System.out.println("before updateData");
                                 chatPanel.updateData(tempTrack);
+                                last = tempTrack;
+                                System.out.println("after updateData");
                             }catch (Exception e)
                             {
                                 e.printStackTrace();
@@ -163,9 +172,10 @@ public class TCPServer
                         }
                     }
                 } catch (Exception e) {
-                   // e.printStackTrace();
+                    e.printStackTrace();
                 }
                 try {
+                    System.out.println("before sleep");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
