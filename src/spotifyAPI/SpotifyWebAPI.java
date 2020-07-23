@@ -275,9 +275,9 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     public boolean playTrack(Item song) {
         return false;
     }
-    public void saveTrack(String trackId) {
 
-        OkHttpClient client = new OkHttpClient().newBuilder()
+    public void saveTrack(String trackId) {
+        /*OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "");
@@ -292,10 +292,11 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             Response response = client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+        WebRequest.sendRequest(WebRequest.POST, "https://api.spotify.com/v1/me/tracks?ids=" + trackId.substring(trackId.lastIndexOf(':')+1), oAuthToken);
     }
     public PlayerData getPlayerData() throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        /*OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.spotify.com/v1/me/player")
@@ -319,15 +320,14 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             if (ret == null) {
                 System.out.println(data);
             }
-            return ret;
+            return ret;*/
+        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/me/player", oAuthToken, PlayerData.class);
     }
     public Item getTrackInfo(String id)
     {
         if(id.contains("track:"))
-        {
             id = id.substring(id.lastIndexOf(':') + 1);
-        }
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        /*OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.spotify.com/v1/tracks/" + id)
@@ -342,11 +342,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return null;*/
+        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/tracks/" + id, oAuthToken, Item.class);
     }
     public SearchItem search(String q)
     {
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        /*OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.spotify.com/v1/search?q="+q+"&type=track&limit=5")
@@ -361,11 +362,12 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return null;*/
+        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/search?q="+q+"&type=track&limit=5", oAuthToken, SearchItem.class);
     }
     public UserData getUserData()
     {
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        /*OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
                 .url("https://api.spotify.com/v1/me")
@@ -385,8 +387,9 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
             return son.fromJson(response.body().string(), UserData.class);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        return null;
+        }*/
+        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/me", oAuthToken, UserData.class);
+
     }
 
 }
