@@ -7,6 +7,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+import static main.SpotifyParty.defFont;
 import static utils.GUIUtils.makeButton;
 import static utils.GUIUtils.resizeIcon;
 
@@ -25,7 +26,7 @@ public class ChooseParty extends JPanel {
         } catch (IOException |FontFormatException e) {}
 
         JLabel title = new JLabel("Spotify Party!", SwingConstants.CENTER);
-        title.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 65));
+        title.setFont(new Font(defFont, Font.PLAIN, 65));
         title.setForeground(Color.WHITE);
         title.setBounds(45, 145, 600, 200);
         this.add(title);
@@ -41,7 +42,7 @@ public class ChooseParty extends JPanel {
         this.add(host);
 
         JLabel load2 = new JLabel("Loading...", SwingConstants.CENTER);
-        load2.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 30));
+        load2.setFont(new Font(defFont, Font.PLAIN, 30));
         load2.setForeground(Color.WHITE);
         load2.setBounds(350, 307, 160, 70);
         this.add(load2);

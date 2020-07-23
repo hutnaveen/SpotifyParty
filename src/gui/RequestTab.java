@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import static main.SpotifyParty.api;
+import static main.SpotifyParty.defFont;
 import static utils.GUIUtils.resizeIcon;
 
 
@@ -40,7 +41,7 @@ public class RequestTab extends JPanel {
 
             JLabel nameLabel = new JLabel(name);
             nameLabel.setBounds(0, 9, 150, 18);
-            nameLabel.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
+            nameLabel.setFont(new Font(defFont, Font.PLAIN, 17));
             nameLabel.setOpaque(false);
             nameLabel.setForeground(Color.WHITE);
             this.add(nameLabel);
@@ -83,7 +84,7 @@ public class RequestTab extends JPanel {
             song.setBorder(new EmptyBorder(0, 0, 0, 0));
             song.setForeground(Color.WHITE);
             song.setEditable(false);
-            song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
+            song.setFont(new Font(defFont, Font.PLAIN, 17));
             animate(song);
             StyledDocument doc = song.getStyledDocument();
             SimpleAttributeSet center = new SimpleAttributeSet();
@@ -112,7 +113,7 @@ public class RequestTab extends JPanel {
             artist.setBorder(new EmptyBorder(0, 0, 0, 0));
             artist.setForeground(Color.GRAY);
             artist.setEditable(false);
-            artist.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 14));
+            artist.setFont(new Font(defFont, Font.PLAIN, 14));
             animate(artist);
             StyledDocument doc3 = artist.getStyledDocument();
             SimpleAttributeSet center3 = new SimpleAttributeSet();
@@ -139,7 +140,7 @@ public class RequestTab extends JPanel {
             this.add(inv);
 
             System.out.println(link + " " + str);
-            Requests.backText.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 8));
+            Requests.backText.setFont(new Font(defFont, Font.PLAIN, 8));
             Requests.backText.setText(Requests.backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
 
             animate(this);
@@ -158,11 +159,11 @@ public class RequestTab extends JPanel {
 
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                song.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 18));
+                song.setFont(new Font(defFont, Font.BOLD, 18));
             }
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                song.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 17));
+                song.setFont(new Font(defFont, Font.PLAIN, 17));
             }
         });
     }
