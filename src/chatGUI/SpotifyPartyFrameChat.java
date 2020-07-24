@@ -46,7 +46,8 @@ public class SpotifyPartyFrameChat extends JFrame {
         }
         setLocation(100, 100);
         setSize(700+ WIN, 600 + WIN);
-        setTitle("SpotifyParty");
+        if(System.getProperty("os.name").contains("Windows"))
+            setTitle("SpotifyParty");
         setDefaultCloseOperation(this.HIDE_ON_CLOSE);
         initializeTrayIcon();
         toFront();
