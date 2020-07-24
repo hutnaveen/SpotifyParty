@@ -1,6 +1,8 @@
 package gui;
 
 
+import coroutines.KThreadRepKt;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -114,14 +116,14 @@ public class Notification{
         frame.setVisible(true);
         alive = true;
         if (timeOut > -1) {
-            new Thread(() -> {
+            KThreadRepKt.startCor(() -> {
                 try {
                     Thread.sleep(timeOut);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 close();
-            }).start();
+            });
         }
         prevNotif = this;
     }

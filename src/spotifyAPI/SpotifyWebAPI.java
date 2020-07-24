@@ -2,6 +2,7 @@ package spotifyAPI;
 
 import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
+import coroutines.KThreadRepKt;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import model.Artist;
@@ -96,14 +97,14 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             System.out.println(oAuthToken.getAccess_token());
             System.out.println(oAuthToken.getRefresh_token());
         }
-        new Thread(() -> {
+        KThreadRepKt.startCor(() -> {
             try {
                 Thread.sleep(3480000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             oAuthToken = reFreshToken();
-        }).start();
+        });
     }
 
     private static String createHash(String value) {
