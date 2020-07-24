@@ -1,8 +1,11 @@
 package server;
 
 import chatGUI.ChatPanel;
+import coroutines.KThreadRepKt;
 import gui.RequestTab;
 import gui.Requests;
+import kotlin.Unit;
+import kotlinx.coroutines.Deferred;
 
 import java.io.DataInputStream;
 import java.util.Arrays;
@@ -10,11 +13,11 @@ import java.util.Arrays;
 public class ClientListener implements Runnable
 {
     DataInputStream in;
-    Thread t = new Thread(this);
+    Deferred<Unit> t;
     public ClientListener(DataInputStream id)
     {
         in = id;
-        t.start();
+        t = KThreadRepKt.startCor(this);
     }
 
     @Override
@@ -44,7 +47,7 @@ public class ClientListener implements Runnable
                         break;
                 }
             } catch (Exception e) {
-                t.stop();
+                t.cancel(null);
             }
         }
     }

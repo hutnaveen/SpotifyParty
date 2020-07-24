@@ -1,12 +1,8 @@
 package server;
 
-import exception.SpotifyException;
+import coroutines.KThreadRepKt;
 import chatGUI.ChatPanel;
-import gui.RequestTab;
-import gui.Requests;
-import interfaces.SpotifyPlayerAPI;
 import model.PlayerData;
-import spotifyAPI.SpotifyAppleScriptWrapper;
 import utils.TimeUtils;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -17,7 +13,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import static chatGUI.ChatPanel.names;
@@ -77,7 +72,7 @@ public class TCPServer
 
     private void startConnector()
     {
-        reciver = new Thread(() -> {
+        KThreadRepKt.startCor(() -> {
             while (true) {
                 //if client not added to list of clients add it
                 Socket s = null;
@@ -110,7 +105,7 @@ public class TCPServer
             }
 
         });
-        reciver.start();
+       // reciver.start();
     }
     public static void sendToClients(String msg)
     {
@@ -144,7 +139,7 @@ public class TCPServer
     }
     private void startSender()
     {
-        sender = new Thread(() -> {
+        KThreadRepKt.startCor(() -> {
             while (true) {
                 try {
                     PlayerData playerData = api.getPlayerData();
@@ -183,7 +178,7 @@ public class TCPServer
             }
 
         });
-        sender.start();
+        //sender.start();
     }
 
     public int getServerPort() {
