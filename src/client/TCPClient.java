@@ -1,8 +1,11 @@
 package client;
 import chatGUI.ChatPanel;
+import coroutines.KThreadRepKt;
 import gui.*;
 import exception.SpotifyException;
 import main.SpotifyParty;
+import model.PlayerData;
+import model.UpdateData;
 import utils.TimeUtils;
 
 import javax.imageio.ImageIO;
@@ -16,6 +19,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import static main.SpotifyParty.api;
 import static utils.GUIUtils.resizeIcon;
@@ -32,7 +39,7 @@ public class TCPClient
     private String id = FriendName;
     private BufferedImage icon;
     public static String prevSong = null;
-
+    public BlockingQueue<UpdateData> updateData = new LinkedBlockingQueue<>(1);
     public void sendToServer(String msg) {
         try {
             dos.writeUTF(id + " " + msg.trim());
@@ -82,74 +89,90 @@ public class TCPClient
         updater.stop();
         tempUpdate.stop();
     }
+    Runnable updateRun;
     private void trackUpdater() {
-        updater = new Thread(() -> {
+        KThreadRepKt.startCor(new Runnable() {
+            @Override
+            public void run() {
+                while (true)
+                {
+                    try {
+                        UpdateData tempData = updateData.poll(5000, TimeUnit.MILLISECONDS);
+                        if (tempData != null) {
+                            updatePlayer(tempData.getTrackID(), tempData.isPlaying(), tempData.getPos(), tempData.getTimeStamp());
+                        }
+                        else
+                        {
+                           /* updater.stop();
+                            updater = new Thread(updateRun);
+                            updater.start();*/
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        updateRun = () -> {
             while (true) {
+                System.out.println("Updater Thread alive");
                 String[] playerData = null;
                 String org = "";
                 try {
+                    System.out.println("Updater read start");
                     org = dis.readUTF();
+                    System.out.println("Updater read done");
                     playerData = org.split(" ");
                 } catch (java.io.EOFException e) {
-                    quit();
-                    System.exit(-2);
+                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 if (playerData[0].equals("usr")) {
                     //ChatPanel.addNames(playerData[1]);
                 }
-                if (playerData[0].equals("delete"))
-                {
+                if (playerData[0].equals("delete")) {
                     Requests.redraw(playerData[1]);
                     ChatPanel.chat.revalidate();
-                }
-                else if(playerData[0].equals("request"))
-                {
+                } else if (playerData[0].equals("request")) {
                     Requests.addRequest(new RequestTab(playerData[1], playerData[2]));
                     ChatPanel.chat.revalidate();
                     //Chat.redraw("");
-                }
-                else if(playerData[0].equals("addAll"))
-                {
-                     ArrayList<RequestTab> tabs = new ArrayList<>();
-                    for(String rec: playerData[1].split(","))
-                    {
+                } else if (playerData[0].equals("addAll")) {
+                    ArrayList<RequestTab> tabs = new ArrayList<>();
+                    for (String rec : playerData[1].split(",")) {
                         String[] dat = rec.split(";");
                         tabs.add(new RequestTab(dat[0], dat[1]));
                     }
                     Requests.requestTabs = tabs;
                     Requests.redraw("");
-                }
-                else if(playerData[0].equals("chat"))
-                {
-                    org = org.substring(org.indexOf(' ')+1);
-                    String name = org.substring(0, org.indexOf(' ')+1);
-                    String message = org.substring(org.indexOf(' ')+1);
+                } else if (playerData[0].equals("chat")) {
+                    org = org.substring(org.indexOf(' ') + 1);
+                    String name = org.substring(0, org.indexOf(' ') + 1);
+                    String message = org.substring(org.indexOf(' ') + 1);
                     ChatPanel.chat.addText(message, name);
-                }
-                else{
+                } else {
                     try {
+                        playerData = org.replace("=", " ").trim().split(" ");
                         long fact = Long.parseLong(playerData[3].trim());
                         System.out.println((Arrays.toString(playerData)) + " " + new Date(TimeUtils.getAppleTime()) + " " + new Date(fact));
                         long t = Long.parseLong(playerData[2].trim());
                         String[] finalPlayerData = playerData;
-                        if (tempUpdate != null) {
-                            tempUpdate.stop();
-                            tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
-                            tempUpdate.start();
-                        } else {
-                            tempUpdate = new Thread(() -> updatePlayer(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
-                            tempUpdate.start();
-                        }
-
+                        updateData.drainTo(new ArrayList<>(1));
+                        updateData.offer(new UpdateData(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
                     } catch (Exception e) {
-                       e.printStackTrace();
+                        e.printStackTrace();
+                    } catch (Throwable e) {
+                        System.out.println("Throwable caught");
+                        e.printStackTrace();
                     }
                 }
             }
-        });
-        updater.start();
+        };
+       // updater = new Thread(updateRun);
+        KThreadRepKt.startCor(updateRun);
+        //updater.start();
+        //tempUpdate.start();
     }
     boolean ad = false;
     boolean change = false;
@@ -163,10 +186,11 @@ public class TCPClient
                 prevSong = trackID;
             }
             else if(!false) {
-                String tempTrack = SpotifyParty.api.getTrackUri();
-                boolean tempPlaying = SpotifyParty.api.isPlaying();
+                PlayerData data = api.getPlayerData();
+                String tempTrack = data.getItem().getUri();
+                boolean tempPlaying = data.is_playing();
                 log("" + tempPlaying);
-                long tempPos = SpotifyParty.api.getPlayBackPosition();
+                long tempPos = data.getProgress_ms();
                 if (!tempTrack.contains(":ad:")) {
                     ad = false;
                     time = Integer.MIN_VALUE;
@@ -177,7 +201,7 @@ public class TCPClient
                             change = false;
                             SpotifyParty.api.playTrack(trackID);
                             try {
-                                System.out.println("update to " + api.getTrackInfo(trackID));
+                                //System.out.println("update to " + api.getTrackInfo(trackID));
                                 chatPanel.updateData(trackID);
                                 change = true;
                             }catch (Exception e)

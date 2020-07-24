@@ -11,7 +11,6 @@ import java.util.List;
 public class SpotifyAppleScriptWrapper implements SpotifyPlayerAPI {
     public boolean playTrack(String id){
         try {
-            System.out.println("trying to play " + SpotifyParty.api.getTrackInfo(id).getName());
                 OSXUtils.runAppleCmd("tell application \"Spotify\"\n" +
                         "     play track \""+id+"\"\n" +
                         "end tell");
