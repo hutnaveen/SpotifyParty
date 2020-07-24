@@ -149,7 +149,8 @@ public class ChatPanel extends JPanel{
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            if(System.getProperty("os.name").contains("Mac"))
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

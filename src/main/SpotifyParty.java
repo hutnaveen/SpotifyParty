@@ -12,7 +12,9 @@ import spotifyAPI.WinSpotifyAPI;
 import utils.OSXUtils;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -28,12 +30,21 @@ public class SpotifyParty {
     public static boolean darkMode = true;
     public static final String VERSION = "v0.2-alpha";
     public static SpotifyWebAPI api;
-    public static String defFont = "SFProDisplay-Bold";
+    public static String defFont = "SF Pro Display Bold";
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
+        try {
+            GraphicsEnvironment ge =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(SpotifyParty.class.getResource("/fonts/SF-Pro-Display-Bold.otf").getFile())));
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
         System.out.println(new Font(defFont, 1, 1).getFontName());
-        if(System.getProperty("os.name").contains("Windows"))
+        if(System.getProperty("os.name").contains("Windows")) {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             api = new WinSpotifyAPI();
+        }
         else {
             api = new OSXSpotifyAPI();
         }
