@@ -35,7 +35,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 
-public class SpotifyWebAPI implements SpotifyPlayerAPI {
+public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
     OAuthTokenData oAuthToken;
     URI redirect = null;
     final String ogRedirect = "http%3A%2F%2Flocalhost%3A8081%2Fhello";
@@ -178,6 +178,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     {
         return reFreshToken(oAuthToken.getRefresh_token());
     }
+
     @Override
     public boolean isSingle() {
         return false;
@@ -198,12 +199,10 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     }
 
     @Override
-    public void play() {
-    }
+    public abstract void play();
 
     @Override
-    public void pause() {
-    }
+    public abstract void pause();
 
     @Override
     public long getPlayBackPosition() throws IOException {
@@ -211,9 +210,7 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
     }
 
     @Override
-    public void setPlayBackPosition(long pos) {
-
-    }
+    public abstract void setPlayBackPosition(long pos);
 
     @Override
     public long getDuration() throws IOException {
@@ -267,14 +264,10 @@ public class SpotifyWebAPI implements SpotifyPlayerAPI {
 
     // TODO: 4/15/20
     @Override
-    public boolean playTrack(String id) {
-        return false;
-    }
+    public abstract boolean playTrack(String id);
 
     @Override
-    public boolean playTrack(Item song) {
-        return false;
-    }
+    public abstract boolean playTrack(Item song);
 
     public void saveTrack(String trackId) {
         /*OkHttpClient client = new OkHttpClient().newBuilder()

@@ -29,17 +29,27 @@ public class SpotifyPartyFrameChat extends JFrame {
     public static PopupMenu menu = new PopupMenu();
     public static MenuItem quit = new MenuItem("Quit");
     public static MenuItem status = new MenuItem("Welcome to Spotify Party!");
+    private int WIN = 0;
     public SpotifyPartyFrameChat()
     {
         super();
         setResizable(false);
+        setIconImage(image);
+        //Taskbar.getTaskbar().setIconImage(image);
         this.getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
         this.getRootPane().putClientProperty("Aqua.windowTopMargin", "0");
         this.getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
-        toFront();
-        initializeFrame();
+        if(System.getProperty("os.name").contains("Windows"))
+        {
+            WIN = 10;
+            this.getRootPane().setBackground(new Color(30, 30, 30));
+        }
+        setLocation(100, 100);
+        setSize(700+ WIN, 600 + WIN);
+        setTitle("SpotifyParty");
+        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
         initializeTrayIcon();
-
+        toFront();
         /*
         if(updateAvalibe) {
             JFrame frame = new JFrame();
@@ -81,13 +91,6 @@ public class SpotifyPartyFrameChat extends JFrame {
     //public MenuItem getJoin() {return join;}
     //public MenuItem getHostLocal() {return hostLocal;}
     //public MenuItem getHostPublic() {return hostPublic;}
-
-    private void initializeFrame()
-    {
-        setLocation(100, 100);
-        setSize(700, 600);
-        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
-    }
 
 
 }
