@@ -152,18 +152,19 @@ public class TCPClient
         updater.start();
     }
     boolean ad = false;
+    boolean change = false;
     long time = Integer.MIN_VALUE;
     private void updatePlayer(String trackID, boolean playing, long pos, long timeStamp) {
         try {
             //System.out.println(api.getPlayerData().getDevice().is_private_session());
             if (false && (prevSong == null || !prevSong.equals(trackID)))
             {
-                prevSong = trackID;
                 chatPanel.updateData(trackID);
+                prevSong = trackID;
             }
             else if(!false) {
                 String tempTrack = SpotifyParty.api.getTrackUri();
-                boolean tempPlaying =SpotifyParty.api.isPlaying();
+                boolean tempPlaying = SpotifyParty.api.isPlaying();
                 log("" + tempPlaying);
                 long tempPos = SpotifyParty.api.getPlayBackPosition();
                 if (!tempTrack.contains(":ad:")) {
@@ -173,10 +174,29 @@ public class TCPClient
                         SpotifyParty.api.pause();
                     } else {
                         if (!tempTrack.equals(trackID)) {
+                            change = false;
                             SpotifyParty.api.playTrack(trackID);
-                            chatPanel.updateData(trackID);
+                            try {
+                                System.out.println("update to " + api.getTrackInfo(trackID));
+                                chatPanel.updateData(trackID);
+                                change = true;
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
+                                change = false;
+                            }
                             System.out.println(pos + (TimeUtils.getAppleTime() - timeStamp) + 2000);
                             SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
+                        }
+                        if(!change)
+                        {
+                            try {
+                                chatPanel.updateData(trackID);
+                                change = true;
+                            }catch (Exception e)
+                            {
+                                change = false;
+                            }
                         }
                         if(tempPlaying != playing)
                         {
