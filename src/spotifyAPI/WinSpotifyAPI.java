@@ -29,40 +29,33 @@ public class WinSpotifyAPI extends SpotifyWebAPI{
     @Override
     public void play() {
         WebElement e = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div[2]/div[3]/footer/div[1]/div[2]/div/div[1]/div[3]"));
-        if(e.getAttribute("title").startsWith("Pa"))
+        e = e.findElements(By.xpath(".//*")).get(0);
+        if(e.getAttribute("title").startsWith("Pl"))
             e.click();
     }
 
     @Override
     public void pause() {
         WebElement e = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div[2]/div[3]/footer/div[1]/div[2]/div/div[1]/div[3]"));
-        if(e.getAttribute("title").startsWith("Pl"))
+        e = e.findElements(By.xpath(".//*")).get(0);
+        if(e.getAttribute("title").startsWith("Pa"))
             e.click();
     }
 
     @Override
     public void setPlayBackPosition(long pos) {
+        WebElement sliderSize = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div[2]/div[3]/footer/div/div[2]/div/div[2]/div[2]/div"));
         WebElement slider = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div[2]/div[3]/footer/div/div[2]/div/div[2]/div[2]/div/button"));
-        /*Actions move = new Actions(driver);
-        Action action = move.dragAndDropBy(slider, -90, 0).build();
-        action.perform();*/
+        int width = sliderSize.getSize().getWidth();
+        System.out.println(width);
         Actions SliderAction = new Actions(driver);
         try {
-            SliderAction.clickAndHold(slider)
-                    .moveByOffset((-slider.getSize().getWidth()/ 2), 0)
-                    .moveByOffset(getPixelsToMove(slider, pos, getDuration(), 0), 0).release().perform();
-        } catch (IOException e) {
+            pos = pos - getPlayBackPosition();
+            double percent = (double)pos/getDuration();
+            SliderAction.clickAndHold(slider).moveByOffset((int)Math.ceil(width * percent), 0).release().perform();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    private int getPixelsToMove(WebElement Slider, long Amount, long SliderMax, long SliderMin)
-    {
-        int pixels = 0;
-        long tempPixels = Slider.getSize().getWidth();
-        tempPixels = tempPixels / (SliderMax - SliderMin);
-        tempPixels = tempPixels * (Amount - SliderMin);
-        pixels = (int)(tempPixels);
-        return pixels;
     }
     @Override
     public boolean playTrack(String id) {
@@ -79,7 +72,7 @@ public class WinSpotifyAPI extends SpotifyWebAPI{
     public static void main(String[] args) {
         WinSpotifyAPI api = new WinSpotifyAPI();
         try {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
