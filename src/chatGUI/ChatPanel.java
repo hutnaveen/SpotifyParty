@@ -513,8 +513,11 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
+        System.out.println("before if");
         if(trackID != null) {
+            System.out.println("after if");
             Item inf = api.getTrackInfo(trackID);
+            System.out.println("after item");
             artworkURL = inf.getAlbum().getImages().get(1).getUrl();
             song.setText(resize(inf.getName(), song.getFont(), 174));
             StringBuilder artists = new StringBuilder();
@@ -529,6 +532,7 @@ public class ChatPanel extends JPanel{
             repaint();
             return inf;
         }
+        System.out.println("shit screwed up");
        return null;
     }
     private String resize(String str, Font font, int max)
