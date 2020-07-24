@@ -78,7 +78,7 @@ public class ChatPanel extends JPanel{
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
         code.setForeground(Color.GRAY);
-        code.setBounds(47, 31, 195, 34);
+        code.setBounds(47, 31, 195, 30);
         code.setEditable(false);
         code.addMouseListener(new MouseAdapter() {
             @Override
@@ -587,7 +587,7 @@ public class ChatPanel extends JPanel{
                     profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
                 }
             }
-            g.drawImage(profile, 9, 31, 34, 34, this);
+            g.drawImage(profile, 9, 31, 30, 30, this);
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
         } catch (Exception e) {

@@ -65,7 +65,7 @@ public class RequestTab extends JPanel {
 
             MenuItem like = new MenuItem("Like");
             like.addActionListener(e -> {
-                
+                api.saveTrack(info.getId());
             });
             menu.add(like);
 
