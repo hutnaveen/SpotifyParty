@@ -12,6 +12,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import static main.SpotifyParty.api;
@@ -47,10 +49,6 @@ public class RequestTab extends JPanel {
             this.add(nameLabel);
 
             PopupMenu menu = new PopupMenu();
-            if (!SpotifyPartyPanelChat.host) {
-                MenuItem like = new MenuItem("Vote");
-                menu.add(like);
-            }
 
             if (SpotifyPartyPanelChat.host) {
                 MenuItem play = new MenuItem("Play");
@@ -64,6 +62,12 @@ public class RequestTab extends JPanel {
                 });
                 menu.add(delete);
             }
+
+            MenuItem like = new MenuItem("Like");
+            like.addActionListener(e -> {
+                
+            });
+            menu.add(like);
 
             ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/3dots.png")), 23, 6);
             JLabel opt = new JLabel(playIcon);
