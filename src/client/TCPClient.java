@@ -177,7 +177,7 @@ public class TCPClient
                             change = false;
                             SpotifyParty.api.playTrack(trackID);
                             try {
-                                System.out.println("update to " + api.getTrackInfo(trackID));
+                                //System.out.println("update to " + api.getTrackInfo(trackID));
                                 chatPanel.updateData(trackID);
                                 change = true;
                             }catch (Exception e)
