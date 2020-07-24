@@ -7,6 +7,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import spotifyAPI.OSXSpotifyAPI;
 import spotifyAPI.SpotifyAppleScriptWrapper;
+import spotifyAPI.SpotifyWebAPI;
+import spotifyAPI.WinSpotifyAPI;
 import utils.OSXUtils;
 
 import javax.swing.*;
@@ -25,12 +27,16 @@ public class SpotifyParty {
     public static ChatPanel chatPanel = null;
     public static boolean darkMode = true;
     public static final String VERSION = "v0.2-alpha";
-    public static OSXSpotifyAPI api ;
+    public static SpotifyWebAPI api;
     public static String defFont = "SFProDisplay-Bold";
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
         System.out.println(new Font(defFont, 1, 1).getFontName());
-        api = new OSXSpotifyAPI();
+        if(System.getProperty("os.name").contains("Windows"))
+            api = new WinSpotifyAPI();
+        else {
+            api = new OSXSpotifyAPI();
+        }
         /*System.setErr(new PrintStream(new OutputStream() {
             @Override
             public void write(int arg0) throws IOException {
@@ -39,12 +45,13 @@ public class SpotifyParty {
         }));*/
         checkForUpdate();
         chatPanel = new ChatPanel();
+        if(System.getProperty("os.name").contains("Mac"))
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         try {
-            darkMode = OSXUtils.runAppleScript("tell application \"System Events\"\n" +
+            /*darkMode = OSXUtils.runAppleScript("tell application \"System Events\"\n" +
                     "\treturn dark mode of appearance preferences\n" +
-                    "end tell").startsWith("tru");
-        } catch (IOException e) {
+                    "end tell").startsWith("tru");*/
+        } catch (Exception e) {
             e.printStackTrace();
         }
         SpotifyPartyPanelChat panel = new SpotifyPartyPanelChat();

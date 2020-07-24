@@ -22,6 +22,7 @@ public class Chat extends JPanel {
 
     public Chat() {
        this.setOpaque(false);
+
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         try {
             icon = ImageIO.read(Notification.class.getResource("/images/logo.png"));
@@ -32,9 +33,17 @@ public class Chat extends JPanel {
        this.setLayout(null);
         putClientProperty("JScrollPane.style", "overlay");
         chat = new JTextPane();
+        chat.setOpaque(false);
+        if(System.getProperty("os.name").contains("Windows"))
+        {
+            setBackground(new Color(30,30,30));
+            chat.setOpaque(true);
+            chat.setBackground(new Color(30,30,30));
+            setBackground(new Color(30, 30, 30));
+            setOpaque(true);
+        }
         chat.setFocusable(false);
         chat.setAutoscrolls(true);
-        chat.setOpaque(false);
         chat.setEditable(false);
         JScrollPane chatScroll = new JScrollPane();
         chatScroll.putClientProperty("JScrollPane.style", "overlay");
