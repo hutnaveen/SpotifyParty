@@ -1,5 +1,6 @@
 package fonts;
 
+import main.SpotifyParty;
 import org.mockito.Mock;
 
 import spotifyAPI.SpotifyAppleScriptWrapper;
@@ -11,15 +12,14 @@ import java.util.Arrays;
 
 public class Sample {
     public static void main(String[] args) {
-        GraphicsEnvironment ge =
-                GraphicsEnvironment.getLocalGraphicsEnvironment();
         try {
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(Sample.class.getResource("/fonts/Arial Unicode MS.ttf").getFile())));
-        } catch (FontFormatException e) {
+            GraphicsEnvironment ge =
+                    GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(SpotifyParty.class.getResource("/fonts/SF-Pro-Display-Bold.otf").getFile())));
+            System.out.println(Arrays.toString(ge.getAllFonts()));
+        } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-           // e.printStackTrace();
         }
-        System.out.println(Arrays.toString(ge.getAllFonts()));
+
     }
 }
