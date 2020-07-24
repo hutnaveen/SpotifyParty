@@ -53,7 +53,12 @@ public class ChatPanel extends JPanel{
     public static JTextPane req;
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
+    private static int WIN = 0;
     public ChatPanel() {
+        if(System.getProperty("os.name").contains("Windows"))
+        {
+            WIN = -20;
+        }
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         this.setLayout(null);
         JPanel back = new JPanel();
@@ -62,11 +67,13 @@ public class ChatPanel extends JPanel{
         back.add(chat, "ChatPanel");
         back.add(requestPanel, "RequestPanel");
         cl.show(back, "ChatPanel");
-
+        if(System.getProperty("os.name").contains("Windows"))
+            setBackground(new Color(30, 30, 30));
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
         code = new RoundJTextField(200);
         code.setFont(new Font(defFont, Font.PLAIN, 8));
+
         try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -78,7 +85,7 @@ public class ChatPanel extends JPanel{
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
         code.setForeground(Color.GRAY);
-        code.setBounds(47, 31, 195, 30);
+        code.setBounds(47, 31+WIN, 195, 34);
         code.setEditable(false);
         code.addMouseListener(new MouseAdapter() {
             @Override
@@ -109,7 +116,7 @@ public class ChatPanel extends JPanel{
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-        song.setBounds(10, 547, 230, 17);
+        song.setBounds(10, 547+WIN, 230, 17);
         this.add(song);
 
         artist = new JTextPane();
@@ -123,7 +130,7 @@ public class ChatPanel extends JPanel{
         SimpleAttributeSet center2 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center2, StyleConstants.ALIGN_CENTER);
         doc2.setParagraphAttributes(0, doc2.getLength(), center2, false);
-        artist.setBounds(10, 567, 230, 17);
+        artist.setBounds(10, 567+WIN, 230, 17);
         this.add(artist);
 
 
@@ -142,7 +149,8 @@ public class ChatPanel extends JPanel{
         doc3.setParagraphAttributes(0, doc3.getLength(), center3, false);
         area.setBackground(new Color(40, 40, 40));
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            if(System.getProperty("os.name").contains("Mac"))
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
@@ -163,11 +171,12 @@ public class ChatPanel extends JPanel{
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        areaScroll.setBounds(25, 120, 210, 250);
+        areaScroll.setBounds(25, 120+WIN, 210, 250);
         areaScroll.getVerticalScrollBar().setUnitIncrement(4);
         this.add(areaScroll);
         addLyrics();
         try {
+            if(System.getProperty("os.name").contains("Mac"))
             UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -179,12 +188,12 @@ public class ChatPanel extends JPanel{
             e.printStackTrace();
         }
         type.setFont(new Font(defFont,Font.BOLD, 15));
-        type.setBounds(260, 545, 380, 40);
+        type.setBounds(260, 545+WIN, 380, 40);
         type.setCaretColor(Color.GREEN);
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 40, 40);
         AbstractButton play = makeButton(playIcon);
-        play.setBounds(647, 545, 40, 40);
+        play.setBounds(647, 545+WIN, 40, 40);
 
         play.addActionListener(e -> {
             if(!type.getText().isEmpty() && !type.getText().isBlank()) {
@@ -233,7 +242,7 @@ public class ChatPanel extends JPanel{
         lyrics.setOpaque(false);
         lyrics.setFocusable(false);
         lyrics.setEditable(false);
-        lyrics.setBounds(101, 75, 70, 30);
+        lyrics.setBounds(101, 75+WIN, 70, 30);
         /*
         lyrics.addMouseListener(new MouseAdapter() {
             @Override
@@ -263,14 +272,14 @@ public class ChatPanel extends JPanel{
         req.setBorder(new EmptyBorder(0, 0, 0, 0));
         req.setText("Party Chat");
         req.setFont(new Font(defFont, Font.PLAIN, 30));
-        req.setBounds(340, 20, 255, 45);
+        req.setBounds(340, 20+WIN, 255, 45);
 
         JTextPane invs = new JTextPane();
         invs.setEditable(false);
         invs.setOpaque(false);
         invs.setFocusable(false);
         invs.setBorder(new EmptyBorder(0, 0, 0, 0));
-        invs.setBounds(415, 35, 105, 28);
+        invs.setBounds(415, 35+WIN, 105, 28);
         invs.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -303,11 +312,11 @@ public class ChatPanel extends JPanel{
         guest.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 14));
         guest.setForeground(Color.WHITE);
         guest.setText("0");
-        guest.setBounds(10, 30, 24, 24);
+        guest.setBounds(10, 30+WIN, 24, 24);
         this.add(guest);
         */
 
-        back.setBounds(250, 70, 450, 460);
+        back.setBounds(250, 70+WIN, 450, 460);
         this.add(back);
     }
 
@@ -527,8 +536,11 @@ public class ChatPanel extends JPanel{
     }
 
     public Item updateData(String trackID) {
+        System.out.println("before if");
         if(trackID != null) {
+            System.out.println("after if");
             Item inf = api.getTrackInfo(trackID);
+            System.out.println("after item");
             artworkURL = inf.getAlbum().getImages().get(1).getUrl();
             song.setText(resize(inf.getName(), song.getFont(), 174));
             StringBuilder artists = new StringBuilder();
@@ -543,6 +555,7 @@ public class ChatPanel extends JPanel{
             repaint();
             return inf;
         }
+        System.out.println("shit screwed up");
        return null;
     }
     private String resize(String str, Font font, int max)
@@ -587,9 +600,9 @@ public class ChatPanel extends JPanel{
                     profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
                 }
             }
-            g.drawImage(profile, 9, 31, 30, 30, this);
+            g.drawImage(profile, 9, 31+WIN, 34, 34, this);
             if (artworkURL != null)
-                g.drawImage(ImageIO.read(artworkURL), 55, 400, 140, 140, this);
+                g.drawImage(ImageIO.read(artworkURL), 55, 400+WIN, 140, 140, this);
         } catch (Exception e) {
             e.printStackTrace();
         }
