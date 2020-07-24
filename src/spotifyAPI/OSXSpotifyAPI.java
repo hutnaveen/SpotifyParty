@@ -1,5 +1,7 @@
 package spotifyAPI;
 
+import model.Item;
+
 public class OSXSpotifyAPI extends SpotifyWebAPI {
     SpotifyAppleScriptWrapper wrapper;
     public OSXSpotifyAPI() {
@@ -38,5 +40,10 @@ public class OSXSpotifyAPI extends SpotifyWebAPI {
     public boolean playTrack(String id)
     {
         return wrapper.playTrack(id);
+    }
+
+    @Override
+    public boolean playTrack(Item song) {
+        return false;
     }
 }
