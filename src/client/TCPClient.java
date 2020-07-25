@@ -228,12 +228,12 @@ public class TCPClient
                                 SpotifyParty.api.play();
                             else
                                 SpotifyParty.api.pause();
-                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
+                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 500);
                         }
                         if (Math.abs((TimeUtils.getAppleTime() - timeStamp) + pos - tempPos) > 2000) {
                             System.out.println("Time: " + pos + " Player: " + tempPos);
                             log("Time: " + pos + " Player: " + tempPos);
-                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 1500);
+                            SpotifyParty.api.setPlayBackPosition(pos + (TimeUtils.getAppleTime() - timeStamp) + 500);
                         }
                     }
                 } else if (!ad || time >= pos) {
