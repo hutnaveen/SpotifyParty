@@ -2,7 +2,11 @@ package server;
 
 import coroutines.KThreadRepKt;
 import chatGUI.ChatPanel;
+import kotlin.Unit;
+import kotlinx.coroutines.Deferred;
+import kotlinx.coroutines.Job;
 import model.PlayerData;
+import org.junit.internal.runners.statements.RunAfters;
 import utils.TimeUtils;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -14,6 +18,10 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import static chatGUI.ChatPanel.names;
 import static utils.GUIUtils.resizeIcon;
@@ -25,7 +33,7 @@ public class TCPServer
     public static HashMap<DataInputStream, DataOutputStream> stream = new HashMap<>();
     private ServerSocket ss;
     private Thread reciver;
-    private Thread sender;
+    private Job sender;
     private int serverPort = 9000;
     String last;
     public TCPServer(boolean diffNetWork)
@@ -65,22 +73,21 @@ public class TCPServer
         names.add("HOST");
         startConnector();
         startSender();
+        checkIfWorking();
         System.out.println("Server is started!");
 
     }
-
-
+    Runnable senderRun;
     private void startConnector()
     {
         KThreadRepKt.startCor(() -> {
-            while (true) {
                 //if client not added to list of clients add it
                 Socket s = null;
                 DataOutputStream dos = null;
                 DataInputStream in = null;
                 try {
                     s = ss.accept();
-                    dos = new DataOutputStream(s.getOutputStream());
+                    dos = new DataOutputStream((s.getOutputStream()));
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                     System.out.println(NetworkUtils.getLocalIP());
                 } catch (IOException e) {
@@ -102,8 +109,6 @@ public class TCPServer
                     e.printStackTrace();
                 }
                 new ClientListener(in);
-            }
-
         });
        // reciver.start();
     }
@@ -133,14 +138,12 @@ public class TCPServer
     }
     public void quit()
     {
-        sender.stop();
         reciver.stop();
         System.out.println("Server Stopped");
     }
     private void startSender()
     {
-        KThreadRepKt.startCor(() -> {
-            while (true) {
+        senderRun = () -> {
                 try {
                     PlayerData playerData = api.getPlayerData();
                     String tempTrack = playerData.getItem().getUri();
@@ -153,6 +156,8 @@ public class TCPServer
                     if(!tempTrack.isBlank() && !tempTrack.equals("ice")) {
                         System.out.println("before sendToClients");
                         sendToClients(tempTrack + " " + playerData.is_playing() + " " +playerData.getProgress_ms() + " " + TimeUtils.getAppleTime());
+                        dat.drainTo(new ArrayList<>(1));
+                        dat.offer("updated");
                         System.out.println("after sendToClients");
                         if(!tempTrack.equals(last)) {
                             try {
@@ -162,11 +167,15 @@ public class TCPServer
                                 System.out.println("after updateData");
                             }catch (Exception e)
                             {
+                                dat.drainTo(new ArrayList<>(1));
+                                dat.offer("exception");
                                 e.printStackTrace();
                             }
                         }
                     }
                 } catch (Exception e) {
+                    dat.drainTo(new ArrayList<>(1));
+                    dat.offer("updated");
                     e.printStackTrace();
                 }
                 try {
@@ -175,10 +184,27 @@ public class TCPServer
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-
-        });
+        };
+        sender = KThreadRepKt.startCor(senderRun);
         //sender.start();
+    }
+    BlockingQueue<String> dat = new LinkedBlockingQueue<>(1);
+    public void checkIfWorking()
+    {
+        KThreadRepKt.startCor(() -> {
+                try {
+                    String s = dat.poll(5000, TimeUnit.MILLISECONDS);
+                    if(s == null)
+                    {
+                        sender.cancel(new CancellationException());
+                        sender = KThreadRepKt.startCor(senderRun);
+                    }
+                } catch (InterruptedException e) {
+                    sender.cancel(null);
+                    sender = KThreadRepKt.startCor(senderRun);
+                    e.printStackTrace();
+                }
+        });
     }
 
     public int getServerPort() {

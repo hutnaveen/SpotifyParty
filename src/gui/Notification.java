@@ -25,7 +25,8 @@ public class Notification{
     public Notification(Image icon, String name, String title, String description, long timeOut) {
         System.setProperty("apple.awt.UIElement", "true");
         try {
-            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
+            if(System.getProperty("os.name").contains("Mac"))
+                UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }

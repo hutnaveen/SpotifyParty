@@ -23,8 +23,6 @@ public class ClientListener implements Runnable
 
     @Override
     public void run() {
-        while (true)
-        {
             try {
                 String org = in.readUTF().trim();
                 String[] str = org.split(" ");
@@ -50,6 +48,5 @@ public class ClientListener implements Runnable
             } catch (Exception e) {
                 t.cancel(null);
             }
-        }
     }
 }
