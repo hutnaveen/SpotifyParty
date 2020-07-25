@@ -8,6 +8,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 public class WebRequest<T>{
     public static final String GET = "GET";
@@ -16,7 +17,7 @@ public class WebRequest<T>{
 
     public static <T> T sendRequest(String type, String requestURL, OAuthTokenData authorization, Class<T> t)
     {
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(1000, TimeUnit.MILLISECONDS).readTimeout(1000, TimeUnit.MILLISECONDS).writeTimeout(1000, TimeUnit.MILLISECONDS)
                 .build();
         Request request = new Request.Builder()
                 .url(requestURL)

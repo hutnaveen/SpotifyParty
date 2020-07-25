@@ -1,13 +1,13 @@
 package coroutines
 
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
+import java.lang.Runnable
 
 
-fun startCor(run : Runnable): Deferred<Unit>
+fun startCor(run : Runnable): Job
 {
-    return GlobalScope.async() {
-        run.run()
+    return GlobalScope.launch (Dispatchers.Default){
+           while (isActive)
+               run.run()
     }
 }

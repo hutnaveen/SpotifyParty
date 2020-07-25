@@ -220,7 +220,7 @@ public class ChatPanel extends JPanel{
                         if (!host)
                             cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         else
-                            server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                            TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         type.setText("");
                     }
                 } else {
