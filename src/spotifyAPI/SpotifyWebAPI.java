@@ -98,12 +98,14 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             System.out.println(oAuthToken.getRefresh_token());
         }
         KThreadRepKt.startCor(() -> {
-            try {
-                Thread.sleep(3480000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (true) {
+                try {
+                    Thread.sleep(3480000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                oAuthToken = reFreshToken();
             }
-            oAuthToken = reFreshToken();
         });
     }
 
@@ -357,7 +359,7 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
         return null;*/
-        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/search?q="+q+"&ftype=track&limit=" + limit, oAuthToken, SearchItem.class);
+        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/search?q="+q+"&type=track&limit=" + limit, oAuthToken, SearchItem.class);
     }
     public UserData getUserData()
     {
