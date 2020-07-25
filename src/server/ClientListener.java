@@ -6,6 +6,7 @@ import gui.RequestTab;
 import gui.Requests;
 import kotlin.Unit;
 import kotlinx.coroutines.Deferred;
+import kotlinx.coroutines.Job;
 
 import java.io.DataInputStream;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 public class ClientListener implements Runnable
 {
     DataInputStream in;
-    Deferred<Unit> t;
+    Job t;
     public ClientListener(DataInputStream id)
     {
         in = id;

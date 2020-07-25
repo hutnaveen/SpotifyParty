@@ -50,7 +50,7 @@ public class Chat extends JPanel {
         chat.putClientProperty("JScrollPane.style", "overlay");
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
-        chatScroll.setBounds(20, 0, 395, 460);
+        chatScroll.setBounds(20, 0, 405, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
