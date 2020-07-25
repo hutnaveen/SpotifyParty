@@ -69,7 +69,7 @@ public class TCPClient
             InetAddress ip = InetAddress.getByName(serverIP);
             Socket s = new Socket(ip, serverPort);
             dis = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-            dos = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
+            dos = new DataOutputStream(s.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,76 +90,76 @@ public class TCPClient
         KThreadRepKt.startCor(new Runnable() {
             @Override
             public void run() {
-                    try {
-                        UpdateData tempData = updateData.poll(5000, TimeUnit.MILLISECONDS);
-                        if (tempData != null) {
-                            updatePlayer(tempData.getTrackID(), tempData.isPlaying(), tempData.getPos(), tempData.getTimeStamp());
-                        }
-                        else
-                        {
-                           updater.cancel(null);
-                           updater = KThreadRepKt.startCor(updateRun);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                try {
+                    UpdateData tempData = updateData.poll(5000, TimeUnit.MILLISECONDS);
+                    if (tempData != null) {
+                        updatePlayer(tempData.getTrackID(), tempData.isPlaying(), tempData.getPos(), tempData.getTimeStamp());
                     }
+                    else
+                    {
+                        updater.cancel(null);
+                        updater = KThreadRepKt.startCor(updateRun);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         updateRun = () -> {
-                System.out.println("Updater Thread alive");
-                String[] playerData = null;
-                String org = "";
+            System.out.println("Updater Thread alive");
+            String[] playerData = null;
+            String org = "";
+            try {
+                System.out.println("Updater read start");
+                org = dis.readUTF();
+                System.out.println("Updater read done");
+                playerData = org.split(" ");
+            } catch (java.io.EOFException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (playerData[0].equals("usr")) {
+                //ChatPanel.addNames(playerData[1]);
+            }
+            if (playerData[0].equals("delete")) {
+                Requests.redraw(playerData[1]);
+                ChatPanel.chat.revalidate();
+            } else if (playerData[0].equals("request")) {
+                Requests.addRequest(new RequestTab(playerData[1], playerData[2]));
+                ChatPanel.chat.revalidate();
+                //Chat.redraw("");
+            } else if (playerData[0].equals("addAll")) {
+                ArrayList<RequestTab> tabs = new ArrayList<>();
+                for (String rec : playerData[1].split(",")) {
+                    String[] dat = rec.split(";");
+                    tabs.add(new RequestTab(dat[0], dat[1]));
+                }
+                Requests.requestTabs = tabs;
+                Requests.redraw("");
+            } else if (playerData[0].equals("chat")) {
+                org = org.substring(org.indexOf(' ') + 1);
+                String name = org.substring(0, org.indexOf(' ') + 1);
+                String message = org.substring(org.indexOf(' ') + 1);
+                ChatPanel.chat.addText(message, name);
+            } else {
                 try {
-                    System.out.println("Updater read start");
-                    org = dis.readUTF();
-                    System.out.println("Updater read done");
-                    playerData = org.split(" ");
-                } catch (java.io.EOFException e) {
+                    playerData = org.replace("=", " ").trim().split(" ");
+                    long fact = Long.parseLong(playerData[3].trim());
+                    System.out.println((Arrays.toString(playerData)) + " " + new Date(TimeUtils.getAppleTime()) + " " + new Date(fact));
+                    long t = Long.parseLong(playerData[2].trim());
+                    String[] finalPlayerData = playerData;
+                    updateData.drainTo(new ArrayList<>(1));
+                    updateData.offer(new UpdateData(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
+                } catch (Exception e) {
                     e.printStackTrace();
-                } catch (IOException e) {
+                } catch (Throwable e) {
+                    System.out.println("Throwable caught");
                     e.printStackTrace();
                 }
-                if (playerData[0].equals("usr")) {
-                    //ChatPanel.addNames(playerData[1]);
-                }
-                if (playerData[0].equals("delete")) {
-                    Requests.redraw(playerData[1]);
-                    ChatPanel.chat.revalidate();
-                } else if (playerData[0].equals("request")) {
-                    Requests.addRequest(new RequestTab(playerData[1], playerData[2]));
-                    ChatPanel.chat.revalidate();
-                    //Chat.redraw("");
-                } else if (playerData[0].equals("addAll")) {
-                    ArrayList<RequestTab> tabs = new ArrayList<>();
-                    for (String rec : playerData[1].split(",")) {
-                        String[] dat = rec.split(";");
-                        tabs.add(new RequestTab(dat[0], dat[1]));
-                    }
-                    Requests.requestTabs = tabs;
-                    Requests.redraw("");
-                } else if (playerData[0].equals("chat")) {
-                    org = org.substring(org.indexOf(' ') + 1);
-                    String name = org.substring(0, org.indexOf(' ') + 1);
-                    String message = org.substring(org.indexOf(' ') + 1);
-                    ChatPanel.chat.addText(message, name);
-                } else {
-                    try {
-                        playerData = org.replace("=", " ").trim().split(" ");
-                        long fact = Long.parseLong(playerData[3].trim());
-                        System.out.println((Arrays.toString(playerData)) + " " + new Date(TimeUtils.getAppleTime()) + " " + new Date(fact));
-                        long t = Long.parseLong(playerData[2].trim());
-                        String[] finalPlayerData = playerData;
-                        updateData.drainTo(new ArrayList<>(1));
-                        updateData.offer(new UpdateData(finalPlayerData[0].trim(), finalPlayerData[1].trim().substring(0, 4).startsWith("tru"), t, fact));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } catch (Throwable e) {
-                        System.out.println("Throwable caught");
-                        e.printStackTrace();
-                    }
-                }
+            }
         };
-       // updater = new Thread(updateRun);
+        // updater = new Thread(updateRun);
         updater = KThreadRepKt.startCor(updateRun);
         //updater.start();
         //tempUpdate.start();
