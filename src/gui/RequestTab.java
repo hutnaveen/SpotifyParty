@@ -111,7 +111,10 @@ public class RequestTab extends JPanel {
             }else
             {
                 String art = artists.toString();
-                artists.delete(art.lastIndexOf(','), artists.length());
+                int temp = art.lastIndexOf(',');
+                if(temp != -1) {
+                    artists.delete(art.lastIndexOf(','), artists.length());
+                }
             }
             artist.setText(artists.toString());
             artist.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -145,7 +148,7 @@ public class RequestTab extends JPanel {
 
             System.out.println(link + " " + str);
             Requests.backText.setFont(new Font(defFont, Font.PLAIN, 8));
-            Requests.backText.setText(Requests.backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
+            Requests.backText.setText(Requests.backText.getText() + "\n\n\n\n\n\n\n\n\n\n\n");
 
             animate(this);
 

@@ -48,7 +48,7 @@ public class Requests extends JPanel {
             backText.setBackground(new Color(30,30,30));
             setOpaque(true);
             backText.setOpaque(true);
-            reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+            reqScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 300));
 
             // reqScroll.getVerticalScrollBar().setVisible(false);
         }
@@ -92,7 +92,7 @@ public class Requests extends JPanel {
         for(int i = 0; i < requestTabs.size(); i++) {
             if(!(requestTabs.get(i).url.equals(link))) {
                 requestTabs.get(i).setBounds(10, 10 + size++ *110, 430, 110);
-                backText.setText(backText.getText() + "\n\n\n\n\n\n\n\n\n\n");
+                backText.setText(backText.getText() + "\n\n\n\n\n\n\n\n\n\n\n");
                 backText.add(requestTabs.get(i));
             } else {
                 requestTabs.remove(requestTabs.get(i));
