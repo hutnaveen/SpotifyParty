@@ -3,6 +3,7 @@ import chatGUI.ChatPanel;
 import coroutines.KThreadRepKt;
 import gui.*;
 import exception.SpotifyException;
+import kotlinx.coroutines.Job;
 import main.SpotifyParty;
 import model.PlayerData;
 import model.UpdateData;
@@ -11,9 +12,7 @@ import utils.TimeUtils;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -34,8 +33,7 @@ public class TCPClient
 {
     private DataInputStream dis;
     private DataOutputStream dos;
-    private Thread updater;
-    private Thread tempUpdate;
+    private Job updater;
     private String id = FriendName;
     private BufferedImage icon;
     public static String prevSong = null;
@@ -70,8 +68,8 @@ public class TCPClient
         try {
             InetAddress ip = InetAddress.getByName(serverIP);
             Socket s = new Socket(ip, serverPort);
-            dis = new DataInputStream(s.getInputStream());
-            dos = new DataOutputStream(s.getOutputStream());
+            dis = new DataInputStream(new BufferedInputStream(s.getInputStream()));
+            dos = new DataOutputStream(new BufferedOutputStream(s.getOutputStream()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,16 +84,12 @@ public class TCPClient
     }
     public void quit()
     {
-        updater.stop();
-        tempUpdate.stop();
     }
     Runnable updateRun;
     private void trackUpdater() {
         KThreadRepKt.startCor(new Runnable() {
             @Override
             public void run() {
-                while (true)
-                {
                     try {
                         UpdateData tempData = updateData.poll(5000, TimeUnit.MILLISECONDS);
                         if (tempData != null) {
@@ -103,18 +97,15 @@ public class TCPClient
                         }
                         else
                         {
-                           /* updater.stop();
-                            updater = new Thread(updateRun);
-                            updater.start();*/
+                           updater.cancel(null);
+                           updater = KThreadRepKt.startCor(updateRun);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
             }
         });
         updateRun = () -> {
-            while (true) {
                 System.out.println("Updater Thread alive");
                 String[] playerData = null;
                 String org = "";
@@ -167,10 +158,9 @@ public class TCPClient
                         e.printStackTrace();
                     }
                 }
-            }
         };
        // updater = new Thread(updateRun);
-        KThreadRepKt.startCor(updateRun);
+        updater = KThreadRepKt.startCor(updateRun);
         //updater.start();
         //tempUpdate.start();
     }
