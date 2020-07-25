@@ -351,7 +351,7 @@ public class ChatPanel extends JPanel{
                 }
             } else {
                 try {
-                   Item temp = api.search(type.getText().toLowerCase(), 3).getTracks().getItems().get(0);
+                   Item temp = api.search(type.getText().toLowerCase(), 5).getTracks().getItems().get(0);
                     if(temp != null ) {
                         api.playTrack(temp.getUri());
                         type.setText("");
@@ -378,14 +378,14 @@ public class ChatPanel extends JPanel{
             } else {
                 Item item;
                 try {
-                    item = api.search(type.getText().toLowerCase(), 3).getTracks().getItems().get(0);
+                    item = api.search(type.getText().toLowerCase(), 5).getTracks().getItems().get(0);
                     RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                     Requests.addRequest(tab);
                     cli.sendToServer("request " + item.getUri() + " " + FriendName);
                     type.setText("");
                 } catch (Exception e) {
                     try {
-                        item = api.search(type.getText(), 3).getTracks().getItems().get(0);
+                        item = api.search(type.getText(), 5).getTracks().getItems().get(0);
                         RequestTab tab = new RequestTab(item.getUri(), SpotifyPartyPanelChat.FriendName);
                         Requests.addRequest(tab);
                         cli.sendToServer("request " + type.getText() + " " + FriendName);

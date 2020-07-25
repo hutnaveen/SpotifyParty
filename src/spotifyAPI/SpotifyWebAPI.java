@@ -357,7 +357,7 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             e.printStackTrace();
         }
         return null;*/
-        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/search?q="+q+"&ftype=track&limit=" + limit, oAuthToken, SearchItem.class);
+        return WebRequest.sendRequest(WebRequest.GET, "https://api.spotify.com/v1/search?q="+q+"&type=track&limit=" + limit, oAuthToken, SearchItem.class);
     }
     public UserData getUserData()
     {
