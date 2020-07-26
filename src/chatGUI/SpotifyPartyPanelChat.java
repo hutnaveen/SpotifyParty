@@ -92,6 +92,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
 
         }
         else if (e.getActionCommand().equals("enterGuest")) {
+            FriendName = api.getUserData().getDisplay_name();
             String x = JoinPartyPanel.code.getText();
             Object[] code = NetworkUtils.simpleDecode(x);
             if(code != null)

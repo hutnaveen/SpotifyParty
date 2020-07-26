@@ -19,7 +19,7 @@ public class URIUpdater {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(sentData.getProgress_ms() + (TimeUtils.getAppleTime() - sentData.getTimestamp()) + 2000);
-        SpotifyParty.api.setPlayBackPosition(sentData.getProgress_ms() + (TimeUtils.getAppleTime() - sentData.getTimestamp()) + 1500);
+        System.out.println(sentData.getProgress_ms());
+        SpotifyParty.api.setPlayBackPosition((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() + 1000);
     }
 }

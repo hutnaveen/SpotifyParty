@@ -12,6 +12,5 @@ public class PlayingUpdater {
             SpotifyParty.api.play();
         else
             SpotifyParty.api.pause();
-        SpotifyParty.api.setPlayBackPosition(sentData.getProgress_ms() + (TimeUtils.getAppleTime() - sentData.getTimestamp()) + 500);
     }
 }
