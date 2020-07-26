@@ -7,7 +7,6 @@ import lyrics.LyricFinder;
 import model.Artist;
 import model.Item;
 import model.UserData;
-import server.TCPServer;
 import utils.GUIUtils;
 import utils.SpotifyUtils;
 
@@ -202,7 +201,7 @@ public class ChatPanel extends JPanel{
                     if (!host)
                         cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                     else
-                        server.TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                        server.SketchServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                     type.setText("");
                 } else {
                     //recommendationHandler();
@@ -220,7 +219,7 @@ public class ChatPanel extends JPanel{
                         if (!host)
                             cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         else
-                            TCPServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                            server.SketchServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
                         type.setText("");
                     }
                 } else {

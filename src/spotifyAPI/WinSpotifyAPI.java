@@ -25,6 +25,18 @@ public class WinSpotifyAPI extends SpotifyWebAPI{
         driver.findElement(By.id("login-username")).sendKeys("naveen.box2@gmail.com", Keys.TAB,
                 "Nothing234", Keys.ENTER);
     }
+    public WinSpotifyAPI(String token)
+    {
+        super(token);
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\navee\\Documents\\WinSpotify\\src\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        //  options.setBinary("C:\\\\Program Files (x86)\\\\BraveSoftware\\\\Brave-Browser\\\\Application\\\\brave.exe");
+        options.addArguments("--app=https://accounts.spotify.com/en/login?continue=https:%2F%2Fopen.spotify.com%2F");
+        // options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.findElement(By.id("login-username")).sendKeys("naveen.box2@gmail.com", Keys.TAB,
+                "Nothing234", Keys.ENTER);
+    }
 
     @Override
     public void play() {

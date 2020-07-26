@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import coroutines.KThreadRepKt;
 import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
+import lombok.Getter;
 import model.Artist;
 import model.Item;
 import model.OAuthTokenData;
@@ -35,7 +36,7 @@ import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
-
+@Getter
 public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
     OAuthTokenData oAuthToken;
     URI redirect = null;
@@ -107,6 +108,11 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
                 oAuthToken = reFreshToken();
             }
         });
+    }
+    public SpotifyWebAPI(String token)
+    {
+        oAuthToken = new OAuthTokenData();
+        oAuthToken.setAccess_token(token);
     }
 
     private static String createHash(String value) {

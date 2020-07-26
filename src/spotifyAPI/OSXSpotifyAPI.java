@@ -8,6 +8,10 @@ public class OSXSpotifyAPI extends SpotifyWebAPI {
         super();
        wrapper = new SpotifyAppleScriptWrapper();
     }
+    public OSXSpotifyAPI(String token) {
+        super(token);
+        wrapper = new SpotifyAppleScriptWrapper();
+    }
     @Override
     public void nextTrack() {
         wrapper.nextTrack();
