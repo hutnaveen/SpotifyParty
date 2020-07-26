@@ -5,6 +5,8 @@ import coroutines.KThreadRepKt;
 import handler.MessageHandler;
 import lombok.Getter;
 import main.SpotifyParty;
+import model.PlayerData;
+import model.UpdateData;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
@@ -27,6 +29,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static chatGUI.ChatPanel.names;
+import static chatGUI.SpotifyPartyPanelChat.FriendName;
+import static main.SpotifyParty.api;
+import static main.SpotifyParty.chatPanel;
 import static utils.GUIUtils.resizeIcon;
 
 @Getter
@@ -36,19 +41,21 @@ public class SketchServer {
     ServerSocket server;
     private int serverPort = 9000;
     public static HashMap<DataInputStream, DataOutputStream> stream = new HashMap<>();
+
     public SketchServer()
+    {
+        try {
+            serverPort = findOpenSocket();
+            server = new ServerSocket(serverPort);
+            ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
+            startServerListener();
+            startLeftUpdater();
+            System.out.println("Server is started! port " + serverPort);
+        }catch (IOException e)
         {
-            try {
-                serverPort = findOpenSocket();
-                server = new ServerSocket(serverPort);
-                ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
-                startServerListener();
-                System.out.println("Server is started! port " + serverPort);
-            }catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
+    }
 
         private int findOpenSocket()
         {
@@ -97,12 +104,32 @@ public class SketchServer {
             });
         }
 
+    String last = "";
+    private void startLeftUpdater()
+    {
+        KThreadRepKt.startCor(() -> {
+            try {
+                try {
+                    PlayerData dat = api.getPlayerData();
+                    if(dat != null && dat.getItem().getUri() != null && !dat.getItem().getUri().equals(last))
+                    {
+                        chatPanel.updateData(dat.getItem().getUri());
+                        last = dat.getItem().getUri();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     public static void sendToClients(String msg)
     {
         sendToClients(msg, null);
     }
-
 
     public static void sendToClients(String msg, DataInputStream exc)
     {

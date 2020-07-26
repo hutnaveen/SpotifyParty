@@ -11,6 +11,15 @@ fun startCor(run : Runnable): Job
         }
     }
 }
+fun startCorWithDelay(run : Runnable, del: Long): Job
+{
+    return GlobalScope.launch (Dispatchers.Default){
+        while (isActive) {
+            run.run()
+            delay(del)
+        }
+    }
+}
 
 fun startCorTimeout(run: Runnable, timeout: Long)
 {

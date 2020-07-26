@@ -8,18 +8,22 @@ import static main.SpotifyParty.api;
 
 public class PlayerUpdater {
     public PlayerUpdater(PlayerData sentData) {
+        System.out.println("called");
         try {
+            long timestamp = System.currentTimeMillis();
             PlayerData data = api.getPlayerData();
+            sentData.setTimestamp(timestamp);
             if (sentData!= null && data != null) {
                     if (!data.getItem().getUri().equals(sentData.getItem().getUri())) {
                         new URIUpdater(sentData);
                     }
+                    else if (Math.abs((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() - data.getProgress_ms()) > 1500) {
+                        new ProgressUpdater(sentData);
+                    }
                     if (data.is_playing() != data.is_playing()) {
                        new PlayingUpdater(sentData);
                     }
-                    if (Math.abs((TimeUtils.getAppleTime() - data.getTimestamp()) + sentData.getProgress_ms() - data.getProgress_ms()) > 2000) {
-                        new ProgressUpdater(data, sentData);
-                    }
+                    //System.out.println(data.getTimestamp());
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();

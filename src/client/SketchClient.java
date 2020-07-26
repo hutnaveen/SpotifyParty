@@ -34,6 +34,7 @@ public class SketchClient {
            else
                serverAPI = new WinSpotifyAPI(token);
            startMessageListner();
+           startUpdater();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,14 +63,14 @@ public class SketchClient {
     }
     public void startUpdater()
     {
-        KThreadRepKt.startCor(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new PlayerUpdater(serverAPI.getPlayerData());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        KThreadRepKt.startCor(() -> {
+            try {
+                new PlayerUpdater(serverAPI.getPlayerData());
+                Thread.sleep(1000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
     }

@@ -5,10 +5,11 @@ import model.PlayerData;
 import utils.TimeUtils;
 
 public class ProgressUpdater {
-    ProgressUpdater(PlayerData data, PlayerData sentData)
+    ProgressUpdater(PlayerData sentData)
     {
-        System.out.println("Time: " + sentData.getProgress_ms() + " Player: " + data.getProgress_ms());
-        SpotifyParty.api.setPlayBackPosition(sentData.getProgress_ms() + (TimeUtils.getAppleTime() - sentData.getTimestamp()) + 500);
+        //System.out.println("Time: " + sentData.getProgress_ms() + " Player: " + data.getProgress_ms());
+        System.out.println(sentData.getTimestamp());
+        SpotifyParty.api.setPlayBackPosition((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() + 500);
     }
 
 }
