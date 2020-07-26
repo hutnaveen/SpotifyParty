@@ -196,7 +196,7 @@ public class TCPServer
                     String s = dat.poll(5000, TimeUnit.MILLISECONDS);
                     if(s == null)
                     {
-                        sender.cancel(new CancellationException());
+                        sender.cancel(null);
                         sender = KThreadRepKt.startCor(senderRun);
                     }
                 } catch (InterruptedException e) {

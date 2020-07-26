@@ -1,14 +1,12 @@
 
 package chatGUI;
 
-import client.TCPClient;
+import client.SketchClient;
 import gui.JoinPartyPanel;
-import server.TCPServer;
-import spotifyAPI.OSXSpotifyAPI;
+import server.SketchServer;
 import utils.NetworkUtils;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,8 +24,8 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
     public static String FriendName = "";
     public static boolean host;
-    TCPServer server;
-    public static TCPClient cli ;
+    SketchServer server;
+    public static SketchClient cli ;
 
     public SpotifyPartyPanelChat() {
         super();
@@ -83,7 +81,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             FriendName = FriendName.replace(" ", "-");
             host = true;
             local = true;
-            server = new TCPServer(true);
+            server = new SketchServer();
             cl.show(this, "chatPanel");
             spfc.setVisible(true);
             menu.removeAll();
@@ -101,7 +99,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 System.out.println(x);
                 FriendName = api.getUserData().getDisplay_name();
                 FriendName = FriendName.replace(" ", "-");
-                cli =  new TCPClient((String)code[0], (int)code[1]);
+                cli =  new SketchClient((String)code[0], (int)code[1]);
                 cl.show(this, "chatPanel");
                 chatPanel.updateData();
                 ChatPanel.theCode[0] = x;
