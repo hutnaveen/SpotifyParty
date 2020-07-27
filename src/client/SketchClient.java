@@ -29,6 +29,7 @@ public class SketchClient {
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
            this.token = in.readUTF();
+            System.out.println(token);
            if((System.getProperty("os.name").contains("Mac")))
                serverAPI = new OSXSpotifyAPI(token);
            else
