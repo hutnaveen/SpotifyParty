@@ -22,7 +22,7 @@ public class Test {
         }
         long start = System.currentTimeMillis();
         System.out.println(start);
-       for(int a = 0; a <= 5; a++)
+       for(int a = 0; a <= 999; a++)
        {
            KThreadRepKt.startCor(() -> {
                try {
