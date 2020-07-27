@@ -1,3 +1,5 @@
 .idea/workspace.xml
 out/production/SpotifyParty-master/spotifyAPI/token.properties
 SpotifyParty-master.iml
+cheap.hprof
+*.class
