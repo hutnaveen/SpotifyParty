@@ -1,3 +1,5 @@
+package test;
+
 import coroutines.KThreadRepKt;
 import spotifyAPI.OSXSpotifyAPI;
 import spotifyAPI.SpotifyWebAPI;
