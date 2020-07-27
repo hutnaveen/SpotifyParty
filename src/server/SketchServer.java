@@ -103,7 +103,11 @@ public class SketchServer {
                 new ClientListener(in);
             });
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 3e9fbca0eb815f5375c63fe605c5be4cde41fd74
 
     String last = "";
     private void startLeftUpdater()

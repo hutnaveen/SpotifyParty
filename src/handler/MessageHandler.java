@@ -1,22 +1,32 @@
 package handler;
 
 import chatGUI.ChatPanel;
+<<<<<<< HEAD
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+=======
+>>>>>>> 3e9fbca0eb815f5375c63fe605c5be4cde41fd74
 import gui.RequestTab;
 import gui.Requests;
 import model.UpdateData;
 import utils.TimeUtils;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+=======
+>>>>>>> 3e9fbca0eb815f5375c63fe605c5be4cde41fd74
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+<<<<<<< HEAD
 public class MessageHandler implements HttpHandler {
+=======
+public class MessageHandler {
+>>>>>>> 3e9fbca0eb815f5375c63fe605c5be4cde41fd74
     public MessageHandler(String indicator, String message)
     {
         handle(indicator, message);
@@ -54,6 +64,7 @@ public class MessageHandler implements HttpHandler {
         }
         return true;
     }
+<<<<<<< HEAD
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -65,4 +76,6 @@ public class MessageHandler implements HttpHandler {
         os.close();
         exchange.close();
     }
+=======
+>>>>>>> 3e9fbca0eb815f5375c63fe605c5be4cde41fd74
 }
