@@ -30,19 +30,29 @@ public class WebRequest<T>{
         try {
             response = client.newCall(request).execute();
             String data = response.body().string();
-            if(data.startsWith("{\n" +
+            int code = response.code();
+            if(code == 429){
+                String wait =  response.header("Retry-After");
+                response.close();
+                System.out.println("Waiting: " + wait + " secconds");
+               Thread.sleep(Long.parseLong(wait)*1000);
+            }
+            else if(data.startsWith("{\n" +
                     "  \"error\":"))
             {
                 System.out.println("REDFLAGS");
                 System.out.println(data);
+                System.out.println(System.currentTimeMillis());
                 System.exit(100);
             }
-            if(t != null) {
+            else if(t != null) {
                 Gson son = new Gson();
+                response.close();
                 return son.fromJson(data, t);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.close();
         }
         return null;
     }
