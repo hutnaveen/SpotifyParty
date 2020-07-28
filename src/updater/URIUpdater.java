@@ -12,6 +12,7 @@ public class URIUpdater {
 
     public URIUpdater(PlayerData sentData)
     {
+        System.out.println("trying to play " + sentData.getItem().getName());
         SpotifyParty.api.playTrack(sentData.getItem().getUri());
         try {
             //System.out.println("update to " + api.getTrackInfo(trackID));

@@ -99,14 +99,12 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             System.out.println(oAuthToken.getRefresh_token());
         }
         KThreadRepKt.startCor(() -> {
-            while (true) {
                 try {
                     Thread.sleep(3480000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 oAuthToken = reFreshToken();
-            }
         });
     }
     public SpotifyWebAPI(String token)

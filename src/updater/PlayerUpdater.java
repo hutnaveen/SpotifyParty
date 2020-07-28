@@ -13,11 +13,11 @@ public class PlayerUpdater {
             long timestamp = System.currentTimeMillis();
             PlayerData data = api.getPlayerData();
             sentData.setTimestamp(timestamp);
-            if (sentData!= null && data != null) {
+            if (sentData!= null && data != null && data.getItem() != null) {
                     if (!data.getItem().getUri().equals(sentData.getItem().getUri())) {
                         new URIUpdater(sentData);
                     }
-                    else if (Math.abs((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() - data.getProgress_ms()) > 1500) {
+                    if (Math.abs((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() - data.getProgress_ms()) > 1500) {
                         new ProgressUpdater(sentData);
                     }
                     if (data.is_playing() != data.is_playing()) {

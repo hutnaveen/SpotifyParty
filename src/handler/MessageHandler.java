@@ -48,7 +48,8 @@ public class MessageHandler implements HttpHandler {
             case "chat":
                 String name = message.substring(0, message.indexOf(' ') + 1);
                 String temp = message.substring(message.indexOf(' ') + 1);
-                ChatPanel.chat.addText(temp, name);
+                name = temp.substring(0, temp.indexOf(' '));
+                ChatPanel.chat.addText(temp.substring(temp.indexOf(' ')).trim(), name.trim());
                 break;
         }
         return true;

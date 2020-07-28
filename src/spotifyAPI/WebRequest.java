@@ -45,7 +45,6 @@ public class WebRequest<T>{
             else if(t != null) {
                 Gson son = new Gson();
                 response.close();
-                System.exit(100);
             }
             if(t != null) {
                 Gson son = new Gson();

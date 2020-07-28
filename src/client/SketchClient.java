@@ -15,6 +15,7 @@ import updater.PlayerUpdater;
 import java.awt.event.KeyListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -46,6 +47,8 @@ public class SketchClient {
             String dat = null;
             try {
                 dat = in.readUTF();
+            } catch (EOFException e) {
+                System.exit(0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
