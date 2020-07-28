@@ -68,6 +68,7 @@ public class Chat extends JPanel {
     public String prev = "";
     public boolean you;
     public void addText(String text, String name) {
+        System.out.println(name + " " + text);
         text = reformat(text);
         if(!spfc.isActive()) {
             System.out.println("hi");
