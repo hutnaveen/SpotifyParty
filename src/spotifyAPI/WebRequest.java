@@ -34,6 +34,9 @@ public class WebRequest<T>{
                 System.out.println("Waiting: " + wait + " secconds");
                Thread.sleep(Long.parseLong(wait)*1000);
             }
+            else if(code == 503) {
+                return null;
+            }
             else if(data.startsWith("{\n" +
                     "  \"error\":"))
             {
@@ -45,7 +48,6 @@ public class WebRequest<T>{
             else if(t != null) {
                 Gson son = new Gson();
                 response.close();
-                System.exit(100);
             }
             if(t != null) {
                 Gson son = new Gson();

@@ -116,10 +116,10 @@ public class SketchServer {
                         chatPanel.updateData(dat.getItem().getUri());
                         last = dat.getItem().getUri();
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

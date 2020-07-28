@@ -17,6 +17,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class SketchClient {
     static DataInputStream in;
@@ -58,6 +59,8 @@ public class SketchClient {
     {
         try {
             out.writeUTF("a " + msg.trim());
+        } catch (SocketException socketException) {
+            System.exit(69);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,6 +74,8 @@ public class SketchClient {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
