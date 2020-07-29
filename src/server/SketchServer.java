@@ -1,35 +1,25 @@
 package server;
 
 import chatGUI.ChatPanel;
+import com.google.gson.Gson;
 import coroutines.KThreadRepKt;
-import handler.MessageHandler;
 import lombok.Getter;
 import main.SpotifyParty;
 import model.PlayerData;
-import model.UpdateData;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
 import javax.swing.*;
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static chatGUI.ChatPanel.names;
-import static chatGUI.SpotifyPartyPanelChat.FriendName;
 import static main.SpotifyParty.api;
 import static main.SpotifyParty.chatPanel;
 import static utils.GUIUtils.resizeIcon;
@@ -85,7 +75,7 @@ public class SketchServer {
 
         public void startServerListener()
         {
-            KThreadRepKt.startCor(() -> {
+            KThreadRepKt.startInfCor(() -> {
                 Socket s = null;
                 DataOutputStream dos = null;
                 DataInputStream in = null;
@@ -94,7 +84,10 @@ public class SketchServer {
                     dos = new DataOutputStream((s.getOutputStream()));
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                     dos.writeUTF(SpotifyParty.api.getOAuthToken().getAccess_token());
-                    System.out.println(NetworkUtils.getLocalIP());
+                    String name = in.readUTF();
+                    dos.writeUTF(new Gson().toJson(ChatPanel.names));
+                    ChatPanel.names.put(name.substring(0, name.indexOf(' ')).trim(), name.substring(name.indexOf(' ') + 1).trim());
+                    sendToClients("usr " + name);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -107,7 +100,7 @@ public class SketchServer {
     String last = "";
     private void startLeftUpdater()
     {
-        KThreadRepKt.startCor(() -> {
+        KThreadRepKt.startInfCor(() -> {
             try {
                 try {
                     PlayerData dat = api.getPlayerData();

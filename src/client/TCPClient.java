@@ -2,7 +2,6 @@ package client;
 import chatGUI.ChatPanel;
 import coroutines.KThreadRepKt;
 import gui.*;
-import exception.SpotifyException;
 import kotlinx.coroutines.Job;
 import main.SpotifyParty;
 import model.PlayerData;
@@ -19,7 +18,6 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -114,7 +112,7 @@ public class TCPClient
     }
     Runnable updateRun;
     private void trackUpdater() {
-        KThreadRepKt.startCor(() -> {
+        KThreadRepKt.startInfCor(() -> {
             try {
                 System.out.println("checking update data");
                 UpdateData tempData = updateData.poll(5000, TimeUnit.MILLISECONDS);
@@ -125,7 +123,7 @@ public class TCPClient
                 {
                     System.out.println("restarted");
                     updater.cancel(null);
-                    updater = KThreadRepKt.startCor(updateRun);
+                    updater = KThreadRepKt.startInfCor(updateRun);
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -188,7 +186,7 @@ public class TCPClient
             }
         };
         // updater = new Thread(updateRun);
-        updater = KThreadRepKt.startCor(updateRun);
+        updater = KThreadRepKt.startInfCor(updateRun);
         //updater.start();
         //tempUpdate.start();
     }

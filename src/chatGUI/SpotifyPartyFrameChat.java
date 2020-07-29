@@ -37,7 +37,7 @@ public class SpotifyPartyFrameChat extends JFrame {
         super();
         setResizable(false);
         setIconImage(image);
-        //Taskbar.getTaskbar().setIconImage(image);
+
         this.getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
         this.getRootPane().putClientProperty("Aqua.windowTopMargin", "0");
         this.getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");

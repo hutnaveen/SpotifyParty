@@ -70,7 +70,7 @@ public class RoundJTextField extends JTextField {
                 {
                     e.consume();
                     setText(" ");
-                    setCaretPosition(2);
+                    setCaretPosition(1);
                     //moveCaretPosition(1);
                 }
             }

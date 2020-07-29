@@ -1,9 +1,7 @@
 package spotifyAPI;
 
-import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import coroutines.KThreadRepKt;
-import exception.SpotifyException;
 import interfaces.SpotifyPlayerAPI;
 import lombok.Getter;
 import model.Artist;
@@ -26,10 +24,8 @@ import server.SketchServer;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -99,14 +95,15 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             System.out.println(oAuthToken.getAccess_token());
             System.out.println(oAuthToken.getRefresh_token());
         }
-        KThreadRepKt.startCor(() -> {
+        KThreadRepKt.startInfCor(() -> {
                 try {
                     Thread.sleep(3480000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 oAuthToken = reFreshToken();
-                SketchServer.sendToClients("token " + oAuthToken.getAccess_token());
+                if(chatGUI.SpotifyPartyPanelChat.host)
+                    SketchServer.sendToClients("token " + oAuthToken.getAccess_token());
         });
     }
     public SpotifyWebAPI(String token)

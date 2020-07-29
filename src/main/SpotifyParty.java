@@ -3,6 +3,7 @@ package main;
 import chatGUI.ChatPanel;
 import chatGUI.SpotifyPartyPanelChat;
 import interfaces.SpotifyPlayerAPI;
+import model.Image;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import spotifyAPI.OSXSpotifyAPI;
@@ -11,6 +12,7 @@ import spotifyAPI.SpotifyWebAPI;
 import spotifyAPI.WinSpotifyAPI;
 import utils.OSXUtils;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
@@ -32,7 +34,16 @@ public class SpotifyParty {
     public static SpotifyWebAPI api;
     public static String defFont = "SF Pro Display Bold";
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-        System.setProperty("apple.awt.UIElement", "true");
+        //System.setProperty("apple.awt.UIElement", "true");
+        if(Taskbar.isTaskbarSupported()) {
+            try {
+                Taskbar.getTaskbar().setIconImage(ImageIO.read(SpotifyParty.class.getResource("/images/logo.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Taskbar.getTaskbar().setWindowIconBadge(this, image);
+            //trayIcon.displayMessage("hi", "hi", TrayIcon.MessageType.NONE);
+        }
         try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -40,7 +51,7 @@ public class SpotifyParty {
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
-        System.out.println(new Font(defFont, 1, 1).getFontName());
+        System.out.println(new Font(defFont, Font.BOLD, 1).getFontName());
         if(System.getProperty("os.name").contains("Windows")) {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             api = new WinSpotifyAPI();

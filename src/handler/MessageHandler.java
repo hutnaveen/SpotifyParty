@@ -26,7 +26,8 @@ public class MessageHandler implements HttpHandler {
         String playerData[] = message.split(" ");
         switch (indicator) {
             case "usr":
-                //ChatPanel.addNames(playerData[1]);
+                ChatPanel.names.put(message.substring(0, message.indexOf(' ')).trim(), message.substring(message.indexOf(' ') + 1).trim());
+                ChatPanel.addNames();
                 break;
             case "delete":
                 Requests.redraw(playerData[0]);

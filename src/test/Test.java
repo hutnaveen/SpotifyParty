@@ -6,10 +6,8 @@ import spotifyAPI.SpotifyWebAPI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 
 public class Test {
     static int i = 0;
@@ -24,7 +22,7 @@ public class Test {
         System.out.println(start);
        for(int a = 0; a <= 999; a++)
        {
-           KThreadRepKt.startCor(() -> {
+           KThreadRepKt.startInfCor(() -> {
                try {
                    api.getPlayerData();
                } catch (IOException e) {

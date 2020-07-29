@@ -21,13 +21,19 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.awt.peer.TrayIconPeer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
+import static chatGUI.SpotifyPartyFrameChat.trayIcon;
+import static chatGUI.SpotifyPartyPanelChat.spfc;
+import static gui.Requests.icon;
 import static main.SpotifyParty.defFont;
 import static utils.GUIUtils.makeButton;
 import static utils.GUIUtils.resizeIcon;
@@ -53,7 +59,7 @@ public class ChatPanel extends JPanel{
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
     private static int WIN = 0;
-    public static ArrayList<String> names = new ArrayList<>();
+    public static HashMap names = new HashMap<>();
     public ChatPanel() {
         if(System.getProperty("os.name").contains("Windows"))
         {
@@ -218,11 +224,22 @@ public class ChatPanel extends JPanel{
                 super.keyPressed(e);
                 if (chatCheck) {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
-                        chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                        try {
+                            chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
+                            //trayIcon.displayMessage("hi", "f", TrayIcon.MessageType.NONE);
+                            BufferedImage image = ImageIO.read(api.getUserData().getImages().get(0).getUrl());
+                            Image icon = Taskbar.getTaskbar().getIconImage();
+                            Taskbar.getTaskbar().setIconImage(image);
+                            trayIcon.displayMessage(FriendName, type.getText(), TrayIcon.MessageType.NONE);
+                            Taskbar.getTaskbar().setIconImage(icon);
+                        }catch (Exception e1)
+                        {
+                            e1.printStackTrace();
+                        }
                         if (!host)
-                            cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                            cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName.replace(" ", "-") + " " + type.getText());
                         else
-                            server.SketchServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
+                            server.SketchServer.sendToClients("chat " + SpotifyPartyPanelChat.FriendName.replace(" ", "-") + " " + type.getText());
                         type.setText("");
                     }
                 } else {
@@ -676,6 +693,7 @@ public class ChatPanel extends JPanel{
         code.setFont(new Font(defFont, Font.PLAIN, 11));
         code.setText(tcode);
     }
+    public static UserData dat;
     private BufferedImage profile = null;
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

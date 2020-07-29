@@ -1,24 +1,25 @@
 package client;
 
+import chatGUI.ChatPanel;
+import com.google.gson.Gson;
 import coroutines.KThreadRepKt;
 import handler.MessageHandler;
-import main.SpotifyParty;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-import okio.ByteString;
 import spotifyAPI.OSXSpotifyAPI;
 import spotifyAPI.SpotifyWebAPI;
 import spotifyAPI.WinSpotifyAPI;
 import updater.PlayerUpdater;
 
-import java.awt.event.KeyListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.HashMap;
+
+import static chatGUI.ChatPanel.dat;
+import static chatGUI.ChatPanel.names;
+import static chatGUI.SpotifyPartyPanelChat.FriendName;
 
 public class SketchClient {
     static DataInputStream in;
@@ -27,11 +28,14 @@ public class SketchClient {
     static SpotifyWebAPI serverAPI;
     public SketchClient(String ip, int port){
         try {
-            Socket socket = new Socket(ip, port);
-            in = new DataInputStream(socket.getInputStream());
-            out = new DataOutputStream(socket.getOutputStream());
+           Socket socket = new Socket(ip, port);
+           in = new DataInputStream(socket.getInputStream());
+           out = new DataOutputStream(socket.getOutputStream());
            this.token = in.readUTF();
-            System.out.println(token);
+           out.writeUTF(FriendName.replace(" ", "-") + " " + dat.getImages().get(0).getUrl());
+           System.out.println(token);
+           names = new Gson().fromJson(in.readUTF(), HashMap.class);
+           ChatPanel.addNames();
            if((System.getProperty("os.name").contains("Mac")))
                serverAPI = new OSXSpotifyAPI(token);
            else
@@ -44,7 +48,7 @@ public class SketchClient {
     }
     private void startMessageListner()
     {
-        KThreadRepKt.startCor(()->{
+        KThreadRepKt.startInfCor(()->{
             String dat = null;
             try {
                 dat = in.readUTF();
@@ -70,7 +74,7 @@ public class SketchClient {
     }
     public void startUpdater()
     {
-        KThreadRepKt.startCor(() -> {
+        KThreadRepKt.startInfCor(() -> {
             try {
                 new PlayerUpdater(serverAPI.getPlayerData());
                 Thread.sleep(1000);

@@ -2,11 +2,8 @@ package server;
 
 import coroutines.KThreadRepKt;
 import chatGUI.ChatPanel;
-import kotlin.Unit;
-import kotlinx.coroutines.Deferred;
 import kotlinx.coroutines.Job;
 import model.PlayerData;
-import org.junit.internal.runners.statements.RunAfters;
 import utils.TimeUtils;
 import upnp.UPnP;
 import utils.NetworkUtils;
@@ -19,7 +16,6 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +66,6 @@ public class TCPServer
         }
         //SpotifyPartyPanel.host.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
         ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
-        names.add("HOST");
         startConnector();
         startSender();
         checkIfWorking();
@@ -80,7 +75,7 @@ public class TCPServer
     Runnable senderRun;
     private void startConnector()
     {
-        KThreadRepKt.startCor(() -> {
+        KThreadRepKt.startInfCor(() -> {
                 //if client not added to list of clients add it
                 Socket s = null;
                 DataOutputStream dos = null;
@@ -185,23 +180,23 @@ public class TCPServer
                     e.printStackTrace();
                 }
         };
-        sender = KThreadRepKt.startCor(senderRun);
+        sender = KThreadRepKt.startInfCor(senderRun);
         //sender.start();
     }
     BlockingQueue<String> dat = new LinkedBlockingQueue<>(1);
     public void checkIfWorking()
     {
-        KThreadRepKt.startCor(() -> {
+        KThreadRepKt.startInfCor(() -> {
                 try {
                     String s = dat.poll(5000, TimeUnit.MILLISECONDS);
                     if(s == null)
                     {
                         sender.cancel(null);
-                        sender = KThreadRepKt.startCor(senderRun);
+                        sender = KThreadRepKt.startInfCor(senderRun);
                     }
                 } catch (InterruptedException e) {
                     sender.cancel(null);
-                    sender = KThreadRepKt.startCor(senderRun);
+                    sender = KThreadRepKt.startInfCor(senderRun);
                     e.printStackTrace();
                 }
         });

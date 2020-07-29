@@ -4,8 +4,6 @@ import chatGUI.ChatPanel;
 import coroutines.KThreadRepKt;
 import gui.RequestTab;
 import gui.Requests;
-import kotlin.Unit;
-import kotlinx.coroutines.Deferred;
 import kotlinx.coroutines.Job;
 
 import java.io.DataInputStream;
@@ -18,7 +16,7 @@ public class ClientListener implements Runnable
     public ClientListener(DataInputStream id)
     {
         in = id;
-        t = KThreadRepKt.startCor(this);
+        t = KThreadRepKt.startInfCor(this);
     }
 
     @Override
