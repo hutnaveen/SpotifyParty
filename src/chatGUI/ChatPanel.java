@@ -634,11 +634,12 @@ public class ChatPanel extends JPanel{
      */
 
     public static void addNames() {
-        String format = "";
-        for(int i = 0; i < names.size(); i++) {
-            format = format + names.get(i) + "\n";
+        StringBuilder format = new StringBuilder();
+        for(Object names : names.keySet())
+        {
+            format.append(names).append("\n");
         }
-        area.setText(format);
+        area.setText(format.toString());
     }
 
     public void addLyrics() {

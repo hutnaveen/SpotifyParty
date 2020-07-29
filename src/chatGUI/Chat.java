@@ -11,7 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
+import static chatGUI.ChatPanel.names;
+import static chatGUI.SpotifyPartyFrameChat.trayIcon;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.defFont;
 
@@ -71,16 +74,14 @@ public class Chat extends JPanel {
         System.out.println(name + " " + text);
         text = reformat(text);
         if(!spfc.isActive()) {
-            System.out.println("hi");
-            Notification notification = new Notification(icon, "SpotifyParty", name, text, 5000);
-            notification.addActivationListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    spfc.setVisible(true);
-                    spfc.toFront();
-                }
-            });
-            notification.send();
+            Image a = Taskbar.getTaskbar().getIconImage();
+            try {
+                Taskbar.getTaskbar().setIconImage(ImageIO.read(new URL((String) names.get(name.trim()))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            trayIcon.displayMessage(name, text, TrayIcon.MessageType.NONE);
+            Taskbar.getTaskbar().setIconImage(a);
         }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
