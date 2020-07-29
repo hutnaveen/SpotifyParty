@@ -51,7 +51,7 @@ public class JoinPartyPanel extends JPanel {
         text.setBounds(150, 145, 400, 100);
         this.add(text);
 
-        code = new RoundJTextField(200);
+        code = new RoundJTextField(200, 30);
         code.setForeground(Color.GRAY);
         code.setText("Code");
         code.addMouseListener(new MouseAdapter() {

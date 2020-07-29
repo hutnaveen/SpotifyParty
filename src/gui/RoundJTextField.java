@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -11,8 +10,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
@@ -20,7 +17,9 @@ import static main.SpotifyParty.defFont;
 
 public class RoundJTextField extends JTextField {
     private Shape shape;
-    public RoundJTextField(int size) {
+    public int type;
+    public RoundJTextField(int size, int round) {
+        type = round;
         putClientProperty("Aqua.useFocusRing", "false");
         putClientProperty("JTextField.style", "round");
         setBorder(new EmptyBorder(new Insets(4,4,4,4)));
@@ -71,65 +70,30 @@ public class RoundJTextField extends JTextField {
                 {
                     e.consume();
                     setText(" ");
-                    setCaretPosition(1);
+                    setCaretPosition(2);
                     //moveCaretPosition(1);
                 }
             }
         });
     }
-    public RoundJTextField(int a, int b)
-    {
-        super();
-        setPreferredSize(new Dimension(a, b));
-    }
-
-    @Override protected void paintComponent(Graphics g) {
-        if (!isOpaque() && getBorder() instanceof GRoundTextField.RoundedCornerBorder) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setPaint(getBackground());
-            g2.fill(((GRoundTextField.RoundedCornerBorder) getBorder()).getBorderShape(
-                    0, 0, getWidth() - 1, getHeight() - 1));
-            g2.dispose();
-        }
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, type, type);
         super.paintComponent(g);
     }
-    @Override public void updateUI() {
-        super.updateUI();
-        setOpaque(false);
-        setBorder(new RoundedCornerBorder());
+    protected void paintBorder(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getBackground());
+        g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, type, type);
     }
-
-    class RoundedCornerBorder extends AbstractBorder {
-        private final Color ALPHA_ZERO = new Color(0x0, true);
-        @Override
-        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            Shape border = getBorderShape(x, y, width - 1, height - 1);
-            g2.setPaint(ALPHA_ZERO);
-            Area corner = new Area(new Rectangle2D.Double(x, y, width, height));
-            corner.subtract(new Area(border));
-            g2.fill(corner);
-            g2.setPaint(Color.WHITE);
-            g2.draw(border);
-            g2.dispose();
+    public boolean contains(int x, int y) {
+        if (shape == null || !shape.getBounds().equals(getBounds())) {
+            shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, type, type);
         }
-
-        public Shape getBorderShape(int x, int y, int w, int h) {
-            int r = h; //h / 2;
-            return new RoundRectangle2D.Double(x, y, w, h, r, r);
-        }
-
-        @Override
-        public Insets getBorderInsets(Component c) {
-            return new Insets(4, 8, 4, 8);
-        }
-
-        @Override
-        public Insets getBorderInsets(Component c, Insets insets) {
-            insets.set(4, 8, 4, 8);
-            return insets;
-        }
+        return shape.contains(x, y);
     }
     private String get()
     {

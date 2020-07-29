@@ -37,7 +37,7 @@ public class SignUp extends JPanel {
         text.setBounds(145, 145, 400, 100);
         this.add(text);
 
-        email = new RoundJTextField(400);
+        email = new RoundJTextField(400, 30);
         email.setForeground(Color.GRAY);
         email.setText("Email");
         email.addMouseListener(new MouseAdapter() {
@@ -51,7 +51,7 @@ public class SignUp extends JPanel {
         email.setBounds(145, 250, 400, 50);
         this.add(email);
 
-        pass = new RoundJTextField(400);
+        pass = new RoundJTextField(400, 30);
         pass.setForeground(Color.GRAY);
         pass.setText("Password");
         pass.addMouseListener(new MouseAdapter() {

@@ -43,7 +43,7 @@ public class ChatPanel extends JPanel{
     public static JTextPane artist;
     public static RoundJTextField code;
     public static Chat chat = new Chat();
-    public static RoundJTextField type = new RoundJTextField(380, 37);
+    public static RoundJTextField type = new RoundJTextField(380, 33);
     public JScrollPane areaScroll;
     private URL artworkURL;
     public final static String[] theCode = {""};
@@ -83,7 +83,6 @@ public class ChatPanel extends JPanel{
            // e.printStackTrace();
         }
         code.setFocusable(false);
-        code.setBorder(new EmptyBorder(0, 0, 0, 0));
         code.setForeground(Color.GRAY);
         code.setBounds(47, 31+WIN, 195, 30);
         code.setEditable(false);
@@ -188,13 +187,15 @@ public class ChatPanel extends JPanel{
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        type.setFont(new Font(defFont,Font.BOLD, 15));
-        type.setBounds(260, 545+WIN, 380, 40);
+        type.setFont(new Font(defFont,Font.PLAIN, 15));
+        type.setForeground(Color.WHITE);
+        type.setBounds(260, 552+WIN, 380, 35);
+        type.setBackground(new Color(110, 110, 110));
         type.setCaretColor(Color.GREEN);
         this.add(type);
-        ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 40, 40);
+        ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 38, 38);
         AbstractButton play = makeButton(playIcon);
-        play.setBounds(647, 545+WIN, 40, 40);
+        play.setBounds(647, 550+WIN, 38, 38);
 
         play.addActionListener(e -> {
             if(!type.getText().isEmpty() && !type.getText().isBlank()) {
