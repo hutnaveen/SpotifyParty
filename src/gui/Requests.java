@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static chatGUI.SpotifyPartyFrameChat.trayIcon;
+
 public class Requests extends JPanel {
     public static ArrayList<RequestTab> requestTabs = new ArrayList<>();
     public static JTextPane backText;
@@ -77,8 +79,7 @@ public class Requests extends JPanel {
     }
     public static void addRequest(RequestTab pane)
     {
-        Notification notif = new Notification(icon, "SpotifyParty", "SONG REQUEST", "a new song request was added", 6000);
-        notif.send();
+        trayIcon.displayMessage("new request","A new request was added", TrayIcon.MessageType.NONE);
         backViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         requestTabs.add(pane);
         pane.setBounds(10, 10 +size++ *110, 430, 110);

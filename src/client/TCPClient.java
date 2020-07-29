@@ -256,8 +256,6 @@ public class TCPClient
                     ad = true;
                     SpotifyParty.api.pause();
                     time = pos;
-                    Notification notif = new Notification(icon, "SpotifyParty", "ADVERTISEMENT", "The host is playing an ad", 5000);
-                    notif.send();
                     System.out.println("mans playing an add");
                     log("an add is playing");
                     try {
