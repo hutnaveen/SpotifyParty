@@ -20,6 +20,7 @@ import java.util.HashMap;
 import static chatGUI.ChatPanel.dat;
 import static chatGUI.ChatPanel.names;
 import static chatGUI.SpotifyPartyPanelChat.FriendName;
+import static main.SpotifyParty.api;
 
 public class SketchClient {
     static DataInputStream in;
@@ -32,6 +33,7 @@ public class SketchClient {
            in = new DataInputStream(socket.getInputStream());
            out = new DataOutputStream(socket.getOutputStream());
            this.token = in.readUTF();
+           dat = api.getUserData();
            out.writeUTF(FriendName.replace(" ", "-") + " " + dat.getImages().get(0).getUrl());
            System.out.println(token);
            names = new Gson().fromJson(in.readUTF(), HashMap.class);

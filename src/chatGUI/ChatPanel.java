@@ -21,7 +21,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.awt.peer.TrayIconPeer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -634,15 +633,17 @@ public class ChatPanel extends JPanel{
      */
 
     public static void addNames() {
+        area.setFont(new Font(defFont, Font.PLAIN, 23));
         StringBuilder format = new StringBuilder();
         for(Object names : names.keySet())
         {
-            format.append(names).append("\n");
+            format.append(names).append("\n\n");
         }
         area.setText(format.toString());
     }
 
     public void addLyrics() {
+        area.setFont(new Font(defFont, Font.PLAIN, 15));
         try {
             areaScroll.getVerticalScrollBar().setValue(0);
             area.setText(LyricFinder.getLyrics(song.getText(), artist.getText()));
