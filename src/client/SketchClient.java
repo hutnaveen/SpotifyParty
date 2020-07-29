@@ -23,7 +23,7 @@ import java.net.SocketException;
 public class SketchClient {
     static DataInputStream in;
     static DataOutputStream out;
-    static String token;
+    public static String token;
     static SpotifyWebAPI serverAPI;
     public SketchClient(String ip, int port){
         try {

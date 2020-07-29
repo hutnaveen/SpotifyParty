@@ -21,6 +21,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.springframework.security.crypto.keygen.Base64StringKeyGenerator;
 import org.springframework.security.crypto.keygen.StringKeyGenerator;
+import server.SketchServer;
 
 import java.awt.*;
 import java.io.File;
@@ -105,6 +106,7 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
                     e.printStackTrace();
                 }
                 oAuthToken = reFreshToken();
+                SketchServer.sendToClients("token " + oAuthToken.getAccess_token());
         });
     }
     public SpotifyWebAPI(String token)
