@@ -42,14 +42,14 @@ public class ChatPanel extends JPanel{
     public static JTextPane song;
     public static JTextPane artist;
     public static RoundJTextField code;
-    public static JTextField guest = new JTextField();
     public static Chat chat = new Chat();
-    public static RoundJTextField type = new RoundJTextField(380);
+    public static RoundJTextField type = new RoundJTextField(380, 37);
     public JScrollPane areaScroll;
     private URL artworkURL;
     public final static String[] theCode = {""};
-    public boolean chatSwitch = true;
-    public static JTextPane req;
+    public static JTextPane chatSwitch;
+    public static JTextPane reqSwitch;
+    public static boolean chatCheck = true;
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
     private static int WIN = 0;
@@ -71,7 +71,7 @@ public class ChatPanel extends JPanel{
             setBackground(new Color(30, 30, 30));
         putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
         putClientProperty("Aqua.windowStyle", "noTitleBar");
-        code = new RoundJTextField(200);
+        code = new RoundJTextField(200, 30);
         code.setFont(new Font(defFont, Font.PLAIN, 8));
 
         try {
@@ -171,6 +171,7 @@ public class ChatPanel extends JPanel{
         areaScroll.getVerticalScrollBar().setOpaque(false);
         areaScroll.getVerticalScrollBar().setBorder(new EmptyBorder(0, 0, 0, 0));
         areaScroll.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        areaScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
         areaScroll.setBounds(25, 120+WIN, 210, 250);
         areaScroll.getVerticalScrollBar().setUnitIncrement(4);
         this.add(areaScroll);
@@ -197,7 +198,7 @@ public class ChatPanel extends JPanel{
 
         play.addActionListener(e -> {
             if(!type.getText().isEmpty() && !type.getText().isBlank()) {
-                if (chatSwitch) {
+                if (chatCheck) {
                     chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                     if (!host)
                         cli.sendToServer("chat " + SpotifyPartyPanelChat.FriendName + " " + type.getText());
@@ -214,7 +215,7 @@ public class ChatPanel extends JPanel{
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if (chatSwitch) {
+                if (chatCheck) {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
                         chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                         if (!host)
@@ -234,15 +235,16 @@ public class ChatPanel extends JPanel{
         this.add(play);
 
         JTextPane lyrics = new JTextPane();
-        lyrics.setForeground(Color.WHITE);
+        JTextPane name = new JTextPane();
+
         lyrics.setFont(new Font(defFont, Font.PLAIN, 21));
-        lyrics.setForeground(Color.WHITE);
+        lyrics.setForeground(Color.GREEN);
         lyrics.setText("Lyrics");
         lyrics.setBorder(new EmptyBorder(0, 0, 0, 0));
         lyrics.setOpaque(false);
         lyrics.setFocusable(false);
         lyrics.setEditable(false);
-        lyrics.setBounds(101, 75+WIN, 70, 30);
+        lyrics.setBounds(150, 75+WIN, 70, 30);
         lyrics.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -255,10 +257,15 @@ public class ChatPanel extends JPanel{
                 lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
                 lyrics.setText("Lyrics");
             }
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                lyrics.setForeground(Color.GREEN);
+                name.setForeground(Color.WHITE);
+                addLyrics();
+            }
         });
         this.add(lyrics);
 
-        JTextPane name = new JTextPane();
         name.setForeground(Color.WHITE);
         name.setFont(new Font(defFont, Font.PLAIN, 21));
         name.setForeground(Color.WHITE);
@@ -267,7 +274,7 @@ public class ChatPanel extends JPanel{
         name.setOpaque(false);
         name.setFocusable(false);
         name.setEditable(false);
-        name.setBounds(101, 75+WIN, 70, 30);
+        name.setBounds(40, 75+WIN, 75, 30);
         name.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -280,23 +287,82 @@ public class ChatPanel extends JPanel{
                 name.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
                 name.setText("Friends");
             }
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                name.setForeground(Color.GREEN);
+                lyrics.setForeground(Color.WHITE);
+                addNames();
+            }
         });
-        this.add(lyrics);
+        this.add(name);
 
-        req = new JTextPane();
-        StyledDocument doc4 = req.getStyledDocument();
+        reqSwitch = new JTextPane();
+        StyledDocument doc4 = reqSwitch.getStyledDocument();
         SimpleAttributeSet center4 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center4, StyleConstants.ALIGN_CENTER);
         doc4.setParagraphAttributes(0, doc4.getLength(), center4, false);
-        req.setForeground(Color.WHITE);
-        req.setEditable(false);
-        req.setOpaque(false);
-        req.setFocusable(false);
-        req.setBorder(new EmptyBorder(0, 0, 0, 0));
-        req.setText("Party Chat");
-        req.setFont(new Font(defFont, Font.PLAIN, 30));
-        req.setBounds(340, 20+WIN, 255, 45);
+        reqSwitch.setForeground(Color.WHITE);
+        reqSwitch.setEditable(false);
+        reqSwitch.setOpaque(false);
+        reqSwitch.setFocusable(false);
+        reqSwitch.setBorder(new EmptyBorder(0, 0, 0, 0));
+        reqSwitch.setText("Request");
+        reqSwitch.setFont(new Font(defFont, Font.PLAIN, 30));
+        reqSwitch.setBounds(430, 20+WIN, 255, 45);
+        reqSwitch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                reqSwitch.setFont(new Font(defFont, Font.BOLD, 30));
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                reqSwitch.setFont(new Font(defFont, Font.PLAIN, 30));
+            }
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                reqSwitch.setForeground(Color.GREEN);
+                chatSwitch.setForeground(Color.WHITE);
+                cl.show(back, "RequestPanel");
+                chatCheck = false;
+            }
+        });
+        this.add(reqSwitch);
 
+        chatSwitch = new JTextPane();
+        StyledDocument doc5 = chatSwitch.getStyledDocument();
+        SimpleAttributeSet center5 = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center5, StyleConstants.ALIGN_CENTER);
+        doc5.setParagraphAttributes(0, doc4.getLength(), center5, false);
+        chatSwitch.setForeground(Color.GREEN);
+        chatSwitch.setEditable(false);
+        chatSwitch.setOpaque(false);
+        chatSwitch.setFocusable(false);
+        chatSwitch.setBorder(new EmptyBorder(0, 0, 0, 0));
+        chatSwitch.setText("Chat");
+        chatSwitch.setFont(new Font(defFont, Font.PLAIN, 30));
+        chatSwitch.setBounds(250, 20+WIN, 255, 45);
+        chatSwitch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                chatSwitch.setFont(new Font(defFont, Font.BOLD, 30));
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                chatSwitch.setFont(new Font(defFont, Font.PLAIN, 30));
+            }
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                chatSwitch.setForeground(Color.GREEN);
+                reqSwitch.setForeground(Color.WHITE);
+                cl.show(back, "ChatPanel");
+                chatCheck = true;
+            }
+        });
+        this.add(chatSwitch);
+
+        /*
         JTextPane invs = new JTextPane();
         invs.setEditable(false);
         invs.setOpaque(false);
@@ -549,7 +615,7 @@ public class ChatPanel extends JPanel{
 
      */
 
-    public void addNames() {
+    public static void addNames() {
         String format = "";
         for(int i = 0; i < names.size(); i++) {
             format = format + names.get(i) + "\n";

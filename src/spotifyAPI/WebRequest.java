@@ -55,7 +55,7 @@ public class WebRequest<T>{
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.close();
+            //response.close();
         }
         return null;
     }
