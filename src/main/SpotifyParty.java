@@ -33,13 +33,13 @@ public class SpotifyParty {
     public static String defFont = "SF Pro Display Bold";
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         System.setProperty("apple.awt.UIElement", "true");
-        /*try {
+        try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(SpotifyParty.class.getResource("/fonts/SF-Pro-Display-Bold.otf").getFile())));
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-        }*/
+        }
         System.out.println(new Font(defFont, 1, 1).getFontName());
         if(System.getProperty("os.name").contains("Windows")) {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
