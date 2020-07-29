@@ -34,6 +34,9 @@ public class WebRequest<T>{
                 System.out.println("Waiting: " + wait + " secconds");
                Thread.sleep(Long.parseLong(wait)*1000);
             }
+            else if(code == 503) {
+                return null;
+            }
             else if(data.startsWith("{\n" +
                     "  \"error\":"))
             {

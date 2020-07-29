@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -43,7 +44,6 @@ public class ChatPanel extends JPanel{
     public static RoundJTextField code;
     public static JTextField guest = new JTextField();
     public static Chat chat = new Chat();
-    public static HashSet<String> names = new HashSet<>();
     public static RoundJTextField type = new RoundJTextField(380);
     public JScrollPane areaScroll;
     private URL artworkURL;
@@ -53,6 +53,7 @@ public class ChatPanel extends JPanel{
     public static CardLayout cl = new CardLayout();
     public static Requests requestPanel = new Requests();
     private static int WIN = 0;
+    public static ArrayList<String> names = new ArrayList<>();
     public ChatPanel() {
         if(System.getProperty("os.name").contains("Windows"))
         {
@@ -84,7 +85,7 @@ public class ChatPanel extends JPanel{
         code.setFocusable(false);
         code.setBorder(new EmptyBorder(0, 0, 0, 0));
         code.setForeground(Color.GRAY);
-        code.setBounds(47, 31+WIN, 195, 34);
+        code.setBounds(47, 31+WIN, 195, 30);
         code.setEditable(false);
         code.addMouseListener(new MouseAdapter() {
             @Override
@@ -242,7 +243,6 @@ public class ChatPanel extends JPanel{
         lyrics.setFocusable(false);
         lyrics.setEditable(false);
         lyrics.setBounds(101, 75+WIN, 70, 30);
-        /*
         lyrics.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -256,7 +256,31 @@ public class ChatPanel extends JPanel{
                 lyrics.setText("Lyrics");
             }
         });
-         */
+        this.add(lyrics);
+
+        JTextPane name = new JTextPane();
+        name.setForeground(Color.WHITE);
+        name.setFont(new Font(defFont, Font.PLAIN, 21));
+        name.setForeground(Color.WHITE);
+        name.setText("Friends");
+        name.setBorder(new EmptyBorder(0, 0, 0, 0));
+        name.setOpaque(false);
+        name.setFocusable(false);
+        name.setEditable(false);
+        name.setBounds(101, 75+WIN, 70, 30);
+        name.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                name.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
+                name.setText("Friends");
+            }
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                name.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
+                name.setText("Friends");
+            }
+        });
         this.add(lyrics);
 
         req = new JTextPane();
@@ -525,6 +549,14 @@ public class ChatPanel extends JPanel{
 
      */
 
+    public void addNames() {
+        String format = "";
+        for(int i = 0; i < names.size(); i++) {
+            format = format + names.get(i) + "\n";
+        }
+        area.setText(format);
+    }
+
     public void addLyrics() {
         try {
             areaScroll.getVerticalScrollBar().setValue(0);
@@ -599,9 +631,9 @@ public class ChatPanel extends JPanel{
                     profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
                 }
             }
-            g.drawImage(profile, 9, 31+WIN, 34, 34, this);
+            g.drawImage(profile, 10, 31+WIN, 30, 30, this);
             if (artworkURL != null)
-                g.drawImage(ImageIO.read(artworkURL), 55, 400+WIN, 140, 140, this);
+                g.drawImage(ImageIO.read(artworkURL), 50, 384+WIN, 150, 150, this);
         } catch (Exception e) {
             e.printStackTrace();
         }
