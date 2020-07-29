@@ -185,6 +185,7 @@ public class RequestTab extends JPanel {
         {
             Color color = info.getDominantColor();
             Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             Color color1 = color.darker();
             Color color2 = color.darker().darker();
             GradientPaint gp = new GradientPaint(
@@ -192,7 +193,7 @@ public class RequestTab extends JPanel {
             g2d.setPaint(gp);
             g2d.fillRoundRect(0, 30, 430, 80, 20, 20);
             //g.drawImage(ImageIO.read(getClass().getResource("/SpotifyBG.jpg")), 0, 0, 700, 600, this);
-            g.drawImage(ImageIO.read(api.getTrackInfo(url).getAlbum().getImages().get(2).getUrl()), 10, 39, 60, 60, this);
+            g2d.drawImage(ImageIO.read(api.getTrackInfo(url).getAlbum().getImages().get(2).getUrl()), 10, 39, 60, 60, this);
         }
         catch (Exception e)
         {
