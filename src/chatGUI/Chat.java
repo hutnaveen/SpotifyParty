@@ -75,12 +75,21 @@ public class Chat extends JPanel {
         text = reformat(text);
         if(!spfc.isActive()) {
             Image a = Taskbar.getTaskbar().getIconImage();
+            Image b = null;
             try {
-                Taskbar.getTaskbar().setIconImage(ImageIO.read(new URL((String) names.get(name.trim()))));
+                b = ImageIO.read(new URL((String) names.get(name.trim())));
+                Taskbar.getTaskbar().setIconImage(b);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            trayIcon.displayMessage(name, text, TrayIcon.MessageType.NONE);
+            TrayIcon temp = new TrayIcon(b);
+            try {
+                SystemTray.getSystemTray().add(temp);
+                temp.displayMessage(name, text, TrayIcon.MessageType.NONE);
+                SystemTray.getSystemTray().remove(temp);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            }
             Taskbar.getTaskbar().setIconImage(a);
         }
         StyledDocument doc = chat.getStyledDocument();
