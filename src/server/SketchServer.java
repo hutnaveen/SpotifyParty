@@ -6,6 +6,7 @@ import coroutines.KThreadRepKt;
 import lombok.Getter;
 import main.SpotifyParty;
 import model.PlayerData;
+import model.UserData;
 import upnp.UPnP;
 import utils.NetworkUtils;
 
@@ -20,6 +21,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static chatGUI.ChatPanel.names;
 import static main.SpotifyParty.api;
 import static main.SpotifyParty.chatPanel;
 import static utils.GUIUtils.resizeIcon;
@@ -38,6 +40,8 @@ public class SketchServer {
             serverPort = findOpenSocket();
             server = new ServerSocket(serverPort);
             ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
+            UserData dat = api.getUserData();
+            names.put(dat.getDisplay_name(), dat.getImages().get(0).getUrl());
             startServerListener();
             startLeftUpdater();
             System.out.println("Server is started! port " + serverPort);
@@ -85,8 +89,8 @@ public class SketchServer {
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
                     dos.writeUTF(SpotifyParty.api.getOAuthToken().getAccess_token());
                     String name = in.readUTF();
-                    dos.writeUTF(new Gson().toJson(ChatPanel.names));
-                    ChatPanel.names.put(name.substring(0, name.indexOf(' ')).trim(), name.substring(name.indexOf(' ') + 1).trim());
+                    dos.writeUTF(new Gson().toJson(names));
+                    names.put(name.substring(0, name.indexOf(' ')).trim(), name.substring(name.indexOf(' ') + 1).trim());
                     sendToClients("usr " + name);
                 } catch (IOException e) {
                     e.printStackTrace();

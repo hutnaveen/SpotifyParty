@@ -227,11 +227,6 @@ public class ChatPanel extends JPanel{
                         try {
                             chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
                             //trayIcon.displayMessage("hi", "f", TrayIcon.MessageType.NONE);
-                            BufferedImage image = ImageIO.read(api.getUserData().getImages().get(0).getUrl());
-                            Image icon = Taskbar.getTaskbar().getIconImage();
-                            Taskbar.getTaskbar().setIconImage(image);
-                            trayIcon.displayMessage(FriendName, type.getText(), TrayIcon.MessageType.NONE);
-                            Taskbar.getTaskbar().setIconImage(icon);
                         }catch (Exception e1)
                         {
                             e1.printStackTrace();
