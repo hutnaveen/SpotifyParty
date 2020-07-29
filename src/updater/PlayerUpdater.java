@@ -20,7 +20,7 @@ public class PlayerUpdater {
                     if (Math.abs((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() - data.getProgress_ms()) > 1500) {
                         new ProgressUpdater(sentData);
                     }
-                    if (data.is_playing() != data.is_playing()) {
+                    if (sentData.is_playing() != data.is_playing()) {
                        new PlayingUpdater(sentData);
                     }
                     //System.out.println(data.getTimestamp());
