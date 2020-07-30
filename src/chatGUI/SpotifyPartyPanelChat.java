@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static chatGUI.SpotifyPartyFrameChat.cmenu;
 import static chatGUI.SpotifyPartyFrameChat.menu;
 import static chatGUI.SpotifyPartyFrameChat.quit;
 import static main.SpotifyParty.chatPanel;
@@ -81,17 +82,14 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             KThreadRepKt.startCor(new Runnable() {
                 @Override
                 public void run() {
-                    JPanel panel = new JPanel();
                     Icon imgIcon = new ImageIcon(getClass().getResource("/images/5f21771971927231816530.gif"));
                     JLabel label = new JLabel();
                     label.setIcon(imgIcon);
                     label.setFont(new Font(defFont, Font.PLAIN, 20));
                     label.setText(" Your party will start shortly!");
-                    panel.setBackground(Color.WHITE);
                     frame.getContentPane().setBackground(Color.WHITE);
                     label.setBackground(Color.WHITE);
-                    panel.add(label);
-                    frame.add(panel);
+                    frame.setContentPane(label);
                     frame.setAlwaysOnTop(true);
                     frame.setSize(new Dimension(450, 150));
                     frame.setVisible(true);
@@ -105,7 +103,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             cl.show(this, "chatPanel");
             spfc.setVisible(true);
             frame.dispose();
-            menu.removeAll();
+            cmenu.removeAll();
             menu.add(show);
             menu.addSeparator();
             menu.add(quit);
@@ -125,7 +123,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
                 chatPanel.updateData();
                 ChatPanel.theCode[0] = x;
                 ChatPanel.setCode(x);
-                menu.removeAll();
+                cmenu.removeAll();
                 menu.add(show);
                 menu.addSeparator();
                 menu.add(quit);

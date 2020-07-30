@@ -24,7 +24,7 @@ public class DuckDuckGoSearch {
                 Element title = result.getElementsByClass("links_main").first().getElementsByTag("a").first();
                 searches.add(new SearchResult(title.attr("href"), title.text(), result.getElementsByClass("result__snippet").first().text()));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return searches;

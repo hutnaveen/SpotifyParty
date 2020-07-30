@@ -185,8 +185,9 @@ public class RequestTab extends JPanel {
         {
             Color color = info.getDominantColor();
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            Color color1 = color.darker();
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);            Color color1 = color.darker();
             Color color2 = color.darker().darker();
             GradientPaint gp = new GradientPaint(
                     0, 0, color2, 0, 90, color1);

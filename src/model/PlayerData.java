@@ -6,9 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class PlayerData {
-    private Device device;
-    private boolean shuffle_state;
-    private boolean repeat_state;
     private long timestamp;
     private Context context;
     private long progress_ms;

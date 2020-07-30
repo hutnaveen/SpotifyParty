@@ -4,10 +4,19 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
+import java.awt.desktop.AppReopenedEvent;
+import java.awt.desktop.AppReopenedListener;
+import java.awt.desktop.SystemEventListener;
+import java.awt.desktop.SystemSleepListener;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
+import static chatGUI.SpotifyPartyPanelChat.spfc;
 
 
 public class SpotifyPartyFrameChat extends JFrame {
@@ -16,8 +25,8 @@ public class SpotifyPartyFrameChat extends JFrame {
     public static MenuItem hostPublic;
     //public boolean updateAvalibe = true;
 
-    public static TrayIcon  trayIcon = new TrayIcon(new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB), "");
-    private  SystemTray tray = SystemTray.getSystemTray();
+    //public static TrayIcon trayIcon = new TrayIcon(new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB), "");
+    //private  SystemTray tray = SystemTray.getSystemTray();
     private static Image image;
 
     static {
@@ -35,33 +44,35 @@ public class SpotifyPartyFrameChat extends JFrame {
     public SpotifyPartyFrameChat()
     {
         super();
-        setResizable(false);
-        setIconImage(image);
-
-        this.getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
-        this.getRootPane().putClientProperty("Aqua.windowTopMargin", "0");
-        this.getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
-        if(System.getProperty("os.name").contains("Windows"))
-        {
-            WIN = 10;
-            this.getRootPane().setBackground(new Color(30, 30, 30));
-        }
-        setLocation(100, 100);
-        setSize(700+ WIN, 600 + WIN);
-        if(System.getProperty("os.name").contains("Windows"))
-            setTitle("SpotifyParty");
-        setDefaultCloseOperation(this.HIDE_ON_CLOSE);
-        initializeTrayIcon();
-        toFront();
-        /*
-        if(updateAvalibe) {
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "A new update to SpotifyParty should" +
-                    " be on out website :)", "Update Avalible!", JOptionPane.PLAIN_MESSAGE);
-        }
-
-         */
+        SwingUtilities.invokeLater(() -> {
+            setResizable(false);
+            setIconImage(image);
+            getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
+            getRootPane().putClientProperty("Aqua.windowTopMargin", "0");
+            getRootPane().putClientProperty("Aqua.backgroundStyle", "vibrantUltraDark");
+            if(System.getProperty("os.name").contains("Windows"))
+            {
+                WIN = 10;
+                getRootPane().setBackground(new Color(30, 30, 30));
+            }
+            setLocation(100, 100);
+            setSize(700+ WIN, 600 + WIN);
+            if(System.getProperty("os.name").contains("Windows"))
+                setTitle("SpotifyParty");
+            setDefaultCloseOperation(HIDE_ON_CLOSE);
+            initializeTrayIcon();
+            setAlwaysOnTop(true);
+            toFront();
+            setAlwaysOnTop(false);
+        });
+        java.awt.Desktop.getDesktop().addAppEventListener(new AppReopenedListener() {
+            @Override
+            public void appReopened(AppReopenedEvent e) {
+                setVisible(true);
+            }
+        });
     }
+    public static PopupMenu cmenu = new PopupMenu();
     private void initializeTrayIcon()
     {
         quit.addActionListener(actionEvent -> System.exit(0));
@@ -71,7 +82,7 @@ public class SpotifyPartyFrameChat extends JFrame {
         hostPublic = new MenuItem("Host Public Party");
 
         status.setEnabled(false);
-        menu.add(status);
+       /* menu.add(status);
         menu.addSeparator();
         menu.add(join);
         menu.addSeparator();
@@ -82,13 +93,13 @@ public class SpotifyPartyFrameChat extends JFrame {
         menu.addSeparator();
 
 
-        menu.add(quit);
-        try {
-            trayIcon = new TrayIcon(image, "SpotifyParty", menu );
-            tray.add(trayIcon);
-        } catch (AWTException e) {
-            System.err.println(e);
-        }
+        menu.add(quit);*/
+        //trayIcon = new TrayIcon(image, "SpotifyParty", menu );
+        cmenu.add(status);
+        cmenu.add(hostPublic);
+        cmenu.add(join);
+        Taskbar.getTaskbar().setMenu(cmenu);
+        //tray.add(trayIcon);
     }
 
     //public MenuItem getJoin() {return join;}

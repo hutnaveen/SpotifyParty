@@ -73,8 +73,9 @@ public class GUIUtils {
         int width = in.getWidth();
         BufferedImage circleBuffer = new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = circleBuffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setClip(new Ellipse2D.Float(0, 0, width, width));
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);        g2.setClip(new Ellipse2D.Float(0, 0, width, width));
         g2.drawImage(in, 0, 0, width, width, null);
         return circleBuffer;
     }

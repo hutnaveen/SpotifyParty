@@ -37,7 +37,7 @@ public class OSXUtils {
     }
 
     public static void setWallpaper(File file) throws IOException {
-        runAppleCmd("tell application \"System Events\" to set picture of (a reference to current desktop) to \""+file.getAbsolutePath()+"\"");
+       //  runAppleCmd("tell application \"System Events\" to set picture of (a reference to current desktop) to \""+file.getAbsolutePath()+"\"");
     }
     public static void sendNotification(String title, String sub)
     {
