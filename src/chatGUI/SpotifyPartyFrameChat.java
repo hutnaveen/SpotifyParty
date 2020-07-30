@@ -44,7 +44,6 @@ public class SpotifyPartyFrameChat extends JFrame {
     public SpotifyPartyFrameChat()
     {
         super();
-        SwingUtilities.invokeLater(() -> {
             setResizable(false);
             setIconImage(image);
             getRootPane().putClientProperty("Aqua.windowStyle", "transparentTitleBar");
@@ -64,7 +63,6 @@ public class SpotifyPartyFrameChat extends JFrame {
             setAlwaysOnTop(true);
             toFront();
             setAlwaysOnTop(false);
-        });
         java.awt.Desktop.getDesktop().addAppEventListener(new AppReopenedListener() {
             @Override
             public void appReopened(AppReopenedEvent e) {
@@ -78,7 +76,7 @@ public class SpotifyPartyFrameChat extends JFrame {
         quit.addActionListener(actionEvent -> System.exit(0));
 
         join = new MenuItem("Join Party");
-        hostLocal = new MenuItem("Host Local Party");
+        hostLocal = new MenuItem("Host Local Party"); 
         hostPublic = new MenuItem("Host Public Party");
 
         status.setEnabled(false);
