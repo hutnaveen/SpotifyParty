@@ -34,7 +34,10 @@ public class SketchClient {
            out = new DataOutputStream(socket.getOutputStream());
            this.token = in.readUTF();
            dat = api.getUserData();
-           out.writeUTF(FriendName.replace(" ", "-") + " " + dat.getImages().get(0).getUrl());
+           if(dat.getImages() != null && !dat.getImages().isEmpty())
+            out.writeUTF(FriendName.replace(" ", "-") + " " + dat.getImages().get(0).getUrl());
+           else
+               out.writeUTF(FriendName.replace(" ", "-") + " " + "null");
            System.out.println(token);
            names = new Gson().fromJson(in.readUTF(), HashMap.class);
            ChatPanel.addNames();
