@@ -59,6 +59,7 @@ public class ChatPanel extends JPanel{
     public static Requests requestPanel = new Requests();
     private static int WIN = 0;
     public static HashMap names = new HashMap<>();
+    public boolean privateSwitch = false;
     public ChatPanel() {
         if(System.getProperty("os.name").contains("Windows"))
         {
@@ -419,6 +420,24 @@ public class ChatPanel extends JPanel{
 
         back.setBounds(250, 70+WIN, 450, 460);
         this.add(back);
+
+        JTextPane priSwitch = new JTextPane();
+        priSwitch.setOpaque(false);
+        priSwitch.setEditable(false);
+        priSwitch.setFocusable(false);
+        priSwitch.setBounds(10, 31+WIN, 30, 30);
+        priSwitch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(!host) {
+                    privateSwitch = !privateSwitch;
+                    repaint();
+                    System.out.println("PRIVATE MODE SWITCH PRESSED");
+                }
+            }
+        });
+        add(priSwitch);
     }
 
 
@@ -628,7 +647,7 @@ public class ChatPanel extends JPanel{
      */
 
     public static void addNames() {
-        area.setFont(new Font(defFont, Font.PLAIN, 23));
+        area.setFont(new Font(defFont, Font.PLAIN, 18));
         StringBuilder format = new StringBuilder();
         for(Object names : names.keySet())
         {
@@ -702,6 +721,8 @@ public class ChatPanel extends JPanel{
                     0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
+
+
             if(profile == null)
             {
                 UserData dat = api.getUserData();
@@ -714,6 +735,12 @@ public class ChatPanel extends JPanel{
                 }
             }
             g.drawImage(profile, 10, 31+WIN, 30, 30, this);
+
+            if(privateSwitch) {
+                g2d.setColor(Color.RED);
+                g2d.drawLine(10, 61+WIN, 40, 31+WIN);
+            }
+
             if (artworkURL != null)
                 g.drawImage(ImageIO.read(artworkURL), 50, 384+WIN, 150, 150, this);
         } catch (Exception e) {
