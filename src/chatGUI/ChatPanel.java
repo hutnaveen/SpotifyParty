@@ -243,7 +243,6 @@ public class ChatPanel extends JPanel{
                     if (e.getKeyCode() == KeyEvent.VK_ENTER && !type.getText().isEmpty() && !type.getText().isBlank()) {
                         try {
                             chat.addText(type.getText(), SpotifyPartyPanelChat.FriendName);
-                            sendNotif(SpotifyPartyPanelChat.FriendName, type.getText());
                             //trayIcon.displayMessage("hi", "f", TrayIcon.MessageType.NONE);
                         }catch (Exception e1)
                         {
@@ -442,24 +441,22 @@ public class ChatPanel extends JPanel{
 
     public static void sendNotif(String name, String message)
     {
-        KThreadRepKt.startCor(() -> {
-            try {
-                String[] cmd = {Test.class.getResource("/terminal-notifier-1.7.2/SpotifyParty.app/Contents/MacOS/terminal-notifier").getPath(),
-                        "-message", message, "-title", name, "-contentImage", ((URL)names.get(name)).toString(), "-timeout", "5"};
-                java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
-                String a = (s.hasNext() ? s.next() : "");
-                System.out.println(a);
-                if(!a.isEmpty() && !a.isBlank() && !a.equals("@CLOSED") && !a.equals("@TIMEOUT"))
-                {
-                    spfc.setVisible(true);
-                    spfc.setAlwaysOnTop(true);
-                    spfc.toFront();
-                    spfc.setAlwaysOnTop(false);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            String[] cmd = {Test.class.getResource("/terminal-notifier-1.7.2/SpotifyParty.app/Contents/MacOS/terminal-notifier").getPath(),
+                    "-message", message, "-title", name, "-contentImage", ((URL)names.get(name)).toString(), "-timeout", "5"};
+            java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
+            String a = (s.hasNext() ? s.next() : "");
+            System.out.println(a);
+            if(!a.isEmpty() && !a.isBlank() && !a.equals("@CLOSED") && !a.equals("@TIMEOUT"))
+            {
+                spfc.setVisible(true);
+                spfc.setAlwaysOnTop(true);
+                spfc.toFront();
+                spfc.setAlwaysOnTop(false);
             }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void recHandler() {
