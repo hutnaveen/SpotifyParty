@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import static chatGUI.ChatPanel.names;
-import static chatGUI.SpotifyPartyFrameChat.trayIcon;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.defFont;
 

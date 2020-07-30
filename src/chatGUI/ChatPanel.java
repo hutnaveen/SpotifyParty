@@ -1,4 +1,5 @@
 package chatGUI;
+import client.SketchClient;
 import exception.SpotifyException;
 import gui.RequestTab;
 import gui.Requests;
@@ -7,6 +8,7 @@ import lyrics.LyricFinder;
 import model.Artist;
 import model.Item;
 import model.UserData;
+import server.SketchServer;
 import utils.GUIUtils;
 import utils.SpotifyUtils;
 
@@ -20,6 +22,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +33,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import static chatGUI.SpotifyPartyFrameChat.trayIcon;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static gui.Requests.icon;
 import static main.SpotifyParty.defFont;
@@ -60,6 +62,7 @@ public class ChatPanel extends JPanel{
     private static int WIN = 0;
     public static HashMap names = new HashMap<>();
     public boolean privateSwitch = false;
+    public static JTextPane priSwitch;
     public ChatPanel() {
         if(System.getProperty("os.name").contains("Windows"))
         {
@@ -421,7 +424,17 @@ public class ChatPanel extends JPanel{
         back.setBounds(250, 70+WIN, 450, 460);
         this.add(back);
 
-        JTextPane priSwitch = new JTextPane();
+        PopupMenu menu = new PopupMenu();
+        MenuItem quit = new MenuItem("Quit");
+        quit.addActionListener(e -> {
+            System.exit(99);
+        });
+        MenuItem unsync = new MenuItem("Unsync");
+        unsync.addActionListener(e -> {
+
+        });
+
+        priSwitch = new JTextPane();
         priSwitch.setOpaque(false);
         priSwitch.setEditable(false);
         priSwitch.setFocusable(false);
@@ -432,6 +445,7 @@ public class ChatPanel extends JPanel{
                 super.mouseClicked(e);
                 if(!host) {
                     privateSwitch = !privateSwitch;
+                    SketchClient.sync = !privateSwitch;
                     repaint();
                     System.out.println("PRIVATE MODE SWITCH PRESSED");
                 }
@@ -492,6 +506,7 @@ public class ChatPanel extends JPanel{
             }
         } else {
             if (type.getText().trim().toLowerCase().equals("pause!")) {
+                priSwitch.getMouseListeners()[0].mouseClicked(null);
                 api.pause();
             } else if (type.getText().trim().toLowerCase().equals("play!")) {
                 api.play();
@@ -737,8 +752,11 @@ public class ChatPanel extends JPanel{
             g.drawImage(profile, 10, 31+WIN, 30, 30, this);
 
             if(privateSwitch) {
-                g2d.setColor(Color.RED);
-                g2d.drawLine(10, 61+WIN, 40, 31+WIN);
+                Graphics2D gg2 = (Graphics2D) g.create();
+                gg2.setColor(new Color(250, 70, 70));
+                gg2.setStroke(new BasicStroke(3));
+                gg2.draw(new Line2D.Float(10, 61+WIN, 40, 31+WIN));
+                //g2d.drawLine(10, 61+WIN, 40, 31+WIN);
             }
 
             if (artworkURL != null)

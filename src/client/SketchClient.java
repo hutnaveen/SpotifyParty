@@ -27,7 +27,8 @@ public class SketchClient {
     static DataOutputStream out;
     public static String token;
     static SpotifyWebAPI serverAPI;
-    public SketchClient(String ip, int port){
+    public static boolean sync = true;
+    public SketchClient(String ip, int port) {
         try {
            Socket socket = new Socket(ip, port);
            in = new DataInputStream(socket.getInputStream());
@@ -64,8 +65,7 @@ public class SketchClient {
         });
     }
 
-    public static void sendToServer(String msg)
-    {
+    public static void sendToServer(String msg) {
         try {
             out.writeUTF("a " + msg.trim());
         } catch (SocketException socketException) {
@@ -74,10 +74,10 @@ public class SketchClient {
             e.printStackTrace();
         }
     }
-    public void startUpdater()
-    {
+    public void startUpdater() {
         KThreadRepKt.startInfCor(() -> {
             try {
+                if(sync)
                 new PlayerUpdater(serverAPI.getPlayerData());
                 Thread.sleep(1000);
             } catch (IOException e) {
