@@ -120,14 +120,8 @@ public class Chat extends JPanel {
         prev = name;
 
         String finalText = text;
-        KThreadRepKt.startCor(new Runnable() {
-            @Override
-            public void run() {
-                if(!spfc.isActive()) {
-                    sendNotif(name, finalText);
-                }
-            }
-        });
+        if(!spfc.isActive())
+            KThreadRepKt.startCor(() -> sendNotif(name, finalText));
     }
 
 

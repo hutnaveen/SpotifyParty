@@ -41,7 +41,8 @@ public class SketchServer {
             server = new ServerSocket(serverPort);
             ChatPanel.setCode(NetworkUtils.simpleEncode(NetworkUtils.getPublicIP(), serverPort, 0));
             UserData dat = api.getUserData();
-            names.put(dat.getDisplay_name(), dat.getImages().get(0).getUrl());
+            if(dat.getImages().size() > 0)
+                names.put(dat.getDisplay_name(), dat.getImages().get(0).getUrl());
             startServerListener();
             startLeftUpdater();
             System.out.println("Server is started! port " + serverPort);
