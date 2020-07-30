@@ -1,5 +1,6 @@
 package chatGUI;
 
+import coroutines.KThreadRepKt;
 import gui.Notification;
 import test.Test;
 
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import static chatGUI.ChatPanel.names;
+import static chatGUI.ChatPanel.sendNotif;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.defFont;
 
@@ -74,9 +76,6 @@ public class Chat extends JPanel {
     public void addText(String text, String name) {
         System.out.println(name + " " + text);
         text = reformat(text);
-        if(!spfc.isActive()) {
-
-        }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
         SimpleAttributeSet right = new SimpleAttributeSet();
@@ -119,6 +118,16 @@ public class Chat extends JPanel {
 
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
+
+        String finalText = text;
+        KThreadRepKt.startCor(new Runnable() {
+            @Override
+            public void run() {
+                if(!spfc.isActive()) {
+                    sendNotif(name, finalText);
+                }
+            }
+        });
     }
 
 
