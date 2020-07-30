@@ -1,6 +1,7 @@
 package chatGUI;
 
 import gui.Notification;
+import test.Test;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,11 +11,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import static chatGUI.ChatPanel.names;
-import static chatGUI.SpotifyPartyFrameChat.trayIcon;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.defFont;
 
@@ -74,23 +75,7 @@ public class Chat extends JPanel {
         System.out.println(name + " " + text);
         text = reformat(text);
         if(!spfc.isActive()) {
-            Image a = Taskbar.getTaskbar().getIconImage();
-            Image b = null;
-            try {
-                b = ImageIO.read(new URL((String) names.get(name.trim())));
-                Taskbar.getTaskbar().setIconImage(b);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            TrayIcon temp = new TrayIcon(b);
-            try {
-                SystemTray.getSystemTray().add(temp);
-                temp.displayMessage(name, text, TrayIcon.MessageType.NONE);
-                SystemTray.getSystemTray().remove(temp);
-            } catch (AWTException e) {
-                e.printStackTrace();
-            }
-            Taskbar.getTaskbar().setIconImage(a);
+
         }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
@@ -135,6 +120,7 @@ public class Chat extends JPanel {
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
     }
+
 
     public static String reformat(String text) {
         if(text.length() > 34) {

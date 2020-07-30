@@ -80,7 +80,7 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             //  System.out.println("urlEncoded String="+ urlEncoded);
             //redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=c1ca134a13a74a1b95046d69c8ef11d1&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state%2Cuser-read-email%2C");
             try {
-                redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=" + clientID + "&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-playback-state%2Cuser-read-email%2C%2Cuser-read-private%2C&code_challenge=" + urlEncoded + "&code_challenge_method=S256");
+                redirect = new URI("https://accounts.spotify.com:443/authorize?client_id=" + clientID + "&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Fhello&scope=user-read-currently-playing%2Cuser-read-email%2Cuser-library-modify%2C&code_challenge=" + urlEncoded + "&code_challenge_method=S256");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -225,7 +225,7 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
 
     @Override
     public int getVolume() throws IOException {
-        return getPlayerData().getDevice().getVolume_percent();
+        return -1;
     }
 
     @Override
@@ -292,7 +292,10 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        WebRequest.sendRequest(WebRequest.POST, "https://api.spotify.com/v1/me/tracks?ids=" + trackId.substring(trackId.lastIndexOf(':')+1), oAuthToken);
+
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "");
+        WebRequest.sendRequest(WebRequest.PUT, "https://api.spotify.com/v1/me/tracks?ids=" + trackId, body ,oAuthToken);
     }
     public PlayerData getPlayerData() throws IOException {
         /*OkHttpClient client = new OkHttpClient().newBuilder()

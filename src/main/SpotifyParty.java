@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
+import java.util.Arrays;
 
 import static utils.GUIUtils.resizeIcon;
 
@@ -32,7 +33,7 @@ public class SpotifyParty {
     public static boolean darkMode = true;
     public static final String VERSION = "v0.2-alpha";
     public static SpotifyWebAPI api;
-    public static String defFont = "SF Pro Display Bold";
+    public static String defFont = "";
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         //System.setProperty("apple.awt.UIElement", "true");
         if(Taskbar.isTaskbarSupported()) {
@@ -47,11 +48,12 @@ public class SpotifyParty {
         try {
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(SpotifyParty.class.getResource("/fonts/SF-Pro-Display-Bold.otf").getFile())));
-        } catch (IOException | FontFormatException e) {
+            Font f = Font.createFont(Font.TRUETYPE_FONT, new File(SpotifyParty.class.getResource("/fonts/NotoColorEmoji.ttf").getFile()));
+             ge.registerFont(f);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(new Font(defFont, Font.BOLD, 1).getFontName());
+        System.out.println(new Font(defFont, Font.PLAIN, 1).getFontName());
         if(System.getProperty("os.name").contains("Windows")) {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             api = new WinSpotifyAPI();

@@ -75,18 +75,22 @@ public class RoundJTextField extends JTextField {
                 }
             }
         });
+        setText(" ");
+        setCaretPosition(1);
     }
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);        g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, type, type);
         super.paintComponent(g);
     }
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);        g2.setColor(getBackground());
         g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, type, type);
     }
     public boolean contains(int x, int y) {
