@@ -2,7 +2,6 @@ package chatGUI;
 
 import coroutines.KThreadRepKt;
 import gui.Notification;
-import test.Test;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,12 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import static chatGUI.ChatPanel.names;
-import static chatGUI.ChatPanel.sendNotif;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
 import static main.SpotifyParty.defFont;
 
@@ -76,6 +73,10 @@ public class Chat extends JPanel {
     public void addText(String text, String name) {
         System.out.println(name + " " + text);
         text = reformat(text);
+        if(!spfc.isActive()) {
+            String finalText = text;
+            KThreadRepKt.startCor(() -> sendNotif(name, finalText));
+        }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
         SimpleAttributeSet right = new SimpleAttributeSet();
@@ -118,10 +119,33 @@ public class Chat extends JPanel {
 
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
+    }
 
-        String finalText = text;
-        if(!spfc.isActive())
-            KThreadRepKt.startCor(() -> sendNotif(name, finalText));
+    public static void sendNotif(String name, String message)
+    {
+        try {
+            Object temp = (names.get(name));
+            String [] cmd = null;
+            if(temp != null) {
+                cmd = new String[]{Chat.class.getResource("/terminal-notifier-1.7.2/SpotifyParty.app/Contents/MacOS/terminal-notifier").getPath(),
+                        "-message", message, "-title", name, "-contentImage", temp.toString(), "-timeout", "5"};
+            } else {
+                cmd = new String[]{Chat.class.getResource("/terminal-notifier-1.7.2/SpotifyParty.app/Contents/MacOS/terminal-notifier").getPath(),
+                        "-message", message, "-title", name, "-contentImage", Chat.class.getResource("/images/logo.png").getPath(), "-timeout", "5"};
+            }
+                java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
+                String a = (s.hasNext() ? s.next() : "");
+                System.out.println(a);
+                if(!a.isEmpty() && !a.isBlank() && !a.equals("@CLOSED") && !a.equals("@TIMEOUT"))
+                {
+                    spfc.setVisible(true);
+                    spfc.setAlwaysOnTop(true);
+                    spfc.toFront();
+                    spfc.setAlwaysOnTop(false);
+                }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -1,5 +1,5 @@
 package chatGUI;
-import coroutines.KThreadRepKt;
+import client.SketchClient;
 import exception.SpotifyException;
 import gui.RequestTab;
 import gui.Requests;
@@ -8,7 +8,7 @@ import lyrics.LyricFinder;
 import model.Artist;
 import model.Item;
 import model.UserData;
-import test.Test;
+import server.SketchServer;
 import utils.GUIUtils;
 import utils.SpotifyUtils;
 
@@ -22,11 +22,10 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,6 +61,8 @@ public class ChatPanel extends JPanel{
     public static Requests requestPanel = new Requests();
     private static int WIN = 0;
     public static HashMap names = new HashMap<>();
+    public boolean privateSwitch = false;
+    public static JTextPane priSwitch;
     public ChatPanel() {
         if(System.getProperty("os.name").contains("Windows"))
         {
@@ -94,21 +95,6 @@ public class ChatPanel extends JPanel{
         code.setForeground(Color.GRAY);
         code.setBounds(47, 31+WIN, 195, 30);
         code.setEditable(false);
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if(albumRect.contains(e.getPoint()) && e.getClickCount() == 2)
-                {
-                    System.out.println("double click");
-                    try {
-                        api.saveTrack(api.getPlayingTrack().getId());
-                    } catch (Exception ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            }
-        });
         code.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -279,12 +265,12 @@ public class ChatPanel extends JPanel{
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                lyrics.setFont(new Font(defFont, Font.BOLD, 21));
+                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
                 lyrics.setText("Lyrics");
             }
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                lyrics.setFont(new Font(defFont, Font.PLAIN, 21));
+                lyrics.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
                 lyrics.setText("Lyrics");
             }
             public void mousePressed(MouseEvent e) {
@@ -309,12 +295,12 @@ public class ChatPanel extends JPanel{
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                name.setFont(new Font(defFont, Font.BOLD, 21));
+                name.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 21));
                 name.setText("Friends");
             }
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                name.setFont(new Font(defFont, Font.PLAIN, 21));
+                name.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 21));
                 name.setText("Friends");
             }
             public void mousePressed(MouseEvent e) {
@@ -437,27 +423,37 @@ public class ChatPanel extends JPanel{
 
         back.setBounds(250, 70+WIN, 450, 460);
         this.add(back);
+
+        PopupMenu menu = new PopupMenu();
+        MenuItem quit = new MenuItem("Quit");
+        quit.addActionListener(e -> {
+            System.exit(99);
+        });
+        MenuItem unsync = new MenuItem("Unsync");
+        unsync.addActionListener(e -> {
+
+        });
+
+        priSwitch = new JTextPane();
+        priSwitch.setOpaque(false);
+        priSwitch.setEditable(false);
+        priSwitch.setFocusable(false);
+        priSwitch.setBounds(10, 31+WIN, 30, 30);
+        priSwitch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(!host) {
+                    privateSwitch = !privateSwitch;
+                    SketchClient.sync = !privateSwitch;
+                    repaint();
+                    System.out.println("PRIVATE MODE SWITCH PRESSED");
+                }
+            }
+        });
+        add(priSwitch);
     }
 
-    public static void sendNotif(String name, String message)
-    {
-        try {
-            String[] cmd = {Test.class.getResource("/terminal-notifier-1.7.2/SpotifyParty.app/Contents/MacOS/terminal-notifier").getPath(),
-                    "-message", message, "-title", name, "-contentImage", ((URL)names.get(name)).toString(), "-timeout", "5"};
-            java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
-            String a = (s.hasNext() ? s.next() : "");
-            System.out.println(a);
-            if(!a.isEmpty() && !a.isBlank() && !a.equals("@CLOSED") && !a.equals("@TIMEOUT"))
-            {
-                spfc.setVisible(true);
-                spfc.setAlwaysOnTop(true);
-                spfc.toFront();
-                spfc.setAlwaysOnTop(false);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void recHandler() {
         if(host) {
@@ -510,6 +506,7 @@ public class ChatPanel extends JPanel{
             }
         } else {
             if (type.getText().trim().toLowerCase().equals("pause!")) {
+                priSwitch.getMouseListeners()[0].mouseClicked(null);
                 api.pause();
             } else if (type.getText().trim().toLowerCase().equals("play!")) {
                 api.play();
@@ -665,7 +662,7 @@ public class ChatPanel extends JPanel{
      */
 
     public static void addNames() {
-        area.setFont(new Font(defFont, Font.PLAIN, 23));
+        area.setFont(new Font(defFont, Font.PLAIN, 18));
         StringBuilder format = new StringBuilder();
         for(Object names : names.keySet())
         {
@@ -684,29 +681,28 @@ public class ChatPanel extends JPanel{
         }
     }
 
-    public void updateData(String trackID) {
-        SwingUtilities.invokeLater(() -> {
-            if(trackID != null) {
-                System.out.println("after if");
-                Item inf = api.getTrackInfo(trackID);
-                System.out.println("after item");
-                artworkURL = inf.getAlbum().getImages().get(1).getUrl();
-                song.setText(resize(inf.getName(), song.getFont(), 174));
-                StringBuilder artists = new StringBuilder();
-                for (Artist art : inf.getArtists()) {
-                    artists.append(art.getName() + ", ");
-                }
-                artists.replace(artists.length() - 2, artists.length(), "");
-                //  System.out.println(GUIUtils.getTextWidth("Murda (feat. Cory Gunz, Cap", artist.getFont()));
-                artist.setText(resize(artists.toString(), artist.getFont(), 194));
-                color = inf.getDominantColor().darker();
-                addLyrics();
-                repaint();
+    public Item updateData(String trackID) {
+        System.out.println("before if");
+        if(trackID != null) {
+            System.out.println("after if");
+            Item inf = api.getTrackInfo(trackID);
+            System.out.println("after item");
+            artworkURL = inf.getAlbum().getImages().get(1).getUrl();
+            song.setText(resize(inf.getName(), song.getFont(), 174));
+            StringBuilder artists = new StringBuilder();
+            for (Artist art : inf.getArtists()) {
+                artists.append(art.getName() + ", ");
             }
-        });
-        /*System.out.println("before if");
-
-        System.out.println("shit screwed up");*/
+            artists.replace(artists.length() - 2, artists.length(), "");
+            //  System.out.println(GUIUtils.getTextWidth("Murda (feat. Cory Gunz, Cap", artist.getFont()));
+            artist.setText(resize(artists.toString(), artist.getFont(), 194));
+            color = inf.getDominantColor().darker();
+            addLyrics();
+            repaint();
+            return inf;
+        }
+        System.out.println("shit screwed up");
+       return null;
     }
     private String resize(String str, Font font, int max)
     {
@@ -717,11 +713,11 @@ public class ChatPanel extends JPanel{
             ret.replace(ret.length()-1,ret.length(), "");
         return ret.toString()+ " ...";
     }
-    public void updateData(){
+    public Item updateData(){
         try {
-             updateData(api.getTrackUri());
+            return updateData(api.getTrackUri());
         } catch (IOException | NullPointerException e) {
-             updateData( null);
+            return updateData( null);
         }
     }
     public static void setCode(String tcode) {
@@ -730,19 +726,18 @@ public class ChatPanel extends JPanel{
     }
     public static UserData dat;
     private BufferedImage profile = null;
-    private Rectangle albumRect = new Rectangle(50, 384+WIN, 150, 150);
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             Color color1 = color.brighter();
             Color color2 = color.darker().darker().darker();
-            GradientPaint gp = new GradientPaint(0, 0, color1, 0, 600, color2);
+            GradientPaint gp = new GradientPaint(
+                    0, 0, color1, 0, 600, color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, 250, 600);
+
+
             if(profile == null)
             {
                 UserData dat = api.getUserData();
@@ -754,9 +749,18 @@ public class ChatPanel extends JPanel{
                     profile = GUIUtils.circleCrop(ImageIO.read(dat.getImages().get(0).getUrl()));
                 }
             }
-            g2d.drawImage(profile, 10, 31+WIN, 30, 30, this);
+            g.drawImage(profile, 10, 31+WIN, 30, 30, this);
+
+            if(privateSwitch) {
+                Graphics2D gg2 = (Graphics2D) g.create();
+                gg2.setColor(new Color(250, 70, 70));
+                gg2.setStroke(new BasicStroke(3));
+                gg2.draw(new Line2D.Float(10, 61+WIN, 40, 31+WIN));
+                //g2d.drawLine(10, 61+WIN, 40, 31+WIN);
+            }
+
             if (artworkURL != null)
-                g2d.drawImage(ImageIO.read(artworkURL), 50, 384+WIN, 150, 150, this);
+                g.drawImage(ImageIO.read(artworkURL), 50, 384+WIN, 150, 150, this);
         } catch (Exception e) {
             e.printStackTrace();
         }
