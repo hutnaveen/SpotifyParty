@@ -45,7 +45,6 @@ public class UDPClient {
    private void trackUpdater()
    {
        updater = new Thread(() -> {
-
            while(true) {
                byte[] receiveData = new byte[1024];
                receivePacket = new DatagramPacket(receiveData, receiveData.length);

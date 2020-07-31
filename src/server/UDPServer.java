@@ -25,9 +25,7 @@ public class UDPServer {
 	Thread reciver;
 	Thread sender;
 	int serverPort = 9009;
-
 	public UDPServer(boolean diffNetWork) {
-
 		clients = new HashMap<>();
 		try {
 			socket = new DatagramSocket(serverPort);
@@ -69,7 +67,6 @@ public class UDPServer {
 				//port and ip of the client who send the packet
 				InetAddress tad = receivePacket.getAddress();
 				int tPort = receivePacket.getPort();
-
 				//if client not added to list of clients add it
 				if (!clients.containsKey("" + tad + tPort)) {
 					System.out.println("added");

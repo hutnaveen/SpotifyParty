@@ -2,6 +2,7 @@ package chatGUI;
 
 import coroutines.KThreadRepKt;
 import gui.Notification;
+import org.apache.commons.net.SocketClient;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 
 import static chatGUI.ChatPanel.names;
@@ -45,6 +47,7 @@ public class Chat extends JPanel {
             setBackground(new Color(30, 30, 30));
             setOpaque(true);
         }
+
         chat.setFocusable(false);
         chat.setAutoscrolls(true);
         chat.setEditable(false);
