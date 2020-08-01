@@ -3,6 +3,7 @@ package chatGUI;
 
 import client.SketchClient;
 import coroutines.KThreadRepKt;
+import gui.ChooseParty;
 import gui.JoinPartyPanel;
 import server.SketchServer;
 import utils.NetworkUtils;
@@ -25,6 +26,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     CardLayout cl = new CardLayout();
     public JoinPartyPanel joinPartyPanel = new JoinPartyPanel();
     public static SpotifyPartyFrameChat spfc = new SpotifyPartyFrameChat();
+    public ChooseParty chooseParty = new ChooseParty();
     public static String FriendName = "";
     public static boolean host;
     SketchServer server;
@@ -36,17 +38,23 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
         this.setLayout(cl);
         this.add(joinPartyPanel, "joinPanel");
         this.add(chatPanel, "chatPanel");
+        this.add(chooseParty, "chooseParty");
         spfc.add(this);
 
         SpotifyPartyFrameChat.join.setActionCommand("join");
         SpotifyPartyFrameChat.join.addActionListener(this);
         SpotifyPartyFrameChat.hostPublic.setActionCommand("hostPublic");
         SpotifyPartyFrameChat.hostPublic.addActionListener(this);
+
+        chooseParty.getHost().setActionCommand("hostParty");
+        chooseParty.getJoin().setActionCommand("joinParty");
+        chooseParty.getHost().addActionListener(this);
+        chooseParty.getJoin().addActionListener(this);
         show.addActionListener(actionEvent -> spfc.setVisible(true));
         joinPartyPanel.getEnter().setActionCommand("enterGuest");
         joinPartyPanel.getEnter().addActionListener(this);
      //   spfc.setVisible(true);
-        cl.show(this, "signUp");
+        cl.show(this, "chooseParty");
     }
     MenuItem show = new MenuItem("Show Window");
     public void actionPerformed(ActionEvent e) {
@@ -54,6 +62,32 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
             host = false;
             spfc.setVisible(true);
             cl.show(this, "joinPanel");
+        }
+
+        if(e.getActionCommand().equals("joinParty")) {
+            host = false;
+            spfc.setVisible(true);
+            cl.show(this, "joinPanel");
+        }
+
+        if(e.getActionCommand().equals("hostParty")) {
+            Object[] options = { "OK"};
+            /*JOptionPane.showOptionDialog(frame, "Your party will start shortly!", "Spotify Party!",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 50, 50), options, options[0]);
+*/
+            FriendName = api.getUserData().getDisplay_name();
+            FriendName = FriendName.replace(" ", "-");
+            host = true;
+            local = true;
+            server = new SketchServer();
+            cl.show(this, "chatPanel");
+            spfc.setVisible(true);
+            cmenu.removeAll();
+            menu.add(show);
+            menu.addSeparator();
+            menu.add(quit);
+            chatPanel.updateData();
         }
         /*
         else if (e.getActionCommand().equals("hostLocal")) {
