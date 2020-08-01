@@ -32,6 +32,7 @@ public class SketchClient {
         try {
            Socket socket = new Socket(ip, port);
            socket.setTcpNoDelay(true);
+           socket.setKeepAlive(true);
            in = new DataInputStream(socket.getInputStream());
            out = new DataOutputStream(socket.getOutputStream());
            this.token = in.readUTF();
