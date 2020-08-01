@@ -83,6 +83,7 @@ public class SketchClient {
             try {
                 if(sync)
                 new PlayerUpdater(serverAPI.getPlayerData());
+                Thread.sleep(1000);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
