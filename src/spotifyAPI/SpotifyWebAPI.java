@@ -102,8 +102,13 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
                     e.printStackTrace();
                 }
                 oAuthToken = reFreshToken();
-                if(chatGUI.SpotifyPartyPanelChat.host)
+                System.out.println("TOKEN HAS BEEN REFRESHED");
+                if(chatGUI.SpotifyPartyPanelChat.host) {
                     SketchServer.sendToClients("token " + oAuthToken.getAccess_token());
+                    System.out.println("TOKEN SENT TO CLIENTS");
+
+                }
+
         });
     }
     public SpotifyWebAPI(String token)
