@@ -64,6 +64,7 @@ public class ChatPanel extends JPanel{
     public boolean privateSwitch = false;
     public static JTextPane priSwitch;
     public ChatPanel() {
+       
         if(System.getProperty("os.name").contains("Windows"))
         {
             WIN = -20;

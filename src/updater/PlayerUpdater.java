@@ -17,7 +17,7 @@ public class PlayerUpdater {
                     if (!data.getItem().getUri().equals(sentData.getItem().getUri())) {
                         new URIUpdater(sentData);
                     }
-                    if (Math.abs((System.currentTimeMillis() - sentData.getTimestamp()) + sentData.getProgress_ms() - data.getProgress_ms()) > 1500) {
+                    if (Math.abs((System.currentTimeMillis() - sentData.getTimestamp()) + (sentData.getProgress_ms() - data.getProgress_ms())) > 1500) {
                         new ProgressUpdater(sentData);
                     }
                     if (sentData.is_playing() != data.is_playing()) {

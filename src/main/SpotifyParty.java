@@ -59,6 +59,7 @@ public class SpotifyParty {
             api = new WinSpotifyAPI();
         }
         else {
+            UIManager.setLookAndFeel("org.violetlib.aqua.AquaLookAndFeel");
             api = new OSXSpotifyAPI();
         }
         /*System.setErr(new PrintStream(new OutputStream() {

@@ -54,7 +54,8 @@ public class MessageHandler implements HttpHandler {
                 ChatPanel.chat.addText(temp.substring(temp.indexOf(' ')).trim(), name.trim());
                 break;
             case "token":
-                SketchClient.token = message;
+                SketchClient.token = message.trim();
+                System.out.println("it refreshed");
                 break;
         }
         return true;

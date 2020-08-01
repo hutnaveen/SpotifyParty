@@ -39,6 +39,10 @@ public class WebRequest<T>{
             else if(code == 503) {
                 return null;
             }
+            else if(code == 401)
+            {
+                SpotifyWebAPI.oAuthToken = SpotifyWebAPI.reFreshToken(SpotifyWebAPI.oAuthToken.getRefresh_token());
+            }
             else if(data.startsWith("{\n" +
                     "  \"error\":"))
             {
