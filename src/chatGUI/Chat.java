@@ -98,17 +98,25 @@ public class Chat extends JPanel {
                 StyleConstants.setForeground(style, Color.GREEN);
                 try {
                     profile = new ImageIcon(GUIUtils.circleCrop(ImageIO.read(api.getUserData().getImages().get(0).getUrl())));
-                    profile = new ImageIcon(profile.getImage().getScaledInstance(19, 19, java.awt.Image.SCALE_DEFAULT));
                 } catch (Exception e) {
                     try {
                         profile = new ImageIcon(ImageIO.read(getClass().getResource("/images/logo.png")));
-                    } catch (Exception ioException) {}
+                    } catch (IOException ioException) {}
                 }
             } else {
                 you = false;
                 StyleConstants.setForeground(style, Color.GRAY);
+                try {
+                    URL img = (URL)names.get(name);
+                    profile = new ImageIcon(GUIUtils.circleCrop(ImageIO.read(img)));
+                } catch (Exception e) {
+                    try {
+                        profile = new ImageIcon(ImageIO.read(getClass().getResource("/images/logo.png")));
+                    } catch (IOException ioException) {}
+                }
             }
-            StyleConstants.setFontSize(style, 21);
+            profile = new ImageIcon(profile.getImage().getScaledInstance(18, 18, java.awt.Image.SCALE_DEFAULT));
+            StyleConstants.setFontSize(style, 19);
 
             try {
                 chat.insertIcon(profile);
@@ -135,7 +143,7 @@ public class Chat extends JPanel {
         catch (BadLocationException e){}
 
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
-        prev = name;
+        prev = "Wayayyay";
     }
 
     public static void sendNotif(String name, String message)
