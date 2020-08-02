@@ -88,7 +88,7 @@ public class SketchServer {
                     s = server.accept();
                     dos = new DataOutputStream((s.getOutputStream()));
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    dos.writeUTF(SpotifyParty.api.getOAuthToken().getAccess_token());
+                    dos.writeUTF(api.getOAuthToken().getAccess_token());
                     String name = in.readUTF();
                     dos.writeUTF(new Gson().toJson(names));
                     names.put(name.substring(0, name.indexOf(' ')).trim(), name.substring(name.indexOf(' ') + 1).trim());
