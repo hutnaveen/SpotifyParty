@@ -1,5 +1,7 @@
 package spotifyAPI;
 
+import chatGUI.SpotifyPartyFrameChat;
+import chatGUI.SpotifyPartyPanelChat;
 import com.google.gson.Gson;
 import coroutines.KThreadRepKt;
 import interfaces.SpotifyPlayerAPI;
@@ -179,6 +181,8 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if(SpotifyPartyPanelChat.host)
+                SketchServer.sendToClients("token " + sat.getAccess_token().trim());
             return sat;
         } catch (IOException e) {
             e.printStackTrace();
