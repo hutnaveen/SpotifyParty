@@ -35,6 +35,9 @@ import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
+
+import static main.SpotifyParty.panel;
+
 @Getter
 public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
     OAuthTokenData oAuthToken;
@@ -181,8 +184,9 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(SpotifyPartyPanelChat.host)
-                SketchServer.sendToClients("token " + sat.getAccess_token().trim());
+            if(SpotifyPartyPanelChat.host) {
+                SpotifyPartyPanelChat.server.sendToClients("token " + sat.getAccess_token());
+            }
             return sat;
         } catch (IOException e) {
             e.printStackTrace();

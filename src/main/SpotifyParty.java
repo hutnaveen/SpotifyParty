@@ -32,8 +32,9 @@ public class SpotifyParty {
     public static ChatPanel chatPanel = null;
     public static boolean darkMode = true;
     public static final String VERSION = "v0.2-alpha";
-    public static SpotifyWebAPI api;
     public static String defFont = "";
+    public static SpotifyPartyPanelChat panel;
+    public static SpotifyWebAPI api;
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         //System.setProperty("apple.awt.UIElement", "true");
         if(Taskbar.isTaskbarSupported()) {
@@ -59,7 +60,6 @@ public class SpotifyParty {
             api = new WinSpotifyAPI();
         }
         else {
-            api = new OSXSpotifyAPI();
         }
         /*System.setErr(new PrintStream(new OutputStream() {
             @Override
@@ -78,7 +78,8 @@ public class SpotifyParty {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SpotifyPartyPanelChat panel = new SpotifyPartyPanelChat();
+        panel = new SpotifyPartyPanelChat();
+        api = new OSXSpotifyAPI();
     }
     private static void checkForUpdate()
     {

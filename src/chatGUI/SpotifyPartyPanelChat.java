@@ -29,7 +29,7 @@ public class SpotifyPartyPanelChat extends JPanel implements ActionListener {
     public ChooseParty chooseParty = new ChooseParty();
     public static String FriendName = "";
     public static boolean host;
-    SketchServer server;
+    public static SketchServer server;
     public static SketchClient cli ;
 
     public SpotifyPartyPanelChat() {
