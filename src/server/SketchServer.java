@@ -64,10 +64,18 @@ public class SketchServer {
                 JOptionPane.showOptionDialog(frame, "Looks like the internet your connected to does not support port forwarding.\n No worries you can still join a party and host a local party.", "Can't Start Public Party", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, resizeIcon(new ImageIcon(ChatPanel.class.getResource("/images/logo.png")), 50, 50), options, options[0]);
                 System.exit(69);
             }
-            for(; serverPort <= 9100; serverPort ++)
-                if(!UPnP.isMappedTCP(serverPort) && UPnP.openPortTCP(serverPort))
-                    return serverPort;
-            return -1;
+            for(; serverPort <= 9100; serverPort ++) {
+                //only needed if the clients are not on the same network
+                UPnP.closePortUDP(serverPort);
+                UPnP.waitInit();
+                star = (UPnP.openPortTCP((serverPort)));
+                System.out.println(star);
+                if (star)
+                    break;
+                else
+                    UPnP.closePortTCP((serverPort));
+            }
+            return serverPort;
         }
 
         public void startServerListener()
@@ -80,7 +88,7 @@ public class SketchServer {
                     s = server.accept();
                     dos = new DataOutputStream((s.getOutputStream()));
                     in = new DataInputStream(new BufferedInputStream(s.getInputStream()));
-                    dos.writeUTF(SpotifyParty.api.getoAuthToken().getAccess_token());
+                    dos.writeUTF(api.getOAuthToken().getAccess_token());
                     String name = in.readUTF();
                     dos.writeUTF(new Gson().toJson(names));
                     names.put(name.substring(0, name.indexOf(' ')).trim(), name.substring(name.indexOf(' ') + 1).trim());

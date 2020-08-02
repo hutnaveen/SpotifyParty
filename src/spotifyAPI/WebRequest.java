@@ -9,6 +9,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import java.util.concurrent.TimeUnit;
 
+import static main.SpotifyParty.api;
+
 public class WebRequest<T>{
     public static final String GET = "GET";
     public static final String POST = "POST";
@@ -39,9 +41,11 @@ public class WebRequest<T>{
             else if(code == 503) {
                 return null;
             }
-            else if(code == 401)
-            {
-                SpotifyWebAPI.oAuthToken = SpotifyWebAPI.reFreshToken(SpotifyWebAPI.oAuthToken.getRefresh_token());
+            else if(code == 401) {
+                if(api.getOAuthToken().getRefresh_token() != null) {
+                    api.oAuthToken = api.reFreshToken(api.oAuthToken.getRefresh_token());
+                }
+                return null;
             }
             else if(data.startsWith("{\n" +
                     "  \"error\":"))

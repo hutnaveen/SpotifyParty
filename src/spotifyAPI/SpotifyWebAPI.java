@@ -1,6 +1,5 @@
 package spotifyAPI;
 
-import chatGUI.SpotifyPartyPanelChat;
 import com.google.gson.Gson;
 import coroutines.KThreadRepKt;
 import interfaces.SpotifyPlayerAPI;
@@ -36,13 +35,13 @@ import java.util.List;
 import java.util.Properties;
 @Getter
 public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
-    static OAuthTokenData oAuthToken;
+    OAuthTokenData oAuthToken;
     URI redirect = null;
     final String ogRedirect = "http%3A%2F%2Flocalhost%3A8081%2Fhello";
-    static final String clientID = "c1ca134a13a74a1b95046d69c8ef11d1";
+    final String clientID = "c1ca134a13a74a1b95046d69c8ef11d1";
     String randomString;
     String code;
-    static Properties props;
+    Properties props;
     public SpotifyWebAPI() {
         props = new Properties();
         InputStream stream = getClass().getResourceAsStream("/spotifyAPI/token.properties");
@@ -112,11 +111,6 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
 
         });
     }
-
-    public static OAuthTokenData getoAuthToken() {
-        return oAuthToken;
-    }
-
     public SpotifyWebAPI(String token)
     {
         oAuthToken = new OAuthTokenData();
@@ -164,7 +158,7 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
         }
         return null;
     }
-    static OAuthTokenData reFreshToken(String token)
+    OAuthTokenData reFreshToken(String token)
     {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -181,13 +175,9 @@ public abstract class SpotifyWebAPI implements SpotifyPlayerAPI {
             OAuthTokenData sat = son.fromJson(response.body().string(), OAuthTokenData.class);
             props.setProperty("refreshToken", sat.getRefresh_token());
             try {
-                props.store(new FileOutputStream(SpotifyWebAPI.class.getResource("/spotifyAPI/token.properties").getFile()), null);
+                props.store(new FileOutputStream(getClass().getResource("/spotifyAPI/token.properties").getFile()), null);
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            if(SpotifyPartyPanelChat.host)
-            {
-                SketchServer.sendToClients("token " + sat.getAccess_token());
             }
             return sat;
         } catch (IOException e) {

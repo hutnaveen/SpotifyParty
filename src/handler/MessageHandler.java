@@ -55,7 +55,6 @@ public class MessageHandler implements HttpHandler {
                 break;
             case "token":
                 SketchClient.token = message.trim();
-                System.out.println("it refreshed");
                 break;
         }
         return true;
