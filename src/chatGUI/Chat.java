@@ -51,6 +51,9 @@ public class Chat extends JPanel {
             setOpaque(true);
         }
 
+        Graphics graphics = getGraphics();
+        chat.paint(graphics);
+
         chat.setFocusable(false);
         chat.setAutoscrolls(true);
         chat.setEditable(false);
@@ -59,7 +62,7 @@ public class Chat extends JPanel {
         chat.putClientProperty("JScrollPane.style", "overlay");
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
-        chatScroll.setBounds(20, 0, 405, 460);
+        chatScroll.setBounds(20, 5, 405, 450);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
@@ -95,7 +98,7 @@ public class Chat extends JPanel {
         if(!prev.equals(name)) {
             if(name.equals(SpotifyPartyPanelChat.FriendName)) {
                 you = true;
-                StyleConstants.setForeground(style, Color.GREEN);
+                StyleConstants.setForeground(style, new Color(30, 215, 96));
                 try {
                     profile = new ImageIcon(GUIUtils.circleCrop(ImageIO.read(api.getUserData().getImages().get(0).getUrl())));
                 } catch (Exception e) {
@@ -119,6 +122,7 @@ public class Chat extends JPanel {
             StyleConstants.setFontSize(style, 19);
 
             try {
+                doc.insertString(doc.getLength(), "\n", style);
                 chat.insertIcon(profile);
                 doc.insertString(doc.getLength(), " " + name + "\n", style);
                 if(you) {
@@ -134,7 +138,7 @@ public class Chat extends JPanel {
         StyleConstants.setFontSize(style, 14);
 
         try {
-            doc.insertString(doc.getLength(),  text + "\n\n",style);
+            doc.insertString(doc.getLength(),  text + "\n",style);
             if(you)
                 doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
             else
@@ -143,7 +147,7 @@ public class Chat extends JPanel {
         catch (BadLocationException e){}
 
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
-        prev = "Wayayyay";
+        prev = name;
     }
 
     public static void sendNotif(String name, String message)
