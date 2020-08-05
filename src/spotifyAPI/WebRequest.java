@@ -1,5 +1,6 @@
 package spotifyAPI;
 
+import client.SketchClient;
 import com.google.gson.Gson;
 import model.OAuthTokenData;
 import okhttp3.MediaType;
@@ -7,6 +8,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 import static main.SpotifyParty.api;
@@ -18,7 +21,7 @@ public class WebRequest<T>{
 
     public static <T> T sendRequest(String type, String requestURL, OAuthTokenData authorization, RequestBody body,Class<T> t)
     {
-        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(1000, TimeUnit.MILLISECONDS).readTimeout(1000, TimeUnit.MILLISECONDS).writeTimeout(1000, TimeUnit.MILLISECONDS)
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(3000, TimeUnit.MILLISECONDS).readTimeout(3000, TimeUnit.MILLISECONDS).writeTimeout(3000, TimeUnit.MILLISECONDS)
                 .build();
         Request request = new Request.Builder()
                 .url(requestURL)
@@ -44,6 +47,10 @@ public class WebRequest<T>{
             else if(code == 401) {
                 if(api.getOAuthToken().getRefresh_token() != null) {
                     api.oAuthToken = api.reFreshToken(api.oAuthToken.getRefresh_token());
+                }else
+                {
+                    SketchClient.socket.close();
+                    SketchClient.socket = new Socket(SketchClient.ip, SketchClient.port);
                 }
                 return null;
             }

@@ -23,14 +23,17 @@ import static chatGUI.SpotifyPartyPanelChat.FriendName;
 import static main.SpotifyParty.api;
 
 public class SketchClient {
-    static DataInputStream in;
-    static DataOutputStream out;
+    public static DataInputStream in;
+    public static DataOutputStream out;
     public static String token;
     static SpotifyWebAPI serverAPI;
     public static boolean sync = true;
+    public static Socket socket;
+    public static int port;
+    public static String ip;
     public SketchClient(String ip, int port) {
         try {
-           Socket socket = new Socket(ip, port);
+            socket = new Socket(ip, port);
            socket.setTcpNoDelay(true);
            socket.setKeepAlive(true);
            in = new DataInputStream(socket.getInputStream());

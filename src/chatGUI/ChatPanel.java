@@ -6,6 +6,7 @@ import gui.Requests;
 import gui.RoundJTextField;
 import lyrics.LyricFinder;
 import model.Artist;
+import model.Image;
 import model.Item;
 import model.UserData;
 import server.SketchServer;
@@ -199,9 +200,9 @@ public class ChatPanel extends JPanel{
         }
         type.setFont(new Font(defFont,Font.PLAIN, 15));
         type.setForeground(Color.WHITE);
-        type.setBounds(260, 552+WIN, 380, 35);
+        type.setBounds(259, 552+WIN, 383, 35);
         type.setBackground(new Color(110, 110, 110));
-        type.setCaretColor(Color.GREEN);
+        type.setCaretColor(new Color(30, 215, 96));
         this.add(type);
         ImageIcon playIcon = resizeIcon(new ImageIcon(getClass().getResource("/images/play.png")), 38, 38);
         AbstractButton play = makeButton(playIcon);
@@ -255,7 +256,7 @@ public class ChatPanel extends JPanel{
         JTextPane name = new JTextPane();
 
         lyrics.setFont(new Font(defFont, Font.PLAIN, 21));
-        lyrics.setForeground(Color.GREEN);
+        lyrics.setForeground(new Color(30, 215, 96));
         lyrics.setText("Lyrics");
         lyrics.setBorder(new EmptyBorder(0, 0, 0, 0));
         lyrics.setOpaque(false);
@@ -276,7 +277,7 @@ public class ChatPanel extends JPanel{
             }
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                lyrics.setForeground(Color.GREEN);
+                lyrics.setForeground(new Color(30, 215, 96));
                 name.setForeground(Color.WHITE);
                 addLyrics();
             }
@@ -306,7 +307,7 @@ public class ChatPanel extends JPanel{
             }
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                name.setForeground(Color.GREEN);
+                name.setForeground(new Color(30, 215, 96));
                 lyrics.setForeground(Color.WHITE);
                 addNames();
             }
@@ -320,12 +321,13 @@ public class ChatPanel extends JPanel{
         doc4.setParagraphAttributes(0, doc4.getLength(), center4, false);
         reqSwitch.setForeground(Color.WHITE);
         reqSwitch.setEditable(false);
-        reqSwitch.setOpaque(false);
+        //reqSwitch.setOpaque(false);
+        reqSwitch.setBackground(Color.WHITE);
         reqSwitch.setFocusable(false);
         reqSwitch.setBorder(new EmptyBorder(0, 0, 0, 0));
-        reqSwitch.setText("Request");
+        reqSwitch.setText("");
         reqSwitch.setFont(new Font(defFont, Font.PLAIN, 30));
-        reqSwitch.setBounds(430, 20+WIN, 255, 45);
+        reqSwitch.setBounds(600, 20+WIN, 45, 45);
         reqSwitch.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -338,8 +340,9 @@ public class ChatPanel extends JPanel{
             }
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                reqSwitch.setForeground(Color.GREEN);
-                chatSwitch.setForeground(Color.WHITE);
+                repaint();
+                //reqSwitch.setForeground(new Color(30, 215, 96));
+                //chatSwitch.setForeground(Color.WHITE);
                 cl.show(back, "RequestPanel");
                 chatCheck = false;
             }
@@ -351,14 +354,15 @@ public class ChatPanel extends JPanel{
         SimpleAttributeSet center5 = new SimpleAttributeSet();
         StyleConstants.setAlignment(center5, StyleConstants.ALIGN_CENTER);
         doc5.setParagraphAttributes(0, doc4.getLength(), center5, false);
-        chatSwitch.setForeground(Color.GREEN);
+        chatSwitch.setForeground(new Color(30, 215, 96));
         chatSwitch.setEditable(false);
-        chatSwitch.setOpaque(false);
+        //chatSwitch.setOpaque(false);
+        chatSwitch.setBackground(Color.WHITE);
         chatSwitch.setFocusable(false);
         chatSwitch.setBorder(new EmptyBorder(0, 0, 0, 0));
-        chatSwitch.setText("Chat");
+        chatSwitch.setText("");
         chatSwitch.setFont(new Font(defFont, Font.PLAIN, 30));
-        chatSwitch.setBounds(250, 20+WIN, 255, 45);
+        chatSwitch.setBounds(295, 20+WIN, 45, 45);
         chatSwitch.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -371,69 +375,17 @@ public class ChatPanel extends JPanel{
             }
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                chatSwitch.setForeground(Color.GREEN);
-                reqSwitch.setForeground(Color.WHITE);
+                repaint();
+                //chatSwitch.setForeground(new Color(30, 215, 96));
+                //reqSwitch.setForeground(Color.WHITE);
                 cl.show(back, "ChatPanel");
                 chatCheck = true;
             }
         });
         this.add(chatSwitch);
 
-        /*
-        JTextPane invs = new JTextPane();
-        invs.setEditable(false);
-        invs.setOpaque(false);
-        invs.setFocusable(false);
-        invs.setBorder(new EmptyBorder(0, 0, 0, 0));
-        invs.setBounds(415, 35+WIN, 105, 28);
-        invs.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if(chatSwitch) {
-                    req.setText("Song Requests");
-                    cl.show(back, "RequestPanel");
-                } else {
-                    req.setText("Party Chat");
-                    cl.show(back, "ChatPanel");
-                }
-                chatSwitch = !chatSwitch;
-            }
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                req.setFont(new Font(defFont, Font.BOLD, 33));
-            }
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                req.setFont(new Font(defFont, Font.PLAIN, 30));
-            }
-        });
-        this.add(invs);
-        this.add(req);
-        /*
-        guest.setBorder(new EmptyBorder(0, 0, 0, 0));
-        guest.setEditable(false);
-        guest.setOpaque(false);
-        guest.setFocusable(false);
-        guest.setFont(new Font("CircularSpUIv3T-Bold", Font.BOLD, 14));
-        guest.setForeground(Color.WHITE);
-        guest.setText("0");
-        guest.setBounds(10, 30+WIN, 24, 24);
-        this.add(guest);
-        */
-
         back.setBounds(250, 70+WIN, 450, 460);
         this.add(back);
-
-        PopupMenu menu = new PopupMenu();
-        MenuItem quit = new MenuItem("Quit");
-        quit.addActionListener(e -> {
-            System.exit(99);
-        });
-        MenuItem unsync = new MenuItem("Unsync");
-        unsync.addActionListener(e -> {
-
-        });
 
         priSwitch = new JTextPane();
         priSwitch.setOpaque(false);
@@ -448,11 +400,17 @@ public class ChatPanel extends JPanel{
                     privateSwitch = !privateSwitch;
                     SketchClient.sync = !privateSwitch;
                     repaint();
-                    System.out.println("PRIVATE MODE SWITCH PRESSED");
                 }
             }
         });
         add(priSwitch);
+
+        JLabel title = new JLabel();
+        title.setText("SpotifyParty");
+        title.setForeground(Color.WHITE);
+        title.setFont(new Font("CircularSpUIv3T-Bold", Font.PLAIN, 40));
+        title.setBounds(352, 20, 500, 50);
+        this.add(title);
     }
 
 
@@ -758,6 +716,20 @@ public class ChatPanel extends JPanel{
                 gg2.setStroke(new BasicStroke(3));
                 gg2.draw(new Line2D.Float(10, 61+WIN, 40, 31+WIN));
                 //g2d.drawLine(10, 61+WIN, 40, 31+WIN);
+            }
+
+            if(chatCheck) {
+                ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/TextMessage.png")), 200, 70);
+                g.drawImage(icon.getImage(), 295, 20+WIN, 45, 45, this);
+
+                ImageIcon icon2 = resizeIcon(new ImageIcon(getClass().getResource("/images/NotRequest.png")), 200, 70);
+                g.drawImage(icon2.getImage(), 600, 20+WIN, 45, 45, this);
+            } else {
+                ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/NotTextMessage.png")), 200, 70);
+                g.drawImage(icon.getImage(), 295, 20+WIN, 45, 45, this);
+
+                ImageIcon icon2 = resizeIcon(new ImageIcon(getClass().getResource("/images/Request.png")), 200, 70);
+                g.drawImage(icon2.getImage(), 600, 20+WIN, 45, 45, this);
             }
 
             if (artworkURL != null)
