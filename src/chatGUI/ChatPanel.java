@@ -720,16 +720,16 @@ public class ChatPanel extends JPanel{
 
             if(chatCheck) {
                 ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/TextMessage.png")), 200, 70);
-                g2d.drawImage(icon.getImage(), 295, 20+WIN, 45, 45, this);
+                g.drawImage(icon.getImage(), 295, 20+WIN, 45, 45, this);
 
                 ImageIcon icon2 = resizeIcon(new ImageIcon(getClass().getResource("/images/NotRequest.png")), 200, 70);
-                g2d.drawImage(icon2.getImage(), 600, 20+WIN, 45, 45, this);
+                g.drawImage(icon2.getImage(), 600, 20+WIN, 45, 45, this);
             } else {
                 ImageIcon icon = resizeIcon(new ImageIcon(getClass().getResource("/images/NotTextMessage.png")), 200, 70);
-                g2d.drawImage(icon.getImage(), 295, 20+WIN, 45, 45, this);
+                g.drawImage(icon.getImage(), 295, 20+WIN, 45, 45, this);
 
                 ImageIcon icon2 = resizeIcon(new ImageIcon(getClass().getResource("/images/Request.png")), 200, 70);
-                g2d.drawImage(icon2.getImage(), 600, 20+WIN, 45, 45, this);
+                g.drawImage(icon2.getImage(), 600, 20+WIN, 45, 45, this);
             }
 
             if (artworkURL != null)

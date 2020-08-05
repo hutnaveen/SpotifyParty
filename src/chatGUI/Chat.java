@@ -2,7 +2,6 @@ package chatGUI;
 
 import coroutines.KThreadRepKt;
 import gui.Notification;
-import model.Image;
 import org.apache.commons.net.SocketClient;
 import utils.GUIUtils;
 
@@ -118,20 +117,15 @@ public class Chat extends JPanel {
                     } catch (IOException ioException) {}
                 }
             }
-            profile = new ImageIcon(profile.getImage().getScaledInstance(18, 18, java.awt.Image.SCALE_DEFAULT));
-            StyleConstants.setFontSize(style, 19);
+            profile = new ImageIcon(profile.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+            StyleConstants.setFontSize(style, 21);
 
             try {
                 doc.insertString(doc.getLength(), "\n", style);
                 chat.insertIcon(profile);
                 doc.insertString(doc.getLength(), " " + name + "\n", style);
-                if(you) {
-                    doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n ").length(), doc.getLength(), left, false);
-                } else {
-                    doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n").length(), doc.getLength(), left, false);
-                }
-            }
-            catch (Exception e){}
+                doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n ").length(), doc.getLength(), left, false);
+            } catch (Exception e){}
         }
 
         StyleConstants.setForeground(style, Color.WHITE);
@@ -139,12 +133,8 @@ public class Chat extends JPanel {
 
         try {
             doc.insertString(doc.getLength(),  text + "\n",style);
-            if(you)
-                doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
-            else
-                doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
-        }
-        catch (BadLocationException e){}
+            doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
+        } catch (BadLocationException e){}
 
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
