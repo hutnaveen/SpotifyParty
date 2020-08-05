@@ -3,7 +3,6 @@ package chatGUI;
 import coroutines.KThreadRepKt;
 import gui.Notification;
 import org.apache.commons.net.SocketClient;
-import utils.GUIUtils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,7 +18,6 @@ import java.net.URL;
 
 import static chatGUI.ChatPanel.names;
 import static chatGUI.SpotifyPartyPanelChat.spfc;
-import static main.SpotifyParty.api;
 import static main.SpotifyParty.defFont;
 
 public class Chat extends JPanel {
@@ -50,9 +48,6 @@ public class Chat extends JPanel {
             setOpaque(true);
         }
 
-        Graphics graphics = getGraphics();
-        chat.paint(graphics);
-
         chat.setFocusable(false);
         chat.setAutoscrolls(true);
         chat.setEditable(false);
@@ -61,7 +56,7 @@ public class Chat extends JPanel {
         chat.putClientProperty("JScrollPane.style", "overlay");
         chatViewPort = chatScroll.getViewport();
         chatScroll.getViewport().setView(chat);
-        chatScroll.setBounds(20, 5, 405, 450);
+        chatScroll.setBounds(20, 0, 405, 460);
         chatScroll.setBorder(new EmptyBorder(0, 0, 0, 0));
         chatScroll.setOpaque(false);
         chatScroll.getViewport().setOpaque(false);
@@ -80,61 +75,50 @@ public class Chat extends JPanel {
     public boolean you;
     public void addText(String text, String name) {
         System.out.println(name + " " + text);
-        //text = reformat(text);
+        text = reformat(text);
         if(!spfc.isActive()) {
             String finalText = text;
             KThreadRepKt.startCor(() -> sendNotif(name, finalText));
         }
         StyledDocument doc = chat.getStyledDocument();
         SimpleAttributeSet left = new SimpleAttributeSet();
-        //SimpleAttributeSet right = new SimpleAttributeSet();
+        SimpleAttributeSet right = new SimpleAttributeSet();
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
-        //StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        //doc.setParagraphAttributes(0, doc.getLength(), left, false);
         chat.setFont(new Font(defFont, Font.PLAIN, 20));
         Style style = chat.addStyle("I'm a Style", null);
-        ImageIcon profile = null;
-
         if(!prev.equals(name)) {
             if(name.equals(SpotifyPartyPanelChat.FriendName)) {
                 you = true;
-                StyleConstants.setForeground(style, new Color(30, 215, 96));
-                try {
-                    profile = new ImageIcon(GUIUtils.circleCrop(ImageIO.read(api.getUserData().getImages().get(0).getUrl())));
-                } catch (Exception e) {
-                    try {
-                        profile = new ImageIcon(ImageIO.read(getClass().getResource("/images/logo.png")));
-                    } catch (IOException ioException) {}
-                }
+                StyleConstants.setForeground(style, Color.GREEN);
             } else {
                 you = false;
                 StyleConstants.setForeground(style, Color.GRAY);
-                try {
-                    URL img = (URL)names.get(name);
-                    profile = new ImageIcon(GUIUtils.circleCrop(ImageIO.read(img)));
-                } catch (Exception e) {
-                    try {
-                        profile = new ImageIcon(ImageIO.read(getClass().getResource("/images/logo.png")));
-                    } catch (IOException ioException) {}
-                }
             }
-            profile = new ImageIcon(profile.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
-            StyleConstants.setFontSize(style, 21);
+            StyleConstants.setFontSize(style, 20);
 
             try {
-                doc.insertString(doc.getLength(), "\n", style);
-                chat.insertIcon(profile);
-                doc.insertString(doc.getLength(), " " + name + "\n", style);
-                doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n ").length(), doc.getLength(), left, false);
-            } catch (Exception e){}
+                doc.insertString(doc.getLength(), "\n" + name + "\n",style);
+                if(you)
+                    doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n").length(), doc.getLength(), right, false);
+                else
+                    doc.setParagraphAttributes(doc.getLength() - ("\n" + name + "\n").length(), doc.getLength(), left, false);
+            }
+            catch (BadLocationException e){}
         }
 
         StyleConstants.setForeground(style, Color.WHITE);
-        StyleConstants.setFontSize(style, 14);
+        StyleConstants.setFontSize(style, 15);
 
         try {
             doc.insertString(doc.getLength(),  text + "\n",style);
-            doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
-        } catch (BadLocationException e){}
+            if(you)
+                doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), right, false);
+            else
+                doc.setParagraphAttributes(doc.getLength() - (text + "\n").length(), doc.getLength(), left, false);
+        }
+        catch (BadLocationException e){}
 
         chatViewPort.setViewPosition(new Point(0, Integer.MAX_VALUE/4));
         prev = name;
